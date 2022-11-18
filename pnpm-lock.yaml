@@ -22,6 +22,7 @@ specifiers:
   postcss: ^8.4.19
   prettier-plugin-sort-imports-desc: ^1.0.0
   react: 18.2.0
+  react-countdown: ^2.3.4
   react-country-flag: ^3.0.2
   react-dom: 18.2.0
   tailwindcss: ^3.2.4
@@ -46,6 +47,7 @@ dependencies:
   next: 13.0.3_biqbaboplfbrettd7655fr4n2y
   phone: 3.1.30
   react: 18.2.0
+  react-countdown: 2.3.4_biqbaboplfbrettd7655fr4n2y
   react-country-flag: 3.0.2_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   typescript: 4.9.3
@@ -2276,6 +2278,17 @@ packages:
   /quick-lru/5.1.1:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
+
+  /react-countdown/2.3.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-AvtZOnxBYLAVDjvVoXQ9I3asZEnCHIIr1uqKdIayhaTJQTKtZvmLgK/620HjO5TP5Jce9cJCw9t1JQL/TA8gJg==}
+    peerDependencies:
+      react: '>= 15'
+      react-dom: '>= 15'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /react-country-flag/3.0.2_react@18.2.0:
     resolution: {integrity: sha512-JPaz+q3QD0/nZtHBKj5x3O7r/SgSG9kxbymdaIU0RqlDAcorJIe4KV0DFhWIdKh69q5cPVkIVERcMYGZdvXgAA==}
