@@ -5,11 +5,12 @@ import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
 
 const getParams = ({ phoneNumber, setStage }: IDKitStore) => ({
 	phoneNumber,
+	useWorldID: () => setStage(IDKITStage.WORLD_ID),
 	onSubmit: () => setStage(IDKITStage.ENTER_CODE),
 })
 
 const EnterPhoneState = () => {
-	const { phoneNumber, onSubmit } = useIDKitStore(getParams)
+	const { phoneNumber, useWorldID, onSubmit } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
@@ -31,7 +32,10 @@ const EnterPhoneState = () => {
 					<p className="font-medium text-gray-500">I have World ID</p>
 				</div>
 				<span className="text-gray-400 font-medium">&bull;</span>
-				<button className="font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#FF6848] to-[#4940E0]">
+				<button
+					onClick={useWorldID}
+					className="font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#FF6848] to-[#4940E0]"
+				>
 					Verify human
 				</button>
 			</div>

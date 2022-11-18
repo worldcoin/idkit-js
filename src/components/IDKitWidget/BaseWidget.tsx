@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { classNames } from '@/lib/utils'
 import ErrorState from './States/ErrorState'
 import SuccessState from './States/SuccessState'
+import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
@@ -26,6 +27,8 @@ const IDKitWidget = () => {
 		switch (stage) {
 			case IDKITStage.ENTER_PHONE:
 				return EnterPhoneState
+			case IDKITStage.WORLD_ID:
+				return WorldIDState
 			case IDKITStage.ENTER_CODE:
 				return VerifyCodeState
 			case IDKITStage.SUCCESS:

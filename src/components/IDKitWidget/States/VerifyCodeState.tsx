@@ -6,11 +6,12 @@ import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
 
 const getParams = ({ code, setStage }: IDKitStore) => ({
 	code,
-	onSubmit: () => setStage(IDKITStage.ERROR),
+	onSubmit: () => setStage(IDKITStage.SUCCESS),
+	useWorldID: () => setStage(IDKITStage.WORLD_ID),
 })
 
 const VerifyCodeState = () => {
-	const { code, onSubmit } = useIDKitStore(getParams)
+	const { code, onSubmit, useWorldID } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
@@ -37,6 +38,7 @@ const VerifyCodeState = () => {
 				<span className="text-gray-400 font-medium">&bull;</span>
 				<button
 					type="button"
+					onClick={useWorldID}
 					className="font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#FF6848] to-[#4940E0]"
 				>
 					Verify human
