@@ -1,3 +1,4 @@
+import 'twin.macro'
 import { ClipboardEvent, memo } from 'react'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { ChangeEvent, createRef, KeyboardEvent, useCallback, useEffect, useMemo, useState } from 'react'
@@ -132,14 +133,14 @@ const SMSCodeInput = () => {
 	}, [focusInput, inputsRefs])
 
 	return (
-		<fieldset className="flex items-center justify-center space-x-3">
-			<legend className="sr-only">Enter your SMS code</legend>
+		<fieldset tw="flex items-center justify-center space-x-3">
+			<legend tw="sr-only">Enter your SMS code</legend>
 			{inputsRefs.map((ref, i) => (
 				<input
 					ref={ref}
 					key={i}
 					value={values[i]}
-					className="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
+					tw="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
 					type="number"
 					autoComplete="one-time-code"
 					maxLength={1}

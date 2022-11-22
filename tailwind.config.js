@@ -8,6 +8,11 @@ module.exports = {
 			fontFamily: {
 				sans: ['RubikVariable', ...defaultTheme.fontFamily.sans],
 			},
+			data: {
+				selected: 'headlessui-state~="selected"',
+				active: 'headlessui-state~="active"',
+				'selected-active': 'headlessui-state="active selected"',
+			},
 		},
 	},
 	plugins: [require('@tailwindcss/forms')],
