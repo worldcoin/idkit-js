@@ -1,4 +1,5 @@
 import 'twin.macro'
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import SMSCodeInput from '@/components/SMSCodeInput'
@@ -12,6 +13,7 @@ const getParams = ({ code, setStage }: IDKitStore) => ({
 })
 
 const VerifyCodeState = () => {
+	const submitRef = useRef<HTMLButtonElement>(null)
 	const { code, onSubmit, useWorldID } = useIDKitStore(getParams)
 
 	return (
@@ -23,7 +25,7 @@ const VerifyCodeState = () => {
 				<p tw="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<form tw="mt-2 space-y-2">
-				<SMSCodeInput />
+				<SMSCodeInput submitRef={submitRef} />
 				<p tw="text-xs text-center text-gray-400">
 					Didn&apos;t receive a code? <ResendButton /> or{' '}
 					<button type="button" tw="text-indigo-600 font-medium">
@@ -53,6 +55,7 @@ const VerifyCodeState = () => {
 					transition={{ layout: { duration: 0.15 } }}
 					onClick={onSubmit}
 					disabled={!code}
+					ref={submitRef}
 					tw="inline-flex w-full justify-center items-center px-8 py-4 border border-transparent font-medium rounded-2xl shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">

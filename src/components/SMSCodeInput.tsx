@@ -1,5 +1,6 @@
 import 'twin.macro'
-import { ClipboardEvent, memo } from 'react'
+import { motion } from 'framer-motion'
+import { ClipboardEvent, memo, RefObject } from 'react'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { ChangeEvent, createRef, KeyboardEvent, useCallback, useEffect, useMemo, useState } from 'react'
 
@@ -11,7 +12,7 @@ const fillValues = (value: string): Array6<string> => {
 
 const getParams = ({ setCode }: IDKitStore) => ({ setCode })
 
-const SMSCodeInput = () => {
+const SMSCodeInput = ({ submitRef }: { submitRef: RefObject<HTMLButtonElement> }) => {
 	const { setCode } = useIDKitStore(getParams)
 
 	const inputsRefs = useMemo(() => new Array(6).fill(null).map(() => createRef<HTMLInputElement>()), [])
@@ -86,10 +87,13 @@ const SMSCodeInput = () => {
 
 			setValue(value, index)
 
-			if (index === 5) blurInput(index)
-			else focusInput(index + 1)
+			if (index === 5) {
+				requestAnimationFrame(() => {
+					submitRef.current?.focus()
+				})
+			} else focusInput(index + 1)
 		},
-		[blurInput, focusInput, selectInputContent, setCode, setValue, values]
+		[blurInput, submitRef, focusInput, selectInputContent, setCode, setValue, values]
 	)
 
 	const onInputKeyDown = useCallback(
@@ -136,10 +140,11 @@ const SMSCodeInput = () => {
 		<fieldset tw="flex items-center justify-center space-x-3">
 			<legend tw="sr-only">Enter your SMS code</legend>
 			{inputsRefs.map((ref, i) => (
-				<input
+				<motion.input
 					ref={ref}
 					key={i}
 					maxLength={1}
+					animate={{ ['--tw-ring-color' as string]: focusedIndex === i ? '#1e40af' : '#e5e7eb' }}
 					type="number"
 					pattern="[0-9]*"
 					value={values[i]}
