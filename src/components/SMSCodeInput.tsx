@@ -139,15 +139,17 @@ const SMSCodeInput = () => {
 				<input
 					ref={ref}
 					key={i}
-					value={values[i]}
-					tw="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
-					type="number"
-					autoComplete="one-time-code"
 					maxLength={1}
-					onChange={event => onInputChange(event, i)}
+					type="number"
+					pattern="[0-9]*"
+					value={values[i]}
+					inputMode="numeric"
+					autoComplete="one-time-code"
 					onFocus={() => onInputFocus(i)}
-					onKeyDown={event => onInputKeyDown(event, i)}
 					onPaste={event => onInputPaste(event, i)}
+					onChange={event => onInputChange(event, i)}
+					onKeyDown={event => onInputKeyDown(event, i)}
+					tw="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
 				/>
 			))}
 		</fieldset>

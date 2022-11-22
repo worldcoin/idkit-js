@@ -7,6 +7,9 @@ const customStyles = {
 		WebkitTapHighlightColor: theme`colors.indigo.500`,
 		...tw`antialiased`,
 	},
+	'input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button': {
+		appearance: 'none',
+	},
 }
 
 const styles = () => {
