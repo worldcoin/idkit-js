@@ -1,29 +1,34 @@
-import React from 'react'
-import { ServerStyleSheet } from 'styled-components'
-import Document, { DocumentContext } from 'next/document'
+import { getCssText } from '@/../stitches.config'
+import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
 
-export default class MyDocument extends Document {
-	static async getInitialProps(ctx: DocumentContext) {
-		const sheet = new ServerStyleSheet()
-		const originalRenderPage = ctx.renderPage
+export default class Document extends NextDocument {
+	static async getInitialProps(ctx: any) {
 		try {
-			ctx.renderPage = () =>
-				originalRenderPage({
-					enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
-				})
-			const initialProps = await Document.getInitialProps(ctx)
+			const initialProps = await NextDocument.getInitialProps(ctx)
 
 			return {
 				...initialProps,
-				styles: [
-					<React.Fragment key="styles">
+				styles: (
+					<>
 						{initialProps.styles}
-						{sheet.getStyleElement()}
-					</React.Fragment>,
-				],
+						{/* Stitches CSS for SSR */}
+						<style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
+					</>
+				),
 			}
 		} finally {
-			sheet.seal()
 		}
+	}
+
+	render() {
+		return (
+			<Html lang="en">
+				<Head />
+				<body>
+					<Main />
+					<NextScript />
+				</body>
+			</Html>
+		)
 	}
 }
