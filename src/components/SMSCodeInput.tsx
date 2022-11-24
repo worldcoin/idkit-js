@@ -1,5 +1,5 @@
-import 'twin.macro'
-import { ClipboardEvent, memo } from 'react'
+import { motion } from 'framer-motion'
+import { ClipboardEvent, memo, RefObject } from 'react'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { ChangeEvent, createRef, KeyboardEvent, useCallback, useEffect, useMemo, useState } from 'react'
 
@@ -11,7 +11,7 @@ const fillValues = (value: string): Array6<string> => {
 
 const getParams = ({ setCode }: IDKitStore) => ({ setCode })
 
-const SMSCodeInput = () => {
+const SMSCodeInput = ({ submitRef }: { submitRef: RefObject<HTMLButtonElement> }) => {
 	const { setCode } = useIDKitStore(getParams)
 
 	const inputsRefs = useMemo(() => new Array(6).fill(null).map(() => createRef<HTMLInputElement>()), [])
@@ -86,10 +86,13 @@ const SMSCodeInput = () => {
 
 			setValue(value, index)
 
-			if (index === 5) blurInput(index)
-			else focusInput(index + 1)
+			if (index === 5) {
+				requestAnimationFrame(() => {
+					submitRef.current?.focus()
+				})
+			} else focusInput(index + 1)
 		},
-		[blurInput, focusInput, selectInputContent, setCode, setValue, values]
+		[blurInput, submitRef, focusInput, selectInputContent, setCode, setValue, values]
 	)
 
 	const onInputKeyDown = useCallback(
@@ -133,23 +136,26 @@ const SMSCodeInput = () => {
 	}, [focusInput, inputsRefs])
 
 	return (
-		<fieldset tw="flex items-center justify-center space-x-3">
-			<legend tw="sr-only">Enter your SMS code</legend>
+		<fieldset className="flex items-center justify-center space-x-3">
+			<legend className="sr-only">Enter your SMS code</legend>
 			{inputsRefs.map((ref, i) => (
-				<input
-					ref={ref}
-					key={i}
-					value={values[i]}
-					tw="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
-					type="number"
-					autoComplete="one-time-code"
-					maxLength={1}
-					onChange={event => onInputChange(event, i)}
-					onFocus={() => onInputFocus(i)}
-					onKeyDown={event => onInputKeyDown(event, i)}
-					onPaste={event => onInputPaste(event, i)}
-				/>
-			))}
+				<motion.input
+				ref={ref}
+				key={i}
+				maxLength={1}
+				animate={{ ['--tw-ring-color' as string]: focusedIndex === i ? '#1e40af' : '#e5e7eb' }}
+				type="number"
+				pattern="[0-9]*"
+				value={values[i]}
+				inputMode="numeric"
+				autoComplete="one-time-code"
+				onFocus={() => onInputFocus(i)}
+				onPaste={event => onInputPaste(event, i)}
+				onChange={event => onInputChange(event, i)}
+				onKeyDown={event => onInputKeyDown(event, i)}
+				className="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
+			/>
+		))}
 		</fieldset>
 	)
 }
