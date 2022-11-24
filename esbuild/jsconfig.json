@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "checkJs": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "lib": ["ES2020"],
+    "resolveJsonModule": true
+  }
+}

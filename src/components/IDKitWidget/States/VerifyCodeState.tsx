@@ -1,4 +1,3 @@
-import 'twin.macro'
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import WorldIDIcon from '@/components/WorldIDIcon'
@@ -17,37 +16,37 @@ const VerifyCodeState = () => {
 	const { code, onSubmit, useWorldID } = useIDKitStore(getParams)
 
 	return (
-		<div tw="space-y-6">
+		<div className="space-y-6">
 			<div>
-				<p tw="font-semibold text-2xl text-gray-900 text-center">
+				<p className="font-semibold text-2xl text-gray-900 text-center">
 					Verify your phone number for free gassless transactions.
 				</p>
-				<p tw="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
+				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>
-			<form tw="mt-2 space-y-2">
+			<form className="mt-2 space-y-2">
 				<SMSCodeInput submitRef={submitRef} />
-				<p tw="text-xs text-center text-gray-400">
+				<p className="text-xs text-center text-gray-400">
 					Didn&apos;t receive a code? <ResendButton /> or{' '}
-					<button type="button" tw="text-indigo-600 font-medium">
+					<button type="button" className="text-indigo-600 font-medium">
 						Call me
 					</button>
 				</p>
 			</form>
-			<div tw="flex items-center justify-center space-x-1">
-				<div tw="flex items-center space-x-2">
+			<div className="flex items-center justify-center space-x-1">
+				<div className="flex items-center space-x-2">
 					<WorldIDIcon width={24} height={24} />
-					<p tw="font-medium text-gray-500">I have World ID</p>
+					<p className="font-medium text-gray-500">I have World ID</p>
 				</div>
-				<span tw="text-gray-400 font-medium">&bull;</span>
+				<span className="text-gray-400 font-medium">&bull;</span>
 				<button
 					type="button"
 					onClick={useWorldID}
-					tw="font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#FF6848] to-[#4940E0]"
+					className="font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#FF6848] to-[#4940E0]"
 				>
 					Verify human
 				</button>
 			</div>
-			<div tw="mt-4 flex justify-center">
+			<div className="mt-4 flex justify-center">
 				<motion.button
 					layoutId="submit-button"
 					type="button"
@@ -56,7 +55,7 @@ const VerifyCodeState = () => {
 					onClick={onSubmit}
 					disabled={!code}
 					ref={submitRef}
-					tw="inline-flex w-full justify-center items-center px-8 py-4 border border-transparent font-medium rounded-2xl shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
+					className="inline-flex w-full justify-center items-center px-8 py-4 border border-transparent font-medium rounded-2xl shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
 						Continue
