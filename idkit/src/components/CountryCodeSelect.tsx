@@ -1,8 +1,8 @@
 import { classNames } from '@/lib/utils'
 import ReactCountryFlag from 'react-country-flag'
+import { Fragment, useEffect, useState } from 'react'
 import { allCountries } from 'country-telephone-data'
 import { Listbox, Transition } from '@headlessui/react'
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 
 type Props = {
@@ -14,7 +14,13 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 	const [countryCode, setCountryCode] = useState<string>('us')
 
 	useEffect(() => {
-		onChange(allCountries.find(country => country.iso2 === countryCode)!.dialCode)
+		const filteredCountries = allCountries.find(country => country.iso2 === countryCode)
+
+		if (!filteredCountries) {
+			return
+		}
+
+		onChange(filteredCountries.dialCode)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [countryCode])
 
@@ -22,7 +28,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 		<Listbox value={countryCode} onChange={setCountryCode}>
 			{({ open }) => (
 				<>
-					<Listbox.Label className="block text-sm font-medium text-gray-700 sr-only">
+					<Listbox.Label className="sr-only block text-sm font-medium text-gray-700">
 						Country Code
 					</Listbox.Label>
 					<div className="relative">
@@ -39,7 +45,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 								}}
 							/>
 							<p className="ml-2.5 mr-1">+{value}</p>
-							<ChevronDownIcon className="w-4 h-4 text-gray-600" aria-hidden="true" />
+							<ChevronDownIcon className="h-4 w-4 text-gray-600" aria-hidden="true" />
 						</Listbox.Button>
 
 						<Transition
@@ -49,7 +55,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 							leaveFrom="opacity-100"
 							leaveTo="opacity-0"
 						>
-							<Listbox.Options className="absolute z-10 min-w-[20rem] mt-1 w-full px-1 overflow-y-scroll max-h-96 rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+							<Listbox.Options className="absolute z-10 mt-1 max-h-96 w-full min-w-[20rem] overflow-y-scroll rounded-md bg-white p-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
 								{allCountries.map(country => (
 									<Listbox.Option
 										key={country.iso2}

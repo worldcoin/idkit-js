@@ -1,6 +1,6 @@
-const WorldIDQR = ({ className = '' }) => (
+const WorldIDQR = ({ className = '' }: { className?: string }) => (
 	<svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 304 304">
-		<g fill="#29343F" clip-path="url(#a)">
+		<g fill="#29343F" clipPath="url(#a)">
 			<path d="M87.515 0a4.606 4.606 0 1 1 0 9.212 4.606 4.606 0 0 1 0-9.212ZM105.939 0a4.606 4.606 0 1 1 0 9.212 4.606 4.606 0 0 1 0-9.212ZM142.788 0a4.606 4.606 0 1 1 0 9.212 4.606 4.606 0 0 1 0-9.212Z" />
 			<path d="M152 0a4.606 4.606 0 1 1 0 9.212A4.606 4.606 0 0 1 152 0Z" />
 			<path d="M161.212 0a4.606 4.606 0 1 1 0 9.212 4.606 4.606 0 0 1 0-9.212Z" />
@@ -190,32 +190,32 @@ const WorldIDQR = ({ className = '' }) => (
 		/>
 		<defs>
 			<linearGradient id="b" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="c" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="d" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="e" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="f" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="g" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="h" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<clipPath id="a">
 				<path fill="#fff" d="M0 0h304v304H0z" />

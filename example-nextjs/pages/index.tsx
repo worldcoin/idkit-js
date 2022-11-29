@@ -1,11 +1,7 @@
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import "@worldcoin/idkit/build/index.css";
+import { IDKitWidget } from "@worldcoin/idkit";
 import styles from "../styles/Home.module.css";
-
-const IDKitNoSSR = dynamic(() => import("@worldcoin/idkit").then((mod) => mod.IDKitWidget), {
-  ssr: false,
-});
 
 export default function Home() {
   return (
@@ -17,7 +13,7 @@ export default function Home() {
       </Head>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
-        <IDKitNoSSR />
+        <IDKitWidget />
       </div>
     </div>
   );

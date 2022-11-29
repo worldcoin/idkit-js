@@ -5,8 +5,8 @@ import { DevicePhoneMobileIcon } from '@heroicons/react/20/solid'
 const WorldIDState = () => {
 	return (
 		<div className="space-y-6">
-			<div className="-mt-6 relative flex items-center justify-center py-8 border rounded-2xl">
-				<WorldIDQR className="w-80 h-80" />
+			<div className="relative -mt-6 flex items-center justify-center rounded-2xl border py-8">
+				<WorldIDQR className="h-80 w-80" />
 				<div className="absolute inset-x-0 -bottom-3 flex items-center justify-center">
 					<p className="bg-white px-4 text-gray-300">or</p>
 				</div>
@@ -17,9 +17,9 @@ const WorldIDState = () => {
 					href="https://worldcoin.org/download"
 					target="_blank"
 					transition={{ layout: { duration: 0.15 } }}
-					className="inline-flex w-full justify-center space-x-2 items-center px-8 py-4 border border-transparent font-medium rounded-2xl shadow-sm text-gray-500 bg-gray-200 hover:bg-gray-300/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 disabled:cursor-not-allowed transition"
+					className="inline-flex w-full items-center justify-center space-x-2 rounded-2xl border border-transparent bg-gray-200 px-8 py-4 font-medium text-gray-500 shadow-sm transition hover:bg-gray-300/50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 disabled:cursor-not-allowed"
 				>
-					<DevicePhoneMobileIcon className="w-5 h-5 text-gray-400" />
+					<DevicePhoneMobileIcon className="h-5 w-5 text-gray-400" />
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
 						Download the Worldcoin app
 					</motion.span>

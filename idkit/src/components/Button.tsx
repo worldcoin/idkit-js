@@ -1,5 +1,5 @@
 import { classNames } from '@/lib/utils'
-import { ButtonHTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes } from 'react'
 
 const Button = ({ className, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
 	<button
