@@ -6,25 +6,13 @@
 
 Getting started with the Javascript package is really easy. Just follow the steps below.
 
-### React apps
+### React & Next.js apps
 
 If your app is built on React, using the React widget is by far the easiest approach.
 
 ```jsx
 import "@worldcoin/idkit/build/index.css";
 import { IDKitWidget } from "@worldcoin/idkit";
-
-<IDKitWidget />;
-```
-
-### Next.js apps
-
-If your app is built on Next.js, you need to disable SSR for the widget. This is because one of the underlying libraries that the widget depends on requires `window` which is `undefined` when rendering on the server.
-
-```jsx
-import "@worldcoin/idkit/build/index.css";
-
-const IDKitWidget = dynamic(() => import("@worldcoin/idkit").then((mod) => mod.IDKitWidget), { ssr: false });
 
 <IDKitWidget />;
 ```
@@ -47,7 +35,7 @@ IDKit.init("idkit-js");
 
 ## 🧑‍💻 Development & testing
 
-If you want to develop or contribute to this project, please refer to the development instructions in the `id` [README](/id/README.md).
+If you want to develop or contribute to this project, please refer to the development instructions in the `idkit` [README](/idkit/README.md).
 
 <!-- WORLD-ID-SHARED-README-TAG:START - Do not remove or modify this section directly -->
 <!-- The contents of this file are inserted to all World ID repositories to provide general context on World ID. -->
