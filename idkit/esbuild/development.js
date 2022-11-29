@@ -18,15 +18,15 @@ esbuild
 		outfile: 'build/idkit-js-dev.js',
 		sourcemap: 'inline',
 		watch: {
-      onRebuild(error) {
-        clients.forEach((response) => response.write('data: update\n\n'))
-        clients.length = 0
+			onRebuild(error) {
+				clients.forEach(response => response.write('data: update\n\n'))
+				clients.length = 0
 
-        if (error) {
-          console.log(error)
-        }
-      },
-    },
+				if (error) {
+					console.log(error)
+				}
+			},
+		},
 	})
 	.catch(() => process.exit(1))
 
@@ -60,7 +60,7 @@ esbuild.serve({ servedir: './' }, {}).then(() => {
 			),
 			{ end: true }
 		)
-	}).listen(3000)
+	}).listen(PORT)
 
-	console.log(`Server started at: http://localhost:3000`)
+	console.log(`Server started at: http://localhost:${PORT}`)
 })

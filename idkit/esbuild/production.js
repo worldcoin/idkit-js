@@ -17,7 +17,7 @@ const cli = meow({
 /** @type {import('esbuild').BuildOptions} */
 const baseConfig = {
 	...config,
-	minify: false,
+	minify: true,
 	treeShaking: true,
 	define: {
 		...config.define,
@@ -37,6 +37,17 @@ const configs = {
 			window: 'globalThis',
 		},
 		plugins: [
+			{
+				name: 'heroicons-plugin',
+				setup: build => {
+					build.onResolve({ filter: /.*/ }, args => {
+						if (args.importer && args.path.startsWith('@heroicons/')) {
+							return { path: `${args.path}/index.js`, external: true }
+						}
+					})
+				},
+			},
+
 			...baseConfig.plugins,
 
 			nodeExternalsPlugin({
