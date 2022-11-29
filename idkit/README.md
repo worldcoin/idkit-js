@@ -19,7 +19,7 @@ To develop locally and contribute to this package, you can simply follow these i
 - Run tests
   ```bash
   # runs in the /idkit folder
-  cd id/
+  cd idkit/
   yarn test
   ```
 - Run local test project
