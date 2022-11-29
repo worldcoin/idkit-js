@@ -1,10 +1,7 @@
 import { createRoot } from 'react-dom/client'
-import IDKitWidget from './components/IDKitWidget'
+import { IDKitWidget } from './components/IDKitWidget'
 
-const VanillaIDKitWidget = (): JSX.Element => {
-	return <IDKitWidget />
-}
-
+const VanillaIDKitWidget = (): JSX.Element => <IDKitWidget />
 let isInitialized = false
 
 /**
@@ -12,7 +9,7 @@ let isInitialized = false
  * disabled until `.activate()` is called.
  * @param elementInput ID of HTML element or DOM node to mount IDKitWidget on
  */
-export const init = (elementInput: string | Element | DocumentFragment): void => {
+export const init = (elementInput: DocumentFragment | Element | string): void => {
 	const mountNode = typeof elementInput === 'string' ? document.getElementById(elementInput) : elementInput
 
 	const startApp = () => {

@@ -1,2 +1,1 @@
-import IDKitWidget from '@/components/IDKitWidget'
-export { IDKitWidget }
+export { IDKitWidget } from '@/components/IDKitWidget'
