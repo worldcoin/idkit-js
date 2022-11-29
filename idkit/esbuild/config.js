@@ -37,6 +37,17 @@ export default /** @type {import('esbuild').BuildOptions} */ ({
 	inject: [require.resolve('./react-shim.js')],
 	target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
 	plugins: [
+		{
+			name: 'heroicons-plugin',
+			setup: build => {
+				build.onResolve({ filter: /.*/ }, args => {
+					if (args.importer && args.path.startsWith('@heroicons/')) {
+						return { path: `${args.path}/index.js`, external: true }
+					}
+				})
+			},
+		},
+
 		NodeGlobalsPolyfillPlugin({
 			process: false,
 			buffer: true,

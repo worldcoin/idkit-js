@@ -1,8 +1,10 @@
 import meow from 'meow'
 import esbuild from 'esbuild'
 import { createRequire } from 'node:module'
-import { clean } from 'esbuild-plugin-clean'
 const require = createRequire(import.meta.url)
+import tailwind from 'tailwindcss'
+import autoprefixer from 'autoprefixer'
+import postCssPlugin from 'esbuild-style-plugin'
 import { nodeExternalsPlugin } from 'esbuild-node-externals'
 
 import config from './config.js'
@@ -15,7 +17,7 @@ const cli = meow({
 /** @type {import('esbuild').BuildOptions} */
 const baseConfig = {
 	...config,
-	minify: true,
+	minify: false,
 	treeShaking: true,
 	define: {
 		...config.define,
@@ -35,15 +37,16 @@ const configs = {
 			window: 'globalThis',
 		},
 		plugins: [
+			...baseConfig.plugins,
+
 			nodeExternalsPlugin({
 				packagePath: require.resolve('../package.json'),
-				allowList: ['@walletconnect/client'],
 			}),
-			clean({
-				patterns: ['./build/index.js'],
+			postCssPlugin({
+				postcss: {
+					plugins: [tailwind, autoprefixer],
+				},
 			}),
-
-			...baseConfig.plugins,
 		],
 		sourcemap: true,
 		format: 'esm',
@@ -62,9 +65,7 @@ const configs = {
 				packagePath: require.resolve('../package.json'),
 				allowList: ['@walletconnect/client'],
 			}),
-			clean({
-				patterns: ['./build/index.cjs'],
-			}),
+
 			...baseConfig.plugins,
 		],
 		format: 'cjs',
@@ -75,14 +76,6 @@ const configs = {
 		...baseConfig,
 
 		entryPoints: [require.resolve('../src/vanilla.tsx')],
-		plugins: [
-			clean({
-				patterns: ['./build/idkit-js.js'],
-			}),
-
-			...baseConfig.plugins,
-		],
-
 		format: 'iife',
 		globalName: 'IDKit',
 		outfile: 'build/idkit-js.js',

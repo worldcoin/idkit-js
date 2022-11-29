@@ -1,3 +1,4 @@
+import '@/styles/styles.css'
 import Button from '../Button'
 import { useMemo } from 'react'
 import ErrorState from './States/ErrorState'

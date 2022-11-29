@@ -18,7 +18,10 @@
     "json"
   ],
   "words": [
+    "esbuild",
     "idkit",
-    "nextjs"
+    "IDQR",
+    "iife",
+    "zustand"
   ]
 }

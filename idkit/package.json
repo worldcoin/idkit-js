@@ -1,0 +1,70 @@
+{
+	"name": "@worldcoin/idkit",
+	"private": true,
+	"type": "module",
+	"version": "0.1.0",
+	"main": "./build/index.cjs",
+	"module": "./build/index.js",
+	"types": "./build/index.d.ts",
+	"files": [
+		"build/**",
+		"!build/idkit-js-dev.js"
+	],
+	"scripts": {
+		"build": "npm-run-all clean build:*",
+		"build:cjs": "node esbuild/production.js -p cjs",
+		"build:declarations": "tsc && tsc-alias",
+		"build:esm": "node esbuild/production.js -p esm",
+		"build:iife": "node esbuild/production.js -p iife",
+		"clean": "rimraf build/",
+		"dev": "npm-run-all clean --parallel dev:*",
+		"dev:bundle": "node esbuild/development.js",
+		"dev:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --watch"
+	},
+	"dependencies": {
+		"@fontsource/rubik": "^4.5.11",
+		"@headlessui/react": "^1.7.4",
+		"@heroicons/react": "^2.0.13",
+		"@radix-ui/react-dialog": "^1.0.2",
+		"@radix-ui/react-scroll-area": "^1.0.2",
+		"@radix-ui/react-select": "^1.1.2",
+		"@tailwindcss/forms": "^0.5.3",
+		"country-telephone-data": "^0.6.3",
+		"eslint": "8.27.0",
+		"eslint-config-next": "13.0.3",
+		"framer-motion": "^7.6.7",
+		"phone": "^3.1.30",
+		"react-countdown": "^2.3.4",
+		"react-country-flag": "^3.0.2",
+		"typescript": "4.9.3",
+		"zustand": "^4.1.4"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.20.2",
+		"@babel/plugin-syntax-typescript": "^7.20.0",
+		"@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+		"@types/country-telephone-data": "^0.6.1",
+		"@types/node": "18.11.9",
+		"@types/react": "18.0.25",
+		"@types/react-dom": "18.0.9",
+		"autoprefixer": "^10.4.13",
+		"esbuild": "0.14.43",
+		"esbuild-jest": "0.5.0",
+		"esbuild-node-externals": "1.4.1",
+		"esbuild-plugin-alias": "0.2.1",
+		"esbuild-style-plugin": "^1.6.0",
+		"meow": "^11.0.0",
+		"npm-run-all": "^4.1.5",
+		"postcss": "^8.4.19",
+		"prettier-plugin-sort-imports-desc": "^1.0.0",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"rimraf": "^3.0.2",
+		"tailwindcss": "^3.2.4",
+		"tsc-alias": "^1.7.1"
+	},
+	"peerDependencies": {
+		"react": ">18.0.0",
+		"react-dom": ">18.0.0"
+	}
+}

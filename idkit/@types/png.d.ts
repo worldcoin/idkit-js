@@ -1,3 +1,3 @@
 declare module '*.png' {
-  export default string
+	export default string
 }
