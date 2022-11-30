@@ -1,5 +1,5 @@
-import Button from '../Button'
-import { useMemo } from 'react'
+import { FC, useMemo } from 'react'
+import Frame from '@/components/Frame'
 import ErrorState from './States/ErrorState'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
@@ -19,8 +19,13 @@ const getParams = ({ open, onOpenChange, stage, setStage }: IDKitStore) => ({
 	setStage,
 })
 
-const IDKitWidget = () => {
+type Props = {
+	children?: ({ open }: { open: () => void }) => JSX.Element
+}
+
+const IDKitWidget: FC<Props> = ({ children } = {}) => {
 	const { isOpen, onOpenChange, stage, setStage } = useIDKitStore(getParams)
+	console.log(isOpen)
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
@@ -41,12 +46,10 @@ const IDKitWidget = () => {
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
-			<Dialog.Trigger asChild>
-				<Button type="button">Open</Button>
-			</Dialog.Trigger>
-			<AnimatePresence>
-				{isOpen && (
-					<Dialog.Portal forceMount>
+			{children?.({ open: () => onOpenChange(true) })}
+			<Frame className="fixed z-10 w-screen h-screen inset-0" style={{ pointerEvents: isOpen ? 'auto' : 'none' }}>
+				<AnimatePresence>
+					{isOpen && (
 						<div className="fixed z-10">
 							<Dialog.Overlay asChild>
 								<motion.div
@@ -112,9 +115,9 @@ const IDKitWidget = () => {
 								</div>
 							</div>
 						</div>
-					</Dialog.Portal>
-				)}
-			</AnimatePresence>
+					)}
+				</AnimatePresence>
+			</Frame>
 		</Dialog.Root>
 	)
 }

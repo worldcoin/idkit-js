@@ -1,4 +1,4 @@
-@import '@fontsource/rubik/variable.css';
+@import 'https://fonts.googleapis.com/css2?family=Rubik:wght@200..700&display=swap';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

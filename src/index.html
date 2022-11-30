@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>idkit-js</title>
-    <link rel="stylesheet" href="../build/index.css">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>idkit-js</title>
+		<link rel="stylesheet" href="../build/index.css" />
 
-    <style>
-      #root {
-        display: grid;
-        justify-content: center;
-        justify-items: center;
-        align-content: center;
-        min-height: 100vh;
-        gap: 24px;
-      }
+		<style>
+			#root {
+				display: grid;
+				justify-content: center;
+				justify-items: center;
+				align-content: center;
+				min-height: 100vh;
+				gap: 24px;
+			}
 
-      #heading {
-        font-size: 56px;
-        text-transform: uppercase;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root">
-      <h1 id="heading">idkit-js</h1>
-      <div id="idkit-js"></div>
-    </div>
+			#heading {
+				font-size: 56px;
+				text-transform: uppercase;
+			}
 
-    <script src="../build/idkit-js-dev.js"></script>
+			#open-idkit {
+				background-color: #4f46e5;
+				color: #fff;
+				padding: 8px 16px;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root">
+			<h1 id="heading">idkit-js</h1>
+			<button id="open-idkit">Open</button>
+		</div>
 
-    <script>
-      IDKit.init('idkit-js')
-    </script>
-  </body>
+		<script src="../build/idkit-js-dev.js"></script>
+
+		<script>
+			IDKit.init()
+
+			document.getElementById('open-idkit').addEventListener('click', () => {
+				IDKit.open()
+			})
+		</script>
+	</body>
 </html>

@@ -1,9 +1,6 @@
+import useIDKitStore from './store/idkit'
 import { createRoot } from 'react-dom/client'
 import IDKitWidget from './components/IDKitWidget'
-
-const VanillaIDKitWidget = (): JSX.Element => {
-	return <IDKitWidget />
-}
 
 let isInitialized = false
 
@@ -12,14 +9,15 @@ let isInitialized = false
  * disabled until `.activate()` is called.
  * @param elementInput ID of HTML element or DOM node to mount IDKitWidget on
  */
-export const init = (elementInput: string | Element | DocumentFragment): void => {
-	const mountNode = typeof elementInput === 'string' ? document.getElementById(elementInput) : elementInput
-
+export const init = (): void => {
 	const startApp = () => {
 		try {
 			if (!isInitialized) {
-				const root = createRoot(mountNode as Element)
-				root.render(<VanillaIDKitWidget />)
+				const node = document.createElement('div')
+				node.id = 'idkit-widget'
+				document.body.appendChild(node)
+
+				createRoot(node).render(<IDKitWidget />)
 				isInitialized = true
 			}
 		} catch (error) {
@@ -35,6 +33,12 @@ export const init = (elementInput: string | Element | DocumentFragment): void =>
 		// The document is not ready yet, so wait for the DOMContentLoaded event
 		document.addEventListener('DOMContentLoaded', startApp, false)
 	}
+}
+
+export const open = () => {
+	if (!isInitialized) throw new Error('IDKitWidget is not initialized')
+
+	useIDKitStore.setState({ open: true })
 }
 
 /**
