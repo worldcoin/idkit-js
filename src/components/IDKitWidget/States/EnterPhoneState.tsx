@@ -2,15 +2,32 @@ import { motion } from 'framer-motion'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
+import { requestCode, isRequestCodeError } from '@/services/phone'
 
-const getParams = ({ phoneNumber, setStage }: IDKitStore) => ({
+const getParams = ({ pending, phoneNumber, setStage, setPending }: IDKitStore) => ({
+	pending,
 	phoneNumber,
 	useWorldID: () => setStage(IDKITStage.WORLD_ID),
-	onSubmit: () => setStage(IDKITStage.ENTER_CODE),
+	onSubmit: async () => {
+		try {
+			setPending(true)
+			await requestCode(phoneNumber)
+			setPending(false)
+			setStage(IDKITStage.ENTER_CODE)
+		} catch (error) {
+			setPending(false)
+			if (isRequestCodeError(error) && error.code !== 'server_error') {
+				// REVIEW: how to show error without redirect to error stage?
+				console.error(error)
+			} else {
+				setStage(IDKITStage.ERROR)
+			}
+		}
+	},
 })
 
 const EnterPhoneState = () => {
-	const { phoneNumber, useWorldID, onSubmit } = useIDKitStore(getParams)
+	const { phoneNumber, pending, useWorldID, onSubmit } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
@@ -46,7 +63,7 @@ const EnterPhoneState = () => {
 					transition={{ layout: { duration: 0.15 } }}
 					onClick={onSubmit}
 					layoutId="submit-button"
-					disabled={!phoneNumber}
+					disabled={!phoneNumber || pending}
 					className="inline-flex items-center px-8 py-3 border border-transparent font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">

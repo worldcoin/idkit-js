@@ -4,16 +4,34 @@ import WorldIDIcon from '@/components/WorldIDIcon'
 import SMSCodeInput from '@/components/SMSCodeInput'
 import ResendButton from '@/components/ResendButton'
 import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
+import { verifyCode, isVerifyCodeError } from '@/services/phone'
 
-const getParams = ({ code, setStage }: IDKitStore) => ({
+const getParams = ({ pending, phoneNumber, code, setStage, setPending }: IDKitStore) => ({
+	pending,
+	phoneNumber,
 	code,
-	onSubmit: () => setStage(IDKITStage.SUCCESS),
+	onSubmit: async () => {
+		try {
+			setPending(true)
+			await verifyCode(phoneNumber, code)
+			setPending(false)
+			setStage(IDKITStage.SUCCESS)
+		} catch (error) {
+			setPending(false)
+			if (isVerifyCodeError(error)) {
+				// REVIEW: how to show error without redirect to error stage?
+				console.error(error)
+			} else {
+				setStage(IDKITStage.ERROR)
+			}
+		}
+	},
 	useWorldID: () => setStage(IDKITStage.WORLD_ID),
 })
 
 const VerifyCodeState = () => {
 	const submitRef = useRef<HTMLButtonElement>(null)
-	const { code, onSubmit, useWorldID } = useIDKitStore(getParams)
+	const { pending, code, onSubmit, useWorldID } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
@@ -53,7 +71,7 @@ const VerifyCodeState = () => {
 					animate={{ opacity: code ? 1 : 0.4 }}
 					transition={{ layout: { duration: 0.15 } }}
 					onClick={onSubmit}
-					disabled={!code}
+					disabled={!code || pending}
 					ref={submitRef}
 					className="inline-flex w-full justify-center items-center px-8 py-4 border border-transparent font-medium rounded-2xl shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
