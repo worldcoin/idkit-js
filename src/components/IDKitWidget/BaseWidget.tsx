@@ -13,9 +13,6 @@ import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
-const sheet = new CSSStyleSheet()
-sheet.replaceSync(builtStyles)
-
 const getParams = ({ open, onOpenChange, stage, setStage }: IDKitStore) => ({
 	isOpen: open,
 	onOpenChange,
@@ -51,7 +48,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
 			<Dialog.Portal forceMount>
-				<root.div styleSheets={[sheet]}>
+				<root.div styleSheets={[builtStyles]} mode="closed">
 					<AnimatePresence>
 						{isOpen && (
 							<div className="fixed z-10" id="modal">

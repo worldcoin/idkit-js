@@ -1,4 +1,4 @@
 declare module '*.css' {
-	const content: string
+	const content: CSSStyleSheet
 	export default content
 }
