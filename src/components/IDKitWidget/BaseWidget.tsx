@@ -48,10 +48,10 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
 			<Dialog.Portal forceMount>
-				<root.div styleSheets={[builtStyles]} mode="closed">
+				<root.div styleSheets={[builtStyles]} mode="closed" id="idkit-widget">
 					<AnimatePresence>
 						{isOpen && (
-							<div className="fixed z-10" id="modal">
+							<div className="fixed z-10 font-sans" id="modal">
 								<Dialog.Overlay asChild>
 									<motion.div
 										initial={{ opacity: 0 }}

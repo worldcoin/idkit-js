@@ -6,7 +6,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['RubikVariable', ...defaultTheme.fontFamily.sans],
+				sans: ['Rubik', ...defaultTheme.fontFamily.sans],
 			},
 			data: {
 				selected: 'headlessui-state~="selected"',

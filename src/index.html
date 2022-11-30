@@ -5,7 +5,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>idkit-js</title>
-		<link rel="stylesheet" href="../build/index.css" />
 
 		<style>
 			#root {
@@ -40,7 +39,7 @@
 		<script src="../build/idkit-js-dev.js"></script>
 
 		<script>
-			IDKit.init()
+			IDKit.init({ actionId: 'wid_staging_1234' })
 
 			document.getElementById('open-idkit').addEventListener('click', () => {
 				IDKit.open()

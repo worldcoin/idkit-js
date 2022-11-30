@@ -1,23 +1,30 @@
+import { Config } from './types/Config'
 import useIDKitStore from './store/idkit'
-import { createRoot } from 'react-dom/client'
 import IDKitWidget from './components/IDKitWidget'
+import { createRoot, Root } from 'react-dom/client'
 
+let root: Root
 let isInitialized = false
 
 /**
- * Initializes IDKitWidget, will render the IDKitWidget box on the provided element. The box will be
- * disabled until `.activate()` is called.
- * @param elementInput ID of HTML element or DOM node to mount IDKitWidget on
+ * Initializes IDKitWidget, should only be called once per app. Note that nothing will be shown until you call `open()`
+ * @param config The IDKit configuration object
  */
-export const init = (): void => {
+export const init = (config: Config): void => {
+	if (isInitialized) throw new Error('IDKit is already initialized')
+	if (!config?.actionId) throw new Error('You must provide your Action ID')
+
+	useIDKitStore.setState({ actionId: config.actionId })
+
 	const startApp = () => {
 		try {
 			if (!isInitialized) {
 				const node = document.createElement('div')
-				node.id = 'idkit-widget'
 				document.body.appendChild(node)
 
-				createRoot(node).render(<IDKitWidget />)
+				root = createRoot(node)
+				root.render(<IDKitWidget />)
+
 				isInitialized = true
 			}
 		} catch (error) {
@@ -46,5 +53,7 @@ export const open = () => {
  */
 export const reset = () => {
 	console.warn('Advanced method intended for internal use! Avoid calling this method directly.')
+
+	root.unmount()
 	isInitialized = false
 }
