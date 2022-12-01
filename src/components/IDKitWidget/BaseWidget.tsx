@@ -1,5 +1,5 @@
+import { useEffect, useMemo } from 'react'
 import Button from '../Button'
-import { useMemo } from 'react'
 import ErrorState from './States/ErrorState'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
@@ -12,15 +12,20 @@ import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ open, onOpenChange, stage, setStage }: IDKitStore) => ({
+const getParams = ({ open, onOpenChange, setActionId, stage, setStage }: IDKitStore) => ({
 	isOpen: open,
 	onOpenChange,
+	setActionId,
 	stage,
 	setStage,
 })
 
-const IDKitWidget = () => {
-	const { isOpen, onOpenChange, stage, setStage } = useIDKitStore(getParams)
+const IDKitWidget = ({ actionId }: { actionId:string }) => {
+	const { isOpen, onOpenChange, setActionId, stage, setStage } = useIDKitStore(getParams)
+
+	useEffect(() => {
+		setActionId(actionId)
+	}, [actionId])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {

@@ -6,14 +6,15 @@ import ResendButton from '@/components/ResendButton'
 import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
 import { verifyCode, isVerifyCodeError } from '@/services/phone'
 
-const getParams = ({ pending, phoneNumber, code, setStage, setPending }: IDKitStore) => ({
+const getParams = ({ pending, phoneNumber, code, actionId, setStage, setPending }: IDKitStore) => ({
 	pending,
 	phoneNumber,
 	code,
+	actionId,
 	onSubmit: async () => {
 		try {
 			setPending(true)
-			await verifyCode(phoneNumber, code)
+			await verifyCode(phoneNumber, code, actionId)
 			setPending(false)
 			setStage(IDKITStage.SUCCESS)
 		} catch (error) {

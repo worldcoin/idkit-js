@@ -1,8 +1,10 @@
 import { createRoot } from 'react-dom/client'
 import IDKitWidget from './components/IDKitWidget'
 
+const actionId = 'wid_staging_8ae188a59e201c26ea2f2561105a1640' // FIXME
+
 const VanillaIDKitWidget = (): JSX.Element => {
-	return <IDKitWidget />
+	return <IDKitWidget actionId={actionId} />
 }
 
 let isInitialized = false

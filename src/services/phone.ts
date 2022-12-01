@@ -1,11 +1,11 @@
 const ENDPOINT = 'https://developer.worldcoin.org'
 
-export async function requestCode(phone_number: string) {
+export async function requestCode(phone_number: string, action_id: string) {
     const res = await fetch(ENDPOINT + '/api/v1/phone/request', {
         method: 'POST',
         body: JSON.stringify({
             phone_number,
-            action_id: 'wid_staging_8ae188a59e201c26ea2f2561105a1640', // FIXME
+            action_id,
             channel: 'sms', // FIXME
             ph_distinct_id: '' // FIXME
         })
@@ -16,13 +16,13 @@ export async function requestCode(phone_number: string) {
     throw await res.json()
 }
 
-export async function verifyCode(phone_number: string, code: string) {
+export async function verifyCode(phone_number: string, code: string, action_id: string) {
     const res = await fetch(ENDPOINT + '/api/v1/phone/verify', {
         method: 'POST',
         body: JSON.stringify({
             phone_number,
             code,
-            action_id: 'wid_staging_8ae188a59e201c26ea2f2561105a1640', // FIXME
+            action_id,
             ph_distinct_id: '' // FIXME
         })
     })

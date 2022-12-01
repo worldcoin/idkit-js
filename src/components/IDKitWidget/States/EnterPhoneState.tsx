@@ -4,14 +4,15 @@ import WorldIDIcon from '@/components/WorldIDIcon'
 import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
 import { requestCode, isRequestCodeError } from '@/services/phone'
 
-const getParams = ({ pending, phoneNumber, setStage, setPending }: IDKitStore) => ({
+const getParams = ({ pending, phoneNumber, actionId, setStage, setPending }: IDKitStore) => ({
 	pending,
 	phoneNumber,
+	actionId,
 	useWorldID: () => setStage(IDKITStage.WORLD_ID),
 	onSubmit: async () => {
 		try {
 			setPending(true)
-			await requestCode(phoneNumber)
+			await requestCode(phoneNumber, actionId)
 			setPending(false)
 			setStage(IDKITStage.ENTER_CODE)
 		} catch (error) {
