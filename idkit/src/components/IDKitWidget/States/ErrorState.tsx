@@ -1,13 +1,11 @@
-// import useIDKitStore, { IDKitStore } from '@/store/idkit'
-import { useContext } from 'react'
+import useIDKitStore from '@/store/idkit'
+import type { IDKitStore } from '@/store/idkit'
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import { StoreContext } from '@/contexts/StoreContext'
 
-// const getParams = ({ retryFlow }: IDKitStore) => ({ retryFlow })
+const getParams = ({ retryFlow }: IDKitStore) => ({ retryFlow })
 
 const ErrorState = () => {
-	// const { retryFlow } = useIDKitStore(getParams)
-	const { retryFlow } = useContext(StoreContext)
+	const { retryFlow } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-8">

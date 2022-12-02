@@ -1,9 +1,9 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
-import { StoreContext } from '@/contexts/StoreContext'
-import type { ClipboardEvent, RefObject} from 'react';
-import { memo, useContext } from 'react'
-// import useIDKitStore, { IDKitStore } from '@/store/idkit'
-import type { ChangeEvent, KeyboardEvent} from 'react';
+import useIDKitStore from '@/store/idkit'
+import type { IDKitStore } from '@/store/idkit'
+import type { ClipboardEvent, RefObject } from 'react'
+import type { ChangeEvent, KeyboardEvent } from 'react'
 import { createRef, useCallback, useEffect, useMemo, useState } from 'react'
 
 type Array6<T> = [T, T, T, T, T, T]
@@ -12,11 +12,10 @@ const fillValues = (value: string): Array6<string> => {
 	return new Array(6).fill('').map((_, index) => value[index]) as Array6<string>
 }
 
-// const getParams = ({ setCode }: IDKitStore) => ({ setCode })
+const getParams = ({ setCode }: IDKitStore) => ({ setCode })
 
 const SMSCodeInput = ({ submitRef }: { submitRef: RefObject<HTMLButtonElement> }) => {
-	// const { setCode } = useIDKitStore(getParams)
-	const { setCode } = useContext(StoreContext)
+	const { setCode } = useIDKitStore(getParams)
 
 	const inputsRefs = useMemo(() => new Array(6).fill(null).map(() => createRef<HTMLInputElement>()), [])
 	const [values, setValues] = useState<Array6<string>>(fillValues(''))

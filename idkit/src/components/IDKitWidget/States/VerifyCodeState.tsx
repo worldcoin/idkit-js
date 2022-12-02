@@ -1,25 +1,20 @@
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
+import type { IDKitStore } from '@/store/idkit'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import SMSCodeInput from '@/components/SMSCodeInput'
 import ResendButton from '@/components/ResendButton'
-import { useCallback, useContext, useRef } from 'react'
-import { IDKITStage, StoreContext } from '@/contexts/StoreContext'
-// import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
+import useIDKitStore, { IDKITStage } from '@/store/idkit'
 
-// const getParams = ({ code, setStage }: IDKitStore) => ({
-// 	code,
-// 	onSubmit: () => setStage(IDKITStage.SUCCESS),
-// 	useWorldID: () => setStage(IDKITStage.WORLD_ID),
-// })
+const getParams = ({ code, setStage }: IDKitStore) => ({
+	code,
+	onSubmit: () => setStage(IDKITStage.SUCCESS),
+	useWorldID: () => setStage(IDKITStage.WORLD_ID),
+})
 
 const VerifyCodeState = () => {
 	const submitRef = useRef<HTMLButtonElement>(null)
-	// const { code, onSubmit, useWorldID } = useIDKitStore(getParams)
-
-	const { code, setStage } = useContext(StoreContext)
-
-	const onSubmit = useCallback(() => setStage(IDKITStage.SUCCESS), [setStage])
-	const useWorldID = useCallback(() => setStage(IDKITStage.WORLD_ID), [setStage])
+	const { code, onSubmit, useWorldID } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">

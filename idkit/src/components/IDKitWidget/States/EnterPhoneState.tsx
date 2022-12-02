@@ -1,14 +1,17 @@
 import { motion } from 'framer-motion'
-import { useCallback, useContext } from 'react'
+import type { IDKitStore } from '@/store/idkit'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
-import { StoreContext, IDKITStage } from '@/contexts/StoreContext'
+import useIDKitStore, { IDKITStage } from '@/store/idkit'
+
+const getParams = ({ phoneNumber, setStage }: IDKitStore) => ({
+	phoneNumber,
+	useWorldID: () => setStage(IDKITStage.WORLD_ID),
+	onSubmit: () => setStage(IDKITStage.ENTER_CODE),
+})
 
 const EnterPhoneState = () => {
-	const { phoneNumber, setStage } = useContext(StoreContext)
-
-	const useWorldID = useCallback(() => setStage(IDKITStage.WORLD_ID), [setStage])
-	const onSubmit = useCallback(() => setStage(IDKITStage.ENTER_CODE), [setStage])
+	const { phoneNumber, useWorldID, onSubmit } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">

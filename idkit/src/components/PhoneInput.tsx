@@ -1,21 +1,24 @@
 import { phone } from 'phone'
+import useIDKitStore from '@/store/idkit'
+import { useEffect, useState } from 'react'
+import type { IDKitStore } from '@/store/idkit'
 import CountryCodeSelect from './CountryCodeSelect'
-import { StoreContext } from '@/contexts/StoreContext'
-import { useContext, useEffect, useState } from 'react'
+
+const getParams = ({ setPhoneNumber }: IDKitStore) => ({ setFullPhone: setPhoneNumber })
 
 const PhoneInput = () => {
-	const { setPhoneNumber } = useContext(StoreContext)
+	const { setFullPhone } = useIDKitStore(getParams)
 	const [countryCode, setCountryCode] = useState<string>('1')
 	const [phoneInput, setPhoneInput] = useState<string>('')
 
 	useEffect(() => {
 		const validatedPhone = phone(`+${countryCode} ${phoneInput}`)
 		if (!validatedPhone.isValid) {
-			setPhoneNumber('')
+			setFullPhone('')
 			return
 		}
 
-		setPhoneNumber(validatedPhone.phoneNumber)
+		setFullPhone(validatedPhone.phoneNumber)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [countryCode, phoneInput])
 

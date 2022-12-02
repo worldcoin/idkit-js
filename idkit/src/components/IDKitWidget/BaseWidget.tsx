@@ -1,20 +1,28 @@
 import '@/styles/styles.css'
 import Button from '../Button'
+import { useMemo } from 'react'
 import ErrorState from './States/ErrorState'
+import type { IDKitStore } from '@/store/idkit'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
-import { useContext, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
-import { StoreContext, IDKITStage } from '@/contexts/StoreContext'
+import useIDKitStore, { IDKITStage } from '@/store/idkit'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
+const getParams = ({ open, onOpenChange, stage, setStage }: IDKitStore) => ({
+	isOpen: open,
+	onOpenChange,
+	stage,
+	setStage,
+})
+
 const IDKitWidget = () => {
-	const { open, onOpenChange, stage, setStage } = useContext(StoreContext)
+	const { isOpen, onOpenChange, stage, setStage } = useIDKitStore(getParams)
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
@@ -34,12 +42,12 @@ const IDKitWidget = () => {
 	}, [stage])
 
 	return (
-		<Dialog.Root open={open} onOpenChange={onOpenChange}>
+		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			<Dialog.Trigger asChild>
 				<Button type="button">Open</Button>
 			</Dialog.Trigger>
 			<AnimatePresence>
-				{open && (
+				{isOpen && (
 					<Dialog.Portal forceMount>
 						<div className="fixed z-10">
 							<Dialog.Overlay asChild>
