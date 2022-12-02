@@ -12,7 +12,6 @@
 	],
 	"scripts": {
 		"build": "npm-run-all clean build:*",
-		"build:cjs": "node esbuild/production.js -p cjs",
 		"build:declarations": "tsc && tsc-alias",
 		"build:esm": "node esbuild/production.js -p esm",
 		"build:iife": "node esbuild/production.js -p iife",

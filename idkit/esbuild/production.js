@@ -64,25 +64,6 @@ const configs = {
 		outfile: 'build/index.js',
 	},
 
-	cjs: {
-		...baseConfig,
-
-		define: {
-			...baseConfig.define,
-			window: 'globalThis',
-		},
-		plugins: [
-			nodeExternalsPlugin({
-				packagePath: require.resolve('../package.json'),
-				allowList: ['@walletconnect/client'],
-			}),
-
-			...baseConfig.plugins,
-		],
-		format: 'cjs',
-		outfile: 'build/index.cjs',
-	},
-
 	iife: {
 		...baseConfig,
 
