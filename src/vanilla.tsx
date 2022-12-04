@@ -1,25 +1,30 @@
-import { createRoot } from 'react-dom/client'
+import { Config } from './types/Config'
+import useIDKitStore from './store/idkit'
 import IDKitWidget from './components/IDKitWidget'
+import { createRoot, Root } from 'react-dom/client'
 
-const VanillaIDKitWidget = (): JSX.Element => {
-	return <IDKitWidget />
-}
-
+let root: Root
 let isInitialized = false
 
 /**
- * Initializes IDKitWidget, will render the IDKitWidget box on the provided element. The box will be
- * disabled until `.activate()` is called.
- * @param elementInput ID of HTML element or DOM node to mount IDKitWidget on
+ * Initializes IDKitWidget, should only be called once per app. Note that nothing will be shown until you call `open()`
+ * @param config The IDKit configuration object
  */
-export const init = (elementInput: string | Element | DocumentFragment): void => {
-	const mountNode = typeof elementInput === 'string' ? document.getElementById(elementInput) : elementInput
+export const init = (config: Config): void => {
+	if (isInitialized) throw new Error('IDKit is already initialized')
+	if (!config?.actionId) throw new Error('You must provide your Action ID')
+
+	useIDKitStore.setState({ actionId: config.actionId })
 
 	const startApp = () => {
 		try {
 			if (!isInitialized) {
-				const root = createRoot(mountNode as Element)
-				root.render(<VanillaIDKitWidget />)
+				const node = document.createElement('div')
+				document.body.appendChild(node)
+
+				root = createRoot(node)
+				root.render(<IDKitWidget />)
+
 				isInitialized = true
 			}
 		} catch (error) {
@@ -37,10 +42,18 @@ export const init = (elementInput: string | Element | DocumentFragment): void =>
 	}
 }
 
+export const open = () => {
+	if (!isInitialized) throw new Error('IDKitWidget is not initialized')
+
+	useIDKitStore.setState({ open: true })
+}
+
 /**
  * Reset internal state. Useful for unit-testing
  */
 export const reset = () => {
 	console.warn('Advanced method intended for internal use! Avoid calling this method directly.')
+
+	root.unmount()
 	isInitialized = false
 }
