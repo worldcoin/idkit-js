@@ -10,6 +10,9 @@ export enum IDKITStage {
 
 export type IDKitStore = {
 	open: boolean
+	code: string
+	actionId: string
+	stage: IDKITStage
 	phoneNumber: string
 	code: string
 	actionId: string
@@ -18,6 +21,8 @@ export type IDKitStore = {
 	retryFlow: () => void
 	setOpen: (open: boolean) => void
 	onOpenChange: (open: boolean) => void
+	setStage: (stage: IDKITStage) => void
+	setActionId: (actionId: string) => void
 	setPhoneNumber: (phoneNumber: string) => void
 	setCode: (code: string) => void
 	setActionId: (actionId: string) => void
@@ -27,6 +32,8 @@ export type IDKitStore = {
 
 const useIDKitStore = create<IDKitStore>()(set => ({
 	open: false,
+	code: '',
+	actionId: '',
 	phoneNumber: '',
 	code: '',
 	actionId: '',
@@ -37,7 +44,8 @@ const useIDKitStore = create<IDKitStore>()(set => ({
 	setCode: code => set({ code }),
 	setActionId: actionId => set({ actionId }),
 	setStage: stage => set({ stage }),
-	setPending: (pending: boolean) => set({ pending }),
+	setActionId: (actionId: string) => set({ actionId }),
+	setPhoneNumber: (phoneNumber: string) => set({ phoneNumber }),
 	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
 	onOpenChange: open => {
 		if (open) return set({ open })
