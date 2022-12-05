@@ -75,6 +75,9 @@ module.exports = {
 		],
 	},
 	settings: {
+		react: {
+			version: 'detect',
+		},
 		tailwindcss: {
 			config: 'tailwind.config.cjs',
 		},

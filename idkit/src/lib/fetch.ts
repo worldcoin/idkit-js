@@ -8,7 +8,7 @@ declare global {
 
 /**
  * Uses `fetch` from a clean iFrame to prevent tampering with the global fetch object that may leak user data.
- * @returns 
+ * @returns
  */
 const getCleanFetch = () => {
 	const iframe = document.createElement('iframe')

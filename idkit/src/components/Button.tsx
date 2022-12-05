@@ -1,8 +1,12 @@
+import { forwardRef } from 'react'
 import { classNames } from '@/lib/utils'
-import { ButtonHTMLAttributes, ForwardedRef, forwardRef } from 'react'
+import type { ButtonHTMLAttributes, ForwardedRef } from 'react'
 
-const Button = forwardRef(
-	({ className, ...props }: ButtonHTMLAttributes<HTMLButtonElement>, ref: ForwardedRef<HTMLButtonElement>) => (
+const Button = forwardRef(function Button(
+	{ className, ...props }: ButtonHTMLAttributes<HTMLButtonElement>,
+	ref: ForwardedRef<HTMLButtonElement>
+) {
+	return (
 		<button
 			{...props}
 			ref={ref}
@@ -12,6 +16,6 @@ const Button = forwardRef(
 			)}
 		/>
 	)
-)
+})
 
 export default Button
