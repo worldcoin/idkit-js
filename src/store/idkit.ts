@@ -1,12 +1,5 @@
+import { IDKITStage } from '@/types'
 import create from 'zustand'
-
-export enum IDKITStage {
-	ENTER_PHONE = 'ENTER_PHONE',
-	ENTER_CODE = 'ENTER_CODE',
-	WORLD_ID = 'WORLD_ID',
-	SUCCESS = 'SUCCESS',
-	ERROR = 'ERROR',
-}
 
 export type IDKitStore = {
 	open: boolean
@@ -14,7 +7,7 @@ export type IDKitStore = {
 	code: string
 	actionId: string
 	stage: IDKITStage
-	pending: boolean
+	processing: boolean // Whether an async request is being processed and we show a loading state in the UI
 	retryFlow: () => void
 	setOpen: (open: boolean) => void
 	onOpenChange: (open: boolean) => void
@@ -22,7 +15,7 @@ export type IDKitStore = {
 	setActionId: (actionId: string) => void
 	setPhoneNumber: (phoneNumber: string) => void
 	setCode: (code: string) => void
-	setPending: (pending: boolean) => void
+	setProcessing: (processing: boolean) => void
 }
 
 const useIDKitStore = create<IDKitStore>()(set => ({
@@ -31,17 +24,17 @@ const useIDKitStore = create<IDKitStore>()(set => ({
 	actionId: '',
 	phoneNumber: '',
 	stage: IDKITStage.ENTER_PHONE,
-	pending: false,
+	processing: false,
 	setOpen: open => set({ open }),
 	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setCode: code => set({ code }),
 	setActionId: actionId => set({ actionId }),
 	setStage: stage => set({ stage }),
 	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
-	setPending: (pending: boolean) => set({ pending }),
+	setProcessing: (processing: boolean) => set({ processing }),
 	onOpenChange: open => {
 		if (open) return set({ open })
-		set({ open, phoneNumber: '', code:'', pending:false, stage: IDKITStage.ENTER_PHONE })
+		set({ open, phoneNumber: '', code:'', processing:false, stage: IDKITStage.ENTER_PHONE })
 	},
 }))
 

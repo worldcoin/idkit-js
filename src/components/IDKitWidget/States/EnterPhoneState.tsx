@@ -1,24 +1,26 @@
+import { IDKITStage } from '@/types'
 import { motion } from 'framer-motion'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
-import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
+import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { requestCode, isRequestCodeError } from '@/services/phone'
 
-const getParams = ({ pending, phoneNumber, actionId, setStage, setPending }: IDKitStore) => ({
-	pending,
+const getParams = ({ processing, phoneNumber, actionId, setStage, setProcessing }: IDKitStore) => ({
+	processing,
 	phoneNumber,
 	actionId,
 	useWorldID: () => setStage(IDKITStage.WORLD_ID),
 	onSubmit: async () => {
 		try {
-			setPending(true)
-			await requestCode(phoneNumber, actionId)
-			setPending(false)
+			setProcessing(true)
+			// FIXME: ph_distinct_id
+			await requestCode(phoneNumber, actionId, '')
+			setProcessing(false)
 			setStage(IDKITStage.ENTER_CODE)
 		} catch (error) {
-			setPending(false)
+			setProcessing(false)
 			if (isRequestCodeError(error) && error.code !== 'server_error') {
-				// REVIEW: how to show error without redirect to error stage?
+				// FIXME: Error toast here
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)
@@ -28,18 +30,19 @@ const getParams = ({ pending, phoneNumber, actionId, setStage, setPending }: IDK
 })
 
 const EnterPhoneState = () => {
-	const { phoneNumber, pending, useWorldID, onSubmit } = useIDKitStore(getParams)
+	const { phoneNumber, processing, useWorldID, onSubmit } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
 			<div>
 				<p className="font-semibold text-2xl text-gray-900 text-center">
-					Verify your phone number for free gassless transactions.
+					{/* TODO: Caption should be a config option */}
+					Verify your phone number for free gasless transactions.
 				</p>
 				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<div className="mt-2 space-y-2">
-				<PhoneInput />
+				<PhoneInput disabled={processing} />
 				<p className="text-xs text-center text-gray-400">
 					We&apos;ll call or text to confirm your number. No data is stored.
 				</p>
@@ -64,9 +67,10 @@ const EnterPhoneState = () => {
 					transition={{ layout: { duration: 0.15 } }}
 					onClick={onSubmit}
 					layoutId="submit-button"
-					disabled={!phoneNumber || pending}
+					disabled={!phoneNumber || processing}
 					className="inline-flex items-center px-8 py-3 border border-transparent font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
+					{/* TODO: Loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
 						Continue
 					</motion.span>

@@ -1,13 +1,15 @@
-const ENDPOINT = 'https://developer.worldcoin.org'
+import { IPhoneSignal } from "@/types"
 
-export async function requestCode(phone_number: string, action_id: string) {
-    const res = await fetch(ENDPOINT + '/api/v1/phone/request', {
+const API_BASE_URL = 'https://developer.worldcoin.org/api/v1'
+
+export async function requestCode(phone_number: string, action_id: string, ph_distinct_id: string) {
+    const res = await fetch(`${API_BASE_URL}/phone/request`, {
         method: 'POST',
         body: JSON.stringify({
             phone_number,
             action_id,
             channel: 'sms', // FIXME
-            ph_distinct_id: '' // FIXME
+            ph_distinct_id,
         })
     })
     if (res.ok) {
@@ -16,18 +18,18 @@ export async function requestCode(phone_number: string, action_id: string) {
     throw await res.json()
 }
 
-export async function verifyCode(phone_number: string, code: string, action_id: string) {
-    const res = await fetch(ENDPOINT + '/api/v1/phone/verify', {
+export async function verifyCode(phone_number: string, code: string, action_id: string, ph_distinct_id: string) {
+    const res = await fetch(`${API_BASE_URL}/phone/verify`, {
         method: 'POST',
         body: JSON.stringify({
             phone_number,
             code,
             action_id,
-            ph_distinct_id: '' // FIXME
+            ph_distinct_id,
         })
     })
     if (res.ok) {
-        return await res.json()
+        return await res.json() as IPhoneSignal;
     }
     throw await res.json()
 }

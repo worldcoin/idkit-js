@@ -1,26 +1,28 @@
 import { useRef } from 'react'
+import { IDKITStage } from '@/types'
 import { motion } from 'framer-motion'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import SMSCodeInput from '@/components/SMSCodeInput'
 import ResendButton from '@/components/ResendButton'
-import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
+import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { verifyCode, isVerifyCodeError } from '@/services/phone'
 
-const getParams = ({ pending, phoneNumber, code, actionId, setStage, setPending }: IDKitStore) => ({
-	pending,
+const getParams = ({ processing, phoneNumber, code, actionId, setStage, setProcessing }: IDKitStore) => ({
+	processing,
 	phoneNumber,
 	code,
 	actionId,
 	onSubmit: async () => {
 		try {
-			setPending(true)
-			await verifyCode(phoneNumber, code, actionId)
-			setPending(false)
+			setProcessing(true)
+			// FIXME: Add ph_distinct_id
+			await verifyCode(phoneNumber, code, actionId, '')
+			setProcessing(false)
 			setStage(IDKITStage.SUCCESS)
 		} catch (error) {
-			setPending(false)
+			setProcessing(false)
 			if (isVerifyCodeError(error)) {
-				// REVIEW: how to show error without redirect to error stage?
+				// FIXME: show error toast here
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)
@@ -32,18 +34,19 @@ const getParams = ({ pending, phoneNumber, code, actionId, setStage, setPending 
 
 const VerifyCodeState = () => {
 	const submitRef = useRef<HTMLButtonElement>(null)
-	const { pending, code, onSubmit, useWorldID } = useIDKitStore(getParams)
+	const { processing, code, onSubmit, useWorldID } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
 			<div>
 				<p className="font-semibold text-2xl text-gray-900 text-center">
-					Verify your phone number for free gassless transactions.
+					{/* TODO: Allow app to set this caption from settings */}
+					Verify your phone number for free gasless transactions.
 				</p>
 				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<form className="mt-2 space-y-2">
-				<SMSCodeInput submitRef={submitRef} />
+				<SMSCodeInput submitRef={submitRef} disabled={processing} />
 				<p className="text-xs text-center text-gray-400">
 					Didn&apos;t receive a code? <ResendButton /> or{' '}
 					<button type="button" className="text-indigo-600 font-medium">
@@ -72,10 +75,11 @@ const VerifyCodeState = () => {
 					animate={{ opacity: code ? 1 : 0.4 }}
 					transition={{ layout: { duration: 0.15 } }}
 					onClick={onSubmit}
-					disabled={!code || pending}
+					disabled={!code || processing}
 					ref={submitRef}
 					className="inline-flex w-full justify-center items-center px-8 py-4 border border-transparent font-medium rounded-2xl shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
+					{/* FIXME: Loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
 						Continue
 					</motion.span>

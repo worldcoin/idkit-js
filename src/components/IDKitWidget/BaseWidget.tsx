@@ -10,13 +10,13 @@ import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
-import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
+import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { IDKITStage } from '@/types'
 
-const getParams = ({ open, onOpenChange, setActionId, stage, setStage }: IDKitStore) => ({
+const getParams = ({ open, onOpenChange, stage, setStage }: IDKitStore) => ({
 	isOpen: open,
 	onOpenChange,
-	setActionId,
 	stage,
 	setStage,
 })
