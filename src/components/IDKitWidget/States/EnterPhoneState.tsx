@@ -16,7 +16,7 @@ const EnterPhoneState = () => {
 		<div className="space-y-6">
 			<div>
 				<p className="font-semibold text-2xl text-gray-900 text-center">
-					Verify your phone number for free gassless transactions.
+					Verify your phone number for free gasless transactions.
 				</p>
 				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>

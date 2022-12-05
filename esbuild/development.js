@@ -5,8 +5,6 @@ const require = createRequire(import.meta.url)
 
 import config from './config.js'
 
-const PORT = 3000
-
 const clients = []
 
 esbuild
@@ -18,15 +16,15 @@ esbuild
 		outfile: 'build/idkit-js-dev.js',
 		sourcemap: 'inline',
 		watch: {
-      onRebuild(error) {
-        clients.forEach((response) => response.write('data: update\n\n'))
-        clients.length = 0
+			onRebuild(error) {
+				clients.forEach(response => response.write('data: update\n\n'))
+				clients.length = 0
 
-        if (error) {
-          console.log(error)
-        }
-      },
-    },
+				if (error) {
+					console.log(error)
+				}
+			},
+		},
 	})
 	.catch(() => process.exit(1))
 

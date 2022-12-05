@@ -140,22 +140,22 @@ const SMSCodeInput = ({ submitRef }: { submitRef: RefObject<HTMLButtonElement> }
 			<legend className="sr-only">Enter your SMS code</legend>
 			{inputsRefs.map((ref, i) => (
 				<motion.input
-				ref={ref}
-				key={i}
-				maxLength={1}
-				animate={{ ['--tw-ring-color' as string]: focusedIndex === i ? '#1e40af' : '#e5e7eb' }}
-				type="number"
-				pattern="[0-9]*"
-				value={values[i]}
-				inputMode="numeric"
-				autoComplete="one-time-code"
-				onFocus={() => onInputFocus(i)}
-				onPaste={event => onInputPaste(event, i)}
-				onChange={event => onInputChange(event, i)}
-				onKeyDown={event => onInputKeyDown(event, i)}
-				className="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
-			/>
-		))}
+					ref={ref}
+					key={i}
+					maxLength={1}
+					animate={{ ['--tw-ring-color' as string]: focusedIndex === i ? '#1e40af' : '#e5e7eb' }}
+					type="number"
+					pattern="[0-9]*"
+					value={values[i]}
+					inputMode="numeric"
+					autoComplete="one-time-code"
+					onFocus={() => onInputFocus(i)}
+					onPaste={event => onInputPaste(event, i)}
+					onChange={event => onInputChange(event, i)}
+					onKeyDown={event => onInputKeyDown(event, i)}
+					className="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
+				/>
+			))}
 		</fieldset>
 	)
 }
