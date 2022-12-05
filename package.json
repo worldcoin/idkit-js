@@ -13,7 +13,10 @@
 		"clean": "rimraf build/",
 		"dev": "npm-run-all clean build:css --parallel dev:*",
 		"dev:bundle": "node esbuild/development.js",
-		"dev:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --watch"
+		"dev:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --watch",
+		"typecheck": "tsc",
+		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
+		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e node_modules -e pnpm-lock.yaml"
 	},
 	"dependencies": {
 		"@fontsource/rubik": "^4.5.11",
