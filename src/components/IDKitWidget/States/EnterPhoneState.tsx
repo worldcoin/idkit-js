@@ -42,7 +42,7 @@ const EnterPhoneState = () => {
 				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<div className="mt-2 space-y-2">
-				<PhoneInput disabled={processing} />
+				<PhoneInput disabled={processing} onSubmit={onSubmit} />
 				<p className="text-xs text-center text-gray-400">
 					We&apos;ll call or text to confirm your number. No data is stored.
 				</p>
@@ -70,9 +70,9 @@ const EnterPhoneState = () => {
 					disabled={!phoneNumber || processing}
 					className="inline-flex items-center px-8 py-3 border border-transparent font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
-					{/* TODO: Loading state */}
+					{/* TODO: Nicer loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
-						Continue
+						{processing ? 'Loading ...' : 'Continue'}
 					</motion.span>
 				</motion.button>
 			</div>

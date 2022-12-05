@@ -7,11 +7,12 @@ import ResendButton from '@/components/ResendButton'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { verifyCode, isVerifyCodeError } from '@/services/phone'
 
-const getParams = ({ processing, phoneNumber, code, actionId, setStage, setProcessing }: IDKitStore) => ({
+const getParams = ({ processing, phoneNumber, code, actionId, setStage, setProcessing, setCode }: IDKitStore) => ({
 	processing,
 	phoneNumber,
 	code,
 	actionId,
+	setCode,
 	onSubmit: async () => {
 		try {
 			setProcessing(true)
@@ -21,6 +22,7 @@ const getParams = ({ processing, phoneNumber, code, actionId, setStage, setProce
 			setStage(IDKITStage.SUCCESS)
 		} catch (error) {
 			setProcessing(false)
+			setCode('')
 			if (isVerifyCodeError(error)) {
 				// FIXME: show error toast here
 				console.error(error)
@@ -81,7 +83,7 @@ const VerifyCodeState = () => {
 				>
 					{/* FIXME: Loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
-						Continue
+						{processing ? 'Loading ...' : 'Continue'}
 					</motion.span>
 				</motion.button>
 			</div>

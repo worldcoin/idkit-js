@@ -149,6 +149,7 @@ const SMSCodeInput = ({ submitRef, disabled }: { submitRef: RefObject<HTMLButton
 					value={values[i]}
 					inputMode="numeric"
 					autoComplete="one-time-code"
+					autoFocus={i === 0}
 					onFocus={() => onInputFocus(i)}
 					onPaste={event => onInputPaste(event, i)}
 					onChange={event => onInputChange(event, i)}

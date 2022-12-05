@@ -5,6 +5,9 @@ const API_BASE_URL = 'https://developer.worldcoin.org/api/v1'
 export async function requestCode(phone_number: string, action_id: string, ph_distinct_id: string) {
 	const res = await fetch(`${API_BASE_URL}/phone/request`, {
 		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
 		body: JSON.stringify({
 			phone_number,
 			action_id,
@@ -21,6 +24,9 @@ export async function requestCode(phone_number: string, action_id: string, ph_di
 export async function verifyCode(phone_number: string, code: string, action_id: string, ph_distinct_id: string) {
 	const res = await fetch(`${API_BASE_URL}/phone/verify`, {
 		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
 		body: JSON.stringify({
 			phone_number,
 			code,
