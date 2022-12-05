@@ -23,6 +23,7 @@
 		"dev:styles-watch": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --watch",
 		"typecheck": "tsc",
 		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
+		"lint:fix": "eslint --ext .tsx,.ts,.js,.jsx ./ --fix",
 		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e node_modules -e pnpm-lock.yaml -e esbuild/",
 		"format": "prettier -w ./",
 		"format:check": "prettier --check ./"

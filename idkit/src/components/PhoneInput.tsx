@@ -19,7 +19,7 @@ const PhoneInput = () => {
 		}
 
 		setFullPhone(validatedPhone.phoneNumber)
-	}, [countryCode, phoneNumber])
+	}, [countryCode, phoneNumber, setFullPhone])
 
 	return (
 		<div>

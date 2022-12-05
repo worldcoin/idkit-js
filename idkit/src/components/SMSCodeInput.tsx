@@ -156,7 +156,7 @@ const SMSCodeInput = ({ submitRef }: { submitRef: RefObject<HTMLButtonElement> }
 					onPaste={event => onInputPaste(event, i)}
 					onChange={event => onInputChange(event, i)}
 					onKeyDown={event => onInputKeyDown(event, i)}
-					className="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
+					className="h-14 w-12 rounded-xl border-0 bg-gray-100 text-center"
 				/>
 			))}
 		</fieldset>
