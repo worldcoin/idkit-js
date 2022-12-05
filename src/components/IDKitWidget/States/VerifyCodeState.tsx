@@ -48,7 +48,7 @@ const VerifyCodeState = () => {
 			<form className="mt-2 space-y-2">
 				<SMSCodeInput submitRef={submitRef} disabled={processing} />
 				<p className="text-xs text-center text-gray-400">
-					Didn&apos;t receive a code? <ResendButton /> or{' '}
+					Did not receive a code? <ResendButton /> or{' '}
 					<button type="button" className="text-indigo-600 font-medium">
 						Call me
 					</button>
