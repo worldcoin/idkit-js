@@ -1,5 +1,6 @@
 import root from 'react-shadow'
 import { FC, useMemo } from 'react'
+import { IDKITStage } from '@/types'
 import builtStyles from '@build/index.css'
 import ErrorState from './States/ErrorState'
 import SuccessState from './States/SuccessState'
@@ -10,7 +11,7 @@ import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
-import useIDKitStore, { IDKITStage, IDKitStore } from '@/store/idkit'
+import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
 const getParams = ({ open, onOpenChange, stage, setStage }: IDKitStore) => ({

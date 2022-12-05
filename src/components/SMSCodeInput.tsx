@@ -11,7 +11,7 @@ const fillValues = (value: string): Array6<string> => {
 
 const getParams = ({ setCode }: IDKitStore) => ({ setCode })
 
-const SMSCodeInput = ({ submitRef }: { submitRef: RefObject<HTMLButtonElement> }) => {
+const SMSCodeInput = ({ submitRef, disabled }: { submitRef: RefObject<HTMLButtonElement>; disabled?: boolean }) => {
 	const { setCode } = useIDKitStore(getParams)
 
 	const inputsRefs = useMemo(() => new Array(6).fill(null).map(() => createRef<HTMLInputElement>()), [])
@@ -149,11 +149,13 @@ const SMSCodeInput = ({ submitRef }: { submitRef: RefObject<HTMLButtonElement> }
 					value={values[i]}
 					inputMode="numeric"
 					autoComplete="one-time-code"
+					autoFocus={i === 0}
 					onFocus={() => onInputFocus(i)}
 					onPaste={event => onInputPaste(event, i)}
 					onChange={event => onInputChange(event, i)}
 					onKeyDown={event => onInputKeyDown(event, i)}
 					className="w-12 h-14 border-0 bg-gray-100 rounded-xl text-center"
+					disabled={disabled}
 				/>
 			))}
 		</fieldset>

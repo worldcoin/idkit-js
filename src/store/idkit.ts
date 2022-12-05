@@ -1,26 +1,21 @@
 import create from 'zustand'
-
-export enum IDKITStage {
-	ENTER_PHONE = 'ENTER_PHONE',
-	ENTER_CODE = 'ENTER_CODE',
-	WORLD_ID = 'WORLD_ID',
-	SUCCESS = 'SUCCESS',
-	ERROR = 'ERROR',
-}
+import { IDKITStage } from '@/types'
 
 export type IDKitStore = {
 	open: boolean
+	phoneNumber: string
 	code: string
 	actionId: string
 	stage: IDKITStage
-	phoneNumber: string
+	processing: boolean // Whether an async request is being processed and we show a loading state in the UI
 	retryFlow: () => void
-	setCode: (code: string) => void
 	setOpen: (open: boolean) => void
 	onOpenChange: (open: boolean) => void
 	setStage: (stage: IDKITStage) => void
 	setActionId: (actionId: string) => void
 	setPhoneNumber: (phoneNumber: string) => void
+	setCode: (code: string) => void
+	setProcessing: (processing: boolean) => void
 }
 
 const useIDKitStore = create<IDKitStore>()(set => ({
@@ -29,16 +24,17 @@ const useIDKitStore = create<IDKitStore>()(set => ({
 	actionId: '',
 	phoneNumber: '',
 	stage: IDKITStage.ENTER_PHONE,
+	processing: false,
 	setOpen: open => set({ open }),
+	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setCode: code => set({ code }),
+	setActionId: actionId => set({ actionId }),
 	setStage: stage => set({ stage }),
-	setActionId: (actionId: string) => set({ actionId }),
-	setPhoneNumber: (phoneNumber: string) => set({ phoneNumber }),
 	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
+	setProcessing: (processing: boolean) => set({ processing }),
 	onOpenChange: open => {
 		if (open) return set({ open })
-
-		set({ open, phoneNumber: '', stage: IDKITStage.ENTER_PHONE })
+		set({ open, phoneNumber: '', code: '', processing: false, stage: IDKITStage.ENTER_PHONE })
 	},
 }))
 

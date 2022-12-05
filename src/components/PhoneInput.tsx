@@ -1,11 +1,11 @@
 import { phone } from 'phone'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import CountryCodeSelect from './CountryCodeSelect'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
 
 const getParams = ({ setPhoneNumber }: IDKitStore) => ({ setFullPhone: setPhoneNumber })
 
-const PhoneInput = () => {
+const PhoneInput = ({ disabled, onSubmit }: { disabled?: boolean; onSubmit?: () => Promise<void> | void }) => {
 	const { setFullPhone } = useIDKitStore(getParams)
 	const [countryCode, setCountryCode] = useState<string>('1')
 	const [phoneNumber, setPhoneNumber] = useState<string>('')
@@ -40,10 +40,12 @@ const PhoneInput = () => {
 					placeholder="Phone number"
 					onChange={e => setPhoneNumber(e.target.value)}
 					className="block w-full rounded-md border-transparent bg-transparent pl-24 focus:ring-transparent focus:border-transparent sm:text-sm"
+					disabled={disabled}
+					onKeyDown={e => e.key === 'Enter' && onSubmit?.()}
 				/>
 			</div>
 		</div>
 	)
 }
 
-export default PhoneInput
+export default memo(PhoneInput)
