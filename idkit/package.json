@@ -12,13 +12,15 @@
 	],
 	"scripts": {
 		"build": "npm-run-all clean build:*",
+		"build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify",
 		"build:declarations": "tsc && tsc-alias",
 		"build:esm": "node esbuild/production.js -p esm",
 		"build:iife": "node esbuild/production.js -p iife",
 		"clean": "rimraf build/",
-		"dev": "npm-run-all clean --parallel dev:*",
+		"dev": "npm-run-all clean dev:styles --parallel dev:*",
+		"dev:styles": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css",
 		"dev:bundle": "node esbuild/development.js",
-		"dev:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --watch",
+		"dev:styles-watch": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --watch",
 		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./"
 	},
 	"dependencies": {
@@ -37,7 +39,9 @@
 		"react-countdown": "^2.3.4",
 		"react-country-flag": "^3.0.2",
 		"typescript": "4.9.3",
-		"zustand": "^4.1.4"
+		"zustand": "^4.1.4",
+		"react-frame-component": "^5.2.3",
+		"react-shadow": "^19.0.3"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.20.2",

@@ -15,6 +15,7 @@
 		"outDir": "./build",
 		"paths": {
 			"@/*": ["src/*"],
+			"@build/*": ["build/*"],
 			"@images/*": ["public/images/*"]
 		},
 		"resolveJsonModule": true,
