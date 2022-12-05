@@ -2,7 +2,7 @@ import { classNames } from '@/lib/utils'
 import ReactCountryFlag from 'react-country-flag'
 import { allCountries } from 'country-telephone-data'
 import { Listbox, Transition } from '@headlessui/react'
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 
 type Props = {
@@ -15,7 +15,6 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 
 	useEffect(() => {
 		onChange(allCountries.find(country => country.iso2 === countryCode)!.dialCode)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [countryCode])
 
 	return (

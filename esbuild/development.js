@@ -5,8 +5,6 @@ const require = createRequire(import.meta.url)
 
 import config from './config.js'
 
-const PORT = 3000
-
 const clients = []
 
 esbuild

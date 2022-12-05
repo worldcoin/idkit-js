@@ -3,6 +3,7 @@
 type Fetch = (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>
 
 declare global {
+	// eslint-disable-next-line no-var
 	var cleanFetch: Fetch
 }
 
@@ -21,6 +22,7 @@ const getCleanFetch = () => {
 let cleanFetch: Fetch
 
 if (!global.cleanFetch) global.cleanFetch = getCleanFetch()
+// eslint-disable-next-line prefer-const
 cleanFetch = global.cleanFetch
 
 export default cleanFetch

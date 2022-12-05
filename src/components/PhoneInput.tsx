@@ -18,7 +18,6 @@ const PhoneInput = () => {
 		}
 
 		setFullPhone(validatedPhone.phoneNumber)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [countryCode, phoneNumber])
 
 	return (
