@@ -9,18 +9,17 @@ const getParams = ({ setPhoneNumber }: IDKitStore) => ({ setFullPhone: setPhoneN
 const PhoneInput = () => {
 	const { setFullPhone } = useIDKitStore(getParams)
 	const [countryCode, setCountryCode] = useState<string>('1')
-	const [phoneInput, setPhoneInput] = useState<string>('')
+	const [phoneNumber, setPhoneNumber] = useState<string>('')
 
 	useEffect(() => {
-		const validatedPhone = phone(`+${countryCode} ${phoneInput}`)
+		const validatedPhone = phone(`+${countryCode} ${phoneNumber}`)
 		if (!validatedPhone.isValid) {
 			setFullPhone('')
 			return
 		}
 
 		setFullPhone(validatedPhone.phoneNumber)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [countryCode, phoneInput])
+	}, [countryCode, phoneNumber])
 
 	return (
 		<div>
@@ -38,9 +37,9 @@ const PhoneInput = () => {
 					type="tel"
 					id="phone-number"
 					name="phone-number"
-					value={phoneInput}
+					value={phoneNumber}
 					placeholder="Phone number"
-					onChange={e => setPhoneInput(e.target.value)}
+					onChange={e => setPhoneNumber(e.target.value)}
 					className="block w-full rounded-md border-transparent bg-transparent pl-24 focus:border-transparent focus:ring-transparent sm:text-sm"
 				/>
 			</div>

@@ -14,14 +14,8 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 	const [countryCode, setCountryCode] = useState<string>('us')
 
 	useEffect(() => {
-		const filteredCountries = allCountries.find(country => country.iso2 === countryCode)
-
-		if (!filteredCountries) {
-			return
-		}
-
-		onChange(filteredCountries.dialCode)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		onChange(allCountries.find(country => country.iso2 === countryCode)!.dialCode)
 	}, [countryCode])
 
 	return (

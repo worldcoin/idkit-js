@@ -19,16 +19,16 @@ const VerifyCodeState = () => {
 	return (
 		<div className="space-y-6">
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900">
-					Verify your phone number for free gassless transactions.
+				<p className="font-semibold text-2xl text-gray-900 text-center">
+					Verify your phone number for free gasless transactions.
 				</p>
 				<p className="mt-2 text-center text-gray-500">We&apos;ll take care of the rest!</p>
 			</div>
 			<form className="mt-2 space-y-2">
 				<SMSCodeInput submitRef={submitRef} />
-				<p className="text-center text-xs text-gray-400">
-					Didn&apos;t receive a code? <ResendButton /> or{' '}
-					<button type="button" className="font-medium text-indigo-600">
+				<p className="text-xs text-center text-gray-400">
+					Did not receive a code? <ResendButton /> or{' '}
+					<button type="button" className="text-indigo-600 font-medium">
 						Call me
 					</button>
 				</p>

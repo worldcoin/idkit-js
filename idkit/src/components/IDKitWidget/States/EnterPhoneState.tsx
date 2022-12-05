@@ -16,8 +16,8 @@ const EnterPhoneState = () => {
 	return (
 		<div className="space-y-6">
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900">
-					Verify your phone number for free gassless transactions.
+				<p className="font-semibold text-2xl text-gray-900 text-center">
+					Verify your phone number for free gasless transactions.
 				</p>
 				<p className="mt-2 text-center text-gray-500">We&apos;ll take care of the rest!</p>
 			</div>
