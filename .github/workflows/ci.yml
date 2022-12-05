@@ -1,99 +1,98 @@
 name: CI
 
 on:
-  - pull_request
+    - pull_request
 
 jobs:
-  lint:
-    name: Source code formatting & spellcheck
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
+    lint:
+        name: Source code formatting & spellcheck
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v3
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 7.17.1
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 7.17.1
 
-      - name: Set up Node 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "pnpm"
+            - name: Set up Node 16
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache: 'pnpm'
 
-      - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm i --frozen-lockfile
 
-      - name: Check formatting with Prettier
-        run: pnpm format:check
+            - name: Check formatting with Prettier
+              run: pnpm format:check
 
-      - name: Spellcheck
-        run: pnpm spellcheck
+            - name: Spellcheck
+              run: pnpm spellcheck
 
-  typecheck:
-    name: Typecheck & linting
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
+    typecheck:
+        name: Typecheck & linting
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v3
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 7.17.1
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 7.17.1
 
-      - name: Set up Node 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "pnpm"
+            - name: Set up Node 16
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache: 'pnpm'
 
-      - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm i --frozen-lockfile
 
-      - name: Lint with ESLint
-        run: pnpm lint
+            - name: Lint with ESLint
+              run: pnpm lint
 
-      - name: Check Typescript
-        run: |
-          pnpm typecheck
+            - name: Check Typescript
+              run: |
+                  pnpm typecheck
 
-  # TODO: We need to add tests
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-20.04
-  #   steps:
-  #     - uses: actions/checkout@v3
+    # TODO: We need to add tests
+    # test:
+    #   name: Test
+    #   runs-on: ubuntu-20.04
+    #   steps:
+    #     - uses: actions/checkout@v3
 
-  #     - name: Set up Node 16
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #         cache: "pnpm"
+    #     - name: Set up Node 16
+    #       uses: actions/setup-node@v3
+    #       with:
+    #         node-version: 16
+    #         cache: "pnpm"
 
-  #     - name: Install dependencies
-  #       run: pnpm i --frozen-lockfile
+    #     - name: Install dependencies
+    #       run: pnpm i --frozen-lockfile
 
-  #     - name: Run tests
-  #       run: yarn test
+    #     - name: Run tests
+    #       run: yarn test
 
-  test-build:
-    name: Test production build
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
+    test-build:
+        name: Test production build
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v3
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 7.17.1
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 7.17.1
 
-      - name: Set up Node 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "pnpm"
+            - name: Set up Node 16
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache: 'pnpm'
 
-      - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm i --frozen-lockfile
 
-      - name: Build
-        working-directory: ./id
-        run: |
-          pnpm build
+            - name: Build
+              run: |
+                  pnpm build
