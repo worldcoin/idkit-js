@@ -14,6 +14,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 	const [countryCode, setCountryCode] = useState<string>('us')
 
 	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		onChange(allCountries.find(country => country.iso2 === countryCode)!.dialCode)
 	}, [countryCode])
 
