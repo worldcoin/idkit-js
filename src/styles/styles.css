@@ -1,4 +1,4 @@
-// TODO: Use an alternative to avoid the extra request to Google (e.g. hosting ourselves, or local file)
+/* TODO: Use an alternative to avoid the extra request to Google (e.g. hosting ourselves, or local file)  */
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300..700&display=swap');
 @tailwind base;
 @tailwind components;

@@ -17,6 +17,7 @@ const Frame: FC<Props> = ({ children, ...props }) => {
 
 	return (
 		<iframe sandbox="allow-scripts allow-same-origin" src="about:blank" ref={frameRef} {...props}>
+			{/* @ts-ignore */}
 			{frameHead && createPortal(<style>{builtStyles}</style>, frameHead)}
 			{container && createPortal(children, container)}
 		</iframe>
