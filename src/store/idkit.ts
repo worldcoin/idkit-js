@@ -1,5 +1,5 @@
-import { IDKITStage } from '@/types'
 import create from 'zustand'
+import { IDKITStage } from '@/types'
 
 export type IDKitStore = {
 	open: boolean
@@ -34,7 +34,7 @@ const useIDKitStore = create<IDKitStore>()(set => ({
 	setProcessing: (processing: boolean) => set({ processing }),
 	onOpenChange: open => {
 		if (open) return set({ open })
-		set({ open, phoneNumber: '', code:'', processing:false, stage: IDKITStage.ENTER_PHONE })
+		set({ open, phoneNumber: '', code: '', processing: false, stage: IDKITStage.ENTER_PHONE })
 	},
 }))
 

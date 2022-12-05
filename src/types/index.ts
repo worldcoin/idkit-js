@@ -1,5 +1,3 @@
-
-
 export enum IDKITStage {
 	ENTER_PHONE = 'ENTER_PHONE',
 	ENTER_CODE = 'ENTER_CODE',
@@ -9,7 +7,7 @@ export enum IDKITStage {
 }
 
 export interface IPhoneSignal {
-	success: true;
-	nullifier_hash: string;
-	signature: string;
+	success: true
+	nullifier_hash: string
+	signature: string
 }
