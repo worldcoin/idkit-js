@@ -24,7 +24,7 @@
 		"typecheck": "tsc",
 		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
 		"lint:fix": "eslint --ext .tsx,.ts,.js,.jsx ./ --fix",
-		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e node_modules -e pnpm-lock.yaml -e esbuild/",
+		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e build/ -e node_modules -e pnpm-lock.yaml -e esbuild/",
 		"format": "prettier -w ./",
 		"format:check": "prettier --check ./"
 	},
