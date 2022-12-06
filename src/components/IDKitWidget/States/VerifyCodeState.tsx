@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ErrorState, IDKITStage } from '@/types'
 import WorldIDIcon from '@/components/WorldIDIcon'
@@ -54,6 +54,12 @@ const VerifyCodeState = () => {
 	const submitRef = useRef<HTMLButtonElement>(null)
 	const { processing, code, onSubmit, useWorldID, errorState } = useIDKitStore(getParams)
 
+	const animation = useMemo(() => {
+		if (!processing && errorState) {
+			return { x:[ 0, -16, 16, -8, 8, 0 ]}
+		}
+	}, [processing, errorState])
+
 	return (
 		<div className="space-y-6">
 			<div>
@@ -64,7 +70,12 @@ const VerifyCodeState = () => {
 				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<form className="mt-2 space-y-2">
-				<SMSCodeInput submitRef={submitRef} disabled={processing} />
+				<motion.div
+					animate={animation}
+					transition={{ type: 'spring', stiffness: 30 }}
+				>
+					<SMSCodeInput submitRef={submitRef} disabled={processing} />
+				</motion.div>
 				<p className="text-xs text-center text-gray-400">
 					{errorState ? (
 						<span className="text-red-400">That code is invalid. Please try again.</span>
