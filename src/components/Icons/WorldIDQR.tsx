@@ -190,32 +190,32 @@ const WorldIDQR = ({ className = '' }) => (
 		/>
 		<defs>
 			<linearGradient id="b" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="c" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="d" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="e" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="f" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="g" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<linearGradient id="h" x1="188.378" x2="100.564" y1="93.493" y2="106.103" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#FF6848" />
-				<stop offset="1" stop-color="#5645F5" />
+				<stop stopColor="#FF6848" />
+				<stop offset="1" stopColor="#5645F5" />
 			</linearGradient>
 			<clipPath id="a">
 				<path fill="#fff" d="M0 0h304v304H0z" />
