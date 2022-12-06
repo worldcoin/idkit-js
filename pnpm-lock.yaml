@@ -18,6 +18,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.45.0
   '@typescript-eslint/parser': ^5.45.0
   autoprefixer: ^10.4.13
+  construct-style-sheets-polyfill: ^3.1.0
   country-telephone-data: ^0.6.3
   cspell: ^6.16.0
   esbuild: 0.14.43
@@ -81,6 +82,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 5.45.0_yjegg5cyoezm3fzsmuszzhetym
   '@typescript-eslint/parser': 5.45.0_s5ps7njkmjlaqajutnox5ntcla
   autoprefixer: 10.4.13_postcss@8.4.19
+  construct-style-sheets-polyfill: 3.1.0
   cspell: 6.16.0
   esbuild: 0.14.43
   esbuild-jest: 0.5.0_esbuild@0.14.43
@@ -2035,6 +2037,10 @@ packages:
       unique-string: 2.0.0
       write-file-atomic: 3.0.3
       xdg-basedir: 4.0.0
+    dev: true
+
+  /construct-style-sheets-polyfill/3.1.0:
+    resolution: {integrity: sha512-HBLKP0chz8BAY6rBdzda11c3wAZeCZ+kIG4weVC2NM3AXzxx09nhe8t0SQNdloAvg5GLuHwq/0SPOOSPvtCcKw==}
     dev: true
 
   /convert-source-map/1.9.0:
