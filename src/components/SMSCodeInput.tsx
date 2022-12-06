@@ -9,14 +9,20 @@ const fillValues = (value: string): Array6<string> => {
 	return new Array(6).fill('').map((_, index) => value[index] ?? '') as Array6<string>
 }
 
-const getParams = ({ setCode }: IDKitStore) => ({ setCode })
+const getParams = ({ code, setCode }: IDKitStore) => ({ code, setCode })
 
 const SMSCodeInput = ({ submitRef, disabled }: { submitRef: RefObject<HTMLButtonElement>; disabled?: boolean }) => {
-	const { setCode } = useIDKitStore(getParams)
+	const { code, setCode } = useIDKitStore(getParams)
 
 	const inputsRefs = useMemo(() => new Array(6).fill(null).map(() => createRef<HTMLInputElement>()), [])
 	const [values, setValues] = useState<Array6<string>>(fillValues(''))
 	const [focusedIndex, setFocusedIndex] = useState<number>(-1)
+
+	useEffect(() => {
+		if (!code) {
+			setValues(fillValues(''))
+		}
+	}, [code])
 
 	const selectInputContent = useCallback(
 		(index: number) => {
