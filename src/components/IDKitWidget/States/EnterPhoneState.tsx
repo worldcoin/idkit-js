@@ -1,18 +1,30 @@
-import { IDKITStage } from '@/types'
+import { ErrorState, IDKITStage } from '@/types'
 import { motion } from 'framer-motion'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { requestCode, isRequestCodeError } from '@/services/phone'
+import * as Toast from '@radix-ui/react-toast'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ processing, phoneNumber, actionId, setStage, setProcessing }: IDKitStore) => ({
+const getParams = ({
 	processing,
+	errorState,
+	phoneNumber,
+	actionId,
+	setStage,
+	setProcessing,
+	setErrorState
+}: IDKitStore) => ({
+	processing,
+	errorState,
 	phoneNumber,
 	actionId,
 	useWorldID: () => setStage(IDKITStage.WORLD_ID),
 	onSubmit: async () => {
 		try {
 			setProcessing(true)
+			setErrorState(null)
 			// FIXME: ph_distinct_id
 			await requestCode(phoneNumber, actionId, '')
 			setProcessing(false)
@@ -20,20 +32,33 @@ const getParams = ({ processing, phoneNumber, actionId, setStage, setProcessing 
 		} catch (error) {
 			setProcessing(false)
 			if (isRequestCodeError(error) && error.code !== 'server_error') {
-				// FIXME: Error toast here
+				setErrorState(ErrorState.GENERIC_ERROR)
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)
 			}
 		}
 	},
+	onResetErrorState: () => {
+		setErrorState(null)
+	}
 })
 
 const EnterPhoneState = () => {
-	const { phoneNumber, processing, useWorldID, onSubmit } = useIDKitStore(getParams)
+	const { phoneNumber, processing, errorState, onResetErrorState, useWorldID, onSubmit } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
+			<Toast.Root
+				className="absolute flex gap-4 -mt-1 p-3 bg-[#fecaca] rounded-md"
+				open={!!errorState}
+				onOpenChange={onResetErrorState}
+			>
+				<Toast.Title className="font-medium text-xs text-red-600">Something went wrong. Please try again.</Toast.Title>
+				<Toast.Action altText="Close">
+					<XMarkIcon className="h-4 w-4" />
+				</Toast.Action>
+			</Toast.Root>
 			<div>
 				<p className="font-semibold text-2xl text-gray-900 text-center">
 					{/* TODO: Caption should be a config option */}
