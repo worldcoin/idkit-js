@@ -49,7 +49,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
 			<Dialog.Portal forceMount>
-				<root.div styleSheets={[builtStyles]} mode="closed" id="idkit-widget">
+				<root.div styleSheets={[builtStyles]} mode="open" id="idkit-widget">
 					<AnimatePresence>
 						{isOpen && (
 							<div className="fixed z-10 font-sans" id="modal">
@@ -61,8 +61,8 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 										className="fixed inset-0 bg-black/50 backdrop-filter backdrop-blur-lg"
 									/>
 								</Dialog.Overlay>
-								<div className="fixed inset-0 z-10 overflow-y-auto">
-									<div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+								<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
+									<div className="flex min-h-full items-end justify-center md:p-4 text-center sm:items-center">
 										<Dialog.Content asChild>
 											<motion.div
 												layout
@@ -71,7 +71,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 												transition={{ layout: { duration: 0.15 } }}
 												exit={{ opacity: 0, transition: { duration: 0.2 } }}
 												className={
-													'relative z-50 w-[95vw] max-w-md rounded-3xl pt-6 md:w-full bg-white shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
+													'relative w-full z-50 max-w-md rounded-t-3xl md:rounded-b-3xl pt-6 bg-white shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
 												}
 											>
 												<div className="flex items-center justify-between mb-12 mx-6">
@@ -101,7 +101,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 												>
 													<StageContent />
 												</motion.div>
-												<div className="bg-gray-100 rounded-b-3xl flex items-center justify-between py-3 px-6">
+												<div className="bg-gray-100 md:rounded-b-3xl flex items-center justify-between py-3 px-6">
 													<p className="text-sm text-gray-400 flex items-center space-x-1">
 														<span>Verified with</span>{' '}
 														<a

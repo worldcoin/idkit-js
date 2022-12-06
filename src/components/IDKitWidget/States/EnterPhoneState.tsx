@@ -39,7 +39,7 @@ const EnterPhoneState = () => {
 					{/* TODO: Caption should be a config option */}
 					Verify your phone number for free gasless transactions.
 				</p>
-				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
+				<p className="text-gray-500 text-center mt-3 md:mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />
