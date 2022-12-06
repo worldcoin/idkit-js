@@ -13,6 +13,40 @@ type Props = {
 
 const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 	const [countryCode, setCountryCode] = useState<string>('us')
+	const listRef = useRef<HTMLUListElement>(null)
+
+	// FIXME: temporary solution for scroll list
+	useEffect(() => {
+		const List = listRef.current
+
+		if (!List) {
+			return
+		}
+
+		let touchY = 0
+
+		const handleWheel = (e: WheelEvent) => {
+			List.scrollTop += e.deltaY
+		}
+
+		const handleTouchStart = (e: TouchEvent) => {
+			touchY = List.scrollTop + e.touches[0].pageY
+		}
+
+		const handleTouchMove = (e: TouchEvent) => {
+			List.scrollTop = touchY - e.touches[0].pageY
+		}
+
+		List.addEventListener('wheel', handleWheel)
+		List.addEventListener('touchstart', handleTouchStart)
+		List.addEventListener('touchmove', handleTouchMove)
+
+		return () => {
+			List.removeEventListener('wheel', handleWheel)
+			List.removeEventListener('touchstart', handleTouchStart)
+			List.removeEventListener('touchmove', handleTouchMove)
+		}
+	}, [])
 
 	useEffect(() => {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -48,8 +82,11 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 						leave="transition ease-in duration-100"
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
+						unmount={false}
 					>
 						<Listbox.Options
+							unmount={false}
+							ref={listRef}
 							className="absolute z-10 inset-x-0 top-full mt-1.5 min-w-[calc(100vw_-_48px)] md:min-w-[20rem] max-h-[var(--max-h,_0px)] md:max-h-96 w-full px-2 overflow-y-scroll rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 							style={
 								{
