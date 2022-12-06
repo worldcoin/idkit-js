@@ -1,11 +1,11 @@
-import { ErrorState, IDKITStage } from '@/types'
 import { motion } from 'framer-motion'
+import * as Toast from '@radix-ui/react-toast'
+import { ErrorState, IDKITStage } from '@/types'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { requestCode, isRequestCodeError } from '@/services/phone'
-import * as Toast from '@radix-ui/react-toast'
-import { XMarkIcon } from '@heroicons/react/20/solid'
 
 const getParams = ({
 	processing,
@@ -14,7 +14,7 @@ const getParams = ({
 	actionId,
 	setStage,
 	setProcessing,
-	setErrorState
+	setErrorState,
 }: IDKitStore) => ({
 	processing,
 	errorState,
@@ -41,7 +41,7 @@ const getParams = ({
 	},
 	onResetErrorState: () => {
 		setErrorState(null)
-	}
+	},
 })
 
 const EnterPhoneState = () => {
@@ -54,7 +54,9 @@ const EnterPhoneState = () => {
 				open={!!errorState}
 				onOpenChange={onResetErrorState}
 			>
-				<Toast.Title className="font-medium text-xs text-red-600">Something went wrong. Please try again.</Toast.Title>
+				<Toast.Title className="font-medium text-xs text-red-600">
+					Something went wrong. Please try again.
+				</Toast.Title>
 				<Toast.Action altText="Close">
 					<XMarkIcon className="h-4 w-4" />
 				</Toast.Action>

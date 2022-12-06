@@ -22,9 +22,7 @@ const SMSCodeInput = ({ submitRef, disabled }: { submitRef: RefObject<HTMLButton
 		if (!code) {
 			setValues(fillValues(''))
 		}
-	}, [
-		code
-	])
+	}, [code])
 
 	const selectInputContent = useCallback(
 		(index: number) => {

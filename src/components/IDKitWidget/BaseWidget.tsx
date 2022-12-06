@@ -3,10 +3,10 @@ import { FC, useMemo } from 'react'
 import { IDKITStage } from '@/types'
 import builtStyles from '@build/index.css'
 import ErrorState from './States/ErrorState'
+import * as Toast from '@radix-ui/react-toast'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
-import * as Toast from '@radix-ui/react-toast'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
@@ -76,13 +76,15 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 												}
 											>
 												<Toast.Provider>
-													<Toast.Viewport className="flex justify-center"/>
+													<Toast.Viewport className="flex justify-center" />
 													<div className="flex items-center justify-between mb-12 mx-6">
 														{stage == IDKITStage.ENTER_PHONE ? (
 															<button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
 																<QuestionMarkIcon className="w-1.5" />
 															</button>
-														) : [IDKITStage.ENTER_CODE, IDKITStage.WORLD_ID].includes(stage) ? (
+														) : [IDKITStage.ENTER_CODE, IDKITStage.WORLD_ID].includes(
+																stage
+														  ) ? (
 															<button
 																onClick={() => setStage(IDKITStage.ENTER_PHONE)}
 																className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center"

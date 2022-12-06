@@ -1,5 +1,5 @@
-import { useMemo, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { useMemo, useRef } from 'react'
 import { ErrorState, IDKITStage } from '@/types'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import SMSCodeInput from '@/components/SMSCodeInput'
@@ -56,7 +56,7 @@ const VerifyCodeState = () => {
 
 	const animation = useMemo(() => {
 		if (!processing && errorState) {
-			return { x:[ 0, -16, 16, -8, 8, 0 ]}
+			return { x: [0, -16, 16, -8, 8, 0] }
 		}
 	}, [processing, errorState])
 
@@ -70,10 +70,7 @@ const VerifyCodeState = () => {
 				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<form className="mt-2 space-y-2">
-				<motion.div
-					animate={animation}
-					transition={{ type: 'spring', stiffness: 30 }}
-				>
+				<motion.div animate={animation} transition={{ type: 'spring', stiffness: 30 }}>
 					<SMSCodeInput submitRef={submitRef} disabled={processing} />
 				</motion.div>
 				<p className="text-xs text-center text-gray-400">
