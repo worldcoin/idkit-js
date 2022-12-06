@@ -11,3 +11,8 @@ export interface IPhoneSignal {
 	nullifier_hash: string
 	signature: string
 }
+
+export enum ErrorState {
+	GENERIC_ERROR = 'GENERIC_ERROR',
+	INVALID_CODE = 'INVALID_CODE', // OTP code is invalid
+}

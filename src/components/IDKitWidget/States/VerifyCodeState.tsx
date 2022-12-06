@@ -1,30 +1,46 @@
 import { useRef } from 'react'
-import { IDKITStage } from '@/types'
 import { motion } from 'framer-motion'
+import { ErrorState, IDKITStage } from '@/types'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import SMSCodeInput from '@/components/SMSCodeInput'
 import ResendButton from '@/components/ResendButton'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { verifyCode, isVerifyCodeError } from '@/services/phone'
 
-const getParams = ({ processing, phoneNumber, code, actionId, setStage, setProcessing, setCode }: IDKitStore) => ({
+const getParams = ({
 	processing,
 	phoneNumber,
 	code,
 	actionId,
+	setStage,
+	setProcessing,
 	setCode,
+	setErrorState,
+	errorState,
+}: IDKitStore) => ({
+	processing,
+	phoneNumber,
+	code,
+	actionId,
+	errorState,
+	setCode,
+	setErrorState,
 	onSubmit: async () => {
 		try {
+			setErrorState(null)
 			setProcessing(true)
 			// FIXME: Add ph_distinct_id
-			await verifyCode(phoneNumber, code, actionId, '')
+			const { nullifier_hash, signature } = await verifyCode(phoneNumber, code, actionId, '')
+			console.log('nullifier_hash', nullifier_hash)
+			console.log('signature', signature)
+			// FIXME: nullifier_hash & signature should be passed to the end client
 			setProcessing(false)
 			setStage(IDKITStage.SUCCESS)
 		} catch (error) {
 			setProcessing(false)
 			setCode('')
 			if (isVerifyCodeError(error)) {
-				// FIXME: show error toast here
+				setErrorState(ErrorState.INVALID_CODE)
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)
@@ -36,7 +52,7 @@ const getParams = ({ processing, phoneNumber, code, actionId, setStage, setProce
 
 const VerifyCodeState = () => {
 	const submitRef = useRef<HTMLButtonElement>(null)
-	const { processing, code, onSubmit, useWorldID } = useIDKitStore(getParams)
+	const { processing, code, onSubmit, useWorldID, errorState } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
@@ -50,7 +66,12 @@ const VerifyCodeState = () => {
 			<form className="mt-2 space-y-2">
 				<SMSCodeInput submitRef={submitRef} disabled={processing} />
 				<p className="text-xs text-center text-gray-400">
-					Did not receive a code? <ResendButton /> or{' '}
+					{errorState ? (
+						<span className="text-red-400">That code is invalid. Please try again.</span>
+					) : (
+						'Did not receive a code?'
+					)}{' '}
+					<ResendButton /> or{' '}
 					<button type="button" className="text-indigo-600 font-medium">
 						Call me
 					</button>
