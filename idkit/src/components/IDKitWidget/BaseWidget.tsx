@@ -1,9 +1,10 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
 import root from 'react-shadow'
+import { IDKITStage } from '@/types'
 import builtStyles from '@build/index.css'
 import ErrorState from './States/ErrorState'
-import type { IDKitStore } from '@/store/idkit'
+import * as Toast from '@radix-ui/react-toast'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
@@ -12,7 +13,7 @@ import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
-import useIDKitStore, { IDKITStage } from '@/store/idkit'
+import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
 const getParams = ({ open, onOpenChange, stage, setStage }: IDKitStore) => ({
@@ -50,7 +51,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
 			<Dialog.Portal forceMount>
-				<root.div styleSheets={[builtStyles]} mode="closed" id="idkit-widget">
+				<root.div styleSheets={[builtStyles]} mode="open" id="idkit-widget">
 					<AnimatePresence>
 						{isOpen && (
 							<div className="fixed z-10 font-sans" id="modal">
@@ -75,48 +76,53 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 													'relative z-50 w-[95vw] max-w-md rounded-3xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 md:w-full'
 												}
 											>
-												<div className="mx-6 mb-12 flex items-center justify-between">
-													{stage == IDKITStage.ENTER_PHONE ? (
-														<button className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
-															<QuestionMarkIcon className="w-1.5" />
-														</button>
-													) : [IDKITStage.ENTER_CODE, IDKITStage.WORLD_ID].includes(stage) ? (
-														<button
-															onClick={() => setStage(IDKITStage.ENTER_PHONE)}
-															className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100"
-														>
-															<ArrowLongLeftIcon className="w-4" />
-														</button>
-													) : null}
-													<Dialog.Title className="font-medium text-gray-900">
-														Enable dispatcher
-													</Dialog.Title>
-													<Dialog.Close className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
-														<XMarkIcon className="h-4 w-4" />
-													</Dialog.Close>
-												</div>
-												<motion.div
-													className="mx-6 mb-6"
-													layout="position"
-													transition={{ layout: { duration: 0.15 } }}
-												>
-													<StageContent />
-												</motion.div>
-												<div className="flex items-center justify-between rounded-b-3xl bg-gray-100 py-3 px-6">
-													<p className="flex items-center space-x-1 text-sm text-gray-400">
-														<span>Verified with</span>{' '}
-														<a
-															href="https://id.worldcoin.org"
-															target="_blank"
-															rel="noreferrer"
-														>
-															<WorldIDWordmark className="h-4 text-black" />
+												<Toast.Provider>
+													<Toast.Viewport className="flex justify-center" />
+													<div className="flex items-center justify-between mb-12 mx-6">
+														{stage == IDKITStage.ENTER_PHONE ? (
+															<button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+																<QuestionMarkIcon className="w-1.5" />
+															</button>
+														) : [IDKITStage.ENTER_CODE, IDKITStage.WORLD_ID].includes(
+																stage
+														  ) ? (
+															<button
+																onClick={() => setStage(IDKITStage.ENTER_PHONE)}
+																className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center"
+															>
+																<ArrowLongLeftIcon className="w-4" />
+															</button>
+														) : null}
+														<Dialog.Title className="font-medium text-gray-900">
+															Enable dispatcher
+														</Dialog.Title>
+														<Dialog.Close className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+															<XMarkIcon className="h-4 w-4" />
+														</Dialog.Close>
+													</div>
+													<motion.div
+														className="mb-6 mx-6"
+														layout="position"
+														transition={{ layout: { duration: 0.15 } }}
+													>
+														<StageContent />
+													</motion.div>
+													<div className="bg-gray-100 rounded-b-3xl flex items-center justify-between py-3 px-6">
+														<p className="text-sm text-gray-400 flex items-center space-x-1">
+															<span>Verified with</span>{' '}
+															<a
+																href="https://id.worldcoin.org"
+																target="_blank"
+																rel="noreferrer"
+															>
+																<WorldIDWordmark className="h-4 text-black" />
+															</a>
+														</p>
+														<a href="#" className="text-sm text-gray-400 hover:underline">
+															Privacy Policy
 														</a>
-													</p>
-													<a href="#!" className="text-sm text-gray-400 hover:underline">
-														Privacy Policy
-													</a>
-												</div>
+													</div>
+												</Toast.Provider>
 											</motion.div>
 										</Dialog.Content>
 									</div>
