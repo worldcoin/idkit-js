@@ -50,16 +50,23 @@ const EnterPhoneState = () => {
 	return (
 		<div className="space-y-6">
 			<Toast.Root
-				className="absolute flex gap-4 -mt-1 p-3 bg-[#fecaca] rounded-md"
+				className="absolute flex gap-4 -mt-1 p-3 bg-[#fecaca] rounded-md shadow-lg"
 				open={!!errorState}
 				onOpenChange={onResetErrorState}
+				asChild
 			>
-				<Toast.Title className="font-medium text-xs text-red-600">
-					Something went wrong. Please try again.
-				</Toast.Title>
-				<Toast.Action altText="Close">
-					<XMarkIcon className="h-4 w-4" />
-				</Toast.Action>
+				<motion.div
+					initial={{ opacity: 0, y: -40 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.3 }}
+				>
+					<Toast.Title className="font-medium text-xs text-red-600">
+						Something went wrong. Please try again.
+					</Toast.Title>
+					<Toast.Action altText="Close">
+						<XMarkIcon className="h-4 w-4" />
+					</Toast.Action>
+				</motion.div>
 			</Toast.Root>
 			<div>
 				<p className="font-semibold text-2xl text-gray-900 text-center">
