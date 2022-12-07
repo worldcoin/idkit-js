@@ -73,7 +73,7 @@ const EnterPhoneState = () => {
 					{/* TODO: Caption should be a config option */}
 					Verify your phone number for free gasless transactions.
 				</p>
-				<p className="mt-2 text-center text-gray-500">We&apos;ll take care of the rest!</p>
+				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />
@@ -86,10 +86,10 @@ const EnterPhoneState = () => {
 					<WorldIDIcon width={24} height={24} />
 					<p className="font-medium text-gray-500">I have World ID</p>
 				</div>
-				<span className="font-medium text-gray-400">&bull;</span>
+				<span className="text-gray-400 font-medium">&bull;</span>
 				<button
 					onClick={useWorldID}
-					className="bg-gradient-to-r from-[#FF6848] to-[#4940E0] bg-clip-text font-medium text-transparent"
+					className="font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#FF6848] to-[#4940E0]"
 				>
 					Verify human
 				</button>

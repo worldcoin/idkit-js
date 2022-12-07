@@ -67,7 +67,7 @@ const VerifyCodeState = () => {
 					{/* TODO: Allow app to set this caption from settings */}
 					Verify your phone number for free gasless transactions.
 				</p>
-				<p className="mt-2 text-center text-gray-500">We&apos;ll take care of the rest!</p>
+				<p className="text-gray-500 text-center mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<form className="mt-2 space-y-2">
 				<motion.div animate={animation} transition={{ type: 'spring', stiffness: 30 }}>
@@ -90,11 +90,11 @@ const VerifyCodeState = () => {
 					<WorldIDIcon width={24} height={24} />
 					<p className="font-medium text-gray-500">I have World ID</p>
 				</div>
-				<span className="font-medium text-gray-400">&bull;</span>
+				<span className="text-gray-400 font-medium">&bull;</span>
 				<button
 					type="button"
 					onClick={useWorldID}
-					className="bg-gradient-to-r from-[#FF6848] to-[#4940E0] bg-clip-text font-medium text-transparent"
+					className="font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#FF6848] to-[#4940E0]"
 				>
 					Verify human
 				</button>
@@ -108,7 +108,7 @@ const VerifyCodeState = () => {
 					onClick={onSubmit}
 					disabled={!code || processing}
 					ref={submitRef}
-					className="inline-flex w-full items-center justify-center rounded-2xl border border-transparent bg-indigo-600 px-8 py-4 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
+					className="inline-flex w-full justify-center items-center px-8 py-4 border border-transparent font-medium rounded-2xl shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
 					{/* FIXME: Loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
