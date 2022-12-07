@@ -87,7 +87,7 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 						<Listbox.Options
 							unmount={false}
 							ref={listRef}
-							className="absolute z-10 inset-x-0 top-full mt-1.5 min-w-[calc(100vw_-_48px)] md:min-w-[20rem] max-h-[var(--max-h,_0px)] md:max-h-96 w-full px-2 overflow-y-scroll rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+							className="absolute z-10 inset-x-0 top-full mt-1.5 min-w-[calc(100vw_-_48px)] md:min-w-[20rem] max-h-[var(--max-h,_0px)] md:max-h-96 w-full px-2 overflow-y-scroll rounded-2xl bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 							style={
 								{
 									'--max-h': listMaxHeight && `calc(${listMaxHeight}px - 12px)`,
@@ -104,7 +104,7 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 												: active
 												? 'bg-indigo-50/50'
 												: 'text-gray-900',
-											'relative flex items-center justify-between px-2 py-2 w-full rounded-md text-sm focus:bg-gray-100',
+											'relative flex items-center justify-between px-2 py-2 w-full rounded-2xl text-sm focus:bg-gray-100',
 											'focus:outline-none select-none'
 										)
 									}
@@ -126,7 +126,14 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 												) : null}
 											</div>
 
-											<span className="font-normal">+{country.dialCode}</span>
+											<span
+												className={classNames(
+													'font-medium',
+													selected ? 'text-white' : 'text-[#6445dd]'
+												)}
+											>
+												+{country.dialCode}
+											</span>
 										</>
 									)}
 								</Listbox.Option>

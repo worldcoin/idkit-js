@@ -102,7 +102,7 @@ const EnterPhoneState = () => {
 					onClick={onSubmit}
 					layoutId="submit-button"
 					disabled={!phoneNumber || processing}
-					className="inline-flex items-center px-8 py-3 border border-transparent font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
+					className="inline-flex items-center px-8 py-3 border border-transparent font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-[#d3dfea] disabled:text-[#9eafc0]"
 				>
 					{/* TODO: Nicer loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
