@@ -1,4 +1,4 @@
-import { IPhoneSignal } from '@/types'
+import type { IPhoneSignal } from '@/types'
 
 const API_BASE_URL = 'https://developer.worldcoin.org/api/v1'
 
@@ -41,7 +41,7 @@ export async function verifyCode(phone_number: string, code: string, action_id: 
 }
 
 export interface RequestCodeError {
-	code: 'timeout' | 'max_attempts' | 'server_error'
+	code: 'max_attempts' | 'server_error' | 'timeout'
 	details: string
 }
 

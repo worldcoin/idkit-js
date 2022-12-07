@@ -81,5 +81,6 @@ module.exports = {
 		tailwindcss: {
 			config: 'tailwind.config.cjs',
 		},
+		polyfills: ["fetch"],
 	},
 }

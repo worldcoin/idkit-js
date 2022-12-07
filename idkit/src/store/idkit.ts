@@ -1,5 +1,6 @@
 import create from 'zustand'
-import { ErrorState, IDKITStage } from '@/types'
+import type { ErrorState} from '@/types';
+import { IDKITStage } from '@/types'
 
 export type IDKitStore = {
 	open: boolean

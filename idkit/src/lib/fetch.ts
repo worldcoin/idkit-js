@@ -21,15 +21,14 @@ const getCleanFetch = () => {
 
 let cleanFetch: Fetch
 
-if (!global.cleanFetch) {
-	const _cleanFetch = getCleanFetch()
-	if (_cleanFetch) {
-		global.cleanFetch = _cleanFetch
-	} else {
-		throw new Error('Could not create `cleanFetch`. Please report this issue.')
-	}
+const _cleanFetch = getCleanFetch()
+
+if (_cleanFetch) {
+	global.cleanFetch = _cleanFetch
+} else {
+	throw new Error('Could not create `cleanFetch`. Please report this issue.')
 }
-// eslint-disable-next-line prefer-const
+
 cleanFetch = global.cleanFetch
 
 export default cleanFetch

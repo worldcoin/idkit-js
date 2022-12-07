@@ -11,8 +11,8 @@ const SuccessState = () => {
 				</div>
 			</div>
 			<div>
-				<p className="font-semibold text-2xl text-gray-900 text-center">Success! 🎉</p>
-				<p className="text-gray-400 text-lg text-center mt-2">
+				<p className="text-center text-2xl font-semibold text-gray-900">Success! 🎉</p>
+				<p className="mt-2 text-center text-lg text-gray-400">
 					{/* TODO: This caption should be a config option */}
 					Your phone number is verified and access to gasless transactions is enabled.
 				</p>
