@@ -1,5 +1,4 @@
 import root from 'react-shadow'
-import { FC, useMemo } from 'react'
 import { IDKITStage } from '@/types'
 import builtStyles from '@build/index.css'
 import ErrorState from './States/ErrorState'
@@ -11,6 +10,7 @@ import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
+import { FC, useEffect, useMemo, useState } from 'react'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
@@ -28,6 +28,9 @@ type Props = {
 
 const IDKitWidget: FC<Props> = ({ children } = {}) => {
 	const { isOpen, onOpenChange, stage, setStage } = useIDKitStore(getParams)
+	const [isMobile, setIsMobile] = useState(false)
+
+	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
@@ -67,10 +70,16 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 										<Dialog.Content asChild>
 											<motion.div
 												layout
-												animate={{ opacity: 1, scale: 1 }}
-												initial={{ opacity: 0, scale: 0.9 }}
+												animate={isMobile ? 'animateMob' : 'animate'}
+												initial={isMobile ? 'initMob' : 'init'}
+												exit={isMobile ? 'initMob' : 'init'}
+												variants={{
+													init: { opacity: 0, scale: 0.9 },
+													initMob: { translateY: '100%' },
+													animate: { opacity: 1, scale: 1 },
+													animateMob: { translateY: 0 },
+												}}
 												transition={{ layout: { duration: 0.15 } }}
-												exit={{ opacity: 0, transition: { duration: 0.2 } }}
 												className={
 													'relative w-full z-50 md:max-w-md rounded-t-3xl md:rounded-b-3xl pt-6 bg-white dark:bg-0d151d shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
 												}
