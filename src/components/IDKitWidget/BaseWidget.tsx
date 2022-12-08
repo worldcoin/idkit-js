@@ -106,7 +106,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 													>
 														<StageContent />
 													</motion.div>
-													<div className="bg-gray-100 dark:bg-29343f rounded-b-3xl flex items-center justify-between py-3 px-6">
+													<div className="bg-gray-100 dark:bg-29343f md:rounded-b-3xl flex items-center justify-between py-3 px-6">
 														<p className="text-sm text-70868f flex items-center gap-1">
 															<span>Verified with</span>
 															<a
