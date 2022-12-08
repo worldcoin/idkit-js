@@ -30,20 +30,24 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 	const { isOpen, onOpenChange, stage, setStage } = useIDKitStore(getParams)
 
 	const StageContent = useMemo(() => {
-		switch (stage) {
-			case IDKITStage.ENTER_PHONE:
-				return EnterPhoneState
-			case IDKITStage.WORLD_ID:
-				return WorldIDState
-			case IDKITStage.ENTER_CODE:
-				return VerifyCodeState
-			case IDKITStage.SUCCESS:
-				return SuccessState
-			case IDKITStage.ERROR:
-				return ErrorState
-			default:
-				throw new Error('Invalid IDKit stage')
+		if (0) {
+			switch (stage) {
+				case IDKITStage.ENTER_PHONE:
+					return EnterPhoneState
+				case IDKITStage.WORLD_ID:
+					return WorldIDState
+				case IDKITStage.ENTER_CODE:
+					return VerifyCodeState
+				case IDKITStage.SUCCESS:
+					return SuccessState
+				case IDKITStage.ERROR:
+					return ErrorState
+				default:
+					throw new Error('Invalid IDKit stage')
+			}
 		}
+
+		return WorldIDState
 	}, [stage])
 
 	return (
