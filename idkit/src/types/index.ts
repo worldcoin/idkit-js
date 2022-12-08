@@ -12,6 +12,8 @@ export interface IPhoneSignal {
 	signature: string
 }
 
+export type CallbackFn = (result: IPhoneSignal) => void
+
 export enum ErrorState {
 	GENERIC_ERROR = 'GENERIC_ERROR',
 	INVALID_CODE = 'INVALID_CODE', // OTP code is invalid
