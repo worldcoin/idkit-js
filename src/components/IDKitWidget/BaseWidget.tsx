@@ -47,7 +47,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 			}
 		}
 
-		return VerifyCodeState
+		return SuccessState
 	}, [stage])
 
 	return (
