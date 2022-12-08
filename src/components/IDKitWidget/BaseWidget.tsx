@@ -63,7 +63,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 									/>
 								</Dialog.Overlay>
 								<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
-									<div className="flex min-h-full items-end justify-center md:p-4 text-center sm:items-center">
+									<div className="flex min-h-full items-end justify-center md:p-4 text-center md:items-center">
 										<Dialog.Content asChild>
 											<motion.div
 												layout
@@ -72,7 +72,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 												transition={{ layout: { duration: 0.15 } }}
 												exit={{ opacity: 0, transition: { duration: 0.2 } }}
 												className={
-													'relative w-full z-50 max-w-md rounded-t-3xl md:rounded-b-3xl pt-6 bg-white dark:bg-0d151d shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
+													'relative w-full z-50 md:max-w-md rounded-t-3xl md:rounded-b-3xl pt-6 bg-white dark:bg-0d151d shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
 												}
 											>
 												<Toast.Provider>
