@@ -44,9 +44,11 @@ export const init = (config: Config): void => {
 }
 
 export const open = () => {
-	if (!isInitialized) throw new Error('IDKitWidget is not initialized')
-
-	useIDKitStore.setState({ open: true })
+    return new Promise((resolve, reject) => {
+      if (!isInitialized) return reject('IDKitWidget is not initialized')
+        useIDKitStore.getState().addSuccessCallback(resolve)
+      useIDKitStore.setState({ open: true })
+    })
 }
 
 /**

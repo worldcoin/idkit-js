@@ -16,6 +16,7 @@ const getParams = ({
 	setStage,
 	setProcessing,
 	setCode,
+	onSuccess,
 	setErrorState,
 	errorState,
 }: IDKitStore) => ({
@@ -30,13 +31,8 @@ const getParams = ({
 		try {
 			setErrorState(null)
 			setProcessing(true)
-			// FIXME: Add ph_distinct_id
-			const { nullifier_hash, signature } = await verifyCode(phoneNumber, code, actionId, '')
-			console.log('nullifier_hash', nullifier_hash)
-			console.log('signature', signature)
-			// FIXME: nullifier_hash & signature should be passed to the end client
-			setProcessing(false)
-			setStage(IDKITStage.SUCCESS)
+      // FIXME: Add ph_distinct_id
+			onSuccess(await verifyCode(phoneNumber, code, actionId, ''))
 		} catch (error) {
 			setProcessing(false)
 			setCode('')

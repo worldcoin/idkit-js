@@ -41,8 +41,9 @@
 		<script>
 			IDKit.init({ actionId: 'wid_staging_1234' })
 
-			document.getElementById('open-idkit').addEventListener('click', () => {
-				IDKit.open()
+			document.getElementById('open-idkit').addEventListener('click', async () => {
+				const response = await IDKit.open()
+                console.log(response)
 			})
 		</script>
 	</body>
