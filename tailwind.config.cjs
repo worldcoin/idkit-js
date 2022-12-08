@@ -1,10 +1,44 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+const mirrorHexColors = colors =>
+	Object.fromEntries(
+		colors.map((color, index) => {
+			if (!/#[a-f0-9]{6}/.test(color)) {
+				throw new Error(
+					'All colors should be lowercase hexadecimal strings 7 characters long with "#" sign at the beginning'
+				)
+			}
+
+			if (colors.indexOf(color) !== index) {
+				throw new Error('Colors should be unique')
+			}
+
+			if (colors[index - 1] > color) {
+				throw new Error('Colors should be sorted alphabetically')
+			}
+
+			return [color.substring(1), color]
+		})
+	)
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['./src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
 		extend: {
+			colors: {
+				...mirrorHexColors([
+					'#0d151d',
+					'#28303f',
+					'#29343f',
+					'#596673',
+					'#6445dd',
+					'#70868f',
+					'#9eafc0',
+					'#d3dfea',
+					'#ece8fb',
+				]),
+			},
 			fontFamily: {
 				sans: ['Rubik', ...defaultTheme.fontFamily.sans],
 			},
@@ -12,6 +46,9 @@ module.exports = {
 				selected: 'headlessui-state~="selected"',
 				active: 'headlessui-state~="active"',
 				'selected-active': 'headlessui-state="active selected"',
+			},
+			opacity: {
+				15: '.15',
 			},
 		},
 	},

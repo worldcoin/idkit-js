@@ -72,14 +72,14 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 												transition={{ layout: { duration: 0.15 } }}
 												exit={{ opacity: 0, transition: { duration: 0.2 } }}
 												className={
-													'relative w-full z-50 max-w-md rounded-t-3xl md:rounded-b-3xl pt-6 bg-white shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
+													'relative w-full z-50 max-w-md rounded-t-3xl md:rounded-b-3xl pt-6 bg-white dark:bg-0d151d shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
 												}
 											>
 												<Toast.Provider>
 													<Toast.Viewport className="flex justify-center" />
 													<div className="flex items-center justify-between mb-12 mx-6">
 														{stage == IDKITStage.ENTER_PHONE ? (
-															<button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+															<button className="w-8 h-8 bg-gray-100 dark:bg-d3dfea/15 dark:text-white rounded-full flex items-center justify-center">
 																<QuestionMarkIcon className="w-1.5" />
 															</button>
 														) : [IDKITStage.ENTER_CODE, IDKITStage.WORLD_ID].includes(
@@ -87,15 +87,15 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 														  ) ? (
 															<button
 																onClick={() => setStage(IDKITStage.ENTER_PHONE)}
-																className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center"
+																className="w-8 h-8 bg-gray-100 dark:bg-d3dfea/15 rounded-full flex items-center justify-center"
 															>
 																<ArrowLongLeftIcon className="w-4" />
 															</button>
 														) : null}
-														<Dialog.Title className="font-medium text-gray-900">
+														<Dialog.Title className="font-medium text-gray-900 dark:text-d3dfea">
 															Enable dispatcher
 														</Dialog.Title>
-														<Dialog.Close className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+														<Dialog.Close className="w-8 h-8 bg-gray-100 dark:bg-d3dfea/15 dark:text-white rounded-full flex items-center justify-center">
 															<XMarkIcon className="h-4 w-4" />
 														</Dialog.Close>
 													</div>
@@ -106,18 +106,18 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 													>
 														<StageContent />
 													</motion.div>
-													<div className="bg-gray-100 rounded-b-3xl flex items-center justify-between py-3 px-6">
-														<p className="text-sm text-gray-400 flex items-center space-x-1">
-															<span>Verified with</span>{' '}
+													<div className="bg-gray-100 dark:bg-29343f rounded-b-3xl flex items-center justify-between py-3 px-6">
+														<p className="text-sm text-70868f flex items-center gap-1">
+															<span>Verified with</span>
 															<a
 																href="https://id.worldcoin.org"
 																target="_blank"
 																rel="noreferrer"
 															>
-																<WorldIDWordmark className="h-4 text-black" />
+																<WorldIDWordmark className="h-4 text-black dark:text-white" />
 															</a>
 														</p>
-														<a href="#" className="text-sm text-gray-400 hover:underline">
+														<a href="#" className="text-sm text-70868f hover:underline">
 															Privacy Policy
 														</a>
 													</div>

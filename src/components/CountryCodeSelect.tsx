@@ -72,8 +72,8 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 								borderRadius: '50%',
 							}}
 						/>
-						<p className="ml-2.5 mr-1">+{value}</p>
-						<ChevronDownIcon className="w-4 h-4 text-gray-600 shrink-0 basis-4" aria-hidden="true" />
+						<p className="ml-2.5 mr-1 dark:text-white">+{value}</p>
+						<ChevronDownIcon className="w-4 h-4 text-9eafc0 shrink-0 basis-4" aria-hidden="true" />
 					</Listbox.Button>
 
 					<Transition
@@ -87,7 +87,7 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 						<Listbox.Options
 							unmount={false}
 							ref={listRef}
-							className="absolute z-10 inset-x-0 top-full mt-1.5 min-w-[calc(100vw_-_48px)] md:min-w-[20rem] max-h-[var(--max-h,_0px)] md:max-h-96 w-full px-2 overflow-y-scroll rounded-2xl bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+							className="absolute z-10 inset-x-0 top-full mt-1.5 min-w-[calc(100vw_-_48px)] md:min-w-[20rem] max-h-[var(--max-h,_0px)] md:max-h-96 w-full px-2 overflow-y-scroll rounded-2xl bg-white dark:bg-29343f py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 							style={
 								{
 									'--max-h': listMaxHeight && `calc(${listMaxHeight}px - 12px)`,
@@ -99,12 +99,13 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 									key={country.iso2}
 									className={({ selected, active }) =>
 										classNames(
+											'dark:text-white',
 											selected
 												? 'bg-indigo-500 text-white font-medium'
 												: active
-												? 'bg-indigo-50/50'
-												: 'text-gray-900',
-											'relative flex items-center justify-between px-2 py-2 w-full rounded-2xl text-sm focus:bg-gray-100',
+												? 'bg-indigo-50/50 dark:bg-ece8fb/10'
+												: 'text-gray-900 dark:text-white',
+											'relative flex items-center justify-between px-2 py-2 w-full rounded-2xl text-sm focus:bg-gray-100 dark:focus:bg-ece8fb/25',
 											'focus:outline-none select-none'
 										)
 									}
@@ -129,7 +130,7 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 											<span
 												className={classNames(
 													'font-medium',
-													selected ? 'text-white' : 'text-[#6445dd]'
+													selected ? 'text-white' : 'text-6445dd dark:text-white'
 												)}
 											>
 												+{country.dialCode}

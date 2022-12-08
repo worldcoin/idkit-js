@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { classNames } from '@/lib/utils'
 import * as Toast from '@radix-ui/react-toast'
 import { ErrorState, IDKITStage } from '@/types'
 import PhoneInput from '@/components/PhoneInput'
@@ -69,22 +70,22 @@ const EnterPhoneState = () => {
 				</motion.div>
 			</Toast.Root>
 			<div>
-				<p className="font-semibold text-2xl text-gray-900 text-center">
+				<p className="font-semibold text-2xl text-gray-900 dark:text-white text-center">
 					{/* TODO: Caption should be a config option */}
 					Verify your phone number for free gasless transactions.
 				</p>
-				<p className="text-gray-500 text-center mt-3 md:mt-2">We&apos;ll take care of the rest!</p>
+				<p className="text-70868f text-center mt-3 md:mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />
-				<p className="text-xs text-center text-gray-400">
+				<p className="text-xs text-center text-9eafc0 dark:text-596673">
 					We&apos;ll call or text to confirm your number. No data is stored.
 				</p>
 			</div>
 			<div className="flex items-center justify-center space-x-1">
 				<div className="flex items-center space-x-2">
 					<WorldIDIcon width={24} height={24} />
-					<p className="font-medium text-gray-500">I have World ID</p>
+					<p className="font-medium text-9eafc0 dark:text-70868f">I have World ID</p>
 				</div>
 				<span className="text-gray-400 font-medium">&bull;</span>
 				<button
@@ -102,7 +103,12 @@ const EnterPhoneState = () => {
 					onClick={onSubmit}
 					layoutId="submit-button"
 					disabled={!phoneNumber || processing}
-					className="inline-flex items-center px-8 py-3 border border-transparent font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-[#d3dfea] disabled:text-[#9eafc0]"
+					className={classNames(
+						'inline-flex items-center px-8 py-3 border border-transparent font-medium rounded-full shadow-sm',
+						'text-white bg-indigo-600 hover:bg-indigo-700',
+						'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
+						'disabled:cursor-not-allowed disabled:bg-d3dfea dark:disabled:bg-29343f/50 disabled:text-9eafc0'
+					)}
 				>
 					{/* TODO: Nicer loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">

@@ -47,7 +47,7 @@ const PhoneInput = ({ disabled, onSubmit }: { disabled?: boolean; onSubmit?: () 
 				Phone Number
 			</label>
 			<div
-				className="relative mt-1 rounded-2xl shadow-sm flex bg-gray-100 py-4 px-3 border border-transparent focus-within:border-[#5b52f3] transition-colors"
+				className="relative mt-1 rounded-2xl shadow-sm flex bg-gray-100 dark:bg-29343f py-4 px-3 border border-transparent focus-within:border-[#5b52f3] transition-colors"
 				ref={inputRef}
 			>
 				<div className="flex items-center">
@@ -63,7 +63,7 @@ const PhoneInput = ({ disabled, onSubmit }: { disabled?: boolean; onSubmit?: () 
 					value={phoneNumber}
 					placeholder="Phone number"
 					onChange={e => setPhoneNumber(e.target.value)}
-					className="block w-full rounded-md border-transparent bg-transparent pl-6 focus:ring-transparent focus:border-transparent sm:text-sm"
+					className="block w-full rounded-md border-transparent bg-transparent pl-6 focus:ring-transparent focus:border-transparent sm:text-sm dark:text-white"
 					disabled={disabled}
 					onKeyDown={e => e.key === 'Enter' && onSubmit?.()}
 				/>
