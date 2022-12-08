@@ -29,13 +29,16 @@ module.exports = {
 			colors: {
 				...mirrorHexColors([
 					'#0d151d',
+					'#1e40af',
 					'#28303f',
 					'#29343f',
 					'#596673',
+					'#5b52f3',
 					'#6445dd',
 					'#70868f',
 					'#9eafc0',
 					'#d3dfea',
+					'#e5e7eb',
 					'#ece8fb',
 					'#f1f5f8',
 				]),
