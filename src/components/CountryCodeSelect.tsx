@@ -3,15 +3,14 @@ import ReactCountryFlag from 'react-country-flag'
 import { allCountries } from 'country-telephone-data'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
-import React, { CSSProperties, Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 
 type Props = {
 	value: string
 	onChange: (value: string) => void
-	listMaxHeight?: number
 }
 
-const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
+const CountryCodeSelect = ({ value, onChange }: Props) => {
 	const [countryCode, setCountryCode] = useState<string>('us')
 	const listRef = useRef<HTMLUListElement>(null)
 
@@ -48,6 +47,18 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 		}
 	}, [])
 
+	const handleSetListHeight = useCallback(() => {
+		const List = listRef?.current
+
+		if (!List) {
+			return
+		}
+
+		const bounds = List.getBoundingClientRect()
+
+		List.style.maxHeight = `${window.innerHeight - bounds.top - bounds.height}px`
+	}, [])
+
 	useEffect(() => {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		onChange(allCountries.find(country => country.iso2 === countryCode)!.dialCode)
@@ -82,17 +93,11 @@ const CountryCodeSelect = ({ value, onChange, listMaxHeight }: Props) => {
 						leave="transition ease-in duration-100"
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
-						unmount={false}
+						beforeEnter={handleSetListHeight}
 					>
 						<Listbox.Options
-							unmount={false}
 							ref={listRef}
 							className="absolute z-10 inset-x-0 top-full mt-1.5 min-w-[calc(100vw_-_48px)] md:min-w-[20rem] max-h-[var(--max-h,_0px)] md:max-h-96 w-full px-2 overflow-y-scroll rounded-2xl bg-white dark:bg-29343f py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-							style={
-								{
-									'--max-h': listMaxHeight && `calc(${listMaxHeight}px - 12px)`,
-								} as CSSProperties
-							}
 						>
 							{allCountries.map(country => (
 								<Listbox.Option
