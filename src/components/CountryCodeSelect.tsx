@@ -56,7 +56,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 
 		const bounds = List.getBoundingClientRect()
 
-		List.style.maxHeight = `${window.innerHeight - bounds.top - bounds.height}px`
+		List.style.maxHeight = `${window.innerHeight - bounds.top - 12}px`
 	}, [])
 
 	useEffect(() => {
