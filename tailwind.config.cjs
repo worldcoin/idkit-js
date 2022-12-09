@@ -26,6 +26,10 @@ module.exports = {
 	content: ['./src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
 		extend: {
+			screens: {
+				xs: '414px',
+				...defaultTheme.screens,
+			},
 			colors: {
 				...mirrorHexColors([
 					'#0d151d',

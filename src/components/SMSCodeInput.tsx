@@ -160,7 +160,7 @@ const SMSCodeInput = ({ submitRef, disabled }: { submitRef: RefObject<HTMLButton
 					onChange={event => onInputChange(event, i)}
 					onKeyDown={event => onInputKeyDown(event, i)}
 					className={classNames(
-						'w-12 h-14 border-0 outline-0 rounded-xl text-center caret-transparent text-29343f dark:text-white',
+						'w-10 xs:w-12 aspect-[6/7] border-0 outline-0 rounded-xl text-center caret-transparent text-29343f dark:text-white',
 						'bg-gray-100 dark:bg-29343f focus:bg-transparent',
 						'ring ring-transparent focus:ring-5b52f3'
 					)}
