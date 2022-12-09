@@ -94,10 +94,12 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 						beforeEnter={handleSetListHeight}
+						unmount={false}
 					>
 						<Listbox.Options
 							ref={listRef}
 							className="absolute z-10 inset-x-0 top-full mt-1.5 min-w-[calc(100vw_-_48px)] md:min-w-[20rem] max-h-[var(--max-h,_0px)] md:max-h-96 w-full px-2 overflow-y-scroll rounded-2xl bg-white dark:bg-29343f py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+							unmount={false}
 						>
 							{allCountries.map(country => (
 								<Listbox.Option
