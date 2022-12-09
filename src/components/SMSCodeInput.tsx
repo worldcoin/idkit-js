@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
 import { ClipboardEvent, memo, RefObject } from 'react'
 import useIDKitStore, { IDKitStore } from '@/store/idkit'
