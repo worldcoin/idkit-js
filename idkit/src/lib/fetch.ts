@@ -14,12 +14,10 @@ declare global {
 const getCleanFetch = () => {
 	const iframe = document.createElement('iframe')
 	document.body.appendChild(iframe)
-	const cleanFetch = iframe.contentWindow?.fetch
+	const cleanFetch = iframe.contentWindow?.fetch.bind(iframe)
 	document.body.removeChild(iframe)
 	return cleanFetch
 }
-
-let cleanFetch: Fetch
 
 const _cleanFetch = getCleanFetch()
 
@@ -29,6 +27,6 @@ if (_cleanFetch) {
 	throw new Error('Could not create `cleanFetch`. Please report this issue.')
 }
 
-cleanFetch = global.cleanFetch
+const cleanFetch: Fetch = global.cleanFetch
 
 export default cleanFetch

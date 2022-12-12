@@ -20,7 +20,7 @@ const ResendButton = () => {
 		<button
 			type="button"
 			disabled={!!nextTime}
-			className="font-medium text-indigo-500 disabled:text-gray-900 dark:disabled:text-white disabled:cursor-wait"
+			className="font-medium text-indigo-500 disabled:cursor-wait disabled:text-gray-900 dark:disabled:text-white"
 		>
 			Resend{' '}
 			{nextTime && <Countdown onComplete={() => setNextTime(undefined)} date={nextTime} renderer={renderer} />}

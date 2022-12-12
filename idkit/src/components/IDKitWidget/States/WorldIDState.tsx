@@ -6,12 +6,12 @@ import { DevicePhoneMobileIcon } from '@heroicons/react/20/solid'
 const WorldIDState = () => {
 	return (
 		<div className="space-y-6">
-			<div className="-mt-6 relative flex items-center justify-center py-8 border border-f1f5f8 dark:border-f1f5f8/10 rounded-2xl">
+			<div className="relative -mt-6 flex items-center justify-center rounded-2xl border border-f1f5f8 py-8 dark:border-f1f5f8/10">
 				<div className="text-29343f dark:text-white">
-					<WorldIDQR className="w-80 h-80" />
+					<WorldIDQR className="h-80 w-80" />
 				</div>
-				<div className="absolute inset-x-0 bottom-0 translate-y-1/2 flex items-center justify-center">
-					<p className="bg-white dark:bg-0d151d px-4 text-d3dfea dark:text-596673">or</p>
+				<div className="absolute inset-x-0 bottom-0 flex translate-y-1/2 items-center justify-center">
+					<p className="bg-white px-4 text-d3dfea dark:bg-0d151d dark:text-596673">or</p>
 				</div>
 			</div>
 			<div>

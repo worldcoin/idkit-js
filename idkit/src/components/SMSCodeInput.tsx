@@ -1,7 +1,10 @@
+import { memo } from 'react'
 import { classNames } from '@/lib/utils'
-import { ClipboardEvent, memo, RefObject } from 'react'
-import useIDKitStore, { IDKitStore } from '@/store/idkit'
-import { ChangeEvent, createRef, KeyboardEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import useIDKitStore from '@/store/idkit'
+import type { IDKitStore } from '@/store/idkit'
+import type { ClipboardEvent, RefObject } from 'react'
+import type { ChangeEvent, KeyboardEvent } from 'react'
+import { createRef, useCallback, useEffect, useMemo, useState } from 'react'
 
 type Array6<T> = [T, T, T, T, T, T]
 

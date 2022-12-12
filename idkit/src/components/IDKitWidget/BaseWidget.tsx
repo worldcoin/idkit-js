@@ -1,3 +1,4 @@
+import type { FC } from 'react'
 import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import useIDKitStore from '@/store/idkit'
@@ -8,11 +9,11 @@ import type { IDKitStore } from '@/store/idkit'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
+import { useEffect, useMemo, useState } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
-import { FC, useEffect, useMemo, useState } from 'react'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
@@ -67,7 +68,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 									/>
 								</Dialog.Overlay>
 								<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
-									<div className="flex min-h-full items-end justify-center md:p-4 text-center md:items-center">
+									<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
 										<Dialog.Content asChild>
 											<motion.div
 												layout
@@ -82,14 +83,14 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 												}}
 												transition={{ layout: { duration: 0.15 } }}
 												className={
-													'relative w-full z-50 md:max-w-md rounded-t-3xl md:rounded-b-3xl pt-6 bg-white dark:bg-0d151d shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75'
+													'relative z-50 w-full rounded-t-3xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 dark:bg-0d151d md:max-w-md md:rounded-b-3xl'
 												}
 											>
 												<Toast.Provider>
 													<Toast.Viewport className="flex justify-center" />
 													<div className="mx-6 mb-12 flex items-center justify-between">
 														{stage == IDKITStage.ENTER_PHONE ? (
-															<button className="w-8 h-8 bg-gray-100 dark:bg-d3dfea/15 dark:text-white rounded-full flex items-center justify-center">
+															<button className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-d3dfea/15 dark:text-white">
 																<QuestionMarkIcon className="w-1.5" />
 															</button>
 														) : [IDKITStage.ENTER_CODE, IDKITStage.WORLD_ID].includes(
@@ -97,7 +98,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 														  ) ? (
 															<button
 																onClick={() => setStage(IDKITStage.ENTER_PHONE)}
-																className="w-8 h-8 bg-gray-100 dark:bg-d3dfea/15 rounded-full flex items-center justify-center"
+																className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-d3dfea/15"
 															>
 																<ArrowLongLeftIcon className="w-4" />
 															</button>
@@ -105,7 +106,7 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 														<Dialog.Title className="font-medium text-gray-900 dark:text-d3dfea">
 															Enable dispatcher
 														</Dialog.Title>
-														<Dialog.Close className="w-8 h-8 bg-gray-100 dark:bg-d3dfea/15 dark:text-white rounded-full flex items-center justify-center">
+														<Dialog.Close className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-d3dfea/15 dark:text-white">
 															<XMarkIcon className="h-4 w-4" />
 														</Dialog.Close>
 													</div>
@@ -116,8 +117,8 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 													>
 														<StageContent />
 													</motion.div>
-													<div className="bg-gray-100 dark:bg-29343f md:rounded-b-3xl flex items-center justify-between py-3 px-6">
-														<p className="text-sm text-70868f flex items-center gap-1">
+													<div className="flex items-center justify-between bg-gray-100 py-3 px-6 dark:bg-29343f md:rounded-b-3xl">
+														<p className="flex items-center gap-1 text-sm text-70868f">
 															<span>Verified with</span>
 															<a
 																href="https://id.worldcoin.org"

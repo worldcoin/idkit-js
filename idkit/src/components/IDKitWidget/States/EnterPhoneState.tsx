@@ -2,8 +2,8 @@ import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
 import * as Toast from '@radix-ui/react-toast'
-import { ErrorState, IDKITStage } from '@/types'
 import type { IDKitStore } from '@/store/idkit'
+import { ErrorState, IDKITStage } from '@/types'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import { XMarkIcon } from '@heroicons/react/20/solid'
@@ -71,15 +71,15 @@ const EnterPhoneState = () => {
 				</motion.div>
 			</Toast.Root>
 			<div>
-				<p className="font-semibold text-2xl text-gray-900 dark:text-white text-center">
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{/* TODO: Caption should be a config option */}
 					Verify your phone number for free gasless transactions.
 				</p>
-				<p className="text-70868f text-center mt-3 md:mt-2">We&apos;ll take care of the rest!</p>
+				<p className="mt-3 text-center text-70868f md:mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />
-				<p className="text-xs text-center text-9eafc0 dark:text-596673">
+				<p className="text-center text-xs text-9eafc0 dark:text-596673">
 					We&apos;ll call or text to confirm your number. No data is stored.
 				</p>
 			</div>

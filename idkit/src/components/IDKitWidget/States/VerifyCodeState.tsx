@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { useMemo, useRef } from 'react'
 import useIDKitStore from '@/store/idkit'
-import { ErrorState, IDKITStage } from '@/types'
 import type { IDKitStore } from '@/store/idkit'
+import { ErrorState, IDKITStage } from '@/types'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import SMSCodeInput from '@/components/SMSCodeInput'
 import ResendButton from '@/components/ResendButton'
@@ -64,17 +64,17 @@ const VerifyCodeState = () => {
 	return (
 		<div className="space-y-6">
 			<div>
-				<p className="font-semibold text-2xl text-gray-900 dark:text-white text-center">
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{/* TODO: Allow app to set this caption from settings */}
 					Enter your 6-digit code and get free gassless transactions.
 				</p>
-				<p className="text-70868f text-center mt-2">We&apos;ll take care of the rest!</p>
+				<p className="mt-2 text-center text-70868f">We&apos;ll take care of the rest!</p>
 			</div>
 			<form className="mt-2 space-y-2">
 				<motion.div animate={animation} transition={{ type: 'spring', stiffness: 30 }}>
 					<SMSCodeInput submitRef={submitRef} disabled={processing} />
 				</motion.div>
-				<p className="text-xs text-center text-70868f">
+				<p className="text-center text-xs text-70868f">
 					{errorState ? (
 						<span className="text-red-400">That code is invalid. Please try again.</span>
 					) : (
