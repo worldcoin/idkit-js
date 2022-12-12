@@ -10,8 +10,8 @@ const ErrorState = () => {
 	return (
 		<div className="space-y-8">
 			<div className="-mt-5 flex items-center justify-center">
-				<div className="inline-flex items-center justify-center rounded-full bg-ff6848/10 p-5">
-					<div className="flex items-center justify-center rounded-full bg-ff6848 p-5">
+				<div className="bg-ff6848/10 inline-flex items-center justify-center rounded-full p-5">
+					<div className="bg-ff6848 flex items-center justify-center rounded-full p-5">
 						<XMarkIcon className="w-8 text-white" />
 					</div>
 				</div>

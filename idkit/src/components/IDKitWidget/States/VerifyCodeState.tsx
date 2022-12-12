@@ -4,9 +4,9 @@ import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
 import { ErrorState, IDKITStage } from '@/types'
 import WorldIDIcon from '@/components/WorldIDIcon'
-import SMSCodeInput from '@/components/SMSCodeInput'
 import ResendButton from '@/components/ResendButton'
-import { verifyCode, isVerifyCodeError } from '@/services/phone'
+import SMSCodeInput from '@/components/SMSCodeInput'
+import { isVerifyCodeError, verifyCode } from '@/services/phone'
 
 const getParams = ({
 	processing,
@@ -68,13 +68,13 @@ const VerifyCodeState = () => {
 					{/* TODO: Allow app to set this caption from settings */}
 					Enter your 6-digit code and get free gassless transactions.
 				</p>
-				<p className="mt-2 text-center text-70868f">We&apos;ll take care of the rest!</p>
+				<p className="text-70868f mt-2 text-center">We&apos;ll take care of the rest!</p>
 			</div>
 			<form className="mt-2 space-y-2">
 				<motion.div animate={animation} transition={{ type: 'spring', stiffness: 30 }}>
 					<SMSCodeInput submitRef={submitRef} disabled={processing} />
 				</motion.div>
-				<p className="text-center text-xs text-70868f">
+				<p className="text-70868f text-center text-xs">
 					{errorState ? (
 						<span className="text-red-400">That code is invalid. Please try again.</span>
 					) : (
@@ -89,7 +89,7 @@ const VerifyCodeState = () => {
 			<div className="flex items-center justify-center space-x-1">
 				<div className="flex items-center space-x-2">
 					<WorldIDIcon width={24} height={24} />
-					<p className="font-medium text-70868f">I have World ID</p>
+					<p className="text-70868f font-medium">I have World ID</p>
 				</div>
 				<span className="font-medium text-gray-400">&bull;</span>
 				<button

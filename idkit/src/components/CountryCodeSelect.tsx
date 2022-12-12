@@ -84,7 +84,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 							}}
 						/>
 						<p className="ml-2.5 mr-1 dark:text-white">+{value}</p>
-						<ChevronDownIcon className="h-4 w-4 shrink-0 basis-4 text-9eafc0" aria-hidden="true" />
+						<ChevronDownIcon className="text-9eafc0 h-4 w-4 shrink-0 basis-4" aria-hidden="true" />
 					</Listbox.Button>
 
 					<Transition
@@ -98,7 +98,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 					>
 						<Listbox.Options
 							ref={listRef}
-							className="absolute inset-x-0 top-full z-10 mt-1.5 max-h-[var(--max-h,_0px)] w-full min-w-[calc(100vw_-_48px)] overflow-y-scroll rounded-2xl bg-white px-2 py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none dark:bg-29343f sm:text-sm md:max-h-96 md:min-w-[20rem]"
+							className="dark:bg-29343f absolute inset-x-0 top-full z-10 mt-1.5 max-h-[var(--max-h,_0px)] w-full min-w-[calc(100vw_-_48px)] overflow-y-scroll rounded-2xl bg-white px-2 py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm md:max-h-96 md:min-w-[20rem]"
 							unmount={false}
 						>
 							{allCountries.map(country => (

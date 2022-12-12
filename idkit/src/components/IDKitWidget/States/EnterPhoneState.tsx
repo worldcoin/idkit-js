@@ -7,7 +7,7 @@ import { ErrorState, IDKITStage } from '@/types'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import { requestCode, isRequestCodeError } from '@/services/phone'
+import { isRequestCodeError, requestCode } from '@/services/phone'
 
 const getParams = ({
 	processing,
@@ -75,18 +75,18 @@ const EnterPhoneState = () => {
 					{/* TODO: Caption should be a config option */}
 					Verify your phone number for free gasless transactions.
 				</p>
-				<p className="mt-3 text-center text-70868f md:mt-2">We&apos;ll take care of the rest!</p>
+				<p className="text-70868f mt-3 text-center md:mt-2">We&apos;ll take care of the rest!</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />
-				<p className="text-center text-xs text-9eafc0 dark:text-596673">
+				<p className="text-9eafc0 dark:text-596673 text-center text-xs">
 					We&apos;ll call or text to confirm your number. No data is stored.
 				</p>
 			</div>
 			<div className="flex items-center justify-center space-x-1">
 				<div className="flex items-center space-x-2">
 					<WorldIDIcon width={24} height={24} />
-					<p className="font-medium text-9eafc0 dark:text-70868f">I have World ID</p>
+					<p className="text-9eafc0 dark:text-70868f font-medium">I have World ID</p>
 				</div>
 				<span className="font-medium text-gray-400">&bull;</span>
 				<button
