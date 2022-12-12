@@ -70,17 +70,19 @@ module.exports = {
 			'warn',
 			{
 				officialSorting: true,
-				config: 'tailwind.config.cjs',
 			},
 		],
 	},
+
 	settings: {
 		react: {
 			version: 'detect',
 		},
+
 		tailwindcss: {
-			config: 'tailwind.config.cjs',
+			config: require.resolve('./tailwind.config.cjs'),
 		},
-		polyfills: ["fetch"],
+
+		polyfills: ['fetch'],
 	},
 }
