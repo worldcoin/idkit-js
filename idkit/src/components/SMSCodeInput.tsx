@@ -1,10 +1,7 @@
-import { memo } from 'react'
-import { motion } from 'framer-motion'
-import useIDKitStore from '@/store/idkit'
-import type { IDKitStore } from '@/store/idkit'
-import type { ClipboardEvent, RefObject } from 'react'
-import type { ChangeEvent, KeyboardEvent } from 'react'
-import { createRef, useCallback, useEffect, useMemo, useState } from 'react'
+import { classNames } from '@/lib/utils'
+import { ClipboardEvent, memo, RefObject } from 'react'
+import useIDKitStore, { IDKitStore } from '@/store/idkit'
+import { ChangeEvent, createRef, KeyboardEvent, useCallback, useEffect, useMemo, useState } from 'react'
 
 type Array6<T> = [T, T, T, T, T, T]
 
@@ -148,11 +145,10 @@ const SMSCodeInput = ({ submitRef, disabled }: { submitRef: RefObject<HTMLButton
 		<fieldset className="flex items-center justify-center space-x-3">
 			<legend className="sr-only">Enter your SMS code</legend>
 			{inputsRefs.map((ref, i) => (
-				<motion.input
+				<input
 					ref={ref}
 					key={i}
 					maxLength={1}
-					animate={{ ['--tw-ring-color' as string]: focusedIndex === i ? '#1e40af' : '#e5e7eb' }}
 					type="number"
 					pattern="[0-9]*"
 					value={values[i]}
@@ -164,7 +160,11 @@ const SMSCodeInput = ({ submitRef, disabled }: { submitRef: RefObject<HTMLButton
 					onPaste={event => onInputPaste(event, i)}
 					onChange={event => onInputChange(event, i)}
 					onKeyDown={event => onInputKeyDown(event, i)}
-					className="h-14 w-12 rounded-xl border-0 bg-gray-100 text-center"
+					className={classNames(
+						'w-10 xs:w-12 aspect-[6/7] border-0 outline-0 rounded-xl text-center caret-transparent text-29343f dark:text-white',
+						'bg-gray-100 dark:bg-29343f focus:bg-transparent',
+						'ring ring-transparent focus:ring-5b52f3'
+					)}
 					disabled={disabled}
 				/>
 			))}
