@@ -5,5 +5,5 @@
 	"allowCompoundWords": true,
 	"dictionaries": ["typescript", "node", "npm", "html"],
 	"enabledLanguageIds": ["typescript", "typescriptreact", "javascript", "markdown", "yaml", "json"],
-	"words": ["esbuild", "idkit", "IDQR", "iife", "zustand"]
+	"words": ["esbuild", "idkit", "IDQR", "iife", "zustand", "dfea", "eafc", "gassless"]
 }

@@ -9,14 +9,14 @@ const ErrorState = () => {
 	return (
 		<div className="space-y-8">
 			<div className="-mt-5 flex items-center justify-center">
-				<div className="bg-red-100 p-5 rounded-full inline-flex items-center justify-center">
-					<div className="bg-red-500 p-5 rounded-full flex items-center justify-center">
+				<div className="bg-ff6848/10 p-5 rounded-full inline-flex items-center justify-center">
+					<div className="bg-ff6848 p-5 rounded-full flex items-center justify-center">
 						<XMarkIcon className="w-8 text-white" />
 					</div>
 				</div>
 			</div>
 			<div>
-				<p className="font-semibold text-2xl text-gray-900 text-center">Something went wrong</p>
+				<p className="font-semibold text-2xl text-gray-900 dark:text-white text-center">Something went wrong</p>
 				<p className="text-gray-400 text-lg text-center mt-2">
 					Please try to verify your phone number again in a few moments
 				</p>
