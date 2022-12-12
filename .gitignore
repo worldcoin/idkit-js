@@ -2,6 +2,7 @@ node_modules
 .DS_Store
 
 # editors
-/.vscode
+/.vscode/*
+!/.vscode/extensions.json
 /.idea
 /.history
