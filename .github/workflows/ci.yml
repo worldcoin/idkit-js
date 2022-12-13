@@ -10,24 +10,21 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - uses: pnpm/action-setup@v2
-              with:
-                  version: 7.17.1
-
             - name: Set up Node 16
               uses: actions/setup-node@v3
               with:
                   node-version: 16
-                  cache: 'pnpm'
+                  cache: 'yarn'
 
             - name: Install dependencies
-              run: pnpm i --frozen-lockfile
+              run: yarn --frozen-lockfile
 
             - name: Check formatting with Prettier
-              run: pnpm format:check
+              working-directory: ./idkit
+              run: yarn format:check
 
             - name: Spellcheck
-              run: pnpm spellcheck
+              run: yarn spellcheck
 
     typecheck:
         name: Typecheck & linting
@@ -35,25 +32,23 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - uses: pnpm/action-setup@v2
-              with:
-                  version: 7.17.1
-
             - name: Set up Node 16
               uses: actions/setup-node@v3
               with:
                   node-version: 16
-                  cache: 'pnpm'
+                  cache: 'yarn'
 
             - name: Install dependencies
-              run: pnpm i --frozen-lockfile
+              run: yarn --frozen-lockfile
 
             - name: Lint with ESLint
-              run: pnpm lint
+              working-directory: ./idkit
+              run: yarn lint
 
             - name: Check Typescript
+              working-directory: ./idkit
               run: |
-                  pnpm typecheck
+                  yarn typecheck
 
     # TODO: We need to add tests
     # test:
@@ -80,19 +75,16 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - uses: pnpm/action-setup@v2
-              with:
-                  version: 7.17.1
-
             - name: Set up Node 16
               uses: actions/setup-node@v3
               with:
                   node-version: 16
-                  cache: 'pnpm'
+                  cache: 'yarn'
 
             - name: Install dependencies
-              run: pnpm i --frozen-lockfile
+              run: yarn --frozen-lockfile
 
             - name: Build
+              working-directory: ./idkit
               run: |
-                  pnpm build
+                  yarn build
