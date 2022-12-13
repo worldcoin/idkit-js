@@ -1,5 +1,6 @@
 import create from 'zustand'
 import { IDKITStage } from '@/types'
+import type { Config } from '@/types/Config'
 import type { CallbackFn, ErrorState, IPhoneSignal } from '@/types'
 
 export type IDKitStore = {
@@ -15,8 +16,9 @@ export type IDKitStore = {
 	retryFlow: () => void
 	setCode: (code: string) => void
 	setOpen: (open: boolean) => void
-	onOpenChange: (open: boolean) => void
 	setStage: (stage: IDKITStage) => void
+	setOptions: (options: Config) => void
+	onOpenChange: (open: boolean) => void
 	setActionId: (actionId: string) => void
 	onSuccess: (result: IPhoneSignal) => void
 	setProcessing: (processing: boolean) => void
@@ -30,10 +32,10 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	code: '',
 	actionId: '',
 	phoneNumber: '',
-	stage: IDKITStage.ENTER_PHONE,
-	processing: false,
 	errorState: null,
+	processing: false,
 	successCallbacks: [],
+	stage: IDKITStage.ENTER_PHONE,
 
 	setOpen: open => set({ open }),
 	setCode: code => set({ code }),
@@ -43,11 +45,16 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setProcessing: (processing: boolean) => set({ processing }),
 	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
+	addSuccessCallback: (cb: CallbackFn) => set(state => ({ successCallbacks: [...state.successCallbacks, cb] })),
+	setOptions: ({ actionId, onSuccess }: Config) => {
+		set({ actionId })
+
+		if (onSuccess) get().addSuccessCallback(onSuccess)
+	},
 	onSuccess: (result: IPhoneSignal) => {
 		get().successCallbacks.map(cb => cb(result))
 		set({ stage: IDKITStage.SUCCESS, processing: false })
 	},
-	addSuccessCallback: (cb: CallbackFn) => set(state => ({ successCallbacks: [...state.successCallbacks, cb] })),
 	onOpenChange: open => {
 		if (open) return set({ open })
 		set({ open, phoneNumber: '', code: '', processing: false, stage: IDKITStage.ENTER_PHONE })

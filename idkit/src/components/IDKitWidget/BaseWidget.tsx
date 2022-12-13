@@ -3,6 +3,7 @@ import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import useIDKitStore from '@/store/idkit'
 import builtStyles from '@build/index.css'
+import type { Config } from '@/types/Config'
 import ErrorState from './States/ErrorState'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
@@ -17,20 +18,25 @@ import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ open, onOpenChange, stage, setStage }: IDKitStore) => ({
-	isOpen: open,
-	onOpenChange,
+const getParams = ({ open, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
 	stage,
 	setStage,
+	setOptions,
+	isOpen: open,
+	onOpenChange,
 })
 
-type Props = {
+type Props = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
 }
 
-const IDKitWidget: FC<Props> = ({ children } = {}) => {
-	const { isOpen, onOpenChange, stage, setStage } = useIDKitStore(getParams)
+const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess }) => {
+	const { isOpen, onOpenChange, stage, setStage, setOptions } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
+
+	useEffect(() => {
+		setOptions({ actionId, onSuccess })
+	}, [actionId, onSuccess, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 
