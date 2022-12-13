@@ -1,15 +1,15 @@
 {
-  "name": "idkit-js",
-  "private": true,
-  "workspaces": [
-    "example-nextjs",
-    "example-react",
-    "idkit"
-  ],
-  "devDependencies": {
-    "cspell": "6.17.0"
-  },
-  "scripts": {
-    "spellcheck": "cspell **/*.{ts,js,tsx,json} -e idkit/build -e idkit/node_modules -e node_modules -e yarn.lock"
-  }
+	"name": "idkit-js",
+	"private": true,
+	"workspaces": [
+		"example-nextjs",
+		"example-react",
+		"idkit"
+	],
+	"devDependencies": {
+		"cspell": "6.17.0"
+	},
+	"scripts": {
+		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e idkit/build -e idkit/node_modules -e node_modules -e yarn.lock"
+	}
 }

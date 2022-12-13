@@ -31,7 +31,7 @@ const getParams = ({
 		try {
 			setErrorState(null)
 			setProcessing(true)
-      // FIXME: Add ph_distinct_id
+			// FIXME: Add ph_distinct_id
 			onSuccess(await verifyCode(phoneNumber, code, actionId, ''))
 		} catch (error) {
 			setProcessing(false)
