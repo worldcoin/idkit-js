@@ -10,6 +10,7 @@ export type IDKitStore = {
 	stage: IDKITStage
 	autoClose: boolean
 	phoneNumber: string
+	copy: Config['copy']
 	processing: boolean // Whether an async request is being processed and we show a loading state in the UI
 	errorState: ErrorState | null
 	successCallbacks: Array<CallbackFn>
@@ -38,6 +39,11 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	processing: false,
 	successCallbacks: [],
 	stage: IDKITStage.ENTER_PHONE,
+	copy: {
+		heading: 'Verify your phone number to continue',
+		subheading: "We'll take care of the rest!",
+		success: 'Your phone number is now verified.',
+	},
 
 	setOpen: open => set({ open }),
 	setCode: code => set({ code }),
@@ -48,8 +54,12 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setProcessing: (processing: boolean) => set({ processing }),
 	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
 	addSuccessCallback: (cb: CallbackFn) => set(state => ({ successCallbacks: [...state.successCallbacks, cb] })),
-	setOptions: ({ onSuccess, ...config }: Config) => {
-		set(config)
+	setOptions: ({ onSuccess, actionId, autoClose, copy }: Config) => {
+		set(store => ({
+			actionId,
+			autoClose,
+			copy: { ...store.copy, ...copy },
+		}))
 
 		if (onSuccess) get().addSuccessCallback(onSuccess)
 	},

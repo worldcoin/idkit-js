@@ -31,13 +31,13 @@ type Props = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
 }
 
-const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose }) => {
+const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy }) => {
 	const { isOpen, onOpenChange, stage, setStage, setOptions, autoClose: shouldClose } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
-		setOptions({ actionId, onSuccess, autoClose })
-	}, [actionId, onSuccess, autoClose, setOptions])
+		setOptions({ actionId, onSuccess, autoClose, copy })
+	}, [actionId, onSuccess, autoClose, copy, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 

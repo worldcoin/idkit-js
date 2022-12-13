@@ -16,6 +16,7 @@ const getParams = ({
 	setStage,
 	setProcessing,
 	setCode,
+	copy,
 	onSuccess,
 	setErrorState,
 	errorState,
@@ -27,6 +28,7 @@ const getParams = ({
 	errorState,
 	setCode,
 	setErrorState,
+	copy,
 	onSubmit: async () => {
 		try {
 			setErrorState(null)
@@ -49,7 +51,7 @@ const getParams = ({
 
 const VerifyCodeState = () => {
 	const submitRef = useRef<HTMLButtonElement>(null)
-	const { processing, code, onSubmit, useWorldID, errorState } = useIDKitStore(getParams)
+	const { copy, processing, code, onSubmit, useWorldID, errorState } = useIDKitStore(getParams)
 
 	const animation = useMemo(() => {
 		if (!processing && errorState) {
@@ -61,10 +63,9 @@ const VerifyCodeState = () => {
 		<div className="space-y-6">
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{/* TODO: Allow app to set this caption from settings */}
-					Enter your 6-digit code and get free gassless transactions.
+					Enter your 6-digit code to complete the verification.
 				</p>
-				<p className="text-70868f mt-2 text-center">We&apos;ll take care of the rest!</p>
+				<p className="text-70868f mt-2 text-center">{copy.subheading}</p>
 			</div>
 			<form className="mt-2 space-y-2">
 				<motion.div animate={animation} transition={{ type: 'spring', stiffness: 30 }}>

@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>idkit-js</title>
+		<title>IDKit Playground</title>
 
 		<style>
 			#root {
@@ -39,7 +39,10 @@
 		<script src="../build/idkit-js-dev.js"></script>
 
 		<script>
-			IDKit.init({ actionId: 'wid_staging_1234' })
+			IDKit.init({
+				actionId: 'wid_staging_1234',
+				copy: { heading: 'Verify your phone number for free gasless transactions.' },
+			})
 
 			document.getElementById('open-idkit').addEventListener('click', async () => {
 				const response = await IDKit.open()
