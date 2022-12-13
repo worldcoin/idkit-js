@@ -1,4 +1,3 @@
-import "@worldcoin/idkit/build/index.css";
 import { IDKitWidget } from "@worldcoin/idkit";
 
 function App() {

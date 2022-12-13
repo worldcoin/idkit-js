@@ -1,5 +1,4 @@
 import Head from "next/head";
-import "@worldcoin/idkit/build/index.css";
 import { IDKitWidget } from "@worldcoin/idkit";
 import styles from "../styles/Home.module.css";
 
