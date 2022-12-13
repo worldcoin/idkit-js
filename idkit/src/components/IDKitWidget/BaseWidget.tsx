@@ -1,8 +1,8 @@
 import type { FC } from 'react'
 import root from 'react-shadow'
 import { IDKITStage } from '@/types'
+import Styles from '@build/index.css'
 import useIDKitStore from '@/store/idkit'
-import builtStyles from '@build/index.css'
 import type { Config } from '@/types/Config'
 import ErrorState from './States/ErrorState'
 import * as Toast from '@radix-ui/react-toast'
@@ -69,7 +69,8 @@ const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose }) =>
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
 			<Dialog.Portal forceMount>
-				<root.div styleSheets={[builtStyles]} mode="open" id="idkit-widget">
+				<root.div mode="open" id="idkit-widget">
+					<Styles />
 					<AnimatePresence>
 						{isOpen && (
 							<div className="fixed z-10 font-sans" id="modal">
