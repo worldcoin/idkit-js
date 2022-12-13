@@ -41,7 +41,10 @@
 		<script>
 			IDKit.init({
 				actionId: 'wid_staging_1234',
-				copy: { heading: 'Verify your phone number for free gasless transactions.' },
+				copy: {
+					title: 'Enable Dispatcher',
+					heading: 'Verify your phone number for free gasless transactions.',
+				},
 			})
 
 			document.getElementById('open-idkit').addEventListener('click', async () => {

@@ -5,6 +5,7 @@ export type Config = {
 	autoClose?: boolean
 	onSuccess?: CallbackFn
 	copy: {
+		title: string
 		heading: string
 		subheading: string
 		success: string

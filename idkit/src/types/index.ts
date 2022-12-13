@@ -4,6 +4,7 @@ export enum IDKITStage {
 	WORLD_ID = 'WORLD_ID',
 	SUCCESS = 'SUCCESS',
 	ERROR = 'ERROR',
+	ABOUT = 'ABOUT',
 }
 
 export interface IPhoneSignal {

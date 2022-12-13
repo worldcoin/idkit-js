@@ -40,6 +40,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	successCallbacks: [],
 	stage: IDKITStage.ENTER_PHONE,
 	copy: {
+		title: 'Verify Phone',
 		heading: 'Verify your phone number to continue',
 		subheading: "We'll take care of the rest!",
 		success: 'Your phone number is now verified.',
@@ -66,6 +67,8 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	onSuccess: (result: IPhoneSignal) => {
 		get().successCallbacks.map(cb => cb(result))
 		set({ stage: IDKITStage.SUCCESS, processing: false })
+
+		if (get().autoClose) setTimeout(() => set({ open: false }), 1000)
 	},
 	onOpenChange: open => {
 		if (open) return set({ open })

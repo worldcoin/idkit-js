@@ -5,6 +5,7 @@ import Styles from '@build/index.css'
 import useIDKitStore from '@/store/idkit'
 import type { Config } from '@/types/Config'
 import ErrorState from './States/ErrorState'
+import AboutState from './States/AboutState'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import SuccessState from './States/SuccessState'
@@ -18,10 +19,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ open, onOpenChange, stage, setStage, setOptions, autoClose }: IDKitStore) => ({
+const getParams = ({ copy, open, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
+	copy,
 	stage,
 	setStage,
-	autoClose,
 	setOptions,
 	isOpen: open,
 	onOpenChange,
@@ -32,7 +33,7 @@ type Props = Config & {
 }
 
 const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy }) => {
-	const { isOpen, onOpenChange, stage, setStage, setOptions, autoClose: shouldClose } = useIDKitStore(getParams)
+	const { isOpen, onOpenChange, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
@@ -40,13 +41,6 @@ const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy
 	}, [actionId, onSuccess, autoClose, copy, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
-
-	useEffect(() => {
-		if (!shouldClose) return
-		if (stage !== IDKITStage.SUCCESS) return
-
-		setTimeout(() => onOpenChange(false), 1000)
-	}, [stage, shouldClose, onOpenChange])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
@@ -60,6 +54,8 @@ const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy
 				return SuccessState
 			case IDKITStage.ERROR:
 				return ErrorState
+			case IDKITStage.ABOUT:
+				return AboutState
 			default:
 				throw new Error('Invalid IDKit stage')
 		}
@@ -105,21 +101,26 @@ const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy
 													<Toast.Viewport className="flex justify-center" />
 													<div className="mx-6 mb-12 flex items-center justify-between">
 														{stage == IDKITStage.ENTER_PHONE ? (
-															<button className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
+															<button
+																onClick={() => setStage(IDKITStage.ABOUT)}
+																className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
+															>
 																<QuestionMarkIcon className="w-1.5" />
 															</button>
-														) : [IDKITStage.ENTER_CODE, IDKITStage.WORLD_ID].includes(
-																stage
-														  ) ? (
+														) : [
+																IDKITStage.ENTER_CODE,
+																IDKITStage.WORLD_ID,
+																IDKITStage.ABOUT,
+														  ].includes(stage) ? (
 															<button
 																onClick={() => setStage(IDKITStage.ENTER_PHONE)}
-																className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100"
+																className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
 															>
 																<ArrowLongLeftIcon className="w-4" />
 															</button>
 														) : null}
 														<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
-															Enable dispatcher
+															{stage != IDKITStage.ABOUT && _copy.title}
 														</Dialog.Title>
 														<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
 															<XMarkIcon className="h-4 w-4" />
