@@ -6,6 +6,7 @@ import useIDKitStore from '@/store/idkit'
 import type { Config } from '@/types/Config'
 import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
+import LoadingIcon from '../Icons/LoadingIcon'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import SuccessState from './States/SuccessState'
@@ -19,10 +20,11 @@ import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ copy, open, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
+const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
 	copy,
 	stage,
 	setStage,
+	processing,
 	setOptions,
 	isOpen: open,
 	onOpenChange,
@@ -33,7 +35,7 @@ type Props = Config & {
 }
 
 const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy }) => {
-	const { isOpen, onOpenChange, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
+	const { isOpen, onOpenChange, processing, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
@@ -126,13 +128,28 @@ const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy
 															<XMarkIcon className="h-4 w-4" />
 														</Dialog.Close>
 													</div>
-													<motion.div
-														className="mx-6 mb-6"
-														layout="position"
-														transition={{ layout: { duration: 0.15 } }}
-													>
-														<StageContent />
-													</motion.div>
+													<div className="relative">
+														<motion.div
+															className="mx-6 mb-6"
+															layout="position"
+															animate={{ visibility: processing ? 'hidden' : 'visible' }}
+															transition={{ layout: { duration: 0.15 } }}
+														>
+															<StageContent />
+														</motion.div>
+														<AnimatePresence>
+															{processing && (
+																<motion.div
+																	className="absolute inset-0 flex items-center justify-center"
+																	initial={{ opacity: 0 }}
+																	animate={{ opacity: 1 }}
+																	exit={{ opacity: 0 }}
+																>
+																	<LoadingIcon className="h-24 w-24" />
+																</motion.div>
+															)}
+														</AnimatePresence>
+													</div>
 													<div className="dark:bg-29343f flex items-center justify-between bg-gray-100 py-3 px-6 md:rounded-b-3xl">
 														<p className="text-70868f flex items-center gap-1 text-sm">
 															<span>Verified with</span>

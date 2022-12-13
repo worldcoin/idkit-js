@@ -111,9 +111,8 @@ const EnterPhoneState = () => {
 						'disabled:cursor-not-allowed disabled:bg-d3dfea dark:disabled:bg-29343f/50 disabled:text-9eafc0'
 					)}
 				>
-					{/* TODO: Nicer loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
-						{processing ? 'Loading ...' : 'Continue'}
+						Continue
 					</motion.span>
 				</motion.button>
 			</div>
