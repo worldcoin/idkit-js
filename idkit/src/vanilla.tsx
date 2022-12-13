@@ -15,7 +15,7 @@ export const init = (config: Config): void => {
 	if (isInitialized) throw new Error('IDKit is already initialized')
 	if (!config.actionId) throw new Error('You must provide your Action ID')
 
-	useIDKitStore.setState({ actionId: config.actionId })
+	useIDKitStore.getState().setOptions(config)
 
 	const startApp = () => {
 		try {
@@ -44,6 +44,7 @@ export const init = (config: Config): void => {
 }
 
 export const open = () => {
+	// eslint-disable-next-line compat/compat -- Promise is polyfilled
 	return new Promise((resolve, reject) => {
 		if (!isInitialized) return reject('IDKitWidget is not initialized')
 		useIDKitStore.getState().addSuccessCallback(resolve)
@@ -59,4 +60,5 @@ export const reset = () => {
 
 	root.unmount()
 	isInitialized = false
+	useIDKitStore.destroy()
 }

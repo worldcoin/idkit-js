@@ -4,11 +4,12 @@ import type { Config } from '@/types/Config'
 import type { CallbackFn, ErrorState, IPhoneSignal } from '@/types'
 
 export type IDKitStore = {
-	open: boolean
-	phoneNumber: string
 	code: string
+	open: boolean
 	actionId: string
 	stage: IDKITStage
+	autoClose: boolean
+	phoneNumber: string
 	processing: boolean // Whether an async request is being processed and we show a loading state in the UI
 	errorState: ErrorState | null
 	successCallbacks: Array<CallbackFn>
@@ -32,6 +33,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	code: '',
 	actionId: '',
 	phoneNumber: '',
+	autoClose: false,
 	errorState: null,
 	processing: false,
 	successCallbacks: [],
@@ -46,8 +48,8 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setProcessing: (processing: boolean) => set({ processing }),
 	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
 	addSuccessCallback: (cb: CallbackFn) => set(state => ({ successCallbacks: [...state.successCallbacks, cb] })),
-	setOptions: ({ actionId, onSuccess }: Config) => {
-		set({ actionId })
+	setOptions: ({ onSuccess, ...config }: Config) => {
+		set(config)
 
 		if (onSuccess) get().addSuccessCallback(onSuccess)
 	},

@@ -18,9 +18,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ open, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
+const getParams = ({ open, onOpenChange, stage, setStage, setOptions, autoClose }: IDKitStore) => ({
 	stage,
 	setStage,
+	autoClose,
 	setOptions,
 	isOpen: open,
 	onOpenChange,
@@ -30,15 +31,22 @@ type Props = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
 }
 
-const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess }) => {
-	const { isOpen, onOpenChange, stage, setStage, setOptions } = useIDKitStore(getParams)
+const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose }) => {
+	const { isOpen, onOpenChange, stage, setStage, setOptions, autoClose: shouldClose } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
-		setOptions({ actionId, onSuccess })
-	}, [actionId, onSuccess, setOptions])
+		setOptions({ actionId, onSuccess, autoClose })
+	}, [actionId, onSuccess, autoClose, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
+
+	useEffect(() => {
+		if (!shouldClose) return
+		if (stage !== IDKITStage.SUCCESS) return
+
+		setTimeout(() => onOpenChange(false), 1000)
+	}, [stage, shouldClose, onOpenChange])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
