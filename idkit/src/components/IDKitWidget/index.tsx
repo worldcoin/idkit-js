@@ -1,6 +1,4 @@
 import { memo } from 'react'
-import BaseWidget from './BaseWidget'
+import IDKitWidget from './BaseWidget'
 
-export const IDKitWidget = memo(function IDKitWidget() {
-	return <BaseWidget />
-})
+export default memo(IDKitWidget)
