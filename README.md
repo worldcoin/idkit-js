@@ -13,7 +13,23 @@ If your app is built on React, using the React widget is by far the easiest appr
 ```jsx
 import { IDKitWidget } from "@worldcoin/idkit";
 
-<IDKitWidget actionId="get_this_from_the_dev_portal" onSuccess={handleProof} />;
+<IDKitWidget actionId="get_this_from_the_dev_portal" onSuccess={handleProof}>
+	{({ open }) => (
+		{/* You can render whatever you want here, and call open() to open the widget */}
+		<button onClick={open}>Click me</button>
+	)}
+</IDKitWidget>
+```
+
+Alternatively, you can render the component without children (on your layout, for exampld) and use the `useIDKit` hook to open it programmatically.
+
+```jsx
+import { useIDKit } from "@worldcoin/idkit";
+
+const { open, setOpen } = useIDKit({
+	actionId: "get_this_from_the_dev_portal",
+	onSuccess: handleProof,
+});
 ```
 
 ### Generic JS apps
