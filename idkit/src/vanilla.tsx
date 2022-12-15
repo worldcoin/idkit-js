@@ -2,7 +2,7 @@ import useIDKitStore from './store/idkit'
 import type { Config } from './types/Config'
 import type { Root } from 'react-dom/client'
 import { createRoot } from 'react-dom/client'
-import { IDKitWidget } from './components/IDKitWidget'
+import IDKitWidget from './components/IDKitWidget'
 
 let root: Root
 let isInitialized = false
@@ -15,8 +15,6 @@ export const init = (config: Config): void => {
 	if (isInitialized) throw new Error('IDKit is already initialized')
 	if (!config.actionId) throw new Error('You must provide your Action ID')
 
-	useIDKitStore.getState().setOptions(config)
-
 	const startApp = () => {
 		try {
 			if (!isInitialized) {
@@ -24,7 +22,7 @@ export const init = (config: Config): void => {
 				document.body.appendChild(node)
 
 				root = createRoot(node)
-				root.render(<IDKitWidget />)
+				root.render(<IDKitWidget {...config} />)
 
 				isInitialized = true
 			}
@@ -41,6 +39,12 @@ export const init = (config: Config): void => {
 		// The document is not ready yet, so wait for the DOMContentLoaded event
 		document.addEventListener('DOMContentLoaded', startApp, false)
 	}
+}
+
+export const update = (config: Config): void => {
+	if (!isInitialized) throw new Error('IDKit is not initialized')
+
+	useIDKitStore.getState().setOptions(config)
 }
 
 export const open = () => {
