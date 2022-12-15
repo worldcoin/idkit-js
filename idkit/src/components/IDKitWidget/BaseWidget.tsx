@@ -1,9 +1,12 @@
 import type { FC } from 'react'
 import root from 'react-shadow'
 import { IDKITStage } from '@/types'
+import Styles from '@build/index.css'
 import useIDKitStore from '@/store/idkit'
-import builtStyles from '@build/index.css'
+import type { Config } from '@/types/Config'
 import ErrorState from './States/ErrorState'
+import AboutState from './States/AboutState'
+import LoadingIcon from '../Icons/LoadingIcon'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import SuccessState from './States/SuccessState'
@@ -17,20 +20,27 @@ import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ open, onOpenChange, stage, setStage }: IDKitStore) => ({
-	isOpen: open,
-	onOpenChange,
+const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
+	copy,
 	stage,
 	setStage,
+	processing,
+	setOptions,
+	isOpen: open,
+	onOpenChange,
 })
 
-type Props = {
+type Props = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
 }
 
-const IDKitWidget: FC<Props> = ({ children } = {}) => {
-	const { isOpen, onOpenChange, stage, setStage } = useIDKitStore(getParams)
+const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy }) => {
+	const { isOpen, onOpenChange, processing, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
+
+	useEffect(() => {
+		setOptions({ actionId, onSuccess, autoClose, copy })
+	}, [actionId, onSuccess, autoClose, copy, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 
@@ -46,6 +56,8 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 				return SuccessState
 			case IDKITStage.ERROR:
 				return ErrorState
+			case IDKITStage.ABOUT:
+				return AboutState
 			default:
 				throw new Error('Invalid IDKit stage')
 		}
@@ -55,7 +67,8 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
 			<Dialog.Portal forceMount>
-				<root.div styleSheets={[builtStyles]} mode="open" id="idkit-widget">
+				<root.div mode="open" id="idkit-widget">
+					<Styles />
 					<AnimatePresence>
 						{isOpen && (
 							<div className="fixed z-10 font-sans" id="modal">
@@ -90,33 +103,53 @@ const IDKitWidget: FC<Props> = ({ children } = {}) => {
 													<Toast.Viewport className="flex justify-center" />
 													<div className="mx-6 mb-12 flex items-center justify-between">
 														{stage == IDKITStage.ENTER_PHONE ? (
-															<button className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
+															<button
+																onClick={() => setStage(IDKITStage.ABOUT)}
+																className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
+															>
 																<QuestionMarkIcon className="w-1.5" />
 															</button>
-														) : [IDKITStage.ENTER_CODE, IDKITStage.WORLD_ID].includes(
-																stage
-														  ) ? (
+														) : [
+																IDKITStage.ENTER_CODE,
+																IDKITStage.WORLD_ID,
+																IDKITStage.ABOUT,
+														  ].includes(stage) ? (
 															<button
 																onClick={() => setStage(IDKITStage.ENTER_PHONE)}
-																className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100"
+																className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
 															>
 																<ArrowLongLeftIcon className="w-4" />
 															</button>
 														) : null}
 														<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
-															Enable dispatcher
+															{stage != IDKITStage.ABOUT && _copy.title}
 														</Dialog.Title>
 														<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
 															<XMarkIcon className="h-4 w-4" />
 														</Dialog.Close>
 													</div>
-													<motion.div
-														className="mx-6 mb-6"
-														layout="position"
-														transition={{ layout: { duration: 0.15 } }}
-													>
-														<StageContent />
-													</motion.div>
+													<div className="relative">
+														<motion.div
+															className="mx-6 mb-6"
+															layout="position"
+															animate={{ visibility: processing ? 'hidden' : 'visible' }}
+															transition={{ layout: { duration: 0.15 } }}
+														>
+															<StageContent />
+														</motion.div>
+														<AnimatePresence>
+															{processing && (
+																<motion.div
+																	className="absolute inset-0 flex items-center justify-center"
+																	initial={{ opacity: 0 }}
+																	animate={{ opacity: 1 }}
+																	exit={{ opacity: 0 }}
+																>
+																	<LoadingIcon className="h-24 w-24" />
+																</motion.div>
+															)}
+														</AnimatePresence>
+													</div>
 													<div className="dark:bg-29343f flex items-center justify-between bg-gray-100 py-3 px-6 md:rounded-b-3xl">
 														<p className="text-70868f flex items-center gap-1 text-sm">
 															<span>Verified with</span>

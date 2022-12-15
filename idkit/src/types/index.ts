@@ -4,6 +4,7 @@ export enum IDKITStage {
 	WORLD_ID = 'WORLD_ID',
 	SUCCESS = 'SUCCESS',
 	ERROR = 'ERROR',
+	ABOUT = 'ABOUT',
 }
 
 export interface IPhoneSignal {
@@ -11,6 +12,8 @@ export interface IPhoneSignal {
 	nullifier_hash: string
 	signature: string
 }
+
+export type CallbackFn = (result: IPhoneSignal) => void
 
 export enum ErrorState {
 	GENERIC_ERROR = 'GENERIC_ERROR',

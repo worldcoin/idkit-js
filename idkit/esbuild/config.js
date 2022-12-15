@@ -32,12 +32,10 @@ const styleLoader = {
 			const contents = await fs.promises.readFile(args.path, 'utf8')
 			return {
 				contents: `
-										require('construct-style-sheets-polyfill')
-                    const styleSheet = new CSSStyleSheet();
-                    styleSheet.replaceSync(${JSON.stringify(contents)})
-                    export default styleSheet
+					const styles = \`${contents.replace(/\\/g, '\\\\').replace(/`/g, '\\`')}\`
+					export default () => (<style>{styles}</style>)
                 `,
-				loader: 'js',
+				loader: 'jsx',
 			}
 		})
 	},

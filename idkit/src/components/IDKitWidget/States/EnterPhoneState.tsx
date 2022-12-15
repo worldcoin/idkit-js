@@ -17,7 +17,9 @@ const getParams = ({
 	setStage,
 	setProcessing,
 	setErrorState,
+	copy,
 }: IDKitStore) => ({
+	copy,
 	processing,
 	errorState,
 	phoneNumber,
@@ -47,7 +49,8 @@ const getParams = ({
 })
 
 const EnterPhoneState = () => {
-	const { phoneNumber, processing, errorState, onResetErrorState, useWorldID, onSubmit } = useIDKitStore(getParams)
+	const { copy, phoneNumber, processing, errorState, onResetErrorState, useWorldID, onSubmit } =
+		useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
@@ -71,11 +74,8 @@ const EnterPhoneState = () => {
 				</motion.div>
 			</Toast.Root>
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{/* TODO: Caption should be a config option */}
-					Verify your phone number for free gasless transactions.
-				</p>
-				<p className="text-70868f mt-3 text-center md:mt-2">We&apos;ll take care of the rest!</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">{copy.heading}</p>
+				<p className="text-70868f mt-3 text-center md:mt-2">{copy.subheading}</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />
@@ -111,9 +111,8 @@ const EnterPhoneState = () => {
 						'disabled:cursor-not-allowed disabled:bg-d3dfea dark:disabled:bg-29343f/50 disabled:text-9eafc0'
 					)}
 				>
-					{/* TODO: Nicer loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
-						{processing ? 'Loading ...' : 'Continue'}
+						Continue
 					</motion.span>
 				</motion.button>
 			</div>

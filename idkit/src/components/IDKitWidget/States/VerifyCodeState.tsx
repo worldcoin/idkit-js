@@ -16,6 +16,8 @@ const getParams = ({
 	setStage,
 	setProcessing,
 	setCode,
+	copy,
+	onSuccess,
 	setErrorState,
 	errorState,
 }: IDKitStore) => ({
@@ -26,17 +28,13 @@ const getParams = ({
 	errorState,
 	setCode,
 	setErrorState,
+	copy,
 	onSubmit: async () => {
 		try {
 			setErrorState(null)
 			setProcessing(true)
 			// FIXME: Add ph_distinct_id
-			const { nullifier_hash, signature } = await verifyCode(phoneNumber, code, actionId, '')
-			console.log('nullifier_hash', nullifier_hash)
-			console.log('signature', signature)
-			// FIXME: nullifier_hash & signature should be passed to the end client
-			setProcessing(false)
-			setStage(IDKITStage.SUCCESS)
+			onSuccess(await verifyCode(phoneNumber, code, actionId, ''))
 		} catch (error) {
 			setProcessing(false)
 			setCode('')
@@ -53,7 +51,7 @@ const getParams = ({
 
 const VerifyCodeState = () => {
 	const submitRef = useRef<HTMLButtonElement>(null)
-	const { processing, code, onSubmit, useWorldID, errorState } = useIDKitStore(getParams)
+	const { copy, processing, code, onSubmit, useWorldID, errorState } = useIDKitStore(getParams)
 
 	const animation = useMemo(() => {
 		if (!processing && errorState) {
@@ -65,10 +63,9 @@ const VerifyCodeState = () => {
 		<div className="space-y-6">
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{/* TODO: Allow app to set this caption from settings */}
-					Enter your 6-digit code and get free gassless transactions.
+					Enter your 6-digit code to complete the verification.
 				</p>
-				<p className="text-70868f mt-2 text-center">We&apos;ll take care of the rest!</p>
+				<p className="text-70868f mt-2 text-center">{copy.subheading}</p>
 			</div>
 			<form className="mt-2 space-y-2">
 				<motion.div animate={animation} transition={{ type: 'spring', stiffness: 30 }}>
@@ -111,9 +108,8 @@ const VerifyCodeState = () => {
 					ref={submitRef}
 					className="inline-flex w-full items-center justify-center rounded-2xl border border-transparent bg-indigo-600 px-8 py-4 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
-					{/* FIXME: Loading state */}
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
-						{processing ? 'Loading ...' : 'Continue'}
+						Continue
 					</motion.span>
 				</motion.button>
 			</div>
