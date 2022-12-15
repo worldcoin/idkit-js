@@ -26,7 +26,10 @@ Alternatively, you can render the component without children (on your layout, fo
 ```jsx
 import { useIDKit } from "@worldcoin/idkit";
 
-const { open, setOpen } = useIDKit({ actionId: "get_this_from_the_dev_portal", onSuccess: handleProof });
+const { open, setOpen } = useIDKit({
+	actionId: "get_this_from_the_dev_portal",
+	onSuccess: handleProof,
+});
 ```
 
 ### Generic JS apps
@@ -36,7 +39,9 @@ If your app doesn't have a framework or doesn't use React, continue here.
 1. Initialize IDKit (please refer to the docs for further customization details).
 
 ```js
-IDKit.init({ actionId: "get_this_from_the_dev_portal" });
+IDKit.init({
+	actionId: "get_this_from_the_dev_portal",
+});
 ```
 
 2. Then, open the widget and await the proof (you can do this in response to a button click, for example).
