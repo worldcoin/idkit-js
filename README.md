@@ -14,10 +14,10 @@ If your app is built on React, using the React widget is by far the easiest appr
 import { IDKitWidget } from "@worldcoin/idkit";
 
 <IDKitWidget actionId="get_this_from_the_dev_portal" onSuccess={handleProof}>
-	{({ open }) => (
-		{/* You can render whatever you want here, and call open() to open the widget */}
-		<button onClick={open}>Click me</button>
-	)}
+  {({ open }) => (
+    {/* You can render whatever you want here, and call open() to open the widget */}
+    <button onClick={open}>Click me</button>
+  )}
 </IDKitWidget>
 ```
 
@@ -26,10 +26,7 @@ Alternatively, you can render the component without children (on your layout, fo
 ```jsx
 import { useIDKit } from "@worldcoin/idkit";
 
-const { open, setOpen } = useIDKit({
-	actionId: "get_this_from_the_dev_portal",
-	onSuccess: handleProof,
-});
+const { open, setOpen } = useIDKit({ actionId: "get_this_from_the_dev_portal", onSuccess: handleProof });
 ```
 
 ### Generic JS apps
@@ -39,9 +36,7 @@ If your app doesn't have a framework or doesn't use React, continue here.
 1. Initialize IDKit (please refer to the docs for further customization details).
 
 ```js
-IDKit.init({
-	actionId: "get_this_from_the_dev_portal",
-});
+IDKit.init({ actionId: "get_this_from_the_dev_portal" });
 ```
 
 2. Then, open the widget and await the proof (you can do this in response to a button click, for example).
