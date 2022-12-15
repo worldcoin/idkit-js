@@ -11,26 +11,31 @@ Getting started with the Javascript package is really easy. Just follow the step
 If your app is built on React, using the React widget is by far the easiest approach.
 
 ```jsx
-import "@worldcoin/idkit/build/index.css";
 import { IDKitWidget } from "@worldcoin/idkit";
 
-<IDKitWidget />;
+<IDKitWidget actionId="get_this_from_the_dev_portal" onSuccess={handleProof} />;
 ```
 
 ### Generic JS apps
 
 If your app doesn't have a framework or doesn't use React, continue here.
 
-1. Add a `<div>` in your HTML where you'd like to include IDKit.
-
-```html
-<div id="idkit-js"></div>
-```
-
-2. Initialize IDKit (please refer to the docs for further customization details).
+1. Initialize IDKit (please refer to the docs for further customization details).
 
 ```js
-IDKit.init("idkit-js");
+IDKit.init({
+	actionId: "get_this_from_the_dev_portal",
+});
+```
+
+2. Then, open the widget and await the proof (you can do this in response to a button click, for example).
+
+```js
+button.addEventListener("click", async () => {
+	const proof = await IDKit.open();
+
+	console.log(proof);
+});
 ```
 
 ## 🧑‍💻 Development & testing
