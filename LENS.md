@@ -22,9 +22,9 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
 
 1. Install IDKit JS
     ```bash
-    yarn add idkit
+    yarn add @worldcoin/idkit
     # or
-    npm install idkit
+    npm install @worldcoin/idkit
     ```
 2. Load IDKit JS. Note the action ID below, the Action ID is the **same for all Lens-powered apps.**
 
@@ -32,7 +32,7 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
     - Production Action ID: `wid_2d3d2e7a1e0c8286083d4e43598e4f62`
 
     ```jsx
-    import { IDKitWidget } from "idkit";
+    import { IDKitWidget } from "@worldcoin/idkit";
 
     const isProd = false;
     const actionId = isProd ? 'wid_2d3d2e7a1e0c8286083d4e43598e4f62' : 'wid_staging_ac7743b1589fefaf3ed2fc05b3d60da1';
@@ -48,7 +48,7 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
 3. Add the success handler to notify the Lens API.
 
     ```typescript
-    import { ISuccessResult } from "idkit";
+    import type { ISuccessResult } from "@worldcoin/idkit";
     const handleProof = async (result: ISuccessResult) => {
     	await fetch("https://world-id-lens-bridge.vercel.app", {
     		method: "POST",
