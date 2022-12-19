@@ -13,6 +13,16 @@ IDKit and the World ID protocol is fully privacy preserving.
 
 Integration is very straightforward. Follow the relevant steps below.
 
+```bash
+yarn add idkit
+# or
+npm install idkit
+```
+
+### Lens x Worldcoin
+
+If you're integrating IDKit with a Lens app, check out the Lens-specific docs [here](LENS.md).
+
 ### React & Next.js apps
 
 If your app is built on React, using the React widget is by far the easiest approach.
@@ -56,7 +66,6 @@ IDKit.init({
 ```js
 button.addEventListener("click", async () => {
 	const proof = await IDKit.open();
-
 	console.log(proof);
 });
 ```
