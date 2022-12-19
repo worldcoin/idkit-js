@@ -1,5 +1,5 @@
 import useIDKitStore from './store/idkit'
-import type { Config } from './types/Config'
+import type { Config } from './types/config'
 import type { Root } from 'react-dom/client'
 import { createRoot } from 'react-dom/client'
 import IDKitWidget from './components/IDKitWidget'

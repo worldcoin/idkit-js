@@ -1,6 +1,6 @@
 import create from 'zustand'
 import { IDKITStage } from '@/types'
-import type { Config } from '@/types/Config'
+import type { Config } from '@/types/config'
 import type { CallbackFn, ErrorState, ISuccessResult } from '@/types'
 
 export type IDKitStore = {

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useMemo, useRef } from 'react'
 import useIDKitStore from '@/store/idkit'
-import { DEFAULT_COPY } from '@/types/Config'
+import { DEFAULT_COPY } from '@/types/config'
 import type { IDKitStore } from '@/store/idkit'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import ResendButton from '@/components/ResendButton'

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
-import { DEFAULT_COPY } from '@/types/Config'
+import { DEFAULT_COPY } from '@/types/config'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import { ErrorState, IDKITStage } from '@/types'
