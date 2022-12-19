@@ -1,4 +1,5 @@
 import useIDKitStore from '@/store/idkit'
+import { DEFAULT_COPY } from '@/types/Config'
 import type { IDKitStore } from '@/store/idkit'
 import { CheckIcon } from '@heroicons/react/20/solid'
 
@@ -18,7 +19,7 @@ const SuccessState = () => {
 			</div>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Success! 🎉</p>
-				<p className="text-70868f mt-2 text-center text-lg">{copy.success}</p>
+				<p className="text-70868f mt-2 text-center text-lg">{copy?.success || DEFAULT_COPY.success}</p>
 			</div>
 		</div>
 	)

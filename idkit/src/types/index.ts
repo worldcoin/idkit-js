@@ -23,7 +23,6 @@ export enum SignalType {
 }
 
 export interface ISuccessResult {
-	success: true
 	signal_type: SignalType
 	proof_payload: OrbSignalProof | PhoneSignalProof
 	nullifier_hash: string

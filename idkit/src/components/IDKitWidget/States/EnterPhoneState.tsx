@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
+import { DEFAULT_COPY } from '@/types/Config'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import { ErrorState, IDKITStage } from '@/types'
@@ -74,8 +75,10 @@ const EnterPhoneState = () => {
 				</motion.div>
 			</Toast.Root>
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">{copy.heading}</p>
-				<p className="text-70868f mt-3 text-center md:mt-2">{copy.subheading}</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
+					{copy?.heading || DEFAULT_COPY.heading}
+				</p>
+				<p className="text-70868f mt-3 text-center md:mt-2">{copy?.subheading || DEFAULT_COPY.subheading}</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />

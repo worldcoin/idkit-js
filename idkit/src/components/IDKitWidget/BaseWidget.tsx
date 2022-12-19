@@ -3,7 +3,6 @@ import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useIDKitStore from '@/store/idkit'
-import type { Config } from '@/types/Config'
 import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
 import LoadingIcon from '../Icons/LoadingIcon'
@@ -13,6 +12,7 @@ import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useEffect, useMemo, useState } from 'react'
+import { Config, DEFAULT_COPY } from '@/types/Config'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
@@ -122,7 +122,8 @@ const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy
 															</button>
 														) : null}
 														<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
-															{stage != IDKITStage.ABOUT && _copy.title}
+															{stage != IDKITStage.ABOUT &&
+																(_copy?.title || DEFAULT_COPY.title)}
 														</Dialog.Title>
 														<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
 															<XMarkIcon className="h-4 w-4" />

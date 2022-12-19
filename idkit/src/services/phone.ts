@@ -1,4 +1,4 @@
-import type { IPhoneSignal } from '@/types'
+import type { PhoneSignalProof } from '@/types'
 
 const API_BASE_URL = 'https://developer.worldcoin.org/api/v1'
 
@@ -13,12 +13,17 @@ export async function requestCode(phone_number: string, action_id: string, ph_di
 	if (!res.ok) throw await res.json()
 }
 
+interface VerifyCodeSuccess extends Pick<PhoneSignalProof, 'timestamp' | 'signature'> {
+	success: true
+	nullifier_hash: string
+}
+
 export async function verifyCode(
 	phone_number: string,
 	code: string,
 	action_id: string,
 	ph_distinct_id: string
-): Promise<IPhoneSignal> {
+): Promise<VerifyCodeSuccess> {
 	const res = await post('/phone/verify', {
 		phone_number,
 		code,
@@ -27,10 +32,10 @@ export async function verifyCode(
 	})
 	if (!res.ok) throw await res.json()
 
-	return res.json() as Promise<IPhoneSignal>
+	return res.json() as Promise<VerifyCodeSuccess>
 }
 
-export interface RequestCodeError {
+interface RequestCodeError {
 	code: 'max_attempts' | 'server_error' | 'timeout'
 	details: string
 }
