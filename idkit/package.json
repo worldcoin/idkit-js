@@ -17,11 +17,11 @@
 		"web3",
 		"proof-of-personhood",
 		"sybil resistance"
-	  ],
-	  "author": "",
-	  "license": "MIT",
-	  "homepage": "https://github.com/worldcoin/idkit-js",
-	  "repository": "github:worldcoin/idkit-js",
+	],
+	"author": "",
+	"license": "MIT",
+	"homepage": "https://github.com/worldcoin/idkit-js",
+	"repository": "github:worldcoin/idkit-js",
 	"scripts": {
 		"build": "npm-run-all clean build:*",
 		"build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify",
