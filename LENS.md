@@ -13,7 +13,7 @@ Lens API and Worldcoin are partnering to be able to sustainably offer gasless tr
 ### Additional considerations
 
 -   User only needs to enable gasless once. If a user has enabled gasless on another Lens app, then done, no need for them to go through the flow again.
--   Flow is fully privacy-preserving. Apps and Lens don't see the user's number. Worldcoin **neither stores the phone numbers nor the nullifier hashes** (see our [open source code](https://github.com/worldcoin/developer-portal/tree/main/web/pages/api/v1/phone)).
+-   Flow is fully privacy-preserving. Apps and Lens never see the user's number. The `nullifier_hash` cannot be reversed into a phone number. Worldcoin **neither stores the phone numbers nor the nullifier hashes** (see our [open source code](https://github.com/worldcoin/developer-portal/tree/main/web/pages/api/v1/phone)).
 -   For security, a very small list of countries are not supported, and verification is rate limited.
 
 ## Integration instructions
@@ -64,3 +64,5 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
     	// Check with Lens API user has gasless enabled
     };
     ```
+
+4. Done! User has gasless transactions!
