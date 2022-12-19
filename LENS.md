@@ -18,7 +18,7 @@ Lens API and Worldcoin are partnering to be able to sustainably offer gasless tr
 
 ## Integration instructions
 
-_These instructions assume you're integrating into a React/Next.js app. If you're not read the installation details on the [README.md](README.md)._
+_These instructions assume you're integrating into a React/Next.js app. If you're not, read the installation details on the [README.md](README.md)._
 
 1. Install IDKit JS
     ```bash
@@ -34,7 +34,7 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
     ```jsx
     import { IDKitWidget } from "@worldcoin/idkit";
 
-    const isProd = false;
+    const isProd = process.env.NODE_ENV == "production";
     const actionId = isProd ? 'wid_2d3d2e7a1e0c8286083d4e43598e4f62' : 'wid_staging_ac7743b1589fefaf3ed2fc05b3d60da1';
 
     <IDKitWidget actionId={actionId} onSuccess={handleProof}>
