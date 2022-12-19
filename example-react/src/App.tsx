@@ -4,6 +4,7 @@ function App() {
 	const handleProof = (result: ISuccessResult) => {
 		console.log(result);
 	};
+
 	return (
 		<div
 			className="App"

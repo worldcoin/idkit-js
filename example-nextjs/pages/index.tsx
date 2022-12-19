@@ -1,11 +1,15 @@
 import Head from "next/head";
-import { IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
+import { useCallback } from "react";
 import styles from "../styles/Home.module.css";
+import { IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
 
 export default function Home() {
-	const handleProof = (result: ISuccessResult) => {
-		console.log(result);
-	};
+	const handleProof = useCallback(
+		() => (result: ISuccessResult) => {
+			console.log(result);
+		},
+		[]
+	);
 	return (
 		<div className={styles.container}>
 			<Head>
