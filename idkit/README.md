@@ -2,12 +2,12 @@
 
 This folder (`/idkit`) contains the main code for the widget. For instructions on **how to use the widget**, please refer to the repository's main [README](/README.md).
 
-## ℹ️ About the codebase
+## ℹ️ About the Codebase
 
 -   The widget is made to work mainly with vanilla JS code (no framework required). The starting point can be found in `src/vanilla.tsx`.
 -   The React wrapper is found on `src/components/IDKitWidget/index.ts`.
 
-## 🧑‍💻 Development & testing
+## 🧑‍💻 Development & Testing
 
 To develop locally and contribute to this package, you can simply follow these instructions after cloning the repo.
 
