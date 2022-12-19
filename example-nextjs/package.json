@@ -18,6 +18,6 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"typescript": "4.9.3",
-		"@worldcoin/idkit": "0.1.0"
+		"@worldcoin/idkit": "^0.0.1"
 	}
 }

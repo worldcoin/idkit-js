@@ -1,8 +1,11 @@
 import Head from "next/head";
-import { IDKitWidget } from "@worldcoin/idkit";
+import { IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+	const handleProof = (result: ISuccessResult) => {
+		console.log(result);
+	};
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -12,7 +15,9 @@ export default function Home() {
 			</Head>
 
 			<div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
-				<IDKitWidget />
+				<IDKitWidget actionId="get_this_from_the_dev_portal" onSuccess={handleProof}>
+					{({ open }) => <button onClick={open}>Click me</button>}
+				</IDKitWidget>
 			</div>
 		</div>
 	);
