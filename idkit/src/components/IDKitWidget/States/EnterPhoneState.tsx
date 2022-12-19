@@ -76,9 +76,13 @@ const EnterPhoneState = () => {
 			</Toast.Root>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
+					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{copy?.heading || DEFAULT_COPY.heading}
 				</p>
-				<p className="text-70868f mt-3 text-center md:mt-2">{copy?.subheading || DEFAULT_COPY.subheading}</p>
+				<p className="text-70868f mt-3 text-center md:mt-2">
+					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+					{copy?.subheading || DEFAULT_COPY.subheading}
+				</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />

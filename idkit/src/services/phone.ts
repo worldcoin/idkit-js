@@ -13,7 +13,7 @@ export async function requestCode(phone_number: string, action_id: string, ph_di
 	if (!res.ok) throw await res.json()
 }
 
-interface VerifyCodeSuccess extends Pick<PhoneSignalProof, 'timestamp' | 'signature'> {
+interface VerifyCodeSuccess extends Pick<PhoneSignalProof, 'signature' | 'timestamp'> {
 	success: true
 	nullifier_hash: string
 }

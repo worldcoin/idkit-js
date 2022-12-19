@@ -67,6 +67,7 @@ const VerifyCodeState = () => {
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					Enter your 6-digit code to complete the verification.
 				</p>
+				{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 				<p className="text-70868f mt-2 text-center">{copy?.subheading || DEFAULT_COPY.subheading}</p>
 			</div>
 			<form className="mt-2 space-y-2">
