@@ -6,30 +6,13 @@ export enum IDKITStage {
 	ERROR = 'ERROR',
 	ABOUT = 'ABOUT',
 }
-
-export interface OrbSignalProof {
-	merkle_root: string
-	proof: string
-}
-
-export interface PhoneSignalProof {
-	timestamp: number
+export interface IPhoneSignal {
+	success: true
+	nullifier_hash: string
 	signature: string
 }
 
-export enum SignalType {
-	Orb = 'orb',
-	Phone = 'phone',
-}
-
-export interface ISuccessResult {
-	success: true
-	signal_type: SignalType
-	proof_payload: OrbSignalProof | PhoneSignalProof
-	nullifier_hash: string
-}
-
-export type CallbackFn = (result: ISuccessResult) => void
+export type CallbackFn = (result: IPhoneSignal) => void
 
 export enum ErrorState {
 	GENERIC_ERROR = 'GENERIC_ERROR',
