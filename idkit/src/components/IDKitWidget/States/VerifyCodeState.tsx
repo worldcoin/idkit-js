@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion'
 import { useMemo, useRef } from 'react'
 import useIDKitStore from '@/store/idkit'
+import { DEFAULT_COPY } from '@/types/config'
 import type { IDKitStore } from '@/store/idkit'
-import { ErrorState, IDKITStage } from '@/types'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import ResendButton from '@/components/ResendButton'
 import SMSCodeInput from '@/components/SMSCodeInput'
+import { ErrorState, IDKITStage, SignalType } from '@/types'
 import { isVerifyCodeError, verifyCode } from '@/services/phone'
 
 const getParams = ({
@@ -34,7 +35,8 @@ const getParams = ({
 			setErrorState(null)
 			setProcessing(true)
 			// FIXME: Add ph_distinct_id
-			onSuccess(await verifyCode(phoneNumber, code, actionId, ''))
+			const { nullifier_hash, ...proof_payload } = await verifyCode(phoneNumber, code, actionId, '')
+			onSuccess({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)
 			setCode('')
@@ -65,7 +67,8 @@ const VerifyCodeState = () => {
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					Enter your 6-digit code to complete the verification.
 				</p>
-				<p className="text-70868f mt-2 text-center">{copy.subheading}</p>
+				{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+				<p className="text-70868f mt-2 text-center">{copy?.subheading || DEFAULT_COPY.subheading}</p>
 			</div>
 			<form className="mt-2 space-y-2">
 				<motion.div animate={animation} transition={{ type: 'spring', stiffness: 30 }}>

@@ -1,5 +1,5 @@
 import useIDKitStore from '@/store/idkit'
-import type { Config } from '@/types/Config'
+import type { Config } from '@/types/config'
 
 const useIDKit = (options: Config) => {
 	const { open, onOpenChange, setOptions } = useIDKitStore()
