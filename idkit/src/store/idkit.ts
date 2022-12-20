@@ -1,7 +1,7 @@
 import create from 'zustand'
 import { IDKITStage } from '@/types'
-import type { Config } from '@/types/Config'
-import type { CallbackFn, ErrorState, IPhoneSignal } from '@/types'
+import type { Config } from '@/types/config'
+import type { CallbackFn, ErrorState, ISuccessResult } from '@/types'
 
 export type IDKitStore = {
 	code: string
@@ -22,7 +22,7 @@ export type IDKitStore = {
 	setOptions: (options: Config) => void
 	onOpenChange: (open: boolean) => void
 	setActionId: (actionId: string) => void
-	onSuccess: (result: IPhoneSignal) => void
+	onSuccess: (result: ISuccessResult) => void
 	setProcessing: (processing: boolean) => void
 	addSuccessCallback: (cb: CallbackFn) => void
 	setPhoneNumber: (phoneNumber: string) => void
@@ -39,12 +39,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	processing: false,
 	successCallbacks: [],
 	stage: IDKITStage.ENTER_PHONE,
-	copy: {
-		title: 'Verify Phone',
-		heading: 'Verify your phone number to continue',
-		subheading: "We'll take care of the rest!",
-		success: 'Your phone number is now verified.',
-	},
+	copy: {},
 
 	setOpen: open => set({ open }),
 	setCode: code => set({ code }),
@@ -64,7 +59,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 
 		if (onSuccess) get().addSuccessCallback(onSuccess)
 	},
-	onSuccess: (result: IPhoneSignal) => {
+	onSuccess: (result: ISuccessResult) => {
 		get().successCallbacks.map(cb => cb(result))
 		set({ stage: IDKITStage.SUCCESS, processing: false })
 

@@ -3,9 +3,10 @@ import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useIDKitStore from '@/store/idkit'
-import type { Config } from '@/types/Config'
+import type { Config } from '@/types/config'
 import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
+import { DEFAULT_COPY } from '@/types/config'
 import LoadingIcon from '../Icons/LoadingIcon'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
@@ -122,7 +123,8 @@ const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy
 															</button>
 														) : null}
 														<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
-															{stage != IDKITStage.ABOUT && _copy.title}
+															{stage != IDKITStage.ABOUT &&
+																(_copy?.title || DEFAULT_COPY.title)}
 														</Dialog.Title>
 														<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
 															<XMarkIcon className="h-4 w-4" />

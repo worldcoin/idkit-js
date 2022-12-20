@@ -1,4 +1,48 @@
 {
+	"name": "@worldcoin/idkit",
+	"description": "The identity SDK. Add sybil resistance to your apps through the World ID protocol.",
+	"type": "module",
+	"types": "./build/index.d.ts",
+	"version": "0.0.1",
+	"private": false,
+	"main": "./build/index.cjs",
+	"module": "./build/index.js",
+	"files": [
+		"build/**",
+		"!build/idkit-js-dev.js"
+	],
+	"keywords": [
+		"identity",
+		"ID",
+		"web3",
+		"proof-of-personhood",
+		"sybil resistance"
+	],
+	"author": "",
+	"license": "MIT",
+	"homepage": "https://github.com/worldcoin/idkit-js",
+	"repository": "github:worldcoin/idkit-js",
+	"scripts": {
+		"build": "npm-run-all clean build:*",
+		"build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify",
+		"build:declarations": "tsc && tsc-alias",
+		"build:esm": "node esbuild/production.js -p esm",
+		"build:iife": "node esbuild/production.js -p iife",
+		"clean": "rimraf build/",
+		"dev": "npm-run-all clean dev:styles --parallel dev:*",
+		"dev:bundle": "node esbuild/development.js",
+		"dev:styles": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css",
+		"dev:styles-watch": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --watch",
+		"format": "prettier -w ./",
+		"format:check": "prettier --check ./",
+		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
+		"lint:fix": "eslint --ext .tsx,.ts,.js,.jsx ./ --fix",
+		"typecheck": "tsc"
+	},
+	"peerDependencies": {
+		"react": ">18.0.0",
+		"react-dom": ">18.0.0"
+	},
 	"dependencies": {
 		"@fontsource/rubik": "^4.5.11",
 		"@headlessui/react": "^1.7.4",
@@ -54,38 +98,5 @@
 		"rimraf": "^3.0.2",
 		"tailwindcss": "^3.2.4",
 		"tsc-alias": "^1.7.1"
-	},
-	"files": [
-		"build/**",
-		"!build/idkit-js-dev.js"
-	],
-	"main": "./build/index.cjs",
-	"module": "./build/index.js",
-	"name": "@worldcoin/idkit",
-	"peerDependencies": {
-		"react": ">18.0.0",
-		"react-dom": ">18.0.0"
-	},
-	"private": true,
-	"scripts": {
-		"build": "npm-run-all clean build:*",
-		"build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify",
-		"build:declarations": "tsc && tsc-alias",
-		"build:esm": "node esbuild/production.js -p esm",
-		"build:iife": "node esbuild/production.js -p iife",
-		"clean": "rimraf build/",
-		"dev": "npm-run-all clean dev:styles --parallel dev:*",
-		"dev:bundle": "node esbuild/development.js",
-		"dev:styles": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css",
-		"dev:styles-watch": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --watch",
-		"format": "prettier -w ./",
-		"format:check": "prettier --check ./",
-		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
-		"lint:fix": "eslint --ext .tsx,.ts,.js,.jsx ./ --fix",
-		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e build/ -e node_modules -e pnpm-lock.yaml -e esbuild/",
-		"typecheck": "tsc"
-	},
-	"type": "module",
-	"types": "./build/index.d.ts",
-	"version": "0.1.0"
+	}
 }
