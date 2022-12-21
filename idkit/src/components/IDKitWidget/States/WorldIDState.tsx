@@ -1,9 +1,38 @@
+import { useEffect } from 'react'
+import { SignalType } from '@/types'
 import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
+import useIDKitStore from '@/store/idkit'
+import type { IDKitStore } from '@/store/idkit'
+import useOrbSignal from '@/services/walletconnect'
 import WorldIDQR from '@/components/Icons/WorldIDQR'
 import { DevicePhoneMobileIcon } from '@heroicons/react/20/solid'
 
+const getOptions = (store: IDKitStore) => ({
+	signal: store.signal,
+	actionId: store.actionId,
+	onSuccess: store.onSuccess,
+})
+
 const WorldIDState = () => {
+	const { actionId, signal, onSuccess } = useIDKitStore(getOptions)
+	const { result, verificationState, errorCode, qrData } = useOrbSignal(actionId, signal)
+
+	console.log(verificationState, errorCode, qrData)
+
+	useEffect(() => {
+		if (!result) return
+
+		onSuccess({
+			signal_type: SignalType.Orb,
+			nullifier_hash: result.nullifier_hash,
+			proof_payload: {
+				proof: result.proof,
+				merkle_root: result.merkle_root,
+			},
+		})
+	}, [result, onSuccess])
+
 	return (
 		<div className="space-y-6">
 			<div className="border-f1f5f8 dark:border-f1f5f8/10 relative -mt-6 flex items-center justify-center rounded-2xl border py-8">

@@ -6,6 +6,7 @@ import type { CallbackFn, ErrorState, ISuccessResult } from '@/types'
 export type IDKitStore = {
 	code: string
 	open: boolean
+	signal: string
 	actionId: string
 	stage: IDKITStage
 	autoClose: boolean
@@ -32,6 +33,7 @@ export type IDKitStore = {
 const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	open: false,
 	code: '',
+	signal: '',
 	actionId: '',
 	phoneNumber: '',
 	autoClose: false,
@@ -50,9 +52,10 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setProcessing: (processing: boolean) => set({ processing }),
 	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
 	addSuccessCallback: (cb: CallbackFn) => set(state => ({ successCallbacks: [...state.successCallbacks, cb] })),
-	setOptions: ({ onSuccess, actionId, autoClose, copy }: Config) => {
+	setOptions: ({ onSuccess, signal, actionId, autoClose, copy }: Config) => {
 		set(store => ({
 			actionId,
+			signal,
 			autoClose,
 			copy: { ...store.copy, ...copy },
 		}))

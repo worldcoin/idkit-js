@@ -34,3 +34,9 @@ export enum ErrorState {
 	GENERIC_ERROR = 'GENERIC_ERROR',
 	INVALID_CODE = 'INVALID_CODE', // OTP code is invalid
 }
+
+// Error response received from WLD app through WalletConnect
+export interface ExpectedErrorResponse {
+	message: string
+	stack: string
+}

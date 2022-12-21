@@ -1,6 +1,7 @@
 import type { CallbackFn } from '.'
 
 export type Config = {
+	signal: string
 	actionId: string
 	autoClose?: boolean
 	onSuccess?: CallbackFn
