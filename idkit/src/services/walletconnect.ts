@@ -5,6 +5,7 @@ import { randomNumber } from '@/lib/utils'
 import type { OrbResponse } from '@/types/orb'
 import WalletConnect from '@walletconnect/client'
 import type { ExpectedErrorResponse } from '@/types'
+import type { StringOrAdvanced } from '@/types/config'
 import { ErrorCodes, VerificationState } from '@/types/orb'
 import { validateABILikeEncoding, worldIDHash } from '@/lib/hashing'
 
@@ -14,13 +15,13 @@ type WalletConnectStore = {
 	result: OrbResponse | null
 	errorCode: ErrorCodes | null
 	verificationState: VerificationState
-	config: { action_id: string; signal: string } | null
+	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced } | null
 	qrData: {
 		default: string
 		mobile: string
 	} | null
 
-	initConnection: (action_id: string, signal: string) => Promise<void>
+	initConnection: (action_id: StringOrAdvanced, signal: StringOrAdvanced) => Promise<void>
 	onConnectionEstablished: () => void
 	setConnectorUri: (uri: string) => void
 }
@@ -44,7 +45,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	errorCode: null,
 	verificationState: VerificationState.LoadingWidget,
 
-	initConnection: async (action_id: string, signal: string) => {
+	initConnection: async (action_id: StringOrAdvanced, signal: StringOrAdvanced) => {
 		if (get().connectorUri) return
 		if (connector.connected) await connector.killSession()
 
@@ -104,7 +105,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 }))
 
 // @TODO: Support advanced signal/action_id, app names, and signal description
-const buildVerificationRequest = (action_id: string, signal: string) => ({
+const buildVerificationRequest = (action_id: StringOrAdvanced, signal: StringOrAdvanced) => ({
 	jsonrpc: '2.0',
 	method: 'wld_worldIDVerification',
 	id: randomNumber(100000, 9999999),
@@ -141,11 +142,10 @@ const getStore = (store: WalletConnectStore) => ({
 	verificationState: store.verificationState,
 })
 
-const useOrbSignal = (action_id: string, signal: string): UseOrbSignalResponse => {
+const useOrbSignal = (action_id: StringOrAdvanced, signal: StringOrAdvanced): UseOrbSignalResponse => {
 	const { result, verificationState, errorCode, qrData, initConnection } = useWalletConnectStore(getStore)
 
 	useEffect(() => {
-		console.log('useOrbSignal', action_id, signal)
 		if (!action_id || !signal) return
 
 		void initConnection(action_id, signal)

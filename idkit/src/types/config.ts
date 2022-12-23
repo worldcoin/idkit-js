@@ -1,8 +1,10 @@
 import type { CallbackFn } from '.'
 
+export type StringOrAdvanced = Array<[string, unknown]> | string
+
 export type Config = {
-	signal: string
-	actionId: string
+	signal: StringOrAdvanced
+	actionId: StringOrAdvanced
 	autoClose?: boolean
 	onSuccess?: CallbackFn
 	enableTelemetry?: boolean

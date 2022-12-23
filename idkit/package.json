@@ -45,6 +45,7 @@
 	},
 	"dependencies": {
 		"@ethersproject/bytes": "^5.7.0",
+		"@ethersproject/solidity": "^5.7.0",
 		"@fontsource/rubik": "^4.5.11",
 		"@headlessui/react": "^1.7.4",
 		"@heroicons/react": "^2.0.13",

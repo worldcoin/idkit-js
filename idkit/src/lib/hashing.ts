@@ -1,5 +1,7 @@
 import sha3 from 'js-sha3'
+import { pack } from '@ethersproject/solidity'
 import type { BytesLike } from '@ethersproject/bytes'
+import type { StringOrAdvanced } from '@/types/config'
 import { arrayify, concat, hexlify, isBytesLike } from '@ethersproject/bytes'
 
 export interface HashFunctionOutput {
@@ -14,10 +16,25 @@ export interface HashFunctionOutput {
  * @param input Any string, hex-like string, bytes represented as a hex string.
  * @returns
  */
-export function worldIDHash(input: Buffer | BytesLike): HashFunctionOutput {
+export function worldIDHash(input: Buffer | BytesLike | StringOrAdvanced): HashFunctionOutput {
+	if (Array.isArray(input)) return packAndEncode(input)
 	if (isBytesLike(input)) return hashEncodedBytes(input)
 
 	return hashString(input as string)
+}
+
+function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
+	const [types, values] = input.reduce<[string[], unknown[]]>(
+		([types, values], [type, value]) => {
+			types.push(type)
+			values.push(value)
+
+			return [types, values]
+		},
+		[[], []]
+	)
+
+	return hashEncodedBytes(pack(types, values))
 }
 
 /**

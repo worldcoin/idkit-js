@@ -19,9 +19,7 @@ const getOptions = (store: IDKitStore) => ({
 const WorldIDState = () => {
 	const media = useMedia()
 	const { actionId, signal, onSuccess } = useIDKitStore(getOptions)
-	const { result, verificationState, errorCode, qrData } = useOrbSignal(actionId, signal)
-
-	console.log(verificationState, errorCode, qrData)
+	const { result, qrData } = useOrbSignal(actionId, signal)
 
 	useEffect(() => {
 		if (!result) return
