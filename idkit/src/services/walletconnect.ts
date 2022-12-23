@@ -104,7 +104,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	},
 }))
 
-// @TODO: Support advanced signal/action_id, app names, and signal description
 const buildVerificationRequest = (action_id: StringOrAdvanced, signal: StringOrAdvanced) => ({
 	jsonrpc: '2.0',
 	method: 'wld_worldIDVerification',
