@@ -58,6 +58,7 @@
 		"framer-motion": "^7.6.7",
 		"js-sha3": "^0.8.0",
 		"phone": "^3.1.30",
+		"qr-code-styling-new": "^1.6.1",
 		"react-countdown": "^2.3.4",
 		"react-country-flag": "^3.0.2",
 		"react-frame-component": "^5.2.3",
