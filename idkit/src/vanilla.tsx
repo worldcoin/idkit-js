@@ -1,6 +1,7 @@
 import useIDKitStore from './store/idkit'
 import type { Config } from './types/config'
 import type { Root } from 'react-dom/client'
+import { ConfigSource } from './types/config'
 import { createRoot } from 'react-dom/client'
 import IDKitWidget from './components/IDKitWidget'
 
@@ -44,14 +45,14 @@ export const init = (config: Config): void => {
 export const update = (config: Config): void => {
 	if (!isInitialized) throw new Error('IDKit is not initialized')
 
-	useIDKitStore.getState().setOptions(config)
+	useIDKitStore.getState().setOptions(config, ConfigSource.PROPS)
 }
 
 export const open = () => {
 	// eslint-disable-next-line compat/compat -- Promise is polyfilled
 	return new Promise((resolve, reject) => {
 		if (!isInitialized) return reject('IDKitWidget is not initialized')
-		useIDKitStore.getState().addSuccessCallback(resolve)
+		useIDKitStore.getState().addSuccessCallback(resolve, ConfigSource.MANUAL)
 		useIDKitStore.setState({ open: true })
 	})
 }

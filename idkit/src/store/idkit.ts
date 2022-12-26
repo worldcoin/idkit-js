@@ -1,33 +1,33 @@
 import create from 'zustand'
 import { IDKITStage } from '@/types'
-import type { Config } from '@/types/config'
 import type { CallbackFn, ErrorState, ISuccessResult } from '@/types'
+import type { Config, ConfigSource, StringOrAdvanced } from '@/types/config'
 
 export type IDKitStore = {
 	code: string
 	open: boolean
-	signal: string
-	actionId: string
 	stage: IDKITStage
 	autoClose: boolean
 	phoneNumber: string
+	processing: boolean
 	copy: Config['copy']
-	processing: boolean // Whether an async request is being processed and we show a loading state in the UI
+	signal: StringOrAdvanced
+	actionId: StringOrAdvanced
 	errorState: ErrorState | null
-	successCallbacks: Array<CallbackFn>
+	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 
 	retryFlow: () => void
 	setCode: (code: string) => void
 	setOpen: (open: boolean) => void
 	setStage: (stage: IDKITStage) => void
-	setOptions: (options: Config) => void
 	onOpenChange: (open: boolean) => void
 	setActionId: (actionId: string) => void
 	onSuccess: (result: ISuccessResult) => void
 	setProcessing: (processing: boolean) => void
-	addSuccessCallback: (cb: CallbackFn) => void
 	setPhoneNumber: (phoneNumber: string) => void
 	setErrorState: (errorState: ErrorState | null) => void
+	setOptions: (options: Config, source: ConfigSource) => void
+	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => void
 }
 
 const useIDKitStore = create<IDKitStore>()((set, get) => ({
@@ -39,7 +39,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	autoClose: false,
 	errorState: null,
 	processing: false,
-	successCallbacks: [],
+	successCallbacks: {},
 	stage: IDKITStage.ENTER_PHONE,
 	copy: {},
 
@@ -51,8 +51,14 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setProcessing: (processing: boolean) => set({ processing }),
 	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
-	addSuccessCallback: (cb: CallbackFn) => set(state => ({ successCallbacks: [...state.successCallbacks, cb] })),
-	setOptions: ({ onSuccess, signal, actionId, autoClose, copy }: Config) => {
+	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => {
+		set(state => {
+			state.successCallbacks[source] = cb
+
+			return state
+		})
+	},
+	setOptions: ({ onSuccess, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
 		set(store => ({
 			actionId,
 			signal,
@@ -60,10 +66,10 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			copy: { ...store.copy, ...copy },
 		}))
 
-		if (onSuccess) get().addSuccessCallback(onSuccess)
+		if (onSuccess) get().addSuccessCallback(onSuccess, source)
 	},
 	onSuccess: (result: ISuccessResult) => {
-		get().successCallbacks.map(cb => cb(result))
+		Object.values(get().successCallbacks).map(cb => cb?.(result))
 		set({ stage: IDKITStage.SUCCESS, processing: false })
 
 		if (get().autoClose) setTimeout(() => set({ open: false }), 1000)
