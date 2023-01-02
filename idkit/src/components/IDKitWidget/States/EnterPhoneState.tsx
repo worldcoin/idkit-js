@@ -14,7 +14,7 @@ const getParams = ({
 	processing,
 	errorState,
 	phoneNumber,
-	actionId,
+	stringifiedActionId,
 	setStage,
 	setProcessing,
 	setErrorState,
@@ -24,14 +24,14 @@ const getParams = ({
 	processing,
 	errorState,
 	phoneNumber,
-	actionId,
+	stringifiedActionId,
 	useWorldID: () => setStage(IDKITStage.WORLD_ID),
 	onSubmit: async () => {
 		try {
 			setProcessing(true)
 			setErrorState(null)
 			// FIXME: ph_distinct_id
-			await requestCode(phoneNumber, actionId, '')
+			await requestCode(phoneNumber, stringifiedActionId, '')
 			setProcessing(false)
 			setStage(IDKITStage.ENTER_CODE)
 		} catch (error) {

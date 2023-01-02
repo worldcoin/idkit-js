@@ -1,7 +1,15 @@
 import type { CallbackFn } from '.'
 
+export type StringOrAdvanced = Array<[string, unknown]> | string
+export enum ConfigSource {
+	HOOK = 'hook',
+	PROPS = 'props',
+	MANUAL = 'manual',
+}
+
 export type Config = {
-	actionId: string
+	signal: StringOrAdvanced
+	actionId: StringOrAdvanced
 	autoClose?: boolean
 	onSuccess?: CallbackFn
 	enableTelemetry?: boolean

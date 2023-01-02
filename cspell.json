@@ -5,5 +5,20 @@
 	"allowCompoundWords": true,
 	"dictionaries": ["typescript", "node", "npm", "html"],
 	"enabledLanguageIds": ["typescript", "typescriptreact", "javascript", "markdown", "yaml", "json"],
-	"words": ["dfea", "eafc", "esbuild", "idkit", "IDQR", "iife", "merkle", "NextJS", "TTFB", "zustand"]
+	"words": [
+		"arrayify",
+		"dfea",
+		"eafc",
+		"esbuild",
+		"hexlify",
+		"idkit",
+		"IDQR",
+		"iife",
+		"keccak",
+		"merkle",
+		"NextJS",
+		"QRCode",
+		"TTFB",
+		"zustand"
+	]
 }

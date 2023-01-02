@@ -6,6 +6,7 @@ import useIDKitStore from '@/store/idkit'
 import type { Config } from '@/types/config'
 import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
+import { ConfigSource } from '@/types/config'
 import { DEFAULT_COPY } from '@/types/config'
 import LoadingIcon from '../Icons/LoadingIcon'
 import * as Toast from '@radix-ui/react-toast'
@@ -35,13 +36,13 @@ type Props = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
 }
 
-const IDKitWidget: FC<Props> = ({ children, actionId, onSuccess, autoClose, copy }) => {
+const IDKitWidget: FC<Props> = ({ children, actionId, signal, onSuccess, autoClose, copy }) => {
 	const { isOpen, onOpenChange, processing, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
-		setOptions({ actionId, onSuccess, autoClose, copy })
-	}, [actionId, onSuccess, autoClose, copy, setOptions])
+		setOptions({ actionId, signal, onSuccess, autoClose, copy }, ConfigSource.PROPS)
+	}, [actionId, signal, onSuccess, autoClose, copy, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 
