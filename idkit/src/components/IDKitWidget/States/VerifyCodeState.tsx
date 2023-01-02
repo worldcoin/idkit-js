@@ -3,6 +3,7 @@ import { useMemo, useRef } from 'react'
 import useIDKitStore from '@/store/idkit'
 import { DEFAULT_COPY } from '@/types/config'
 import type { IDKitStore } from '@/store/idkit'
+import { getTelemetryId } from '@/lib/telemetry'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import ResendButton from '@/components/ResendButton'
 import SMSCodeInput from '@/components/SMSCodeInput'
@@ -34,8 +35,12 @@ const getParams = ({
 		try {
 			setErrorState(null)
 			setProcessing(true)
-			// FIXME: Add ph_distinct_id
-			const { nullifier_hash, ...proof_payload } = await verifyCode(phoneNumber, code, stringifiedActionId, '')
+			const { nullifier_hash, ...proof_payload } = await verifyCode(
+				phoneNumber,
+				code,
+				stringifiedActionId,
+				getTelemetryId()
+			)
 			onSuccess({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)

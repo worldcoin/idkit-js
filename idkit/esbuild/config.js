@@ -47,7 +47,7 @@ export default /** @type {import('esbuild').BuildOptions} */ ({
 	logLevel: 'info',
 	define: {
 		global: 'globalThis',
-		worldIdJSVersion: JSON.stringify(packageJson.version),
+		IDKitVersion: JSON.stringify(packageJson.version),
 	},
 	entryPoints: [require.resolve('../src/index.ts')],
 	globalName: 'IDKit',

@@ -9,6 +9,7 @@ import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { isRequestCodeError, requestCode } from '@/services/phone'
+import { getTelemetryId, telemetryPhoneTyped } from '@/lib/telemetry'
 
 const getParams = ({
 	processing,
@@ -30,8 +31,8 @@ const getParams = ({
 		try {
 			setProcessing(true)
 			setErrorState(null)
-			// FIXME: ph_distinct_id
-			await requestCode(phoneNumber, stringifiedActionId, '')
+			await requestCode(phoneNumber, stringifiedActionId, getTelemetryId())
+			telemetryPhoneTyped()
 			setProcessing(false)
 			setStage(IDKITStage.ENTER_CODE)
 		} catch (error) {
