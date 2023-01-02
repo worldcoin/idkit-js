@@ -9,7 +9,7 @@ function factoryPostHogFetchError(error: unknown) {
 
 if (typeof window !== 'undefined') {
 	window.onunhandledrejection = function (event) {
-		return event.reason.name !== 'telemetry-error'
+		return (event.reason as Record<string, any>).name !== 'telemetry-error'
 	}
 }
 
