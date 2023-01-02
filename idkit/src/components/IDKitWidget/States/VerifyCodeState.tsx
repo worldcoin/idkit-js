@@ -13,7 +13,7 @@ const getParams = ({
 	processing,
 	phoneNumber,
 	code,
-	actionId,
+	stringifiedActionId,
 	setStage,
 	setProcessing,
 	setCode,
@@ -25,7 +25,7 @@ const getParams = ({
 	processing,
 	phoneNumber,
 	code,
-	actionId,
+	stringifiedActionId,
 	errorState,
 	setCode,
 	setErrorState,
@@ -35,7 +35,7 @@ const getParams = ({
 			setErrorState(null)
 			setProcessing(true)
 			// FIXME: Add ph_distinct_id
-			const { nullifier_hash, ...proof_payload } = await verifyCode(phoneNumber, code, actionId, '')
+			const { nullifier_hash, ...proof_payload } = await verifyCode(phoneNumber, code, stringifiedActionId, '')
 			onSuccess({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)

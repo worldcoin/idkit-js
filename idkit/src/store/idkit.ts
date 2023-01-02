@@ -1,5 +1,6 @@
 import create from 'zustand'
 import { IDKITStage } from '@/types'
+import { worldIDHash } from '@/lib/hashing'
 import type { CallbackFn, ErrorState, ISuccessResult } from '@/types'
 import type { Config, ConfigSource, StringOrAdvanced } from '@/types/config'
 
@@ -13,6 +14,7 @@ export type IDKitStore = {
 	copy: Config['copy']
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
+	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
 	errorState: ErrorState | null
 	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 
@@ -21,7 +23,7 @@ export type IDKitStore = {
 	setOpen: (open: boolean) => void
 	setStage: (stage: IDKITStage) => void
 	onOpenChange: (open: boolean) => void
-	setActionId: (actionId: string) => void
+	setActionId: (actionId: StringOrAdvanced) => void
 	onSuccess: (result: ISuccessResult) => void
 	setProcessing: (processing: boolean) => void
 	setPhoneNumber: (phoneNumber: string) => void
@@ -35,6 +37,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	code: '',
 	signal: '',
 	actionId: '',
+	stringifiedActionId: '',
 	phoneNumber: '',
 	autoClose: false,
 	errorState: null,
@@ -46,7 +49,10 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setOpen: open => set({ open }),
 	setCode: code => set({ code }),
 	setStage: stage => set({ stage }),
-	setActionId: actionId => set({ actionId }),
+	setActionId: actionId => {
+		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
+		set({ actionId, stringifiedActionId })
+	},
 	setErrorState: errorState => set({ errorState }),
 	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setProcessing: (processing: boolean) => set({ processing }),
