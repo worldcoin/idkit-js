@@ -38,7 +38,12 @@ const PrivacyState = () => {
 
 				<p className="text-70868f mt-3 text-justify">
 					More details in our{' '}
-					<a href="https://worldcoin.org/privacy-statement" className="underline" target="_blank">
+					<a
+						href="https://worldcoin.org/privacy-statement"
+						className="underline"
+						target="_blank"
+						rel="noreferrer noopener"
+					>
 						Privacy Statement
 					</a>
 					.
