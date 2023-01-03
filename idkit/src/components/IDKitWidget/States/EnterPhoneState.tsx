@@ -109,7 +109,7 @@ const EnterPhoneState = () => {
 					animate={{ opacity: phoneNumber ? 1 : 0.4 }}
 					type="button"
 					transition={{ layout: { duration: 0.15 } }}
-					onClick={onSubmit}
+					onClick={() => void onSubmit()}
 					layoutId="submit-button"
 					disabled={!phoneNumber || processing}
 					className={classNames(
