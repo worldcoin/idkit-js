@@ -21,32 +21,35 @@ async function posthogFetch(input: RequestInfo, init?: RequestInit): Promise<Res
 	}
 }
 
-const posthog = new PostHog(
-	'phc_QttqgDbMQDYHX1EMH7FnT6ECBVzdp0kGUq92aQaVQ6I', // cspell:disable-line
-	{ persistence: 'memory' }
-)
+let posthog: PostHog | null = null
 
-posthog.fetch = posthogFetch
+if (typeof window !== 'undefined') {
+	posthog = new PostHog(
+		'phc_QttqgDbMQDYHX1EMH7FnT6ECBVzdp0kGUq92aQaVQ6I', // cspell:disable-line
+		{ persistence: 'memory' }
+	)
+	posthog.fetch = posthogFetch
+}
 
 // Attributes sent on all events
 const SUPER_PROPS = { version: IDKitVersion, package: 'idkit-js' }
 
 export const getTelemetryId = (): string => {
-	return posthog.getDistinctId()
+	return posthog?.getDistinctId() ?? ''
 }
 
 export const initTelemetry = (enableTelemetry?: boolean): void => {
 	if (enableTelemetry) {
-		posthog.capture('idkit loaded', SUPER_PROPS)
+		posthog?.capture('idkit loaded', SUPER_PROPS)
 	} else {
-		posthog.optOut()
+		posthog?.optOut()
 	}
 }
 
 export const telemetryModalOpened = (): void => {
-	posthog.capture('idkit opened', SUPER_PROPS)
+	posthog?.capture('idkit opened', SUPER_PROPS)
 }
 
 export const telemetryPhoneTyped = (): void => {
-	posthog.capture('idkit phone typed', SUPER_PROPS)
+	posthog?.capture('idkit phone typed', SUPER_PROPS)
 }
