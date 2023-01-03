@@ -3,7 +3,6 @@ import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useIDKitStore from '@/store/idkit'
-import type { Config } from '@/types/config'
 import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
 import { ConfigSource } from '@/types/config'
@@ -14,6 +13,7 @@ import type { IDKitStore } from '@/store/idkit'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
+import type { WidgetProps } from '@/types/config'
 import { useEffect, useMemo, useState } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
@@ -32,11 +32,7 @@ const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setO
 	onOpenChange,
 })
 
-type Props = Config & {
-	children?: ({ open }: { open: () => void }) => JSX.Element
-}
-
-const IDKitWidget: FC<Props> = ({ children, actionId, signal, onSuccess, autoClose, copy }) => {
+const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, autoClose, copy }) => {
 	const { isOpen, onOpenChange, processing, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 

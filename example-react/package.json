@@ -18,10 +18,11 @@
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
-		"dev": "react-scripts start",
+		"dev": "yarn build:idkit && react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"build:idkit": "cd ../idkit && yarn build"
 	},
 	"eslintConfig": {
 		"extends": [

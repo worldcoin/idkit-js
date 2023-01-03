@@ -9987,6 +9987,11 @@ postcss@^8.3.5, postcss@^8.4.12, postcss@^8.4.18, postcss@^8.4.19, postcss@^8.4.
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+posthog-js-lite@2.0.0-alpha5:
+  version "2.0.0-alpha5"
+  resolved "https://registry.yarnpkg.com/posthog-js-lite/-/posthog-js-lite-2.0.0-alpha5.tgz#60cff1b756ba2723ebb0222ca132fd0de8036210"
+  integrity sha512-tlkBdypJuvK/s00n4EiQjwYVfuuZv6vt8BF3g1ooIQa2Gz9Vz80p8q3qsPLZ0V5ErGRy6i3Q4fWC9TDzR7GNRQ==
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"

@@ -3,6 +3,7 @@ import type { Config } from './types/config'
 import type { Root } from 'react-dom/client'
 import { ConfigSource } from './types/config'
 import { createRoot } from 'react-dom/client'
+import { initTelemetry } from './lib/telemetry'
 import IDKitWidget from './components/IDKitWidget'
 
 let root: Root
@@ -24,6 +25,8 @@ export const init = (config: Config): void => {
 
 				root = createRoot(node)
 				root.render(<IDKitWidget {...config} />)
+
+				initTelemetry(config.enableTelemetry)
 
 				isInitialized = true
 			}

@@ -21,6 +21,10 @@ export type Config = {
 	}
 }
 
+export type WidgetProps = Config & {
+	children?: ({ open }: { open: () => void }) => JSX.Element
+}
+
 export const DEFAULT_COPY = {
 	title: 'World ID',
 	heading: 'Verify your phone number',

@@ -3,21 +3,22 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "yarn build:idkit && next dev",
 		"build": "next build",
 		"start": "next start",
+		"build:idkit": "cd ../idkit && yarn build",
 		"lint": "next lint"
 	},
 	"dependencies": {
 		"@types/node": "18.11.9",
 		"@types/react": "18.0.25",
 		"@types/react-dom": "18.0.9",
+		"@worldcoin/idkit": "^0.0.1",
 		"eslint": "8.28.0",
 		"eslint-config-next": "13.0.5",
 		"next": "13.0.5",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
-		"typescript": "4.9.3",
-		"@worldcoin/idkit": "^0.0.1"
+		"typescript": "4.9.3"
 	}
 }

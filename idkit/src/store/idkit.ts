@@ -1,6 +1,7 @@
 import create from 'zustand'
 import { IDKITStage } from '@/types'
 import { worldIDHash } from '@/lib/hashing'
+import { telemetryModalOpened } from '@/lib/telemetry'
 import type { CallbackFn, ErrorState, ISuccessResult } from '@/types'
 import type { Config, ConfigSource, StringOrAdvanced } from '@/types/config'
 
@@ -23,7 +24,6 @@ export type IDKitStore = {
 	setOpen: (open: boolean) => void
 	setStage: (stage: IDKITStage) => void
 	onOpenChange: (open: boolean) => void
-	setActionId: (actionId: StringOrAdvanced) => void
 	onSuccess: (result: ISuccessResult) => void
 	setProcessing: (processing: boolean) => void
 	setPhoneNumber: (phoneNumber: string) => void
@@ -49,10 +49,6 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setOpen: open => set({ open }),
 	setCode: code => set({ code }),
 	setStage: stage => set({ stage }),
-	setActionId: actionId => {
-		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
-		set({ actionId, stringifiedActionId })
-	},
 	setErrorState: errorState => set({ errorState }),
 	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setProcessing: (processing: boolean) => set({ processing }),
@@ -65,8 +61,10 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		})
 	},
 	setOptions: ({ onSuccess, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
+		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
 		set(store => ({
 			actionId,
+			stringifiedActionId,
 			signal,
 			autoClose,
 			copy: { ...store.copy, ...copy },
@@ -81,7 +79,10 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		if (get().autoClose) setTimeout(() => set({ open: false }), 1000)
 	},
 	onOpenChange: open => {
-		if (open) return set({ open })
+		if (open) {
+			telemetryModalOpened()
+			return set({ open })
+		}
 		set({ open, phoneNumber: '', code: '', processing: false, stage: IDKITStage.ENTER_PHONE })
 	},
 }))
