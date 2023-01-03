@@ -12,6 +12,7 @@ import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
+import PrivacyState from './States/PrivacyState'
 import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
 import { useEffect, useMemo, useState } from 'react'
@@ -56,6 +57,8 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, a
 				return ErrorState
 			case IDKITStage.ABOUT:
 				return AboutState
+			case IDKITStage.PRIVACY:
+				return PrivacyState
 			default:
 				throw new Error('Invalid IDKit stage')
 		}
@@ -110,6 +113,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, a
 														) : [
 																IDKITStage.ENTER_CODE,
 																IDKITStage.WORLD_ID,
+																IDKITStage.PRIVACY,
 																IDKITStage.ABOUT,
 														  ].includes(stage) ? (
 															<button
@@ -160,9 +164,12 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, a
 																<WorldIDWordmark className="h-4 text-black dark:text-white" />
 															</a>
 														</p>
-														<a href="#!" className="text-70868f text-sm hover:underline">
+														<button
+															onClick={() => setStage(IDKITStage.PRIVACY)}
+															className="text-70868f text-sm hover:underline"
+														>
 															Privacy Policy
-														</a>
+														</button>
 													</div>
 												</Toast.Provider>
 											</motion.div>
