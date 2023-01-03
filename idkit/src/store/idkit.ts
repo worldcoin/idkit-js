@@ -2,7 +2,7 @@ import create from 'zustand'
 import { IDKITStage } from '@/types'
 import { worldIDHash } from '@/lib/hashing'
 import { telemetryModalOpened } from '@/lib/telemetry'
-import type { CallbackFn, ErrorState, ISuccessResult } from '@/types'
+import type { CallbackFn, ErrorStates, ISuccessResult } from '@/types'
 import type { Config, ConfigSource, StringOrAdvanced } from '@/types/config'
 
 export type IDKitStore = {
@@ -16,7 +16,7 @@ export type IDKitStore = {
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
-	errorState: ErrorState | null
+	errorState: ErrorStates | null
 	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 
 	retryFlow: () => void
@@ -27,7 +27,7 @@ export type IDKitStore = {
 	onVerification: (result: ISuccessResult) => void
 	setProcessing: (processing: boolean) => void
 	setPhoneNumber: (phoneNumber: string) => void
-	setErrorState: (errorState: ErrorState | null) => void
+	setErrorState: (errorState: ErrorStates | null) => void
 	setOptions: (options: Config, source: ConfigSource) => void
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => void
 }
@@ -73,8 +73,10 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		if (onVerification) get().addSuccessCallback(onVerification, source)
 	},
 	onVerification: (result: ISuccessResult) => {
-		Object.values(get().successCallbacks).map(cb => cb?.(result))
-		set({ stage: IDKITStage.SUCCESS, processing: false })
+		set({ stage: IDKITStage.HOST_APP_VERIFICATION })
+		Promise.all(Object.values(get().successCallbacks).map(cb => cb?.(result)))
+			.then(() => set({ stage: IDKITStage.SUCCESS, processing: false }))
+			.catch(() => set({ stage: IDKITStage.ERROR, processing: false }))
 
 		if (get().autoClose) setTimeout(() => set({ open: false }), 1000)
 	},

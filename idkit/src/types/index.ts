@@ -6,6 +6,7 @@ export enum IDKITStage {
 	SUCCESS = 'SUCCESS',
 	ERROR = 'ERROR',
 	ABOUT = 'ABOUT',
+	HOST_APP_VERIFICATION = 'HOST_APP_VERIFICATION',
 }
 
 export interface OrbSignalProof {
@@ -29,11 +30,12 @@ export interface ISuccessResult {
 	nullifier_hash: string
 }
 
-export type CallbackFn = (result: ISuccessResult) => void
+export type CallbackFn = (result: ISuccessResult) => Promise<void> | void
 
-export enum ErrorState {
+export enum ErrorStates {
 	GENERIC_ERROR = 'GENERIC_ERROR',
 	INVALID_CODE = 'INVALID_CODE', // OTP code is invalid
+	REJECTED_BY_HOST_APP = 'REJECTED_BY_HOST_APP', // Host app rejected the verification request
 }
 
 // Error response received from WLD app through WalletConnect

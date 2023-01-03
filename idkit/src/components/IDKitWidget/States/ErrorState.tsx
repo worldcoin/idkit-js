@@ -1,11 +1,18 @@
+import { ErrorStates } from '@/types'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ retryFlow }: IDKitStore) => ({ retryFlow })
+const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
+
+const ERROR_TITLES: Record<ErrorStates, string> = {
+	[ErrorStates.GENERIC_ERROR]: 'Something went wrong',
+	[ErrorStates.INVALID_CODE]: 'Invalid code',
+	[ErrorStates.REJECTED_BY_HOST_APP]: 'Verification declined by app',
+}
 
 const ErrorState = () => {
-	const { retryFlow } = useIDKitStore(getParams)
+	const { retryFlow, errorState } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-8">
@@ -17,9 +24,11 @@ const ErrorState = () => {
 				</div>
 			</div>
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Something went wrong</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
+					{ERROR_TITLES[errorState ?? ErrorStates.GENERIC_ERROR]}
+				</p>
 				<p className="mt-2 text-center text-lg text-gray-400">
-					Please try to verify your phone number again in a few moments
+					Please try to verify your phone number again in a moment
 				</p>
 			</div>
 			<div className="flex justify-center">

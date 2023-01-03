@@ -4,8 +4,8 @@ import useIDKitStore from '@/store/idkit'
 import { DEFAULT_COPY } from '@/types/config'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
-import { ErrorState, IDKITStage } from '@/types'
 import PhoneInput from '@/components/PhoneInput'
+import { ErrorStates, IDKITStage } from '@/types'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { isRequestCodeError, requestCode } from '@/services/phone'
@@ -38,7 +38,7 @@ const getParams = ({
 		} catch (error) {
 			setProcessing(false)
 			if (isRequestCodeError(error) && error.code !== 'server_error') {
-				setErrorState(ErrorState.GENERIC_ERROR)
+				setErrorState(ErrorStates.GENERIC_ERROR)
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)

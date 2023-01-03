@@ -22,6 +22,7 @@ import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
 	copy,
@@ -59,8 +60,10 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onVerificati
 				return AboutState
 			case IDKITStage.PRIVACY:
 				return PrivacyState
+			case IDKITStage.HOST_APP_VERIFICATION:
+				return HostAppVerificationState
 			default:
-				throw new Error('Invalid IDKit stage')
+				throw new Error('Invalid IDKitStage.')
 		}
 	}, [stage])
 
