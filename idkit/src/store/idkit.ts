@@ -24,7 +24,7 @@ export type IDKitStore = {
 	setOpen: (open: boolean) => void
 	setStage: (stage: IDKITStage) => void
 	onOpenChange: (open: boolean) => void
-	onSuccess: (result: ISuccessResult) => void
+	onVerification: (result: ISuccessResult) => void
 	setProcessing: (processing: boolean) => void
 	setPhoneNumber: (phoneNumber: string) => void
 	setErrorState: (errorState: ErrorState | null) => void
@@ -60,7 +60,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			return state
 		})
 	},
-	setOptions: ({ onSuccess, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
+	setOptions: ({ onVerification, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
 		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
 		set(store => ({
 			actionId,
@@ -70,9 +70,9 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			copy: { ...store.copy, ...copy },
 		}))
 
-		if (onSuccess) get().addSuccessCallback(onSuccess, source)
+		if (onVerification) get().addSuccessCallback(onVerification, source)
 	},
-	onSuccess: (result: ISuccessResult) => {
+	onVerification: (result: ISuccessResult) => {
 		Object.values(get().successCallbacks).map(cb => cb?.(result))
 		set({ stage: IDKITStage.SUCCESS, processing: false })
 

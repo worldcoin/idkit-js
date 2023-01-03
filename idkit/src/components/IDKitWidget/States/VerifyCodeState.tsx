@@ -19,7 +19,7 @@ const getParams = ({
 	setProcessing,
 	setCode,
 	copy,
-	onSuccess,
+	onVerification,
 	setErrorState,
 	errorState,
 }: IDKitStore) => ({
@@ -41,7 +41,7 @@ const getParams = ({
 				stringifiedActionId,
 				getTelemetryId()
 			)
-			onSuccess({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
+			onVerification({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)
 			setCode('')

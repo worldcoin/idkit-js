@@ -10,7 +10,7 @@ function App() {
 			className="App"
 			style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
 		>
-			<IDKitWidget actionId="get_this_from_the_dev_portal" onSuccess={handleProof}>
+			<IDKitWidget actionId="get_this_from_the_dev_portal" onVerification={handleProof}>
 				{({ open }) => <button onClick={open}>Click me</button>}
 			</IDKitWidget>
 		</div>
