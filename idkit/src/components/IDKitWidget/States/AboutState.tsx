@@ -6,17 +6,19 @@ const AboutState = () => {
 		<div className="space-y-6">
 			<div className="-mt-6">
 				<p className="text-center text-xl font-semibold text-gray-900 dark:text-white">
-					Proving unique-humanness through biometrics, without intruding privacy.
+					Proving unique-humanness without compromising privacy.
 				</p>
 				<p className="text-70868f mt-4 text-center">
-					World ID is a protocol that lets you prove a human is doing an action only once without revealing
-					any personal data. Stop bots, stop abuse.
+					World ID is an identity protocol centered around persons. It can be used to prove someone is doing
+					something once without revealing personal information.
 				</p>
 				<p className="text-70868f mt-3 text-center">
-					World ID uses a device called the Orb which takes a picture of a person&apos;s iris to verify they
-					are a unique and alive human. The protocol uses Zero-knowledge proofs so no traceable information is
-					ever public.
+					It currently supports verification through biometrics (using a device called an Orb), and through
+					phone numbers. Zero-Knowledge Proofs and other cryptographic mechanisms are used to preserve
+					privacy.
 				</p>
+
+				<p className="text-70868f mt-3 text-center">Apps will never see your phone number or biometrics.</p>
 			</div>
 			<div>
 				<motion.a

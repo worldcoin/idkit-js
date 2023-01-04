@@ -1,14 +1,48 @@
+import { useEffect } from 'react'
+import { SignalType } from '@/types'
 import { motion } from 'framer-motion'
+import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
+import useIDKitStore from '@/store/idkit'
+import { Qrcode } from '@/components/QRCode'
+import type { IDKitStore } from '@/store/idkit'
+import useOrbSignal from '@/services/walletconnect'
 import WorldIDQR from '@/components/Icons/WorldIDQR'
 import { DevicePhoneMobileIcon } from '@heroicons/react/20/solid'
 
+const getOptions = (store: IDKitStore) => ({
+	signal: store.signal,
+	actionId: store.actionId,
+	onVerification: store.onVerification,
+})
+
 const WorldIDState = () => {
+	const media = useMedia()
+	const { actionId, signal, onVerification } = useIDKitStore(getOptions)
+	const { result, qrData } = useOrbSignal(actionId, signal)
+
+	useEffect(() => {
+		if (!result) return
+
+		onVerification({
+			signal_type: SignalType.Orb,
+			nullifier_hash: result.nullifier_hash,
+			proof_payload: {
+				proof: result.proof,
+				merkle_root: result.merkle_root,
+			},
+		})
+	}, [result, onVerification])
+
 	return (
 		<div className="space-y-6">
 			<div className="border-f1f5f8 dark:border-f1f5f8/10 relative -mt-6 flex items-center justify-center rounded-2xl border py-8">
 				<div className="text-29343f dark:text-white">
-					<WorldIDQR className="h-80 w-80" />
+					{qrData ? (
+						<Qrcode data={media == 'desktop' ? qrData.default : qrData.mobile} className="h-80 w-80" />
+					) : (
+						<WorldIDQR className="h-80 w-80 animate-pulse opacity-20" />
+					)}
 				</div>
 				<div className="absolute inset-x-0 bottom-0 flex translate-y-1/2 items-center justify-center">
 					<p className="text-d3dfea dark:bg-0d151d dark:text-596673 bg-white px-4">or</p>

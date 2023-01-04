@@ -1,9 +1,17 @@
 import type { CallbackFn } from '.'
 
+export type StringOrAdvanced = Array<[string, unknown]> | string
+export enum ConfigSource {
+	HOOK = 'hook',
+	PROPS = 'props',
+	MANUAL = 'manual',
+}
+
 export type Config = {
-	actionId: string
+	signal: StringOrAdvanced
+	actionId: StringOrAdvanced
 	autoClose?: boolean
-	onSuccess?: CallbackFn
+	onVerification?: CallbackFn
 	enableTelemetry?: boolean
 	copy?: {
 		title?: string
@@ -11,6 +19,10 @@ export type Config = {
 		subheading?: string
 		success?: string
 	}
+}
+
+export type WidgetProps = Config & {
+	children?: ({ open }: { open: () => void }) => JSX.Element
 }
 
 export const DEFAULT_COPY = {

@@ -3,29 +3,30 @@ import { useMemo, useRef } from 'react'
 import useIDKitStore from '@/store/idkit'
 import { DEFAULT_COPY } from '@/types/config'
 import type { IDKitStore } from '@/store/idkit'
+import { getTelemetryId } from '@/lib/telemetry'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import ResendButton from '@/components/ResendButton'
 import SMSCodeInput from '@/components/SMSCodeInput'
-import { ErrorState, IDKITStage, SignalType } from '@/types'
+import { ErrorCodes, IDKITStage, SignalType } from '@/types'
 import { isVerifyCodeError, verifyCode } from '@/services/phone'
 
 const getParams = ({
 	processing,
 	phoneNumber,
 	code,
-	actionId,
+	stringifiedActionId,
 	setStage,
 	setProcessing,
 	setCode,
 	copy,
-	onSuccess,
+	onVerification,
 	setErrorState,
 	errorState,
 }: IDKitStore) => ({
 	processing,
 	phoneNumber,
 	code,
-	actionId,
+	stringifiedActionId,
 	errorState,
 	setCode,
 	setErrorState,
@@ -34,14 +35,18 @@ const getParams = ({
 		try {
 			setErrorState(null)
 			setProcessing(true)
-			// FIXME: Add ph_distinct_id
-			const { nullifier_hash, ...proof_payload } = await verifyCode(phoneNumber, code, actionId, '')
-			onSuccess({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
+			const { nullifier_hash, ...proof_payload } = await verifyCode(
+				phoneNumber,
+				code,
+				stringifiedActionId,
+				getTelemetryId()
+			)
+			onVerification({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)
 			setCode('')
 			if (isVerifyCodeError(error)) {
-				setErrorState(ErrorState.INVALID_CODE)
+				setErrorState({ code: ErrorCodes.INVALID_CODE })
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)
@@ -80,10 +85,7 @@ const VerifyCodeState = () => {
 					) : (
 						'Did not receive a code?'
 					)}{' '}
-					<ResendButton /> or{' '}
-					<button type="button" className="font-medium text-indigo-600">
-						Call me
-					</button>
+					<ResendButton />
 				</p>
 			</form>
 			<div className="flex items-center justify-center space-x-1">
@@ -106,7 +108,7 @@ const VerifyCodeState = () => {
 					type="button"
 					animate={{ opacity: code ? 1 : 0.4 }}
 					transition={{ layout: { duration: 0.15 } }}
-					onClick={onSubmit}
+					onClick={() => void onSubmit()}
 					disabled={!code || processing}
 					ref={submitRef}
 					className="inline-flex w-full items-center justify-center rounded-2xl border border-transparent bg-indigo-600 px-8 py-4 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"

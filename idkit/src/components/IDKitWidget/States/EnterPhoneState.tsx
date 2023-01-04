@@ -1,20 +1,22 @@
 import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
+import { ERROR_TITLES } from './ErrorState'
 import { DEFAULT_COPY } from '@/types/config'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
-import { ErrorState, IDKITStage } from '@/types'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { isRequestCodeError, requestCode } from '@/services/phone'
+import { getTelemetryId, telemetryPhoneTyped } from '@/lib/telemetry'
+import { ErrorCodes, IDKITStage, PhoneRequestErrorCodes, PhoneVerificationChannel } from '@/types'
 
 const getParams = ({
 	processing,
 	errorState,
 	phoneNumber,
-	actionId,
+	stringifiedActionId,
 	setStage,
 	setProcessing,
 	setErrorState,
@@ -24,24 +26,29 @@ const getParams = ({
 	processing,
 	errorState,
 	phoneNumber,
-	actionId,
+	stringifiedActionId,
 	useWorldID: () => setStage(IDKITStage.WORLD_ID),
 	onSubmit: async () => {
 		try {
 			setProcessing(true)
 			setErrorState(null)
-			// FIXME: ph_distinct_id
-			await requestCode(phoneNumber, actionId, '')
+			await requestCode(phoneNumber, stringifiedActionId, PhoneVerificationChannel.SMS, getTelemetryId())
+			telemetryPhoneTyped()
 			setProcessing(false)
 			setStage(IDKITStage.ENTER_CODE)
 		} catch (error) {
+			console.error(error)
 			setProcessing(false)
-			if (isRequestCodeError(error) && error.code !== 'server_error') {
-				setErrorState(ErrorState.GENERIC_ERROR)
-				console.error(error)
+			let message: string | undefined = undefined
+			if (isRequestCodeError(error)) {
+				message = (Object.values(PhoneRequestErrorCodes).includes(error.code) && error.detail) || undefined
+				if (error.code !== PhoneRequestErrorCodes.TIMEOUT) {
+					setStage(IDKITStage.ERROR)
+				}
 			} else {
 				setStage(IDKITStage.ERROR)
 			}
+			setErrorState({ code: ErrorCodes.PHONE_OTP_REQUEST_ERROR, message })
 		}
 	},
 	onResetErrorState: () => {
@@ -50,7 +57,7 @@ const getParams = ({
 })
 
 const EnterPhoneState = () => {
-	const { copy, phoneNumber, processing, errorState, onResetErrorState, useWorldID, onSubmit } =
+	const { copy, phoneNumber, processing, useWorldID, onSubmit, errorState, onResetErrorState } =
 		useIDKitStore(getParams)
 
 	return (
@@ -67,7 +74,8 @@ const EnterPhoneState = () => {
 					transition={{ duration: 0.3 }}
 				>
 					<Toast.Title className="text-xs font-medium text-red-600">
-						Something went wrong. Please try again.
+						{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+						{errorState?.message || 'Unable to send code. Please try again.'}
 					</Toast.Title>
 					<Toast.Action altText="Close">
 						<XMarkIcon className="h-4 w-4" />
@@ -108,7 +116,7 @@ const EnterPhoneState = () => {
 					animate={{ opacity: phoneNumber ? 1 : 0.4 }}
 					type="button"
 					transition={{ layout: { duration: 0.15 } }}
-					onClick={onSubmit}
+					onClick={() => void onSubmit()}
 					layoutId="submit-button"
 					disabled={!phoneNumber || processing}
 					className={classNames(

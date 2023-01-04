@@ -3,7 +3,7 @@
 	"description": "The identity SDK. Add sybil resistance to your apps through the World ID protocol.",
 	"type": "module",
 	"types": "./build/index.d.ts",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"private": false,
 	"main": "./build/index.cjs",
 	"module": "./build/index.js",
@@ -37,13 +37,16 @@
 		"format:check": "prettier --check ./",
 		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
 		"lint:fix": "eslint --ext .tsx,.ts,.js,.jsx ./ --fix",
-		"typecheck": "tsc"
+		"typecheck": "tsc",
+		"prerelease": "standard-version"
 	},
 	"peerDependencies": {
 		"react": ">18.0.0",
 		"react-dom": ">18.0.0"
 	},
 	"dependencies": {
+		"@ethersproject/bytes": "^5.7.0",
+		"@ethersproject/solidity": "^5.7.0",
 		"@fontsource/rubik": "^4.5.11",
 		"@headlessui/react": "^1.7.4",
 		"@heroicons/react": "^2.0.13",
@@ -52,9 +55,13 @@
 		"@radix-ui/react-select": "^1.1.2",
 		"@radix-ui/react-toast": "^1.1.2",
 		"@tailwindcss/forms": "^0.5.3",
+		"@walletconnect/client": "^1.8.0",
 		"country-telephone-data": "^0.6.3",
 		"framer-motion": "^7.6.7",
+		"js-sha3": "^0.8.0",
 		"phone": "^3.1.30",
+		"posthog-js-lite": "2.0.0-alpha5",
+		"qr-code-styling-new": "^1.6.1",
 		"react-countdown": "^2.3.4",
 		"react-country-flag": "^3.0.2",
 		"react-frame-component": "^5.2.3",
@@ -62,7 +69,6 @@
 		"zustand": "^4.1.4"
 	},
 	"devDependencies": {
-		"typescript": "4.9.3",
 		"@babel/core": "^7.20.2",
 		"@babel/plugin-syntax-typescript": "^7.20.0",
 		"@esbuild-plugins/node-globals-polyfill": "^0.1.1",
@@ -96,7 +102,21 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"rimraf": "^3.0.2",
+		"standard-version": "^9.5.0",
 		"tailwindcss": "^3.2.4",
-		"tsc-alias": "^1.7.1"
+		"tsc-alias": "^1.7.1",
+		"typescript": "4.9.3"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
 	}
 }
