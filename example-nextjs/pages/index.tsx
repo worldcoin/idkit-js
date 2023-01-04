@@ -11,12 +11,9 @@ const IDKitWidget = dynamic<WidgetProps>(() => import("@worldcoin/idkit").then((
 });
 
 export default function Home() {
-	const handleProof = useCallback(
-		() => (result: ISuccessResult) => {
-			console.log(result);
-		},
-		[]
-	);
+	const handleProof = useCallback((result: ISuccessResult) => {
+		console.log(result);
+	}, []);
 	return (
 		<div className={styles.container}>
 			<Head>
