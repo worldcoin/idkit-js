@@ -5,9 +5,10 @@ import { XMarkIcon } from '@heroicons/react/20/solid'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
-const ERROR_TITLES: Record<ErrorCodes, string> = {
+export const ERROR_TITLES: Record<ErrorCodes, string> = {
 	[ErrorCodes.GENERIC_ERROR]: 'Something went wrong',
 	[ErrorCodes.INVALID_CODE]: 'Invalid code',
+	[ErrorCodes.PHONE_OTP_REQUEST_ERROR]: 'We could not send you a code',
 	[ErrorCodes.REJECTED_BY_HOST_APP]: 'Verification declined by app',
 }
 
@@ -29,7 +30,7 @@ const ErrorState = () => {
 				</p>
 				<p className="mt-2 text-center text-lg text-gray-400">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
-					{errorState?.message || 'Please try to verify again in a moment'}
+					{errorState?.message || 'Please try again in a moment.'}
 				</p>
 			</div>
 			<div className="flex justify-center">
@@ -40,6 +41,11 @@ const ErrorState = () => {
 				>
 					Try Again
 				</button>
+			</div>
+			<div>
+				<p className="mt-4 text-xs text-gray-400">
+					If you are the app owner, check the console for further details.
+				</p>
 			</div>
 		</div>
 	)

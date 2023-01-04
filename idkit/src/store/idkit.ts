@@ -41,6 +41,8 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	phoneNumber: '',
 	autoClose: false,
 	errorState: null,
+	errorTitle: '',
+	errorDetail: '',
 	processing: false,
 	successCallbacks: {},
 	stage: IDKITStage.ENTER_PHONE,
@@ -52,7 +54,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setErrorState: errorState => set({ errorState }),
 	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setProcessing: (processing: boolean) => set({ processing }),
-	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
+	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '', errorState: null }),
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => {
 		set(state => {
 			state.successCallbacks[source] = cb

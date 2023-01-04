@@ -39,6 +39,7 @@ export interface IErrorState {
 
 export enum ErrorCodes {
 	GENERIC_ERROR = 'GENERIC_ERROR',
+	PHONE_OTP_REQUEST_ERROR = 'PHONE_OTP_REQUEST_ERROR',
 	INVALID_CODE = 'INVALID_CODE', // OTP code is invalid
 	REJECTED_BY_HOST_APP = 'REJECTED_BY_HOST_APP', // Host app rejected the verification request
 }
@@ -52,4 +53,11 @@ export interface ExpectedErrorResponse {
 export enum PhoneVerificationChannel {
 	SMS = 'sms',
 	Call = 'call',
+}
+
+export enum PhoneRequestErrorCodes {
+	MAX_ATTEMPTS = 'max_attempts',
+	TIMEOUT = 'timeout',
+	UNSUPPORTED_COUNTRY = 'unsupported_country',
+	SERVER_ERROR = 'server_error',
 }
