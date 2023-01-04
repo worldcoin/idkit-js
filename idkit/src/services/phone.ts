@@ -1,4 +1,4 @@
-import type { PhoneSignalProof, PhoneVerificationChannel } from '@/types'
+import type { PhoneRequestErrorCodes, PhoneSignalProof, PhoneVerificationChannel } from '@/types'
 
 const API_BASE_URL = 'https://developer.worldcoin.org/api/v1'
 
@@ -41,7 +41,7 @@ export async function verifyCode(
 }
 
 interface RequestCodeError {
-	code: 'max_attempts' | 'server_error' | 'timeout'
+	code: PhoneRequestErrorCodes
 	detail: string
 }
 

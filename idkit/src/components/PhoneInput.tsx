@@ -42,7 +42,7 @@ const PhoneInput = ({ disabled, onSubmit }: { disabled?: boolean; onSubmit?: () 
 					onChange={e => setPhoneNumber(e.target.value)}
 					className="block w-full rounded-md border-transparent bg-transparent pl-6 focus:border-transparent focus:ring-transparent dark:text-white sm:text-sm"
 					disabled={disabled}
-					onKeyDown={e => e.key === 'Enter' && onSubmit?.()}
+					onKeyDown={e => e.key === 'Enter' && void onSubmit?.()}
 				/>
 			</div>
 		</Fragment>
