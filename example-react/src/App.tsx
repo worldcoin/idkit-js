@@ -3,6 +3,12 @@ import { IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
 function App() {
 	const handleProof = (result: ISuccessResult) => {
 		console.log(result);
+		const promise = new Promise<void>((resolve, reject) => {
+			setTimeout(() => resolve(), 3000);
+			// NOTE: Example of how to decline the verification request and show an error message to the user
+			//setTimeout(() => reject({ message: "This phone number has already been used!" }), 3000);
+		});
+		return promise;
 	};
 
 	return (
@@ -10,7 +16,11 @@ function App() {
 			className="App"
 			style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
 		>
-			<IDKitWidget actionId="get_this_from_the_dev_portal" onVerification={handleProof}>
+			<IDKitWidget
+				actionId="wid_staging_f56691ad61aaf0021ab317e29cf11820"
+				signal="my_signal"
+				onVerification={handleProof}
+			>
 				{({ open }) => <button onClick={open}>Click me</button>}
 			</IDKitWidget>
 		</div>

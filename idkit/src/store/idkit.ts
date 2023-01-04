@@ -1,8 +1,8 @@
 import create from 'zustand'
-import { IDKITStage } from '@/types'
 import { worldIDHash } from '@/lib/hashing'
+import { ErrorCodes, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
-import type { CallbackFn, ErrorStates, ISuccessResult } from '@/types'
+import type { CallbackFn, ISuccessResult, IErrorState } from '@/types'
 import type { Config, ConfigSource, StringOrAdvanced } from '@/types/config'
 
 export type IDKitStore = {
@@ -16,7 +16,7 @@ export type IDKitStore = {
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
-	errorState: ErrorStates | null
+	errorState: IErrorState | null
 	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 
 	retryFlow: () => void
@@ -27,7 +27,7 @@ export type IDKitStore = {
 	onVerification: (result: ISuccessResult) => void
 	setProcessing: (processing: boolean) => void
 	setPhoneNumber: (phoneNumber: string) => void
-	setErrorState: (errorState: ErrorStates | null) => void
+	setErrorState: (state: IErrorState | null) => void
 	setOptions: (options: Config, source: ConfigSource) => void
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => void
 }
@@ -73,10 +73,19 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		if (onVerification) get().addSuccessCallback(onVerification, source)
 	},
 	onVerification: (result: ISuccessResult) => {
-		set({ stage: IDKITStage.HOST_APP_VERIFICATION })
+		set({ stage: IDKITStage.HOST_APP_VERIFICATION, processing: false })
 		Promise.all(Object.values(get().successCallbacks).map(cb => cb?.(result)))
-			.then(() => set({ stage: IDKITStage.SUCCESS, processing: false }))
-			.catch(() => set({ stage: IDKITStage.ERROR, processing: false }))
+			.then(() => set({ stage: IDKITStage.SUCCESS }))
+			.catch(response => {
+				let errorMessage: string | undefined = undefined
+				if (response && typeof response === 'object' && (response as Record<string, unknown>).message) {
+					errorMessage = (response as Record<string, unknown>).message as string
+				}
+				set({
+					stage: IDKITStage.ERROR,
+					errorState: { code: ErrorCodes.REJECTED_BY_HOST_APP, message: errorMessage },
+				})
+			})
 
 		if (get().autoClose) setTimeout(() => set({ open: false }), 1000)
 	},

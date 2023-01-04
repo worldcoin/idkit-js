@@ -1,14 +1,14 @@
-import { ErrorStates } from '@/types'
+import { ErrorCodes } from '@/types'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
-const ERROR_TITLES: Record<ErrorStates, string> = {
-	[ErrorStates.GENERIC_ERROR]: 'Something went wrong',
-	[ErrorStates.INVALID_CODE]: 'Invalid code',
-	[ErrorStates.REJECTED_BY_HOST_APP]: 'Verification declined by app',
+const ERROR_TITLES: Record<ErrorCodes, string> = {
+	[ErrorCodes.GENERIC_ERROR]: 'Something went wrong',
+	[ErrorCodes.INVALID_CODE]: 'Invalid code',
+	[ErrorCodes.REJECTED_BY_HOST_APP]: 'Verification declined by app',
 }
 
 const ErrorState = () => {
@@ -25,10 +25,11 @@ const ErrorState = () => {
 			</div>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{ERROR_TITLES[errorState ?? ErrorStates.GENERIC_ERROR]}
+					{ERROR_TITLES[errorState?.code ?? ErrorCodes.GENERIC_ERROR]}
 				</p>
 				<p className="mt-2 text-center text-lg text-gray-400">
-					Please try to verify your phone number again in a moment
+					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+					{errorState?.message || 'Please try to verify again in a moment'}
 				</p>
 			</div>
 			<div className="flex justify-center">

@@ -7,7 +7,7 @@ import { getTelemetryId } from '@/lib/telemetry'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import ResendButton from '@/components/ResendButton'
 import SMSCodeInput from '@/components/SMSCodeInput'
-import { ErrorStates, IDKITStage, SignalType } from '@/types'
+import { ErrorCodes, IDKITStage, SignalType } from '@/types'
 import { isVerifyCodeError, verifyCode } from '@/services/phone'
 
 const getParams = ({
@@ -46,7 +46,7 @@ const getParams = ({
 			setProcessing(false)
 			setCode('')
 			if (isVerifyCodeError(error)) {
-				setErrorState(ErrorStates.INVALID_CODE)
+				setErrorState({ code: ErrorCodes.INVALID_CODE })
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)

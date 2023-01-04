@@ -146,7 +146,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onVerificati
 														<AnimatePresence>
 															{processing && (
 																<motion.div
-																	className="absolute inset-0 flex items-center justify-center"
+																	className="absolute inset-0 flex items-center justify-center pb-10"
 																	initial={{ opacity: 0 }}
 																	animate={{ opacity: 1 }}
 																	exit={{ opacity: 0 }}

@@ -32,7 +32,12 @@ export interface ISuccessResult {
 
 export type CallbackFn = (result: ISuccessResult) => Promise<void> | void
 
-export enum ErrorStates {
+export interface IErrorState {
+	code: ErrorCodes
+	message?: string
+}
+
+export enum ErrorCodes {
 	GENERIC_ERROR = 'GENERIC_ERROR',
 	INVALID_CODE = 'INVALID_CODE', // OTP code is invalid
 	REJECTED_BY_HOST_APP = 'REJECTED_BY_HOST_APP', // Host app rejected the verification request
