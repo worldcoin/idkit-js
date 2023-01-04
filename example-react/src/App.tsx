@@ -16,11 +16,7 @@ function App() {
 			className="App"
 			style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
 		>
-			<IDKitWidget
-				actionId="wid_staging_f56691ad61aaf0021ab317e29cf11820"
-				signal="my_signal"
-				onVerification={handleProof}
-			>
+			<IDKitWidget actionId="wid_staging_1234" signal="my_signal" onVerification={handleProof}>
 				{({ open }) => <button onClick={open}>Click me</button>}
 			</IDKitWidget>
 		</div>
