@@ -22,6 +22,7 @@ import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
 	copy,
@@ -33,13 +34,13 @@ const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setO
 	onOpenChange,
 })
 
-const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, autoClose, copy }) => {
+const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onVerification, autoClose, copy }) => {
 	const { isOpen, onOpenChange, processing, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
-		setOptions({ actionId, signal, onSuccess, autoClose, copy }, ConfigSource.PROPS)
-	}, [actionId, signal, onSuccess, autoClose, copy, setOptions])
+		setOptions({ actionId, signal, onVerification, autoClose, copy }, ConfigSource.PROPS)
+	}, [actionId, signal, onVerification, autoClose, copy, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 
@@ -59,8 +60,10 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, a
 				return AboutState
 			case IDKITStage.PRIVACY:
 				return PrivacyState
+			case IDKITStage.HOST_APP_VERIFICATION:
+				return HostAppVerificationState
 			default:
-				throw new Error('Invalid IDKit stage')
+				throw new Error('Invalid IDKitStage.')
 		}
 	}, [stage])
 
@@ -143,7 +146,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, a
 														<AnimatePresence>
 															{processing && (
 																<motion.div
-																	className="absolute inset-0 flex items-center justify-center"
+																	className="absolute inset-0 flex items-center justify-center pb-10"
 																	initial={{ opacity: 0 }}
 																	animate={{ opacity: 1 }}
 																	exit={{ opacity: 0 }}

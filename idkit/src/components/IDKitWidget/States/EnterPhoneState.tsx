@@ -4,12 +4,12 @@ import useIDKitStore from '@/store/idkit'
 import { DEFAULT_COPY } from '@/types/config'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
-import { ErrorState, IDKITStage } from '@/types'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { isRequestCodeError, requestCode } from '@/services/phone'
 import { getTelemetryId, telemetryPhoneTyped } from '@/lib/telemetry'
+import { ErrorCodes, IDKITStage, PhoneVerificationChannel } from '@/types'
 
 const getParams = ({
 	processing,
@@ -31,14 +31,14 @@ const getParams = ({
 		try {
 			setProcessing(true)
 			setErrorState(null)
-			await requestCode(phoneNumber, stringifiedActionId, getTelemetryId())
+			await requestCode(phoneNumber, stringifiedActionId, PhoneVerificationChannel.SMS, getTelemetryId())
 			telemetryPhoneTyped()
 			setProcessing(false)
 			setStage(IDKITStage.ENTER_CODE)
 		} catch (error) {
 			setProcessing(false)
 			if (isRequestCodeError(error) && error.code !== 'server_error') {
-				setErrorState(ErrorState.GENERIC_ERROR)
+				setErrorState({ code: ErrorCodes.GENERIC_ERROR })
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)
@@ -109,7 +109,7 @@ const EnterPhoneState = () => {
 					animate={{ opacity: phoneNumber ? 1 : 0.4 }}
 					type="button"
 					transition={{ layout: { duration: 0.15 } }}
-					onClick={onSubmit}
+					onClick={() => void onSubmit()}
 					layoutId="submit-button"
 					disabled={!phoneNumber || processing}
 					className={classNames(

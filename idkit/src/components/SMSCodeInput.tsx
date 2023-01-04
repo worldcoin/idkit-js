@@ -7,7 +7,7 @@ import { createRef, memo, useCallback, useEffect, useMemo, useState } from 'reac
 type Array6<T> = [T, T, T, T, T, T]
 
 const fillValues = (value: string): Array6<string> => {
-	return new Array(6).fill('').map((_, index) => value[index]) as Array6<string>
+	return new Array(6).fill('').map((_, index) => value[index] || '') as Array6<string>
 }
 
 const getParams = ({ code, setCode }: IDKitStore) => ({ code, setCode })

@@ -7,7 +7,7 @@ import { getTelemetryId } from '@/lib/telemetry'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import ResendButton from '@/components/ResendButton'
 import SMSCodeInput from '@/components/SMSCodeInput'
-import { ErrorState, IDKITStage, SignalType } from '@/types'
+import { ErrorCodes, IDKITStage, SignalType } from '@/types'
 import { isVerifyCodeError, verifyCode } from '@/services/phone'
 
 const getParams = ({
@@ -19,7 +19,7 @@ const getParams = ({
 	setProcessing,
 	setCode,
 	copy,
-	onSuccess,
+	onVerification,
 	setErrorState,
 	errorState,
 }: IDKitStore) => ({
@@ -41,12 +41,12 @@ const getParams = ({
 				stringifiedActionId,
 				getTelemetryId()
 			)
-			onSuccess({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
+			onVerification({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)
 			setCode('')
 			if (isVerifyCodeError(error)) {
-				setErrorState(ErrorState.INVALID_CODE)
+				setErrorState({ code: ErrorCodes.INVALID_CODE })
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)
@@ -85,10 +85,7 @@ const VerifyCodeState = () => {
 					) : (
 						'Did not receive a code?'
 					)}{' '}
-					<ResendButton /> or{' '}
-					<button type="button" className="font-medium text-indigo-600">
-						Call me
-					</button>
+					<ResendButton />
 				</p>
 			</form>
 			<div className="flex items-center justify-center space-x-1">
@@ -111,7 +108,7 @@ const VerifyCodeState = () => {
 					type="button"
 					animate={{ opacity: code ? 1 : 0.4 }}
 					transition={{ layout: { duration: 0.15 } }}
-					onClick={onSubmit}
+					onClick={() => void onSubmit()}
 					disabled={!code || processing}
 					ref={submitRef}
 					className="inline-flex w-full items-center justify-center rounded-2xl border border-transparent bg-indigo-600 px-8 py-4 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"

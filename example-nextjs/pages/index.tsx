@@ -11,12 +11,9 @@ const IDKitWidget = dynamic<WidgetProps>(() => import("@worldcoin/idkit").then((
 });
 
 export default function Home() {
-	const handleProof = useCallback(
-		() => (result: ISuccessResult) => {
-			console.log(result);
-		},
-		[]
-	);
+	const handleProof = useCallback((result: ISuccessResult) => {
+		console.log(result);
+	}, []);
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -26,7 +23,7 @@ export default function Home() {
 			</Head>
 
 			<div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
-				<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" onSuccess={handleProof}>
+				<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" onVerification={handleProof}>
 					{({ open }) => <button onClick={open}>Click me</button>}
 				</IDKitWidget>
 			</div>

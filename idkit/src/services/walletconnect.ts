@@ -6,14 +6,14 @@ import type { OrbResponse } from '@/types/orb'
 import WalletConnect from '@walletconnect/client'
 import type { ExpectedErrorResponse } from '@/types'
 import type { StringOrAdvanced } from '@/types/config'
-import { ErrorCodes, VerificationState } from '@/types/orb'
+import { OrbErrorCodes, VerificationState } from '@/types/orb'
 import { validateABILikeEncoding, worldIDHash } from '@/lib/hashing'
 
 type WalletConnectStore = {
 	connected: boolean
 	connectorUri: string
 	result: OrbResponse | null
-	errorCode: ErrorCodes | null
+	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
 	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced } | null
 	qrData: {
@@ -57,7 +57,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		connector.on('connect', (error: unknown) => {
 			if (!error) return get().onConnectionEstablished()
 
-			set({ errorCode: ErrorCodes.ConnectionFailed })
+			set({ errorCode: OrbErrorCodes.ConnectionFailed })
 			console.error(`Unable to establish a connection with the WLD app: ${error}`)
 		})
 
@@ -85,16 +85,16 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			.sendCustomRequest(buildVerificationRequest(get().config!.action_id, get().config!.signal))
 			.then((result: Record<string, string | undefined>) => {
-				if (!ensureVerificationResponse(result)) return set({ errorCode: ErrorCodes.UnexpectedResponse })
+				if (!ensureVerificationResponse(result)) return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
 
 				set({ result, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
-				let errorCode = ErrorCodes.GenericError
+				let errorCode = OrbErrorCodes.GenericError
 
 				const errorMessage = (error as ExpectedErrorResponse).message
-				if (errorMessage && Object.values(ErrorCodes).includes(errorMessage as ErrorCodes)) {
-					errorCode = errorMessage as ErrorCodes
+				if (errorMessage && Object.values(OrbErrorCodes).includes(errorMessage as OrbErrorCodes)) {
+					errorCode = errorMessage as OrbErrorCodes
 				}
 
 				set({ errorCode, verificationState: VerificationState.Failed })
@@ -125,7 +125,7 @@ const ensureVerificationResponse = (result: Record<string, string | undefined>):
 
 type UseOrbSignalResponse = {
 	result: OrbResponse | null
-	errorCode: ErrorCodes | null
+	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
 	qrData: {
 		default: string
