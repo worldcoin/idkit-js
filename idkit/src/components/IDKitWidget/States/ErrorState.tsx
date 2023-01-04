@@ -1,11 +1,18 @@
+import { ErrorCodes } from '@/types'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ errorTitle, errorDetail, retryFlow }: IDKitStore) => ({ errorTitle, errorDetail, retryFlow })
+const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
+
+const ERROR_TITLES: Record<ErrorCodes, string> = {
+	[ErrorCodes.GENERIC_ERROR]: 'Something went wrong',
+	[ErrorCodes.INVALID_CODE]: 'Invalid code',
+	[ErrorCodes.REJECTED_BY_HOST_APP]: 'Verification declined by app',
+}
 
 const ErrorState = () => {
-	const { errorTitle, errorDetail, retryFlow } = useIDKitStore(getParams)
+	const { retryFlow, errorState } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-8">
@@ -18,10 +25,11 @@ const ErrorState = () => {
 			</div>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{errorTitle ? 'Error: ' + errorTitle.toUpperCase() : 'Something went wrong'}
+					{ERROR_TITLES[errorState?.code ?? ErrorCodes.GENERIC_ERROR]}
 				</p>
 				<p className="mt-2 text-center text-lg text-gray-400">
-					{errorDetail ? errorDetail : 'Please try to verify your phone number again in a few moments'}
+					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+					{errorState?.message || 'Please try to verify again in a moment'}
 				</p>
 			</div>
 			<div className="flex justify-center">

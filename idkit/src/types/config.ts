@@ -11,7 +11,7 @@ export type Config = {
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
 	autoClose?: boolean
-	onSuccess?: CallbackFn
+	onVerification?: CallbackFn
 	enableTelemetry?: boolean
 	copy?: {
 		title?: string

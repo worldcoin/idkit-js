@@ -1,4 +1,5 @@
 import PostHog from 'posthog-js-lite'
+import type { PhoneVerificationChannel } from '@/types'
 
 // Set at build time
 declare const IDKitVersion: string
@@ -9,7 +10,7 @@ function factoryPostHogFetchError(error: unknown) {
 
 if (typeof window !== 'undefined') {
 	window.onunhandledrejection = function (event) {
-		return (event.reason as Record<string, any>).name !== 'telemetry-error'
+		return (event.reason as Record<string, unknown>).name !== 'telemetry-error'
 	}
 }
 
@@ -52,4 +53,8 @@ export const telemetryModalOpened = (): void => {
 
 export const telemetryPhoneTyped = (): void => {
 	posthog?.capture('idkit phone typed', SUPER_PROPS)
+}
+
+export const telemetryRetryCode = (channel: PhoneVerificationChannel): void => {
+	posthog?.capture('idkit phone code retried', { ...SUPER_PROPS, channel })
 }

@@ -1,12 +1,17 @@
-import type { PhoneSignalProof } from '@/types'
+import type { PhoneSignalProof, PhoneVerificationChannel } from '@/types'
 
 const API_BASE_URL = 'https://developer.worldcoin.org/api/v1'
 
-export async function requestCode(phone_number: string, action_id: string, ph_distinct_id: string): Promise<void> {
+export async function requestCode(
+	phone_number: string,
+	action_id: string,
+	channel: PhoneVerificationChannel,
+	ph_distinct_id: string
+): Promise<void> {
 	const res = await post('/phone/request', {
 		phone_number,
 		action_id,
-		channel: 'sms', // FIXME
+		channel,
 		ph_distinct_id,
 	})
 

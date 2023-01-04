@@ -12,6 +12,7 @@ import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
+import PrivacyState from './States/PrivacyState'
 import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
 import { useEffect, useMemo, useState } from 'react'
@@ -21,6 +22,7 @@ import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
 	copy,
@@ -32,13 +34,13 @@ const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setO
 	onOpenChange,
 })
 
-const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, autoClose, copy }) => {
+const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onVerification, autoClose, copy }) => {
 	const { isOpen, onOpenChange, processing, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
-		setOptions({ actionId, signal, onSuccess, autoClose, copy }, ConfigSource.PROPS)
-	}, [actionId, signal, onSuccess, autoClose, copy, setOptions])
+		setOptions({ actionId, signal, onVerification, autoClose, copy }, ConfigSource.PROPS)
+	}, [actionId, signal, onVerification, autoClose, copy, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 
@@ -56,8 +58,12 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, a
 				return ErrorState
 			case IDKITStage.ABOUT:
 				return AboutState
+			case IDKITStage.PRIVACY:
+				return PrivacyState
+			case IDKITStage.HOST_APP_VERIFICATION:
+				return HostAppVerificationState
 			default:
-				throw new Error('Invalid IDKit stage')
+				throw new Error('Invalid IDKitStage.')
 		}
 	}, [stage])
 
@@ -110,6 +116,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, a
 														) : [
 																IDKITStage.ENTER_CODE,
 																IDKITStage.WORLD_ID,
+																IDKITStage.PRIVACY,
 																IDKITStage.ABOUT,
 														  ].includes(stage) ? (
 															<button
@@ -139,7 +146,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, a
 														<AnimatePresence>
 															{processing && (
 																<motion.div
-																	className="absolute inset-0 flex items-center justify-center"
+																	className="absolute inset-0 flex items-center justify-center pb-10"
 																	initial={{ opacity: 0 }}
 																	animate={{ opacity: 1 }}
 																	exit={{ opacity: 0 }}
@@ -160,9 +167,12 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onSuccess, a
 																<WorldIDWordmark className="h-4 text-black dark:text-white" />
 															</a>
 														</p>
-														<a href="#!" className="text-70868f text-sm hover:underline">
+														<button
+															onClick={() => setStage(IDKITStage.PRIVACY)}
+															className="text-70868f text-sm hover:underline"
+														>
 															Privacy Policy
-														</a>
+														</button>
 													</div>
 												</Toast.Provider>
 											</motion.div>

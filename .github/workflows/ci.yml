@@ -14,7 +14,7 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: 16
-                  cache: 'yarn'
+                  cache: "yarn"
 
             - name: Install dependencies
               run: yarn --frozen-lockfile
@@ -36,7 +36,7 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: 16
-                  cache: 'yarn'
+                  cache: "yarn"
 
             - name: Install dependencies
               run: yarn --frozen-lockfile
@@ -79,12 +79,37 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: 16
-                  cache: 'yarn'
+                  cache: "yarn"
 
             - name: Install dependencies
               run: yarn --frozen-lockfile
 
             - name: Build
               working-directory: ./idkit
+              run: |
+                  yarn build
+
+    test-next-build:
+        name: Test Next.js build
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Set up Node 16
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache: "yarn"
+
+            - name: Install dependencies
+              run: yarn --frozen-lockfile
+
+            - name: Build
+              working-directory: ./idkit
+              run: |
+                  yarn build
+
+            - name: Build Next.JS app
+              working-directory: ./example-nextjs
               run: |
                   yarn build
