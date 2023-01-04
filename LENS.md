@@ -34,10 +34,11 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
     ```jsx
     import { IDKitWidget } from "@worldcoin/idkit";
 
-    const isProd = process.env.NODE_ENV == "production";
-    const actionId = isProd ? 'wid_2d3d2e7a1e0c8286083d4e43598e4f62' : 'wid_staging_ac7743b1589fefaf3ed2fc05b3d60da1';
+    const address = ''; // the user's wallet address
+    const is_production = process.env.NODE_ENV == "production";
+    const action_id = is_production ? 'wid_2d3d2e7a1e0c8286083d4e43598e4f62' : 'wid_staging_ac7743b1589fefaf3ed2fc05b3d60da1';
 
-    <IDKitWidget actionId={actionId} onSuccess={handleProof}>
+    <IDKitWidget actionId={action_id} signal={address} onSuccess={handleProof}>
     {({ open }) => (
         {/* You can render whatever you want here, and call open() to open the widget */}
         <button onClick={open}>Click me</button>
@@ -49,20 +50,37 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
 
     ```typescript
     import type { ISuccessResult } from "@worldcoin/idkit";
-    const handleProof = async (result: ISuccessResult) => {
-    	await fetch("https://world-id-lens-bridge.vercel.app", {
-    		method: "POST",
-    		headers: { "Content-Type": "application/json" },
-    		body: JSON.stringify({
-    			...result,
-    			action_id: actionId,
-    			signal: "{user_wallet_address}",
-    			is_production: isProd,
-    		}),
-    	});
-    	// Show success message
-    	// Check with Lens API user has gasless enabled
-    };
+    const handleProof = useCallback(
+    	async (result: ISuccessResult) => {
+    		console.log("Received successful verification from IDKit.");
+
+    		const response = await fetch("https://world-id-lens-bridge.vercel.app/api/v1/submit", {
+    			method: "POST",
+    			headers: { "Content-Type": "application/json" },
+    			body: JSON.stringify({
+    				...result,
+    				signal: address,
+    				action_id,
+    				is_production,
+    			}),
+    		});
+
+    		if (response.ok) {
+    			// Check with Lens API user has gasless enabled
+    			return;
+    		}
+
+    		if (response.status === 400 && (await response.json()).code === "already_verified") {
+    			throw new Error(
+    				"You have already verified this phone number with Lens. You can only verify one wallet with one phone number."
+    			);
+    		}
+
+    		console.error("Failed to submit verification to Lens bridge.", response.status);
+    		throw new Error();
+    	},
+    	[address]
+    );
     ```
 
 4. Done! User has gasless transactions!

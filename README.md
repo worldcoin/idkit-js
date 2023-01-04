@@ -30,7 +30,7 @@ If your app is built on React, using the React widget is by far the easiest appr
 ```jsx
 import { IDKitWidget } from "@worldcoin/idkit";
 
-<IDKitWidget actionId="get_this_from_the_dev_portal" onVerification={handleProof}>
+<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" onVerification={handleProof}>
   {({ open }) => (
     {/* You can render whatever you want here, and call open() to open the widget */}
     <button onClick={open}>Click me</button>
@@ -45,6 +45,7 @@ import { useIDKit } from "@worldcoin/idkit";
 
 const { open, setOpen } = useIDKit({
 	actionId: "get_this_from_the_dev_portal",
+	signal: "my_signal",
 	onVerification: handleProof,
 });
 ```
@@ -58,6 +59,8 @@ If your app doesn't have a framework or doesn't use React, continue here.
 ```js
 IDKit.init({
 	actionId: "get_this_from_the_dev_portal",
+	signal: "my_signal",
+	onVerification: handleProof,
 });
 ```
 
@@ -65,8 +68,7 @@ IDKit.init({
 
 ```js
 button.addEventListener("click", async () => {
-	const proof = await IDKit.open();
-	console.log(proof);
+	IDKit.open();
 });
 ```
 
