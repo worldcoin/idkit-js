@@ -48,3 +48,8 @@ export interface ExpectedErrorResponse {
 	message: string
 	stack: string
 }
+
+export enum PhoneVerificationChannel {
+	SMS = 'sms',
+	Call = 'call',
+}

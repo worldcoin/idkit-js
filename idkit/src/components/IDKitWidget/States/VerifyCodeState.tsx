@@ -85,10 +85,7 @@ const VerifyCodeState = () => {
 					) : (
 						'Did not receive a code?'
 					)}{' '}
-					<ResendButton /> or{' '}
-					<button type="button" className="font-medium text-indigo-600">
-						Call me
-					</button>
+					<ResendButton />
 				</p>
 			</form>
 			<div className="flex items-center justify-center space-x-1">
