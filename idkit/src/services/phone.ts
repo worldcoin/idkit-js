@@ -37,14 +37,15 @@ export async function verifyCode(
 
 interface RequestCodeError {
 	code: 'max_attempts' | 'server_error' | 'timeout'
-	details: string
+	detail: string
 }
 
 export function isRequestCodeError(error: unknown): error is RequestCodeError {
 	return (
 		typeof error === 'object' &&
 		error !== null &&
-		Object.prototype.hasOwnProperty.call(error as Record<string, unknown>, 'code')
+		Object.prototype.hasOwnProperty.call(error as Record<string, unknown>, 'code') &&
+		Object.prototype.hasOwnProperty.call(error as Record<string, unknown>, 'detail')
 	)
 }
 

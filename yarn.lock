@@ -3466,6 +3466,28 @@
     "@webassemblyjs/ast" "1.11.1"
     "@xtuc/long" "4.2.2"
 
+"@worldcoin/idkit@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@worldcoin/idkit/-/idkit-0.0.1.tgz#21e10428ceb61c2e53ead436657ac9896b844fb2"
+  integrity sha512-DWu0VBigIsWjNKnD9HS2JOTZlEhswqKfiuUwGbW7GymyM77e0eJ1Gy+WFMJR7xmpPuuwaD9NuN5v/mn9cZtopw==
+  dependencies:
+    "@fontsource/rubik" "^4.5.11"
+    "@headlessui/react" "^1.7.4"
+    "@heroicons/react" "^2.0.13"
+    "@radix-ui/react-dialog" "^1.0.2"
+    "@radix-ui/react-scroll-area" "^1.0.2"
+    "@radix-ui/react-select" "^1.1.2"
+    "@radix-ui/react-toast" "^1.1.2"
+    "@tailwindcss/forms" "^0.5.3"
+    country-telephone-data "^0.6.3"
+    framer-motion "^7.6.7"
+    phone "^3.1.30"
+    react-countdown "^2.3.4"
+    react-country-flag "^3.0.2"
+    react-frame-component "^5.2.3"
+    react-shadow "^19.0.3"
+    zustand "^4.1.4"
+
 "@xobotyi/scrollbar-width@1.9.5":
   version "1.9.5"
   resolved "https://registry.yarnpkg.com/@xobotyi/scrollbar-width/-/scrollbar-width-1.9.5.tgz#80224a6919272f405b87913ca13b92929bdf3c4d"

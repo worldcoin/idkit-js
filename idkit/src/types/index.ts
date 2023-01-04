@@ -32,6 +32,7 @@ export type CallbackFn = (result: ISuccessResult) => void
 
 export enum ErrorState {
 	GENERIC_ERROR = 'GENERIC_ERROR',
+	PHONE_ERROR = 'PHONE_ERROR', // Phone number is rejected
 	INVALID_CODE = 'INVALID_CODE', // OTP code is invalid
 }
 

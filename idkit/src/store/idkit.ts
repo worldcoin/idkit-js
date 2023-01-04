@@ -17,6 +17,8 @@ export type IDKitStore = {
 	actionId: StringOrAdvanced
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
 	errorState: ErrorState | null
+	errorTitle: string
+	errorDetail: string
 	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 
 	retryFlow: () => void
@@ -28,6 +30,8 @@ export type IDKitStore = {
 	setProcessing: (processing: boolean) => void
 	setPhoneNumber: (phoneNumber: string) => void
 	setErrorState: (errorState: ErrorState | null) => void
+	setErrorTitle: (errorTitle: string) => void
+	setErrorDetail: (errorDetail: string) => void
 	setOptions: (options: Config, source: ConfigSource) => void
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => void
 }
@@ -41,6 +45,8 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	phoneNumber: '',
 	autoClose: false,
 	errorState: null,
+	errorTitle: '',
+	errorDetail: '',
 	processing: false,
 	successCallbacks: {},
 	stage: IDKITStage.ENTER_PHONE,
@@ -50,9 +56,11 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setCode: code => set({ code }),
 	setStage: stage => set({ stage }),
 	setErrorState: errorState => set({ errorState }),
+	setErrorTitle: errorTitle => set({ errorTitle }),
+	setErrorDetail: errorDetail => set({ errorDetail }),
 	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setProcessing: (processing: boolean) => set({ processing }),
-	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '' }),
+	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '', errorTitle: '', errorDetail: '' }),
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => {
 		set(state => {
 			state.successCallbacks[source] = cb

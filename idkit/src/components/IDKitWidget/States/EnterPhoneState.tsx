@@ -2,12 +2,10 @@ import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
 import { DEFAULT_COPY } from '@/types/config'
-import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import { ErrorState, IDKITStage } from '@/types'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
-import { XMarkIcon } from '@heroicons/react/20/solid'
 import { isRequestCodeError, requestCode } from '@/services/phone'
 import { getTelemetryId, telemetryPhoneTyped } from '@/lib/telemetry'
 
@@ -19,6 +17,8 @@ const getParams = ({
 	setStage,
 	setProcessing,
 	setErrorState,
+	setErrorTitle,
+	setErrorDetail,
 	copy,
 }: IDKitStore) => ({
 	copy,
@@ -38,11 +38,14 @@ const getParams = ({
 		} catch (error) {
 			setProcessing(false)
 			if (isRequestCodeError(error) && error.code !== 'server_error') {
+				setErrorState(ErrorState.PHONE_ERROR)
+				setErrorTitle(error.code)
+				setErrorDetail(error.detail)
+			} else {
 				setErrorState(ErrorState.GENERIC_ERROR)
 				console.error(error)
-			} else {
-				setStage(IDKITStage.ERROR)
 			}
+			setStage(IDKITStage.ERROR)
 		}
 	},
 	onResetErrorState: () => {
@@ -51,30 +54,10 @@ const getParams = ({
 })
 
 const EnterPhoneState = () => {
-	const { copy, phoneNumber, processing, errorState, onResetErrorState, useWorldID, onSubmit } =
-		useIDKitStore(getParams)
+	const { copy, phoneNumber, processing, useWorldID, onSubmit } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-6">
-			<Toast.Root
-				className="absolute -mt-1 flex gap-4 rounded-md bg-[#fecaca] p-3 shadow-lg"
-				open={!!errorState}
-				onOpenChange={onResetErrorState}
-				asChild
-			>
-				<motion.div
-					initial={{ opacity: 0, y: -40 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.3 }}
-				>
-					<Toast.Title className="text-xs font-medium text-red-600">
-						Something went wrong. Please try again.
-					</Toast.Title>
-					<Toast.Action altText="Close">
-						<XMarkIcon className="h-4 w-4" />
-					</Toast.Action>
-				</motion.div>
-			</Toast.Root>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}

@@ -2,10 +2,10 @@ import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 
-const getParams = ({ retryFlow }: IDKitStore) => ({ retryFlow })
+const getParams = ({ errorTitle, errorDetail, retryFlow }: IDKitStore) => ({ errorTitle, errorDetail, retryFlow })
 
 const ErrorState = () => {
-	const { retryFlow } = useIDKitStore(getParams)
+	const { errorTitle, errorDetail, retryFlow } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-8">
@@ -17,9 +17,11 @@ const ErrorState = () => {
 				</div>
 			</div>
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Something went wrong</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
+					{errorTitle ? 'Error: ' + errorTitle.toUpperCase() : 'Something went wrong'}
+				</p>
 				<p className="mt-2 text-center text-lg text-gray-400">
-					Please try to verify your phone number again in a few moments
+					{errorDetail ? errorDetail : 'Please try to verify your phone number again in a few moments'}
 				</p>
 			</div>
 			<div className="flex justify-center">
