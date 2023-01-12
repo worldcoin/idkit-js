@@ -1,17 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import create from 'zustand'
 import { useEffect } from 'react'
 import { buildQRData } from '@/lib/qr'
 import { randomNumber } from '@/lib/utils'
 import type { OrbResponse } from '@/types/orb'
-import WalletConnect from '@walletconnect/client'
+import Client from '@walletconnect/sign-client'
+import { getSdkError } from '@walletconnect/utils'
 import type { ExpectedErrorResponse } from '@/types'
 import type { StringOrAdvanced } from '@/types/config'
 import { OrbErrorCodes, VerificationState } from '@/types/orb'
+//import WalletConnect from '@walletconnect/client'
 import { validateABILikeEncoding, worldIDHash } from '@/lib/hashing'
 
 type WalletConnectStore = {
 	connected: boolean
-	connectorUri: string
+	uri: string
+	topic: string
 	result: OrbResponse | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
@@ -22,64 +29,146 @@ type WalletConnectStore = {
 	} | null
 
 	initConnection: (action_id: StringOrAdvanced, signal: StringOrAdvanced) => Promise<void>
-	onConnectionEstablished: () => void
-	setConnectorUri: (uri: string) => void
+	onConnectionEstablished: () => Promise<void>
+	setUri: (uri: string) => void
 }
 
-let connector: WalletConnect
+// let connector: WalletConnect
+let client: Client
 
-try {
-	connector = new WalletConnect({
-		bridge: 'https://bridge.walletconnect.org',
-	})
-} catch (error) {
-	console.error('Unable to create WalletConnect connector')
-}
+// try {
+// 	connector = new WalletConnect({
+// 		bridge: 'https://bridge.walletconnect.org',
+// 	})
+// } catch (error) {
+// 	console.error('Unable to create WalletConnect connector')
+// }
 
 const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	qrData: null,
 	config: null,
 	result: null,
 	connected: false,
-	connectorUri: '',
+	uri: '',
+	topic: '',
 	errorCode: null,
 	verificationState: VerificationState.LoadingWidget,
 
 	initConnection: async (action_id: StringOrAdvanced, signal: StringOrAdvanced) => {
-		if (get().connectorUri) return
-		if (connector.connected) await connector.killSession()
-
 		set({ config: { action_id, signal } })
 
-		await connector.createSession()
-		get().setConnectorUri(connector.uri)
+		client = await Client.init({
+			projectId: 'c3e6053f10efbb423808783ee874cf6a',
+			metadata: {
+				name: 'IDKit',
+				description: 'Testing IDKit w/ WalletConnect v2',
+				url: '#',
+				icons: ['https://walletconnect.com/walletconnect-logo.png'],
+			},
+		})
 
-		connector.on('connect', (error: unknown) => {
-			if (!error) return get().onConnectionEstablished()
+		console.log('client:', client) // DEBUG
 
+		try {
+			const { uri, approval } = await client.connect({
+				requiredNamespaces: {
+					eip155: {
+						methods: ['wld_worldIDVerification'],
+						chains: ['eip155:0'],
+						events: ['chainChanged', 'accountsChanged'],
+					},
+				},
+			})
+
+			if (uri) {
+				console.log('uri:', uri) // DEBUG
+				console.log('approval:', approval) //DEBUG
+
+				get().setUri(uri)
+
+				const session = await approval()
+
+				console.log('session:', session)
+
+				if (session) {
+					set({ topic: session.topic })
+
+					console.log('topic:', get().topic)
+
+					return get().onConnectionEstablished()
+				}
+			}
+		} catch (error) {
 			set({ errorCode: OrbErrorCodes.ConnectionFailed })
 			console.error(`Unable to establish a connection with the WLD app: ${error}`)
-		})
+		}
 
-		connector.on('disconnect', (error: unknown) => {
-			if (error) void get().initConnection(action_id, signal)
-		})
+		// if (get().uri) return
+		// if (connector.connected) await connector.killSession()
+
+		// set({ config: { action_id, signal } })
+
+		// await connector.createSession()
+		// get().setUri(connector.uri)
+
+		// connector.on('connect', (error: unknown) => {
+		// 	if (!error) return get().onConnectionEstablished()
+
+		// 	set({ errorCode: OrbErrorCodes.ConnectionFailed })
+		// 	console.error(`Unable to establish a connection with the WLD app: ${error}`)
+		// })
+
+		// connector.on('disconnect', (error: unknown) => {
+		// 	if (error) void get().initConnection(action_id, signal)
+		// })
 	},
 
-	setConnectorUri: (uri: string) => {
+	setUri: (uri: string) => {
 		if (!uri) return
 
+		console.log('uri:', uri) // DEBUG
+
 		set({
-			connectorUri: uri,
+			uri: uri,
 			verificationState: VerificationState.AwaitingConnection,
 			qrData: {
-				default: buildQRData(connector),
-				mobile: buildQRData(connector, window.location.href),
+				default: buildQRData(uri),
+				mobile: buildQRData(uri, window.location.href),
+				// default: buildQRData(connector),
+				// mobile: buildQRData(connector, window.location.href),
 			},
 		})
 	},
-	onConnectionEstablished: () => {
+	onConnectionEstablished: async () => {
 		set({ verificationState: VerificationState.AwaitingVerification })
+
+		console.log('onConnectionEstablished()')
+
+		await client
+			.request({
+				topic: get().topic,
+				chainId: 'eip155:0',
+				request: buildVerificationRequest(get().config!.action_id, get().config!.signal),
+			})
+			.then(result => {
+				if (!ensureVerificationResponse(result)) return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
+
+				set({ result, verificationState: VerificationState.Confirmed })
+			})
+			.catch((error: unknown) => {
+				let errorCode = OrbErrorCodes.GenericError
+
+				const errorMessage = (error as ExpectedErrorResponse).message
+				if (errorMessage && Object.values(OrbErrorCodes).includes(errorMessage as OrbErrorCodes)) {
+					errorCode = errorMessage as OrbErrorCodes
+				}
+
+				set({ errorCode, verificationState: VerificationState.Failed })
+			})
+			.finally(
+				async () => await client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') })
+			)
+			.catch(error => console.error('Unable to kill session', error))
 
 		connector
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
