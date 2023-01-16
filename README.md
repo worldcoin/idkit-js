@@ -30,7 +30,7 @@ If your app is built on React, using the React widget is by far the easiest appr
 ```jsx
 import { IDKitWidget } from "@worldcoin/idkit";
 
-<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" onSuccess={handleProof}>
+<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" handleVerify={verifyProof}>
   {({ open }) => (
     {/* You can render whatever you want here, and call open() to open the widget */}
     <button onClick={open}>Click me</button>
@@ -45,7 +45,7 @@ import { useIDKit } from "@worldcoin/idkit";
 
 const { open, setOpen } = useIDKit({
 	signal: "my_signal",
-	onSuccess: handleProof,
+	handleVerify: verifyProof,
 	actionId: "get_this_from_the_dev_portal",
 });
 ```
@@ -59,7 +59,7 @@ If your app doesn't have a framework or doesn't use React, continue here.
 ```js
 IDKit.init({
 	signal: "my_signal",
-	onSuccess: handleProof,
+	handleVerify: verifyProof,
 	actionId: "get_this_from_the_dev_portal",
 });
 ```
@@ -71,6 +71,14 @@ button.addEventListener("click", async () => {
 	IDKit.open();
 });
 ```
+
+## 🔒 Verifying the IDKit response
+
+IDKit exposes the `handleVerify` option for your app to perform additional verification on the returned response, often a call to an API that ensures the proof is valid.
+
+> **Warning** Make sure you verify the proof, and that you **don't** do it client-side!
+
+Optionally, IDKit also provides an `onSuccess` option, which you can use if your app needs to execute some code after verification succeeds.
 
 ## 🧑‍💻 Development & Testing
 
