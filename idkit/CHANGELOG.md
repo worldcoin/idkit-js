@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.1.0 (2023-01-04)
+
+### ⚠ BREAKING CHANGES
+
+-   custom validation logic, call for code, fixes (#31)
+
+### Features
+
+-   custom validation logic, call for code, fixes ([#31](https://github.com/worldcoin/idkit-js/issues/31)) ([d6f1b56](https://github.com/worldcoin/idkit-js/commit/d6f1b56e822f7de68255f84f074d18930f0d49b5))
+-   Improvements to IDKit JS v0 ([#16](https://github.com/worldcoin/idkit-js/issues/16)) ([2a4d989](https://github.com/worldcoin/idkit-js/commit/2a4d9894c0874156214c4e576b1ac3ef4d58fa0b))
+-   Lens readme ([#18](https://github.com/worldcoin/idkit-js/issues/18)) ([fcb6c9c](https://github.com/worldcoin/idkit-js/commit/fcb6c9c8a8d3eda8f7d0a48821eba9147e938783))
+-   minor refactors & v0.0.1 publish ([#20](https://github.com/worldcoin/idkit-js/issues/20)) ([cb6a59e](https://github.com/worldcoin/idkit-js/commit/cb6a59eacbafbdc975956478c9c482f1eda43125))
+-   Privacy Policy ([#28](https://github.com/worldcoin/idkit-js/issues/28)) ([fa8d78d](https://github.com/worldcoin/idkit-js/commit/fa8d78de147d1ed4bb7d896839413f080fe92846))
+-   Replaced generic error toast with custom error stages ([#32](https://github.com/worldcoin/idkit-js/issues/32)) ([35ca61b](https://github.com/worldcoin/idkit-js/commit/35ca61b992f347efe07dca83ed030fe1d22275c8))
+
 ### 0.0.2 (2023-01-03)
 
 ### Features
