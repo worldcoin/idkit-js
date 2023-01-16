@@ -30,7 +30,7 @@ If your app is built on React, using the React widget is by far the easiest appr
 ```jsx
 import { IDKitWidget } from "@worldcoin/idkit";
 
-<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" onVerification={handleProof}>
+<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" onSuccess={handleProof}>
   {({ open }) => (
     {/* You can render whatever you want here, and call open() to open the widget */}
     <button onClick={open}>Click me</button>
@@ -44,9 +44,9 @@ Alternatively, you can render the component without children (on your layout, fo
 import { useIDKit } from "@worldcoin/idkit";
 
 const { open, setOpen } = useIDKit({
-	actionId: "get_this_from_the_dev_portal",
 	signal: "my_signal",
-	onVerification: handleProof,
+	onSuccess: handleProof,
+	actionId: "get_this_from_the_dev_portal",
 });
 ```
 
@@ -58,9 +58,9 @@ If your app doesn't have a framework or doesn't use React, continue here.
 
 ```js
 IDKit.init({
-	actionId: "get_this_from_the_dev_portal",
 	signal: "my_signal",
-	onVerification: handleProof,
+	onSuccess: handleProof,
+	actionId: "get_this_from_the_dev_portal",
 });
 ```
 
