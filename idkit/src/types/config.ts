@@ -12,7 +12,7 @@ export type Config = {
 	actionId: StringOrAdvanced
 	autoClose?: boolean
 	onSuccess?: CallbackFn
-	onVerification?: CallbackFn
+	handleVerify?: CallbackFn
 	enableTelemetry?: boolean
 	copy?: {
 		title?: string

@@ -25,9 +25,9 @@ export type IDKitStore = {
 	setOpen: (open: boolean) => void
 	setStage: (stage: IDKITStage) => void
 	onOpenChange: (open: boolean) => void
-	onVerification: (result: ISuccessResult) => void
 	setProcessing: (processing: boolean) => void
 	setPhoneNumber: (phoneNumber: string) => void
+	handleVerify: (result: ISuccessResult) => void
 	setErrorState: (state: IErrorState | null) => void
 	setOptions: (options: Config, source: ConfigSource) => void
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => void
@@ -72,7 +72,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			return state
 		})
 	},
-	setOptions: ({ onVerification, onSuccess, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
+	setOptions: ({ handleVerify, onSuccess, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
 		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
 		set(store => ({
 			actionId,
@@ -83,9 +83,9 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		}))
 
 		if (onSuccess) get().addSuccessCallback(onSuccess, source)
-		if (onVerification) get().addSuccessCallback(onVerification, source)
+		if (handleVerify) get().addSuccessCallback(handleVerify, source)
 	},
-	onVerification: (result: ISuccessResult) => {
+	handleVerify: (result: ISuccessResult) => {
 		set({ stage: IDKITStage.HOST_APP_VERIFICATION, processing: false })
 
 		Promise.all(Object.values(get().verifyCallbacks).map(cb => cb?.(result)))

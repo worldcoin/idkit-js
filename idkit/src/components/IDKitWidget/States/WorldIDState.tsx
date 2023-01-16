@@ -13,18 +13,18 @@ import { DevicePhoneMobileIcon } from '@heroicons/react/20/solid'
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
 	actionId: store.actionId,
-	onVerification: store.onVerification,
+	handleVerify: store.handleVerify,
 })
 
 const WorldIDState = () => {
 	const media = useMedia()
-	const { actionId, signal, onVerification } = useIDKitStore(getOptions)
+	const { actionId, signal, handleVerify } = useIDKitStore(getOptions)
 	const { result, qrData } = useOrbSignal(actionId, signal)
 
 	useEffect(() => {
 		if (!result) return
 
-		onVerification({
+		handleVerify({
 			signal_type: SignalType.Orb,
 			nullifier_hash: result.nullifier_hash,
 			proof_payload: {
@@ -32,7 +32,7 @@ const WorldIDState = () => {
 				merkle_root: result.merkle_root,
 			},
 		})
-	}, [result, onVerification])
+	}, [result, handleVerify])
 
 	return (
 		<div className="space-y-6">
