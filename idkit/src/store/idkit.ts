@@ -17,6 +17,7 @@ export type IDKitStore = {
 	actionId: StringOrAdvanced
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
 	errorState: IErrorState | null
+	verifyCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 
 	retryFlow: () => void
@@ -30,6 +31,7 @@ export type IDKitStore = {
 	setErrorState: (state: IErrorState | null) => void
 	setOptions: (options: Config, source: ConfigSource) => void
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => void
+	addVerificationCallback: (cb: CallbackFn, source: ConfigSource) => void
 }
 
 const useIDKitStore = create<IDKitStore>()((set, get) => ({
@@ -37,14 +39,15 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	code: '',
 	signal: '',
 	actionId: '',
-	stringifiedActionId: '',
+	errorTitle: '',
+	errorDetail: '',
 	phoneNumber: '',
 	autoClose: false,
 	errorState: null,
-	errorTitle: '',
-	errorDetail: '',
 	processing: false,
+	verifyCallbacks: {},
 	successCallbacks: {},
+	stringifiedActionId: '',
 	stage: IDKITStage.ENTER_PHONE,
 	copy: {},
 
@@ -62,7 +65,14 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			return state
 		})
 	},
-	setOptions: ({ onVerification, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
+	addVerificationCallback: (cb: CallbackFn, source: ConfigSource) => {
+		set(state => {
+			state.verifyCallbacks[source] = cb
+
+			return state
+		})
+	},
+	setOptions: ({ onVerification, onSuccess, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
 		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
 		set(store => ({
 			actionId,
@@ -72,12 +82,17 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			copy: { ...store.copy, ...copy },
 		}))
 
+		if (onSuccess) get().addSuccessCallback(onSuccess, source)
 		if (onVerification) get().addSuccessCallback(onVerification, source)
 	},
 	onVerification: (result: ISuccessResult) => {
 		set({ stage: IDKITStage.HOST_APP_VERIFICATION, processing: false })
-		Promise.all(Object.values(get().successCallbacks).map(cb => cb?.(result)))
-			.then(() => set({ stage: IDKITStage.SUCCESS }))
+
+		Promise.all(Object.values(get().verifyCallbacks).map(cb => cb?.(result)))
+			.then(() => {
+				set({ stage: IDKITStage.SUCCESS })
+				Object.values(get().successCallbacks).map(cb => cb?.(result))
+			})
 			.catch(response => {
 				let errorMessage: string | undefined = undefined
 				if (response && typeof response === 'object' && (response as Record<string, unknown>).message) {
