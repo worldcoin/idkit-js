@@ -8,7 +8,6 @@ import { getSdkError } from '@walletconnect/utils'
 import type { ExpectedErrorResponse } from '@/types'
 import type { StringOrAdvanced } from '@/types/config'
 import { OrbErrorCodes, VerificationState } from '@/types/orb'
-//import WalletConnect from '@walletconnect/client'
 import { validateABILikeEncoding, worldIDHash } from '@/lib/hashing'
 
 type WalletConnectStore = {
@@ -30,16 +29,7 @@ type WalletConnectStore = {
 	initConnection: (action_id: StringOrAdvanced, signal: StringOrAdvanced) => Promise<void>
 }
 
-// let connector: WalletConnect
 let client: Client
-
-// try {
-// 	connector = new WalletConnect({
-// 		bridge: 'https://bridge.walletconnect.org',
-// 	})
-// } catch (error) {
-// 	console.error('Unable to create WalletConnect connector')
-// }
 
 const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	qrData: null,
@@ -54,6 +44,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	initConnection: async (action_id: StringOrAdvanced, signal: StringOrAdvanced) => {
 		set({ config: { action_id, signal } })
 
+		// TODO: Move metadata to .env vars
 		client = await Client.init({
 			projectId: 'c3e6053f10efbb423808783ee874cf6a',
 			metadata: {
@@ -81,7 +72,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				console.log('uri:', uri) // DEBUG
 				console.log('approval:', approval) //DEBUG
 
-				get().setUri(uri)
+				get().setUri(uri as string)
 
 				const session = await approval()
 
@@ -131,8 +122,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			qrData: {
 				default: buildQRData(uri),
 				mobile: buildQRData(uri, window.location.href),
-				// default: buildQRData(connector),
-				// mobile: buildQRData(connector, window.location.href),
 			},
 		})
 	},
@@ -145,6 +134,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			.request({
 				topic: get().topic,
 				chainId: 'eip155:0',
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				request: buildVerificationRequest(get().config!.action_id, get().config!.signal),
 			})
 			.then(result => {
@@ -165,27 +155,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			.finally(
 				async () => await client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') })
 			)
-			.catch(error => console.error('Unable to kill session', error))
-
-		connector
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			.sendCustomRequest(buildVerificationRequest(get().config!.action_id, get().config!.signal))
-			.then((result: Record<string, string | undefined>) => {
-				if (!ensureVerificationResponse(result)) return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
-
-				set({ result, verificationState: VerificationState.Confirmed })
-			})
-			.catch((error: unknown) => {
-				let errorCode = OrbErrorCodes.GenericError
-
-				const errorMessage = (error as ExpectedErrorResponse).message
-				if (errorMessage && Object.values(OrbErrorCodes).includes(errorMessage as OrbErrorCodes)) {
-					errorCode = errorMessage as OrbErrorCodes
-				}
-
-				set({ errorCode, verificationState: VerificationState.Failed })
-			})
-			.finally(() => void connector.killSession())
 			.catch(error => console.error('Unable to kill session', error))
 	},
 
