@@ -35,13 +35,13 @@ const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setO
 	onOpenChange,
 })
 
-const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onVerification, autoClose, copy }) => {
+const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, handleVerify, onSuccess, autoClose, copy }) => {
 	const { isOpen, onOpenChange, processing, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
-		setOptions({ actionId, signal, onVerification, autoClose, copy }, ConfigSource.PROPS)
-	}, [actionId, signal, onVerification, autoClose, copy, setOptions])
+		setOptions({ actionId, signal, onSuccess, handleVerify, autoClose, copy }, ConfigSource.PROPS)
+	}, [actionId, signal, onSuccess, handleVerify, autoClose, copy, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 

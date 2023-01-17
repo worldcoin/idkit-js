@@ -18,7 +18,7 @@ export default function Home() {
 			</Head>
 
 			<div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
-				<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" onVerification={handleProof}>
+				<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" handleVerify={handleProof}>
 					{({ open }) => <button onClick={open}>Click me</button>}
 				</IDKitWidget>
 			</div>
