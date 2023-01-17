@@ -88,30 +88,16 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 					return get().onConnectionEstablished()
 				}
+
+				client.on('session_delete', event => {
+					console.log('session_delete:', event)
+					void get().initConnection(action_id, signal)
+				})
 			}
 		} catch (error) {
 			set({ errorCode: OrbErrorCodes.ConnectionFailed })
 			console.error(`Unable to establish a connection with the WLD app: ${error}`)
 		}
-
-		// if (get().uri) return
-		// if (connector.connected) await connector.killSession()
-
-		// set({ config: { action_id, signal } })
-
-		// await connector.createSession()
-		// get().setUri(connector.uri)
-
-		// connector.on('connect', (error: unknown) => {
-		// 	if (!error) return get().onConnectionEstablished()
-
-		// 	set({ errorCode: OrbErrorCodes.ConnectionFailed })
-		// 	console.error(`Unable to establish a connection with the WLD app: ${error}`)
-		// })
-
-		// connector.on('disconnect', (error: unknown) => {
-		// 	if (error) void get().initConnection(action_id, signal)
-		// })
 	},
 
 	setUri: (uri: string) => {
@@ -141,11 +127,13 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				request: buildVerificationRequest(get().config!.action_id, get().config!.signal),
 			})
 			.then(result => {
+				console.log('result:', result)
 				if (!ensureVerificationResponse(result)) return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
 
 				set({ result, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
+				console.log('error:', error)
 				let errorCode = OrbErrorCodes.GenericError
 
 				const errorMessage = (error as ExpectedErrorResponse).message
