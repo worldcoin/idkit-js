@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import root from 'react-shadow'
+import { Fragment } from 'react'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useIDKitStore from '@/store/idkit'
@@ -71,118 +72,122 @@ const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, onVerificati
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
 			<Dialog.Portal forceMount>
-				<root.div mode="open" id="idkit-widget">
-					<Styles />
+				<Fragment>
 					<AnimatePresence>
 						{isOpen && (
-							<div className="fixed z-10 font-sans" id="modal">
-								<Dialog.Overlay asChild>
-									<motion.div
-										initial={{ opacity: 0 }}
-										animate={{ opacity: 1 }}
-										exit={{ opacity: 0 }}
-										className="fixed inset-0 bg-black/50 backdrop-blur-lg"
-									/>
-								</Dialog.Overlay>
-								<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
-									<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
-										<Dialog.Content asChild>
-											<motion.div
-												layout
-												animate={isMobile ? 'animateMob' : 'animate'}
-												initial={isMobile ? 'initMob' : 'init'}
-												exit={isMobile ? 'initMob' : 'init'}
-												variants={{
-													init: { opacity: 0, scale: 0.9 },
-													initMob: { translateY: '100%' },
-													animate: { opacity: 1, scale: 1 },
-													animateMob: { translateY: 0 },
-												}}
-												transition={{ layout: { duration: 0.15 } }}
-												className={
-													'dark:bg-0d151d relative z-50 w-full rounded-t-3xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 md:max-w-md md:rounded-b-3xl'
-												}
-											>
-												<Toast.Provider>
-													<Toast.Viewport className="flex justify-center" />
-													<div className="mx-6 mb-12 flex items-center justify-between">
-														{stage == IDKITStage.ENTER_PHONE ? (
-															<button
-																onClick={() => setStage(IDKITStage.ABOUT)}
-																className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
-															>
-																<QuestionMarkIcon className="w-1.5" />
-															</button>
-														) : [
-																IDKITStage.ENTER_CODE,
-																IDKITStage.WORLD_ID,
-																IDKITStage.PRIVACY,
-																IDKITStage.ABOUT,
-														  ].includes(stage) ? (
-															<button
-																onClick={() => setStage(IDKITStage.ENTER_PHONE)}
-																className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
-															>
-																<ArrowLongLeftIcon className="w-4" />
-															</button>
-														) : null}
-														<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
-															{stage != IDKITStage.ABOUT &&
-																(_copy?.title || DEFAULT_COPY.title)}
-														</Dialog.Title>
-														<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
-															<XMarkIcon className="h-4 w-4" />
-														</Dialog.Close>
-													</div>
-													<div className="relative">
-														<motion.div
-															className="mx-6 mb-6"
-															layout="position"
-															animate={{ visibility: processing ? 'hidden' : 'visible' }}
-															transition={{ layout: { duration: 0.15 } }}
-														>
-															<StageContent />
-														</motion.div>
-														<AnimatePresence>
-															{processing && (
-																<motion.div
-																	className="absolute inset-0 flex items-center justify-center pb-10"
-																	initial={{ opacity: 0 }}
-																	animate={{ opacity: 1 }}
-																	exit={{ opacity: 0 }}
+							<root.div mode="open" id="idkit-widget">
+								<Styles />
+								<div className="fixed z-10 font-sans" id="modal">
+									<Dialog.Overlay asChild>
+										<motion.div
+											initial={{ opacity: 0 }}
+											animate={{ opacity: 1 }}
+											exit={{ opacity: 0 }}
+											className="fixed inset-0 bg-black/50 backdrop-blur-lg"
+										/>
+									</Dialog.Overlay>
+									<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
+										<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
+											<Dialog.Content asChild>
+												<motion.div
+													layout
+													animate={isMobile ? 'animateMob' : 'animate'}
+													initial={isMobile ? 'initMob' : 'init'}
+													exit={isMobile ? 'initMob' : 'init'}
+													variants={{
+														init: { opacity: 0, scale: 0.9 },
+														initMob: { translateY: '100%' },
+														animate: { opacity: 1, scale: 1 },
+														animateMob: { translateY: 0 },
+													}}
+													transition={{ layout: { duration: 0.15 } }}
+													className={
+														'dark:bg-0d151d relative z-50 w-full rounded-t-3xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 md:max-w-md md:rounded-b-3xl'
+													}
+												>
+													<Toast.Provider>
+														<Toast.Viewport className="flex justify-center" />
+														<div className="mx-6 mb-12 flex items-center justify-between">
+															{stage == IDKITStage.ENTER_PHONE ? (
+																<button
+																	onClick={() => setStage(IDKITStage.ABOUT)}
+																	className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
 																>
-																	<LoadingIcon className="h-24 w-24" />
-																</motion.div>
-															)}
-														</AnimatePresence>
-													</div>
-													<div className="dark:bg-29343f flex items-center justify-between bg-gray-100 py-3 px-6 md:rounded-b-3xl">
-														<p className="text-70868f flex items-center gap-1 text-sm">
-															<span>Verified with</span>
-															<a
-																href="https://id.worldcoin.org"
-																target="_blank"
-																rel="noreferrer"
+																	<QuestionMarkIcon className="w-1.5" />
+																</button>
+															) : [
+																	IDKITStage.ENTER_CODE,
+																	IDKITStage.WORLD_ID,
+																	IDKITStage.PRIVACY,
+																	IDKITStage.ABOUT,
+															  ].includes(stage) ? (
+																<button
+																	onClick={() => setStage(IDKITStage.ENTER_PHONE)}
+																	className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
+																>
+																	<ArrowLongLeftIcon className="w-4" />
+																</button>
+															) : null}
+															<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
+																{stage != IDKITStage.ABOUT &&
+																	(_copy?.title || DEFAULT_COPY.title)}
+															</Dialog.Title>
+															<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
+																<XMarkIcon className="h-4 w-4" />
+															</Dialog.Close>
+														</div>
+														<div className="relative">
+															<motion.div
+																className="mx-6 mb-6"
+																layout="position"
+																animate={{
+																	visibility: processing ? 'hidden' : 'visible',
+																}}
+																transition={{ layout: { duration: 0.15 } }}
 															>
-																<WorldIDWordmark className="h-4 text-black dark:text-white" />
-															</a>
-														</p>
-														<button
-															onClick={() => setStage(IDKITStage.PRIVACY)}
-															className="text-70868f text-sm hover:underline"
-														>
-															Privacy Policy
-														</button>
-													</div>
-												</Toast.Provider>
-											</motion.div>
-										</Dialog.Content>
+																<StageContent />
+															</motion.div>
+															<AnimatePresence>
+																{processing && (
+																	<motion.div
+																		className="absolute inset-0 flex items-center justify-center pb-10"
+																		initial={{ opacity: 0 }}
+																		animate={{ opacity: 1 }}
+																		exit={{ opacity: 0 }}
+																	>
+																		<LoadingIcon className="h-24 w-24" />
+																	</motion.div>
+																)}
+															</AnimatePresence>
+														</div>
+														<div className="dark:bg-29343f flex items-center justify-between bg-gray-100 py-3 px-6 md:rounded-b-3xl">
+															<p className="text-70868f flex items-center gap-1 text-sm">
+																<span>Verified with</span>
+																<a
+																	href="https://id.worldcoin.org"
+																	target="_blank"
+																	rel="noreferrer"
+																>
+																	<WorldIDWordmark className="h-4 text-black dark:text-white" />
+																</a>
+															</p>
+															<button
+																onClick={() => setStage(IDKITStage.PRIVACY)}
+																className="text-70868f text-sm hover:underline"
+															>
+																Privacy Policy
+															</button>
+														</div>
+													</Toast.Provider>
+												</motion.div>
+											</Dialog.Content>
+										</div>
 									</div>
 								</div>
-							</div>
+							</root.div>
 						)}
 					</AnimatePresence>
-				</root.div>
+				</Fragment>
 			</Dialog.Portal>
 		</Dialog.Root>
 	)

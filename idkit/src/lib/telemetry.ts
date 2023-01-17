@@ -1,4 +1,4 @@
-import PostHog from 'posthog-js-lite'
+import { PostHog } from 'posthog-js-lite'
 import type { PhoneVerificationChannel } from '@/types'
 
 // Set at build time
@@ -8,7 +8,7 @@ function factoryPostHogFetchError(error: unknown) {
 	return { name: 'telemetry-error', error }
 }
 
-if (typeof window !== 'undefined') {
+if (typeof globalThis.window !== 'undefined') {
 	window.onunhandledrejection = function (event) {
 		return (event.reason as Record<string, unknown>).name !== 'telemetry-error'
 	}
@@ -24,7 +24,7 @@ async function posthogFetch(input: RequestInfo, init?: RequestInit): Promise<Res
 
 let posthog: PostHog | null = null
 
-if (typeof window !== 'undefined') {
+if (typeof globalThis.window !== 'undefined') {
 	posthog = new PostHog(
 		'phc_QttqgDbMQDYHX1EMH7FnT6ECBVzdp0kGUq92aQaVQ6I', // cspell:disable-line
 		{ persistence: 'memory' }
