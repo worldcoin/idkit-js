@@ -10364,10 +10364,10 @@ postcss@^8.3.5, postcss@^8.4.12, postcss@^8.4.18, postcss@^8.4.19, postcss@^8.4.
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-posthog-js-lite@2.0.0-alpha5:
-  version "2.0.0-alpha5"
-  resolved "https://registry.yarnpkg.com/posthog-js-lite/-/posthog-js-lite-2.0.0-alpha5.tgz#60cff1b756ba2723ebb0222ca132fd0de8036210"
-  integrity sha512-tlkBdypJuvK/s00n4EiQjwYVfuuZv6vt8BF3g1ooIQa2Gz9Vz80p8q3qsPLZ0V5ErGRy6i3Q4fWC9TDzR7GNRQ==
+posthog-js-lite@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/posthog-js-lite/-/posthog-js-lite-2.0.0.tgz#27e3ffa291f67f0ca68a24eb8ee8776f6a82421a"
+  integrity sha512-q6y0LWF7/faYtsMpX8tLoYDBsvhinMIVoVuubaK4K/md4VYYrfWgiOuhmqj48L2fWkkU2Qjv1gSuA9lsqrcVNw==
 
 prelude-ls@^1.2.1:
   version "1.2.1"
