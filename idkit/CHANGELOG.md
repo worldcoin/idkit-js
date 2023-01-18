@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.3 (2023-01-18)
+
+### Bug Fixes
+
+-   fix app verification logic on `IDKitWidget` component ([88dd70c](https://github.com/worldcoin/idkit-js/commit/88dd70c265c41c1036d37f232569494660ce749e))
+
 ### 0.2.2 (2023-01-18)
 
 ### Bug Fixes
