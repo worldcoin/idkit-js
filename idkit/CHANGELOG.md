@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.2 (2023-01-18)
+
+### Bug Fixes
+
+-   fix infinite loop when using `useIDKit` hook ([039448f](https://github.com/worldcoin/idkit-js/commit/039448f09d63f3059af42181bc213e62ee378127))
+
 ### 0.2.1 (2023-01-18)
 
 ### Bug Fixes
