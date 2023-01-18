@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import create from 'zustand'
 import { useEffect } from 'react'
 import { buildQRData } from '@/lib/qr'
@@ -75,13 +71,13 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				console.log('uri:', uri) // DEBUG
 				console.log('approval:', approval) //DEBUG
 
-				get().setUri(uri as string)
+				get().setUri(uri)
 
 				const session = await approval()
 
 				console.log('session:', session)
 
-				if (session) {
+				if (typeof session !== 'undefined') {
 					set({ topic: session.topic })
 
 					console.log('topic:', get().topic)
