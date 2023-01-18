@@ -72,13 +72,13 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				console.log('uri:', uri) // DEBUG
 				console.log('approval:', approval) //DEBUG
 
-				get().setUri(uri as string)
+				get().setUri(uri)
 
 				const session = await approval()
 
 				console.log('session:', session)
 
-				if (session) {
+				if (typeof session !== 'undefined') {
 					set({ topic: session.topic })
 
 					console.log('topic:', get().topic)
