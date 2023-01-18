@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.4 (2023-01-18)
+
+### Bug Fixes
+
+-   reset state when auto-closing modal ([fea9d8f](https://github.com/worldcoin/idkit-js/commit/fea9d8fae86e8959bce928e1fa22ce828f86847f))
+-   call success callbacks after modal closes ([356489a](https://github.com/worldcoin/idkit-js/commit/356489a10797429ea42f3b989c1b29db0b9d3ae5))
+
 ### 0.2.3 (2023-01-18)
 
 ### Bug Fixes
