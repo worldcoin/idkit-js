@@ -92,7 +92,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			() => {
 				set({ stage: IDKITStage.SUCCESS })
 
-				if (get().autoClose) setTimeout(() => set({ open: false }), 1000)
+				if (get().autoClose) setTimeout(() => get().onOpenChange(false), 1000)
 			},
 			response => {
 				let errorMessage: string | undefined = undefined
