@@ -83,28 +83,29 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		}))
 
 		if (onSuccess) get().addSuccessCallback(onSuccess, source)
-		if (handleVerify) get().addSuccessCallback(handleVerify, source)
+		if (handleVerify) get().addVerificationCallback(handleVerify, source)
 	},
 	handleVerify: (result: ISuccessResult) => {
 		set({ stage: IDKITStage.HOST_APP_VERIFICATION, processing: false })
 
-		Promise.all(Object.values(get().verifyCallbacks).map(cb => cb?.(result)))
-			.then(() => {
+		Promise.all(Object.values(get().verifyCallbacks).map(cb => cb?.(result))).then(
+			() => {
 				set({ stage: IDKITStage.SUCCESS })
-				Object.values(get().successCallbacks).map(cb => cb?.(result))
-			})
-			.catch(response => {
+
+				if (get().autoClose) setTimeout(() => set({ open: false }), 1000)
+			},
+			response => {
 				let errorMessage: string | undefined = undefined
 				if (response && typeof response === 'object' && (response as Record<string, unknown>).message) {
 					errorMessage = (response as Record<string, unknown>).message as string
 				}
+
 				set({
 					stage: IDKITStage.ERROR,
 					errorState: { code: ErrorCodes.REJECTED_BY_HOST_APP, message: errorMessage },
 				})
-			})
-
-		if (get().autoClose) setTimeout(() => set({ open: false }), 1000)
+			}
+		)
 	},
 	onOpenChange: open => {
 		if (open) {
