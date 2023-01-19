@@ -57,7 +57,7 @@ const ResendButton = () => {
 			or{' '}
 			<button
 				type="button"
-				className="font-medium text-indigo-600 disabled:text-gray-900"
+				className="font-medium text-indigo-500 disabled:cursor-wait disabled:text-gray-900 dark:disabled:text-white"
 				disabled={!!nextTime}
 				onClick={() => void handleRetry(PhoneVerificationChannel.Call)}
 			>
