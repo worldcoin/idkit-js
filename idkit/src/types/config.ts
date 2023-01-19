@@ -8,12 +8,13 @@ export enum ConfigSource {
 }
 
 export type Config = {
-	signal: StringOrAdvanced
-	actionId: StringOrAdvanced
 	autoClose?: boolean
 	onSuccess?: CallbackFn
-	handleVerify?: CallbackFn
+	theme?: 'dark' | 'light'
+	signal: StringOrAdvanced
 	enableTelemetry?: boolean
+	handleVerify?: CallbackFn
+	actionId: StringOrAdvanced
 	copy?: {
 		title?: string
 		heading?: string
