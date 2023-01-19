@@ -49,7 +49,6 @@
 		"@ethersproject/solidity": "^5.7.0",
 		"@fontsource/rubik": "^4.5.11",
 		"@headlessui/react": "^1.7.4",
-		"@heroicons/react": "^2.0.13",
 		"@radix-ui/react-dialog": "^1.0.2",
 		"@radix-ui/react-scroll-area": "^1.0.2",
 		"@radix-ui/react-select": "^1.1.2",

@@ -1,8 +1,9 @@
 import { classNames } from '@/lib/utils'
+import CheckIcon from './Icons/CheckIcon'
 import ReactCountryFlag from 'react-country-flag'
 import { allCountries } from 'country-telephone-data'
+import ChevronDownIcon from './Icons/ChevronDownIcon'
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 
 type Props = {

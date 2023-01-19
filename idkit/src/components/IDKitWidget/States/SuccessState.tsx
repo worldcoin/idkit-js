@@ -1,7 +1,7 @@
 import useIDKitStore from '@/store/idkit'
 import { DEFAULT_COPY } from '@/types/config'
 import type { IDKitStore } from '@/store/idkit'
-import { CheckIcon } from '@heroicons/react/20/solid'
+import CheckIcon from '@/components/Icons/CheckIcon'
 
 const getCopy = (store: IDKitStore) => store.copy
 

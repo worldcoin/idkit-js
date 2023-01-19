@@ -37,17 +37,6 @@ const configs = {
 			window: 'globalThis',
 		},
 		plugins: [
-			{
-				name: 'heroicons-plugin',
-				setup: build => {
-					build.onResolve({ filter: /.*/ }, args => {
-						if (args.importer && args.path.startsWith('@heroicons/')) {
-							return { path: `${args.path}/index.js`, external: true }
-						}
-					})
-				},
-			},
-
 			...baseConfig.plugins,
 
 			nodeExternalsPlugin({

@@ -4,7 +4,7 @@ import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
 import { Qrcode } from '@/components/QRCode'
 import WorldIDQR from '@/components/Icons/WorldIDQR'
-import { DevicePhoneMobileIcon } from '@heroicons/react/20/solid'
+import DevicePhoneMobileIcon from '@/components/Icons/DevicePhoneMobileIcon'
 
 type Props = {
 	qrData: {
