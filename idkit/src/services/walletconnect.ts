@@ -46,7 +46,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		client = await Client.init({
 			projectId: process.env.WALLETCONNECT_PID,
 			metadata: {
-				name: 'IDKit',
+				name: 'World ID',
 				description: 'Verify your identity with World ID',
 				url: '#',
 				icons: ['https://worldcoin.org/icons/logo-small.svg'],
