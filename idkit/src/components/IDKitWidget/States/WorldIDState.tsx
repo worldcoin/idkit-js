@@ -22,6 +22,10 @@ const WorldIDState = () => {
 	const { result, qrData, verificationState, reset } = useOrbSignal(actionId, signal)
 
 	useEffect(() => {
+		return reset
+	}, [reset])
+
+	useEffect(() => {
 		if (!result) return
 
 		handleVerify({
@@ -32,7 +36,6 @@ const WorldIDState = () => {
 				merkle_root: result.merkle_root,
 			},
 		})
-		reset()
 	}, [result, reset, handleVerify])
 
 	return (
