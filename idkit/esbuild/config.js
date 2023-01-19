@@ -4,14 +4,9 @@ import { createRequire } from 'node:module'
 import { transformFileAsync as babelTransformFileAsync } from '@babel/core'
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 
-// import * as dotenv from 'dotenv'
-// dotenv.config()
-
 const require = createRequire(import.meta.url)
 
 const packageJson = require('../package.json')
-
-// console.log(process.env)
 
 if (!process.env.WALLETCONNECT_PID) {
 	console.error(
