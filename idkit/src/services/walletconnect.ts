@@ -43,14 +43,13 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	initConnection: async (action_id: StringOrAdvanced, signal: StringOrAdvanced) => {
 		set({ config: { action_id, signal } })
 
-		// TODO: Move metadata to .env vars
 		client = await Client.init({
-			projectId: 'c3e6053f10efbb423808783ee874cf6a',
+			projectId: process.env.WALLETCONNECT_PID,
 			metadata: {
 				name: 'IDKit',
-				description: 'Testing IDKit w/ WalletConnect v2',
+				description: 'Verify your identity with World ID',
 				url: '#',
-				icons: ['https://walletconnect.com/walletconnect-logo.png'],
+				icons: ['https://worldcoin.org/icons/logo-small.svg'],
 			},
 		})
 
