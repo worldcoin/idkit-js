@@ -38,7 +38,7 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
     const is_production = process.env.NODE_ENV == "production";
     const action_id = is_production ? 'wid_2d3d2e7a1e0c8286083d4e43598e4f62' : 'wid_staging_ac7743b1589fefaf3ed2fc05b3d60da1';
 
-    <IDKitWidget actionId={action_id} signal={address} onSuccess={handleProof}>
+    <IDKitWidget actionId={action_id} signal={address} handleVerify={verifyProof}>
     {({ open }) => (
         {/* You can render whatever you want here, and call open() to open the widget */}
         <button onClick={open}>Click me</button>
@@ -46,11 +46,11 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
     </IDKitWidget>
     ```
 
-3. Add the success handler to notify the Lens API.
+3. Add the verification handler to notify the Lens API.
 
     ```typescript
     import type { ISuccessResult } from "@worldcoin/idkit";
-    const handleProof = useCallback(
+    const verifyProof = useCallback(
     	async (result: ISuccessResult) => {
     		console.log("Received successful verification from IDKit.");
 
@@ -65,10 +65,8 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
     			}),
     		});
 
-    		if (response.ok) {
-    			// Check with Lens API user has gasless enabled
-    			return;
-    		}
+    		// Check with Lens API user has gasless enabled
+    		if (response.ok) return;
 
     		if (response.status === 400 && (await response.json()).code === "already_verified") {
     			throw new Error(
@@ -83,4 +81,4 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
     );
     ```
 
-4. Done! User has gasless transactions!
+4. Done! User has gasless transactions. You can optionally add an `onSuccess` handler to continue with the flow in your app.

@@ -46,7 +46,10 @@
 				copy: {
 					heading: 'Verify your phone number to enable a very cool feature.',
 				},
-				onVerification: response => {
+				handleVerify: response => {
+					// verify the IDKIt proof, throw an error to show the error screen
+				},
+				onSuccess: response => {
 					console.log(response)
 				},
 			})
