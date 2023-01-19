@@ -58,7 +58,7 @@ const getParams = ({
 
 const VerifyCodeState = () => {
 	const submitRef = useRef<HTMLButtonElement>(null)
-	const { copy, processing, code, onSubmit, useWorldID, errorState } = useIDKitStore(getParams)
+	const { phoneNumber, processing, code, onSubmit, useWorldID, errorState } = useIDKitStore(getParams)
 
 	const animation = useMemo(() => {
 		if (!processing && errorState) {
@@ -72,8 +72,9 @@ const VerifyCodeState = () => {
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					Enter your 6-digit code to complete the verification.
 				</p>
-				{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
-				<p className="text-70868f mt-2 text-center">{copy?.subheading || DEFAULT_COPY.subheading}</p>
+				<p className="text-70868f mt-2 text-center">
+					Code has been sent to <span className="font-medium">{phoneNumber}</span>
+				</p>
 			</div>
 			<form className="mt-2 space-y-2">
 				<motion.div animate={animation} transition={{ type: 'spring', stiffness: 30 }}>
