@@ -4,8 +4,6 @@
 export function buildQRData(uri: string, returnUrl?: string): string {
 	const result = new window.URL('https://worldcoin.org/verify')
 
-	console.log('uri:', uri) // DEBUG
-
 	const topicRegex = /(?<=wc:)(.*?)(?=@)/
 	const versionRegex = /(?<=@)(.*?)(?=(\?|$))/
 	const relayRegex = /(?<=relay-protocol=)(.*?)(?=(&|$))/
