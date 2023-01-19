@@ -13,6 +13,7 @@ export type IDKitStore = {
 	phoneNumber: string
 	processing: boolean
 	copy: Config['copy']
+	theme: 'dark' | 'light'
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
@@ -40,8 +41,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	signal: '',
 	result: null,
 	actionId: '',
-	errorTitle: '',
-	errorDetail: '',
+	theme: 'light',
 	phoneNumber: '',
 	autoClose: false,
 	errorState: null,
@@ -72,13 +72,17 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			return state
 		})
 	},
-	setOptions: ({ handleVerify, onSuccess, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
+	setOptions: (
+		{ handleVerify, onSuccess, signal, actionId, autoClose, copy, theme }: Config,
+		source: ConfigSource
+	) => {
 		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
 		set(store => ({
-			actionId,
-			stringifiedActionId,
+			theme,
 			signal,
+			actionId,
 			autoClose,
+			stringifiedActionId,
 			copy: { ...store.copy, ...copy },
 		}))
 
@@ -118,7 +122,15 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			if (result) requestAnimationFrame(() => Object.values(get().successCallbacks).map(cb => () => cb?.(result)))
 		}
 
-		set({ open, phoneNumber: '', code: '', processing: false, stage: IDKITStage.ENTER_PHONE, result: null })
+		set({
+			open,
+			phoneNumber: '',
+			code: '',
+			processing: false,
+			stage: IDKITStage.ENTER_PHONE,
+			result: null,
+			errorState: null,
+		})
 	},
 }))
 
