@@ -55,8 +55,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			},
 		})
 
-		console.log('client:', client) // DEBUG
-
 		try {
 			const { uri, approval } = await client.connect({
 				requiredNamespaces: {
@@ -69,25 +67,15 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			})
 
 			if (uri) {
-				console.log('uri:', uri) // DEBUG
-				console.log('approval:', approval) //DEBUG
-
 				get().setUri(uri)
-
 				const session = await approval()
-
-				console.log('session:', session)
 
 				if (typeof session !== 'undefined') {
 					set({ topic: session.topic })
-
-					console.log('topic:', get().topic)
-
 					return get().onConnectionEstablished()
 				}
 
-				client.on('session_delete', event => {
-					console.log('session_delete:', event)
+				client.on('session_delete', () => {
 					void get().initConnection(action_id, signal)
 				})
 			}
@@ -99,8 +87,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 	setUri: (uri: string) => {
 		if (!uri) return
-
-		console.log('uri:', uri) // DEBUG
 
 		set({
 			uri: uri,
@@ -114,8 +100,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	onConnectionEstablished: async () => {
 		set({ verificationState: VerificationState.AwaitingVerification })
 
-		console.log('onConnectionEstablished()')
-
 		await client
 			.request({
 				topic: get().topic,
@@ -124,13 +108,11 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				request: buildVerificationRequest(get().config!.action_id, get().config!.signal),
 			})
 			.then(result => {
-				console.log('result:', result)
 				if (!ensureVerificationResponse(result)) return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
 
 				set({ result, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
-				console.log('error:', error)
 				let errorCode = OrbErrorCodes.GenericError
 
 				const errorMessage = (error as ExpectedErrorResponse).message
