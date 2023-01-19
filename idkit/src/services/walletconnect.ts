@@ -21,9 +21,10 @@ type WalletConnectStore = {
 		mobile: string
 	} | null
 
-	initConnection: (action_id: StringOrAdvanced, signal: StringOrAdvanced) => Promise<void>
+	resetConnection: () => void
 	onConnectionEstablished: () => void
 	setConnectorUri: (uri: string) => void
+	initConnection: (action_id: StringOrAdvanced, signal: StringOrAdvanced) => Promise<void>
 }
 
 let connector: WalletConnect
@@ -102,6 +103,18 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			.finally(() => void connector.killSession())
 			.catch(error => console.error('Unable to kill session', error))
 	},
+
+	resetConnection: () => {
+		set({
+			result: null,
+			config: null,
+			qrData: null,
+			errorCode: null,
+			connected: false,
+			connectorUri: '',
+			verificationState: VerificationState.LoadingWidget,
+		})
+	},
 }))
 
 const buildVerificationRequest = (action_id: StringOrAdvanced, signal: StringOrAdvanced) => ({
@@ -124,6 +137,7 @@ const ensureVerificationResponse = (result: Record<string, string | undefined>):
 }
 
 type UseOrbSignalResponse = {
+	reset: () => void
 	result: OrbResponse | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
@@ -137,12 +151,13 @@ const getStore = (store: WalletConnectStore) => ({
 	qrData: store.qrData,
 	result: store.result,
 	errorCode: store.errorCode,
+	reset: store.resetConnection,
 	initConnection: store.initConnection,
 	verificationState: store.verificationState,
 })
 
 const useOrbSignal = (action_id: StringOrAdvanced, signal: StringOrAdvanced): UseOrbSignalResponse => {
-	const { result, verificationState, errorCode, qrData, initConnection } = useWalletConnectStore(getStore)
+	const { result, verificationState, errorCode, qrData, initConnection, reset } = useWalletConnectStore(getStore)
 
 	useEffect(() => {
 		if (!action_id || !signal) return
@@ -150,7 +165,7 @@ const useOrbSignal = (action_id: StringOrAdvanced, signal: StringOrAdvanced): Us
 		void initConnection(action_id, signal)
 	}, [action_id, initConnection, signal])
 
-	return { result, verificationState, errorCode, qrData }
+	return { result, reset, verificationState, errorCode, qrData }
 }
 
 export default useOrbSignal

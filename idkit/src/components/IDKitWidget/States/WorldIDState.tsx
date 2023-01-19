@@ -19,7 +19,7 @@ const getOptions = (store: IDKitStore) => ({
 const WorldIDState = () => {
 	const media = useMedia()
 	const { actionId, signal, handleVerify } = useIDKitStore(getOptions)
-	const { result, qrData } = useOrbSignal(actionId, signal)
+	const { result, qrData, verificationState, reset } = useOrbSignal(actionId, signal)
 
 	useEffect(() => {
 		if (!result) return
@@ -32,7 +32,8 @@ const WorldIDState = () => {
 				merkle_root: result.merkle_root,
 			},
 		})
-	}, [result, handleVerify])
+		reset()
+	}, [result, reset, handleVerify])
 
 	return (
 		<div className="space-y-6">
