@@ -99,7 +99,7 @@ const EnterPhoneState = () => {
 			</div>
 			<div className="flex items-center justify-center space-x-1">
 				<div className="flex items-center space-x-2">
-					<WorldIDIcon width={24} height={24} />
+					<WorldIDIcon />
 					<p className="text-9eafc0 dark:text-70868f font-medium">I have World ID</p>
 				</div>
 				<span className="font-medium text-gray-400">&bull;</span>
