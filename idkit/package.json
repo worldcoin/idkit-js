@@ -38,7 +38,8 @@
 		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
 		"lint:fix": "eslint --ext .tsx,.ts,.js,.jsx ./ --fix",
 		"typecheck": "tsc",
-		"prerelease": "standard-version"
+		"prerelease": "standard-version",
+		"analyze-bundle": "esbuild-visualizer --metadata ./esbuild-meta.json --filename esbuild-stats.html && open esbuild-stats.html"
 	},
 	"peerDependencies": {
 		"react": ">18.0.0",
@@ -84,6 +85,7 @@
 		"esbuild-node-externals": "1.4.1",
 		"esbuild-plugin-alias": "0.2.1",
 		"esbuild-style-plugin": "^1.6.0",
+		"esbuild-visualizer": "^0.4.0",
 		"eslint": "8.29.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-compat": "^4.0.2",
