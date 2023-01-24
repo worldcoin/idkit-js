@@ -13,6 +13,7 @@ export type IDKitStore = {
 	phoneNumber: string
 	processing: boolean
 	copy: Config['copy']
+	theme: 'dark' | 'light'
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
 	walletconnectId: StringOrAdvanced
@@ -42,8 +43,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	result: null,
 	actionId: '',
 	walletconnectId: '',
-	errorTitle: '',
-	errorDetail: '',
+	theme: 'light',
 	phoneNumber: '',
 	autoClose: false,
 	errorState: null,
@@ -75,16 +75,17 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		})
 	},
 	setOptions: (
-		{ handleVerify, onSuccess, signal, actionId, walletconnectId, autoClose, copy }: Config,
+		{ handleVerify, onSuccess, signal, actionId, walletconnectId, autoClose, copy, theme }: Config,
 		source: ConfigSource
 	) => {
 		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
 		set(store => ({
-			actionId,
-			stringifiedActionId,
+			theme,
 			signal,
 			walletconnectId,
+			actionId,
 			autoClose,
+			stringifiedActionId,
 			copy: { ...store.copy, ...copy },
 		}))
 
@@ -124,7 +125,15 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			if (result) requestAnimationFrame(() => Object.values(get().successCallbacks).map(cb => () => cb?.(result)))
 		}
 
-		set({ open, phoneNumber: '', code: '', processing: false, stage: IDKITStage.ENTER_PHONE, result: null })
+		set({
+			open,
+			phoneNumber: '',
+			code: '',
+			processing: false,
+			stage: IDKITStage.ENTER_PHONE,
+			result: null,
+			errorState: null,
+		})
 	},
 }))
 

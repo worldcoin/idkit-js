@@ -1,7 +1,7 @@
 import { ErrorCodes } from '@/types'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
-import { XMarkIcon } from '@heroicons/react/20/solid'
+import XMarkIcon from '@/components/Icons/XMarkIcon'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 

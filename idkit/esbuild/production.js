@@ -2,12 +2,12 @@ import meow from 'meow'
 import esbuild from 'esbuild'
 import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
+import fs from 'fs'
+import config from './config.js'
 import tailwind from 'tailwindcss'
 import autoprefixer from 'autoprefixer'
 import postCssPlugin from 'esbuild-style-plugin'
 import { nodeExternalsPlugin } from 'esbuild-node-externals'
-
-import config from './config.js'
 
 const cli = meow({
 	flags: { platform: { type: 'string', alias: 'p', isRequired: true } },
@@ -24,6 +24,7 @@ const baseConfig = {
 		'process.env.NODE_ENV': "'production'",
 		'import.meta.env': '{ "MODE": "production" }',
 	},
+	metafile: true,
 }
 
 /** @type {Record<string, import('esbuild').BuildOptions>} */
@@ -37,17 +38,6 @@ const configs = {
 			window: 'globalThis',
 		},
 		plugins: [
-			{
-				name: 'heroicons-plugin',
-				setup: build => {
-					build.onResolve({ filter: /.*/ }, args => {
-						if (args.importer && args.path.startsWith('@heroicons/')) {
-							return { path: `${args.path}/index.js`, external: true }
-						}
-					})
-				},
-			},
-
 			...baseConfig.plugins,
 
 			nodeExternalsPlugin({
@@ -79,7 +69,8 @@ if (!configs[cli.flags.platform]) {
 }
 
 try {
-	await esbuild.build(configs[cli.flags.platform])
+	const result = await esbuild.build(configs[cli.flags.platform])
+	fs.writeFileSync('esbuild-meta.json', JSON.stringify(result.metafile))
 } catch (error) {
 	console.error(error)
 	process.exit(1)

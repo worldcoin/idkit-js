@@ -44,7 +44,7 @@ const styleLoader = {
 
 export default /** @type {import('esbuild').BuildOptions} */ ({
 	bundle: true,
-	loader: { '.svg': 'dataurl', '.png': 'dataurl', '.woff2': 'dataurl' },
+	loader: { '.svg': 'dataurl', '.png': 'dataurl', '.woff2': 'dataurl', '.webp': 'dataurl' },
 	logLevel: 'info',
 	define: {
 		global: 'globalThis',

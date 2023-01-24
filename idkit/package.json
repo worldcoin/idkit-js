@@ -3,7 +3,7 @@
 	"description": "The identity SDK. Add sybil resistance to your apps through the World ID protocol.",
 	"type": "module",
 	"types": "./build/index.d.ts",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"private": false,
 	"main": "./build/index.cjs",
 	"module": "./build/index.js",
@@ -38,7 +38,8 @@
 		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
 		"lint:fix": "eslint --ext .tsx,.ts,.js,.jsx ./ --fix",
 		"typecheck": "tsc",
-		"prerelease": "standard-version"
+		"prerelease": "standard-version",
+		"analyze-bundle": "esbuild-visualizer --metadata ./esbuild-meta.json --filename esbuild-stats.html && open esbuild-stats.html"
 	},
 	"peerDependencies": {
 		"react": ">18.0.0",
@@ -49,7 +50,6 @@
 		"@ethersproject/solidity": "^5.7.0",
 		"@fontsource/rubik": "^4.5.11",
 		"@headlessui/react": "^1.7.4",
-		"@heroicons/react": "^2.0.13",
 		"@radix-ui/react-dialog": "^1.0.2",
 		"@radix-ui/react-scroll-area": "^1.0.2",
 		"@radix-ui/react-select": "^1.1.2",
@@ -88,6 +88,7 @@
 		"esbuild-node-externals": "1.4.1",
 		"esbuild-plugin-alias": "0.2.1",
 		"esbuild-style-plugin": "^1.6.0",
+		"esbuild-visualizer": "^0.4.0",
 		"eslint": "8.29.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-compat": "^4.0.2",

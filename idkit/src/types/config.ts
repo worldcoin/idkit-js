@@ -13,8 +13,9 @@ export type Config = {
 	walletconnectId: StringOrAdvanced
 	autoClose?: boolean
 	onSuccess?: CallbackFn
-	handleVerify?: CallbackFn
+	theme?: 'dark' | 'light'
 	enableTelemetry?: boolean
+	handleVerify?: CallbackFn
 	copy?: {
 		title?: string
 		heading?: string

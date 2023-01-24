@@ -29,3 +29,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# esbuild bundle analyzer
+esbuild-meta.json
+esbuild-stats.html

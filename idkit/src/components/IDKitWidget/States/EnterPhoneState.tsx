@@ -6,7 +6,7 @@ import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import PhoneInput from '@/components/PhoneInput'
 import WorldIDIcon from '@/components/WorldIDIcon'
-import { XMarkIcon } from '@heroicons/react/20/solid'
+import XMarkIcon from '@/components/Icons/XMarkIcon'
 import { isRequestCodeError, requestCode } from '@/services/phone'
 import { getTelemetryId, telemetryPhoneTyped } from '@/lib/telemetry'
 import { ErrorCodes, IDKITStage, PhoneRequestErrorCodes, PhoneVerificationChannel } from '@/types'
@@ -99,7 +99,7 @@ const EnterPhoneState = () => {
 			</div>
 			<div className="flex items-center justify-center space-x-1">
 				<div className="flex items-center space-x-2">
-					<WorldIDIcon width={24} height={24} />
+					<WorldIDIcon />
 					<p className="text-9eafc0 dark:text-70868f font-medium">I have World ID</p>
 				</div>
 				<span className="font-medium text-gray-400">&bull;</span>

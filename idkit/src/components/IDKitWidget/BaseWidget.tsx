@@ -2,7 +2,13 @@ import type { FC } from 'react'
 import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
+import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
+<<<<<<< HEAD
+=======
+import XMarkIcon from '../Icons/XMarkIcon'
+import ErrorState from './States/ErrorState'
+>>>>>>> main
 import AboutState from './States/AboutState'
 import ErrorState from './States/ErrorState'
 import LoadingIcon from '../Icons/LoadingIcon'
@@ -18,14 +24,19 @@ import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
+<<<<<<< HEAD
 import { ConfigSource, DEFAULT_COPY } from '@/types/config'
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
+=======
+import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
+>>>>>>> main
 import HostAppVerificationState from './States/HostAppVerificationState'
 
-const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
+const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, theme, setOptions }: IDKitStore) => ({
 	copy,
 	stage,
+	theme,
 	setStage,
 	processing,
 	setOptions,
@@ -36,19 +47,42 @@ const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setO
 const IDKitWidget: FC<WidgetProps> = ({
 	children,
 	actionId,
+<<<<<<< HEAD
 	signal,
 	walletconnectId,
+=======
+	theme,
+	signal,
+>>>>>>> main
 	handleVerify,
 	onSuccess,
 	autoClose,
 	copy,
 }) => {
+<<<<<<< HEAD
 	const { isOpen, onOpenChange, processing, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
 		setOptions({ actionId, signal, walletconnectId, onSuccess, handleVerify, autoClose, copy }, ConfigSource.PROPS)
 	}, [actionId, signal, walletconnectId, onSuccess, handleVerify, autoClose, copy, setOptions])
+=======
+	const {
+		isOpen,
+		onOpenChange,
+		processing,
+		stage,
+		setStage,
+		setOptions,
+		copy: _copy,
+		theme: _theme,
+	} = useIDKitStore(getParams)
+	const [isMobile, setIsMobile] = useState(false)
+
+	useEffect(() => {
+		setOptions({ actionId, signal, onSuccess, handleVerify, autoClose, copy, theme }, ConfigSource.PROPS)
+	}, [actionId, signal, onSuccess, theme, handleVerify, autoClose, copy, setOptions])
+>>>>>>> main
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 
@@ -84,7 +118,10 @@ const IDKitWidget: FC<WidgetProps> = ({
 						{isOpen && (
 							<root.div mode="open" id="idkit-widget">
 								<Styles />
-								<div className="fixed z-10 font-sans" id="modal">
+								<div
+									id="modal"
+									className={classNames(_theme == 'dark' && 'dark', 'fixed z-10 font-sans')}
+								>
 									<Dialog.Overlay asChild>
 										<motion.div
 											initial={{ opacity: 0 }}
