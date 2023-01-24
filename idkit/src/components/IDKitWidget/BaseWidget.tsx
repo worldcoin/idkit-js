@@ -1,27 +1,25 @@
 import type { FC } from 'react'
 import root from 'react-shadow'
-import { Fragment } from 'react'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useIDKitStore from '@/store/idkit'
-import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
-import { ConfigSource } from '@/types/config'
-import { DEFAULT_COPY } from '@/types/config'
+import ErrorState from './States/ErrorState'
 import LoadingIcon from '../Icons/LoadingIcon'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
+import PrivacyState from './States/PrivacyState'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
-import PrivacyState from './States/PrivacyState'
 import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
-import { useEffect, useMemo, useState } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
+import { ConfigSource, DEFAULT_COPY } from '@/types/config'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { ArrowLongLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
@@ -35,13 +33,22 @@ const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, setO
 	onOpenChange,
 })
 
-const IDKitWidget: FC<WidgetProps> = ({ children, actionId, signal, handleVerify, onSuccess, autoClose, copy }) => {
+const IDKitWidget: FC<WidgetProps> = ({
+	children,
+	actionId,
+	signal,
+	walletconnectId,
+	handleVerify,
+	onSuccess,
+	autoClose,
+	copy,
+}) => {
 	const { isOpen, onOpenChange, processing, stage, setStage, setOptions, copy: _copy } = useIDKitStore(getParams)
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
-		setOptions({ actionId, signal, onSuccess, handleVerify, autoClose, copy }, ConfigSource.PROPS)
-	}, [actionId, signal, onSuccess, handleVerify, autoClose, copy, setOptions])
+		setOptions({ actionId, signal, walletconnectId, onSuccess, handleVerify, autoClose, copy }, ConfigSource.PROPS)
+	}, [actionId, signal, walletconnectId, onSuccess, handleVerify, autoClose, copy, setOptions])
 
 	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 

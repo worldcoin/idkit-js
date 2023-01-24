@@ -10,6 +10,7 @@ export enum ConfigSource {
 export type Config = {
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
+	walletconnectId: StringOrAdvanced
 	autoClose?: boolean
 	onSuccess?: CallbackFn
 	handleVerify?: CallbackFn

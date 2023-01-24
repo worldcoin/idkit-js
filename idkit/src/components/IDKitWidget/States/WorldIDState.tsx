@@ -13,13 +13,14 @@ import { DevicePhoneMobileIcon } from '@heroicons/react/20/solid'
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
 	actionId: store.actionId,
+	walletconnectId: store.walletconnectId,
 	handleVerify: store.handleVerify,
 })
 
 const WorldIDState = () => {
 	const media = useMedia()
-	const { actionId, signal, handleVerify } = useIDKitStore(getOptions)
-	const { result, qrData } = useOrbSignal(actionId, signal)
+	const { actionId, signal, walletconnectId, handleVerify } = useIDKitStore(getOptions)
+	const { result, qrData } = useOrbSignal(actionId, signal, walletconnectId)
 
 	useEffect(() => {
 		if (!result) return

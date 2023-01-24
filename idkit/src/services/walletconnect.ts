@@ -17,13 +17,17 @@ type WalletConnectStore = {
 	result: OrbResponse | unknown | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
-	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced } | null
+	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced; walletconnect_id: StringOrAdvanced } | null
 	qrData: {
 		default: string
 		mobile: string
 	} | null
 
-	initConnection: (action_id: StringOrAdvanced, signal: StringOrAdvanced) => Promise<void>
+	initConnection: (
+		action_id: StringOrAdvanced,
+		signal: StringOrAdvanced,
+		walletconnect_id: StringOrAdvanced
+	) => Promise<void>
 	onConnectionEstablished: () => Promise<void>
 	setUri: (uri: string) => void
 }
@@ -40,11 +44,15 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	errorCode: null,
 	verificationState: VerificationState.LoadingWidget,
 
-	initConnection: async (action_id: StringOrAdvanced, signal: StringOrAdvanced) => {
-		set({ config: { action_id, signal } })
+	initConnection: async (
+		action_id: StringOrAdvanced,
+		signal: StringOrAdvanced,
+		walletconnect_id: StringOrAdvanced
+	) => {
+		set({ config: { action_id, signal, walletconnect_id } })
 
 		client = await Client.init({
-			projectId: process.env.WALLETCONNECT_PID,
+			projectId: walletconnect_id as string,
 			metadata: {
 				name: 'World ID',
 				description: 'Verify with World ID',
@@ -58,7 +66,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				requiredNamespaces: {
 					eip155: {
 						methods: ['wld_worldIDVerification'],
-						chains: ['eip155:0'],
+						chains: ['eip155:1'], // Chain ID used does not matter, since we only perform signatures
 						events: ['chainChanged', 'accountsChanged'],
 					},
 				},
@@ -74,7 +82,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				}
 
 				client.on('session_delete', () => {
-					void get().initConnection(action_id, signal)
+					void get().initConnection(action_id, signal, walletconnect_id)
 				})
 			}
 		} catch (error) {
@@ -101,7 +109,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		await client
 			.request({
 				topic: get().topic,
-				chainId: 'eip155:0',
+				chainId: 'eip155:1',
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				request: buildVerificationRequest(get().config!.action_id, get().config!.signal),
 			})
@@ -122,6 +130,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				set({ errorCode, verificationState: VerificationState.Failed })
 			})
 			.finally(
+				// eslint-disable-next-line @typescript-eslint/no-misused-promises
 				async () => await client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') })
 			)
 			.catch(error => console.error('Unable to kill session', error))
@@ -165,14 +174,18 @@ const getStore = (store: WalletConnectStore) => ({
 	verificationState: store.verificationState,
 })
 
-const useOrbSignal = (action_id: StringOrAdvanced, signal: StringOrAdvanced): UseOrbSignalResponse => {
+const useOrbSignal = (
+	action_id: StringOrAdvanced,
+	signal: StringOrAdvanced,
+	walletconnect_id: StringOrAdvanced
+): UseOrbSignalResponse => {
 	const { result, verificationState, errorCode, qrData, initConnection } = useWalletConnectStore(getStore)
 
 	useEffect(() => {
-		if (!action_id || !signal) return
+		if (!action_id || !signal || !walletconnect_id) return
 
-		void initConnection(action_id, signal)
-	}, [action_id, initConnection, signal])
+		void initConnection(action_id, signal, walletconnect_id)
+	}, [action_id, initConnection, signal, walletconnect_id])
 
 	return { result, verificationState, errorCode, qrData }
 }

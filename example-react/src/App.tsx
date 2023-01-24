@@ -23,6 +23,7 @@ function App() {
 				onSuccess={onSuccess}
 				handleVerify={handleProof}
 				actionId="wid_staging_1234"
+				walletconnectId="get_this_from_walletconnect_portal"
 			>
 				{({ open }) => <button onClick={open}>Click me</button>}
 			</IDKitWidget>

@@ -2,7 +2,7 @@ import create from 'zustand'
 import { worldIDHash } from '@/lib/hashing'
 import { ErrorCodes, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
-import type { CallbackFn, ISuccessResult, IErrorState } from '@/types'
+import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
 import type { Config, ConfigSource, StringOrAdvanced } from '@/types/config'
 
 export type IDKitStore = {
@@ -15,6 +15,7 @@ export type IDKitStore = {
 	copy: Config['copy']
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
+	walletconnectId: StringOrAdvanced
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
 	result: ISuccessResult | null
 	errorState: IErrorState | null
@@ -40,6 +41,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	signal: '',
 	result: null,
 	actionId: '',
+	walletconnectId: '',
 	errorTitle: '',
 	errorDetail: '',
 	phoneNumber: '',
@@ -72,12 +74,16 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			return state
 		})
 	},
-	setOptions: ({ handleVerify, onSuccess, signal, actionId, autoClose, copy }: Config, source: ConfigSource) => {
+	setOptions: (
+		{ handleVerify, onSuccess, signal, actionId, walletconnectId, autoClose, copy }: Config,
+		source: ConfigSource
+	) => {
 		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
 		set(store => ({
 			actionId,
 			stringifiedActionId,
 			signal,
+			walletconnectId,
 			autoClose,
 			copy: { ...store.copy, ...copy },
 		}))
