@@ -15,20 +15,14 @@ const getOptions = (store: IDKitStore) => ({
 })
 
 const WorldIDState = () => {
-<<<<<<< HEAD
-	const media = useMedia()
 	const { actionId, signal, walletconnectId, handleVerify } = useIDKitStore(getOptions)
-	const { result, qrData } = useOrbSignal(actionId, signal, walletconnectId)
-=======
-	const { actionId, signal, handleVerify } = useIDKitStore(getOptions)
-	const { result, qrData, verificationState, reset } = useOrbSignal(actionId, signal)
+	const { result, qrData, verificationState, reset } = useOrbSignal(actionId, signal, walletconnectId)
 
 	console.log(verificationState)
 
 	useEffect(() => {
 		return reset
 	}, [reset])
->>>>>>> main
 
 	useEffect(() => {
 		if (!result) return
