@@ -1593,6 +1593,7 @@
     client-only "^0.0.1"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 "@heroicons/react@^2.0.13":
   version "2.0.13"
@@ -1600,6 +1601,8 @@
   integrity sha512-iSN5XwmagrnirWlYEWNPdCDj9aRYVD/lnK3JlsC9/+fqGF80k8C7rl+1HCvBX0dBoagKqOFBs6fMhJJ1hOg1EQ==
 
 >>>>>>> ce05275 (WIP)
+=======
+>>>>>>> 084e92a (Fixed merge conflicts)
 "@humanwhocodes/config-array@^0.11.6":
   version "0.11.7"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.7.tgz"
