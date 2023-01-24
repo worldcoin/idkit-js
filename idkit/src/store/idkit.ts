@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { worldIDHash } from '@/lib/hashing'
 import { ErrorCodes, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
-import type { CallbackFn, ISuccessResult, IErrorState } from '@/types'
+import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
 import type { Config, ConfigSource, StringOrAdvanced, VerificationMethods } from '@/types/config'
 
 export type IDKitStore = {
@@ -16,6 +16,7 @@ export type IDKitStore = {
 	theme: Config['theme']
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
+	walletconnectId: StringOrAdvanced
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
 	result: ISuccessResult | null
 	methods: VerificationMethods[]
@@ -48,6 +49,9 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	result: null,
 	actionId: '',
 	theme: 'light',
+	walletconnectId: '',
+	errorTitle: '',
+	errorDetail: '',
 	phoneNumber: '',
 	autoClose: false,
 	errorState: null,
@@ -102,7 +106,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		})
 	},
 	setOptions: (
-		{ handleVerify, onSuccess, signal, actionId, autoClose, copy, theme, methods }: Config,
+		{ handleVerify, onSuccess, signal, actionId, walletconnectId, autoClose, copy, theme, methods }: Config,
 		source: ConfigSource
 	) => {
 		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
@@ -112,6 +116,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			actionId,
 			methods: methods ?? store.methods,
 			stage: store.computed.getDefaultStage(methods),
+			walletconnectId,
 			autoClose,
 			stringifiedActionId,
 			copy: { ...store.copy, ...copy },

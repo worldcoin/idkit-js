@@ -16,6 +16,7 @@ let isInitialized = false
 export const init = (config: Config): void => {
 	if (isInitialized) throw new Error('IDKit is already initialized')
 	if (!config.actionId) throw new Error('You must provide your Action ID')
+	if (!config.walletconnectId) throw new Error('You must provide your WalletConnect Project ID')
 
 	const startApp = () => {
 		try {

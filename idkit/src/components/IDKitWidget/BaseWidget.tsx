@@ -1,24 +1,23 @@
 import type { FC } from 'react'
 import root from 'react-shadow'
-import { Fragment } from 'react'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useMedia from '@/hooks/useMedia'
 import useIDKitStore from '@/store/idkit'
-import { useEffect, useMemo } from 'react'
 import XMarkIcon from '../Icons/XMarkIcon'
-import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
+import ErrorState from './States/ErrorState'
 import { ConfigSource } from '@/types/config'
 import LoadingIcon from '../Icons/LoadingIcon'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
+import PrivacyState from './States/PrivacyState'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
-import PrivacyState from './States/PrivacyState'
 import * as Dialog from '@radix-ui/react-dialog'
 import { classNames, getCopy } from '@/lib/utils'
 import type { WidgetProps } from '@/types/config'
+import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
@@ -56,6 +55,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 	theme,
 	methods,
 	signal,
+	walletconnectId,
 	handleVerify,
 	onSuccess,
 	autoClose,
@@ -76,8 +76,11 @@ const IDKitWidget: FC<WidgetProps> = ({
 	const media = useMedia()
 
 	useEffect(() => {
-		setOptions({ actionId, signal, methods, onSuccess, handleVerify, autoClose, copy, theme }, ConfigSource.PROPS)
-	}, [actionId, signal, methods, onSuccess, theme, handleVerify, autoClose, copy, setOptions])
+		setOptions(
+			{ actionId, signal, walletconnectId, methods, onSuccess, handleVerify, autoClose, copy, theme },
+			ConfigSource.PROPS
+		)
+	}, [actionId, signal, walletconnectId, methods, onSuccess, theme, handleVerify, autoClose, copy, setOptions])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {

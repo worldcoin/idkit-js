@@ -15,6 +15,7 @@ const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
 	copy: store.copy,
 	actionId: store.actionId,
+	walletconnectId: store.walletconnectId,
 	handleVerify: store.handleVerify,
 	showAbout: store.methods.length == 1,
 	hasPhone: store.methods.includes('phone'),
@@ -24,8 +25,9 @@ const getOptions = (store: IDKitStore) => ({
 const WorldIDState = () => {
 	const media = useMedia()
 	const [showQR, setShowQR] = useState<boolean>(false)
-	const { actionId, copy, signal, handleVerify, showAbout, hasPhone, usePhone } = useIDKitStore(getOptions)
-	const { result, qrData, verificationState, reset } = useOrbSignal(actionId, signal)
+	const { actionId, copy, signal, walletconnectId, handleVerify, showAbout, hasPhone, usePhone } =
+		useIDKitStore(getOptions)
+	const { result, qrData, verificationState, reset } = useOrbSignal(actionId, signal, walletconnectId)
 
 	useEffect(() => reset, [reset])
 
