@@ -14,7 +14,7 @@ type WalletConnectStore = {
 	connected: boolean
 	uri: string
 	topic: string
-	result: OrbResponse | unknown | null
+	result: OrbResponse | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
 	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced; walletconnect_id: StringOrAdvanced } | null
@@ -118,7 +118,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				if (!ensureVerificationResponse(result as Record<string, string>))
 					return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
 
-				set({ result, verificationState: VerificationState.Confirmed })
+				set({ result: result as OrbResponse, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
 				let errorCode = OrbErrorCodes.GenericError
@@ -144,7 +144,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			qrData: null,
 			errorCode: null,
 			connected: false,
-			connectorUri: '',
 			verificationState: VerificationState.LoadingWidget,
 		})
 	},
