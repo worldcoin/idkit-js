@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { useEffect } from 'react'
 import { buildQRData } from '@/lib/qr'
 import { randomNumber } from '@/lib/utils'
