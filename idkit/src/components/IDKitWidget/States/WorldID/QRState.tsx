@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 import { useCallback } from 'react'
+import copy from 'copy-to-clipboard'
 import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
 import { Qrcode } from '@/components/QRCode'
@@ -22,10 +23,10 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 	const [copiedLink, setCopiedLink] = useState(false)
 
 	const copyLink = useCallback(() => {
-		void navigator.clipboard.writeText(qrData?.default ?? '').then(() => {
-			setCopiedLink(true)
-			setTimeout(() => setCopiedLink(false), 2000)
-		})
+		copy(qrData?.default ?? '')
+
+		setCopiedLink(true)
+		setTimeout(() => setCopiedLink(false), 2000)
 	}, [qrData])
 
 	return (
