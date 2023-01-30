@@ -3,6 +3,7 @@ import root from 'react-shadow'
 import { Fragment } from 'react'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
+import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
 import XMarkIcon from '../Icons/XMarkIcon'
@@ -73,13 +74,11 @@ const IDKitWidget: FC<WidgetProps> = ({
 		copy: _copy,
 		theme: _theme,
 	} = useIDKitStore(getParams)
-	const [isMobile, setIsMobile] = useState(false)
+	const media = useMedia()
 
 	useEffect(() => {
 		setOptions({ actionId, signal, methods, onSuccess, handleVerify, autoClose, copy, theme }, ConfigSource.PROPS)
 	}, [actionId, signal, methods, onSuccess, theme, handleVerify, autoClose, copy, setOptions])
-
-	useEffect(() => setIsMobile(window.innerWidth < 768), [])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
@@ -131,10 +130,10 @@ const IDKitWidget: FC<WidgetProps> = ({
 										<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
 											<Dialog.Content asChild>
 												<motion.div
-													layout
-													animate={isMobile ? 'animateMob' : 'animate'}
-													initial={isMobile ? 'initMob' : 'init'}
-													exit={isMobile ? 'initMob' : 'init'}
+													layout={media == 'mobile' ? 'position' : true}
+													exit={media == 'mobile' ? 'initMob' : 'init'}
+													initial={media == 'mobile' ? 'initMob' : 'init'}
+													animate={media == 'mobile' ? 'animateMob' : 'animate'}
 													variants={{
 														init: { opacity: 0, scale: 0.9 },
 														initMob: { translateY: '100%' },

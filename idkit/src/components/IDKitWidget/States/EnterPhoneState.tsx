@@ -134,7 +134,7 @@ const EnterPhoneState = () => {
 			</div>
 			{showAbout && <AboutWorldID />}
 			{hasWorldID && (
-				<div className="space-y-3">
+				<div className="hidden space-y-3 md:block">
 					<div className="flex items-center justify-between space-x-6">
 						<div className="bg-f2f5f9 dark:bg-29343f h-px flex-1" />
 						<p className="text-9eafc0 dark:text-596673 text-xs">or</p>

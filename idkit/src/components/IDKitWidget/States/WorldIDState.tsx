@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
 import useIDKitStore from '@/store/idkit'
+import { useEffect, useState } from 'react'
 import { DEFAULT_COPY } from '@/types/config'
 import { VerificationState } from '@/types/orb'
 import type { IDKitStore } from '@/store/idkit'
@@ -21,12 +22,12 @@ const getOptions = (store: IDKitStore) => ({
 })
 
 const WorldIDState = () => {
+	const media = useMedia()
+	const [showQR, setShowQR] = useState<boolean>(false)
 	const { actionId, copy, signal, handleVerify, showAbout, hasPhone, usePhone } = useIDKitStore(getOptions)
 	const { result, qrData, verificationState, reset } = useOrbSignal(actionId, signal)
 
-	useEffect(() => {
-		return reset
-	}, [reset])
+	useEffect(() => reset, [reset])
 
 	useEffect(() => {
 		if (!result) return
@@ -56,11 +57,11 @@ const WorldIDState = () => {
 			{verificationState === VerificationState.AwaitingVerification ? (
 				<LoadingState />
 			) : (
-				<QRState qrData={qrData} />
+				<QRState showQR={showQR} setShowQR={setShowQR} qrData={qrData} />
 			)}
-			{showAbout && <AboutWorldID />}
+			{showAbout && (media == 'desktop' || !showQR) && <AboutWorldID />}
 			{hasPhone && (
-				<div className="space-y-3">
+				<div className="hidden space-y-3 md:block">
 					<div className="flex items-center justify-between space-x-6">
 						<div className="bg-f2f5f9 dark:bg-29343f h-px flex-1" />
 						<p className="text-9eafc0 dark:text-596673 text-xs">or</p>

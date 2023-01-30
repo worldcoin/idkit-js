@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useMemo, useRef } from 'react'
+import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
 import { getTelemetryId } from '@/lib/telemetry'
@@ -106,12 +107,19 @@ const VerifyCodeState = () => {
 				<motion.button
 					layoutId="phone-button"
 					type="button"
+					whileTap={{ scale: phoneNumber ? 0.95 : 1 }}
+					whileHover={{ scale: phoneNumber ? 1.05 : 1 }}
 					animate={{ opacity: code ? 1 : 0.4 }}
 					transition={{ layout: { duration: 0.15 } }}
 					onClick={() => void onSubmit()}
 					disabled={!code || processing}
 					ref={submitRef}
-					className="inline-flex w-full items-center justify-center rounded-2xl border border-transparent bg-indigo-600 px-8 py-4 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
+					className={classNames(
+						'flex w-full items-center justify-center px-8 py-4 border border-transparent font-medium rounded-xl shadow-sm',
+						'bg-0d151d dark:bg-white text-white dark:text-0d151d',
+						'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-0d151d',
+						'disabled:cursor-not-allowed disabled:bg-d3dfea dark:disabled:bg-29343f'
+					)}
 				>
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="phone-text">
 						Continue
