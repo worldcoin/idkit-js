@@ -47,6 +47,7 @@ module.exports = {
 					'#e5e7eb',
 					'#ece8fb',
 					'#f1f5f8',
+					'#f2f5f9',
 					'#ff6848',
 				]),
 			},

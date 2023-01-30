@@ -5,6 +5,7 @@ import { DEFAULT_COPY } from '@/types/config'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import PhoneInput from '@/components/PhoneInput'
+import WorldIDIcon from '@/components/WorldIDIcon'
 import AboutWorldID from '@/components/AboutWorldID'
 import XMarkIcon from '@/components/Icons/XMarkIcon'
 import { isRequestCodeError, requestCode } from '@/services/phone'
@@ -28,6 +29,8 @@ const getParams = ({
 	phoneNumber,
 	stringifiedActionId,
 	showAbout: methods.length == 1,
+	hasWorldID: methods.includes('orb'),
+	useWorldID: () => setStage(IDKITStage.WORLD_ID),
 	onSubmit: async () => {
 		try {
 			setProcessing(true)
@@ -57,8 +60,17 @@ const getParams = ({
 })
 
 const EnterPhoneState = () => {
-	const { copy, phoneNumber, processing, showAbout, onSubmit, errorState, onResetErrorState } =
-		useIDKitStore(getParams)
+	const {
+		copy,
+		phoneNumber,
+		processing,
+		showAbout,
+		onSubmit,
+		errorState,
+		onResetErrorState,
+		hasWorldID,
+		useWorldID,
+	} = useIDKitStore(getParams)
 
 	return (
 		<div className="-mt-6 space-y-6">
@@ -121,6 +133,21 @@ const EnterPhoneState = () => {
 				</motion.button>
 			</div>
 			{showAbout && <AboutWorldID />}
+			{hasWorldID && (
+				<div className="space-y-3">
+					<div className="flex items-center justify-between space-x-6">
+						<div className="bg-f2f5f9 h-px flex-1" />
+						<p className="text-9eafc0 dark:text-596673 text-xs">or</p>
+						<div className="bg-f2f5f9 h-px flex-1" />
+					</div>
+					<div className="flex items-center justify-center">
+						<button onClick={useWorldID} className="flex items-center space-x-2">
+							<WorldIDIcon width={24} height={24} />
+							<p className="text-0d151d text-sm font-medium">Verify with World ID</p>
+						</button>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

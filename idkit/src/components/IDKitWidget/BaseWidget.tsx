@@ -170,7 +170,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 														</div>
 														<div className="relative">
 															<motion.div
-																className="mx-6 mb-12"
+																className="mx-6 mb-6"
 																layout="position"
 																animate={{
 																	visibility: processing ? 'hidden' : 'visible',
