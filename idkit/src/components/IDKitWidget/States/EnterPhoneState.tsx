@@ -142,7 +142,7 @@ const EnterPhoneState = () => {
 					</div>
 					<div className="flex items-center justify-center">
 						<button onClick={useWorldID} className="flex items-center space-x-2">
-							<WorldIDIcon width={24} height={24} />
+							<WorldIDIcon />
 							<p className="text-0d151d text-sm font-medium dark:text-white">Verify with World ID</p>
 						</button>
 					</div>
