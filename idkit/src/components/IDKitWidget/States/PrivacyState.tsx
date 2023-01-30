@@ -4,7 +4,7 @@ import InfoIcon from '@/components/Icons/InfoIcon'
 const PrivacyState = () => {
 	return (
 		<div className="-mt-6 flex flex-col items-center justify-center space-y-6">
-			<WorldIDIcon width={48} height={48} />
+			<WorldIDIcon className="h-12 w-12" />
 			<p className="text-center text-2xl font-semibold dark:text-white">
 				IDKit and World ID are fully privacy preserving.
 			</p>
