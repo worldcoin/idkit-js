@@ -1,5 +1,6 @@
 import type { CallbackFn } from '.'
 
+export type VerificationMethods = 'orb' | 'phone'
 export type StringOrAdvanced = Array<[string, unknown]> | string
 export enum ConfigSource {
 	HOOK = 'hook',
@@ -15,6 +16,7 @@ export type Config = {
 	enableTelemetry?: boolean
 	handleVerify?: CallbackFn
 	actionId: StringOrAdvanced
+	methods?: VerificationMethods[]
 	copy?: {
 		title?: string
 		heading?: string
@@ -29,7 +31,7 @@ export type WidgetProps = Config & {
 
 export const DEFAULT_COPY = {
 	title: 'World ID',
-	heading: 'Verify your phone number',
-	subheading: "We'll take care of the rest!",
+	heading: 'Verify your identity',
+	subheading: "Unlock additional benefits by verifying you're a unique human doing this action once.",
 	success: 'Your phone number has been verified',
 }

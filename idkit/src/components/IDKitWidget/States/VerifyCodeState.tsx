@@ -104,7 +104,7 @@ const VerifyCodeState = () => {
 			</div>
 			<div className="mt-4 flex justify-center">
 				<motion.button
-					layoutId="submit-button"
+					layoutId="phone-button"
 					type="button"
 					animate={{ opacity: code ? 1 : 0.4 }}
 					transition={{ layout: { duration: 0.15 } }}
@@ -113,7 +113,7 @@ const VerifyCodeState = () => {
 					ref={submitRef}
 					className="inline-flex w-full items-center justify-center rounded-2xl border border-transparent bg-indigo-600 px-8 py-4 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
 				>
-					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
+					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="phone-text">
 						Continue
 					</motion.span>
 				</motion.button>

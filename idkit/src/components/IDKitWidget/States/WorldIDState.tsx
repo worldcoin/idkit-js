@@ -17,8 +17,6 @@ const WorldIDState = () => {
 	const { actionId, signal, handleVerify } = useIDKitStore(getOptions)
 	const { result, qrData, verificationState, reset } = useOrbSignal(actionId, signal)
 
-	console.log(verificationState)
-
 	useEffect(() => {
 		return reset
 	}, [reset])
