@@ -107,7 +107,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 											classNames(
 												'dark:text-white',
 												selected
-													? 'bg-0d151d text-white font-medium'
+													? 'bg-0d151d dark:bg-white text-white dark:text-0d151d font-medium'
 													: active
 													? 'bg-0d151d/5 dark:bg-ece8fb/10'
 													: 'text-gray-900 dark:text-white',
@@ -135,7 +135,9 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 												<span
 													className={classNames(
 														'font-medium',
-														selected ? 'text-white' : 'text-0d151d dark:text-white'
+														selected
+															? 'text-white dark:text-0d151d'
+															: 'text-0d151d dark:text-white'
 													)}
 												>
 													+{country.dialCode}

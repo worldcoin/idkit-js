@@ -45,7 +45,7 @@ const WorldIDState = () => {
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{copy?.heading || DEFAULT_COPY.heading}
 				</p>
-				<p className="text-70868f mt-3 text-center md:mt-2">
+				<p className="text-70868f dark:text-9eafc0 mt-3 text-center md:mt-2">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{copy?.subheading || DEFAULT_COPY.subheading}
 				</p>

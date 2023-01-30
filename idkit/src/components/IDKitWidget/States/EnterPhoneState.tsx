@@ -106,7 +106,7 @@ const EnterPhoneState = () => {
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />
-				<p className="text-9eafc0 dark:text-596673 text-center text-xs">
+				<p className="text-9eafc0 dark:text-9eafc0 text-center text-xs">
 					We&apos;ll call or text to confirm your number. No data is stored.
 				</p>
 			</div>
@@ -136,14 +136,14 @@ const EnterPhoneState = () => {
 			{hasWorldID && (
 				<div className="space-y-3">
 					<div className="flex items-center justify-between space-x-6">
-						<div className="bg-f2f5f9 h-px flex-1" />
+						<div className="bg-f2f5f9 dark:bg-29343f h-px flex-1" />
 						<p className="text-9eafc0 dark:text-596673 text-xs">or</p>
-						<div className="bg-f2f5f9 h-px flex-1" />
+						<div className="bg-f2f5f9 dark:bg-29343f h-px flex-1" />
 					</div>
 					<div className="flex items-center justify-center">
 						<button onClick={useWorldID} className="flex items-center space-x-2">
 							<WorldIDIcon width={24} height={24} />
-							<p className="text-0d151d text-sm font-medium">Verify with World ID</p>
+							<p className="text-0d151d text-sm font-medium dark:text-white">Verify with World ID</p>
 						</button>
 					</div>
 				</div>

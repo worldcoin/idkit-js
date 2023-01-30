@@ -26,7 +26,7 @@ const PhoneInput = ({ disabled, onSubmit }: { disabled?: boolean; onSubmit?: () 
 			<label htmlFor="phone-number" className="sr-only block text-sm font-medium text-gray-700">
 				Phone Number
 			</label>
-			<div className="dark:bg-29343f focus-within:border-0d151d relative mt-1 flex rounded-2xl border-2 border-transparent bg-gray-100 py-2 px-3 shadow-sm transition-colors focus-within:bg-white">
+			<div className="dark:bg-29343f focus-within:border-0d151d relative mt-1 flex rounded-2xl border-2 border-transparent bg-gray-100 py-2 px-3 shadow-sm transition-colors focus-within:bg-white dark:focus-within:border-white dark:focus-within:bg-transparent">
 				<div className="flex items-center">
 					<label htmlFor="country" className="sr-only">
 						Country
