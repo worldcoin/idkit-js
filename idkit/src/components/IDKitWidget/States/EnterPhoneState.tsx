@@ -124,7 +124,7 @@ const EnterPhoneState = () => {
 						'flex w-full items-center justify-center px-8 py-4 border border-transparent font-medium rounded-xl shadow-sm',
 						'bg-0d151d dark:bg-white text-white dark:text-0d151d',
 						'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
-						'disabled:cursor-not-allowed disabled:bg-d3dfea dark:disabled:bg-29343f/50'
+						'disabled:cursor-not-allowed disabled:bg-d3dfea dark:disabled:bg-29343f'
 					)}
 				>
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="phone-text">

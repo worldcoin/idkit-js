@@ -4,6 +4,7 @@ import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
 import { Qrcode } from '@/components/QRCode'
 import WorldIDQR from '@/components/Icons/WorldIDQR'
+import LoadingIcon from '@/components/Icons/LoadingIcon'
 import DevicePhoneMobileIcon from '@/components/Icons/DevicePhoneMobileIcon'
 
 type Props = {
@@ -23,7 +24,9 @@ const QRState: FC<Props> = ({ qrData }) => {
 					{qrData ? (
 						<Qrcode data={media == 'desktop' ? qrData.default : qrData.mobile} />
 					) : (
-						<WorldIDQR className="h-80 w-80 animate-pulse opacity-20" />
+						<div className="flex h-[202px] w-[202px] items-center justify-center">
+							<LoadingIcon className="h-24 w-24" />
+						</div>
 					)}
 				</div>
 			</div>

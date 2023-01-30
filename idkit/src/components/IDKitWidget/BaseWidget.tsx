@@ -203,12 +203,23 @@ const IDKitWidget: FC<WidgetProps> = ({
 																	<WorldIDWordmark className="text-0d151d h-4 dark:text-white" />
 																</a>
 															</p>
-															<button
-																onClick={() => setStage(IDKITStage.PRIVACY)}
-																className="text-9eafc0 text-sm hover:underline"
-															>
-																Privacy
-															</button>
+															{stage != IDKITStage.PRIVACY ? (
+																<button
+																	onClick={() => setStage(IDKITStage.PRIVACY)}
+																	className="text-9eafc0 text-sm hover:underline"
+																>
+																	Privacy
+																</button>
+															) : (
+																<a
+																	target="_blank"
+																	href="https://id.worldcoin.org/privacy"
+																	className="text-0d151d dark:text-9eafc0 text-sm"
+																	rel="noreferrer"
+																>
+																	Learn More &rarr;
+																</a>
+															)}
 														</div>
 													</Toast.Provider>
 												</motion.div>

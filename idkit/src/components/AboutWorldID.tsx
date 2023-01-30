@@ -35,7 +35,7 @@ const FeatureHighlight: FC<FeatureHighlightProps> = ({ icon: Icon, title, childr
 			<Icon className="text-0d151d h-3 w-3 dark:text-white" />
 		</div>
 		<div>
-			<p className="text-0d151d font-semibold dark:text-white">{title}</p>
+			<p className="text-0d151d font-medium dark:text-white">{title}</p>
 			<div className="text-9eafc0 dark:text-9eafc0 mt-[2px] text-sm font-normal">{children}</div>
 		</div>
 	</div>
