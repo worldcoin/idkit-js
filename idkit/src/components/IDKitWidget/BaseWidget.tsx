@@ -148,16 +148,16 @@ const IDKitWidget: FC<WidgetProps> = ({
 													<Toast.Provider>
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
-															{canGoBack ? (
-																<button
-																	onClick={() => setStage(defaultStage)}
-																	className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
-																>
-																	<ArrowLongLeftIcon className="w-4" />
-																</button>
-															) : (
-																<div />
-															)}
+															<button
+																onClick={() => setStage(defaultStage)}
+																disabled={!canGoBack}
+																className={classNames(
+																	!canGoBack && 'invisible pointer-events-none',
+																	'dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white'
+																)}
+															>
+																<ArrowLongLeftIcon className="w-4" />
+															</button>
 															<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
 																{stage != IDKITStage.ABOUT &&
 																	(_copy?.title || DEFAULT_COPY.title)}

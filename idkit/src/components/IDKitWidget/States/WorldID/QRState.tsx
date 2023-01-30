@@ -66,14 +66,14 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 						Open Worldcoin App
 					</motion.span>
 				</motion.a>
-				<div className="space-x-2">
+				<div className="space-x-2 md:hidden">
 					<motion.button className="text-9eafc0 text-sm" onClick={() => setShowQR(state => !state)}>
 						{showQR ? 'Hide QR Code' : 'Show QR Code instead'}
 					</motion.button>
 					{showQR && (
 						<>
 							<span className="text-9eafc0">&middot;</span>
-							<button className=" text-sm" onClick={copyLink}>
+							<button className="text-sm dark:text-white" onClick={copyLink}>
 								{copiedLink ? 'Copied!' : 'Copy QR Code'}
 							</button>
 						</>
