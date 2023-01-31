@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { worldIDHash } from '@/lib/hashing'
 import { ErrorCodes, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
