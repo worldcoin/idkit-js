@@ -3,8 +3,10 @@ import root from 'react-shadow'
 import { Fragment } from 'react'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
+import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
+import { useEffect, useMemo } from 'react'
 import XMarkIcon from '../Icons/XMarkIcon'
 import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
@@ -18,16 +20,25 @@ import WorldIDState from './States/WorldIDState'
 import PrivacyState from './States/PrivacyState'
 import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
-import { useEffect, useMemo, useState } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
 import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
-import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
+import SelectMethodState from './States/SelectMethodState'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
-const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, theme, setOptions }: IDKitStore) => ({
+const getParams = ({
+	copy,
+	open,
+	processing,
+	onOpenChange,
+	stage,
+	setStage,
+	theme,
+	computed,
+	setOptions,
+}: IDKitStore) => ({
 	copy,
 	stage,
 	theme,
@@ -36,12 +47,15 @@ const getParams = ({ copy, open, processing, onOpenChange, stage, setStage, them
 	setOptions,
 	isOpen: open,
 	onOpenChange,
+	canGoBack: computed.canGoBack(stage),
+	defaultStage: computed.getDefaultStage(),
 })
 
 const IDKitWidget: FC<WidgetProps> = ({
 	children,
 	actionId,
 	theme,
+	methods,
 	signal,
 	handleVerify,
 	onSuccess,
@@ -54,20 +68,22 @@ const IDKitWidget: FC<WidgetProps> = ({
 		processing,
 		stage,
 		setStage,
+		canGoBack,
+		defaultStage,
 		setOptions,
 		copy: _copy,
 		theme: _theme,
 	} = useIDKitStore(getParams)
-	const [isMobile, setIsMobile] = useState(false)
+	const media = useMedia()
 
 	useEffect(() => {
-		setOptions({ actionId, signal, onSuccess, handleVerify, autoClose, copy, theme }, ConfigSource.PROPS)
-	}, [actionId, signal, onSuccess, theme, handleVerify, autoClose, copy, setOptions])
-
-	useEffect(() => setIsMobile(window.innerWidth < 768), [])
+		setOptions({ actionId, signal, methods, onSuccess, handleVerify, autoClose, copy, theme }, ConfigSource.PROPS)
+	}, [actionId, signal, methods, onSuccess, theme, handleVerify, autoClose, copy, setOptions])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
+			case IDKITStage.SELECT_METHOD:
+				return SelectMethodState
 			case IDKITStage.ENTER_PHONE:
 				return EnterPhoneState
 			case IDKITStage.WORLD_ID:
@@ -114,10 +130,10 @@ const IDKitWidget: FC<WidgetProps> = ({
 										<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
 											<Dialog.Content asChild>
 												<motion.div
-													layout
-													animate={isMobile ? 'animateMob' : 'animate'}
-													initial={isMobile ? 'initMob' : 'init'}
-													exit={isMobile ? 'initMob' : 'init'}
+													layout={media == 'mobile' ? 'position' : true}
+													exit={media == 'mobile' ? 'initMob' : 'init'}
+													initial={media == 'mobile' ? 'initMob' : 'init'}
+													animate={media == 'mobile' ? 'animateMob' : 'animate'}
 													variants={{
 														init: { opacity: 0, scale: 0.9 },
 														initMob: { translateY: '100%' },
@@ -132,32 +148,22 @@ const IDKitWidget: FC<WidgetProps> = ({
 													<Toast.Provider>
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
-															{stage == IDKITStage.ENTER_PHONE ? (
-																<button
-																	onClick={() => setStage(IDKITStage.ABOUT)}
-																	className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
-																>
-																	<QuestionMarkIcon className="w-1.5" />
-																</button>
-															) : [
-																	IDKITStage.ENTER_CODE,
-																	IDKITStage.WORLD_ID,
-																	IDKITStage.PRIVACY,
-																	IDKITStage.ABOUT,
-															  ].includes(stage) ? (
-																<button
-																	onClick={() => setStage(IDKITStage.ENTER_PHONE)}
-																	className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white"
-																>
-																	<ArrowLongLeftIcon className="w-4" />
-																</button>
-															) : null}
+															<button
+																onClick={() => setStage(defaultStage)}
+																disabled={!canGoBack}
+																className={classNames(
+																	!canGoBack && 'invisible pointer-events-none',
+																	'dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white'
+																)}
+															>
+																<ArrowLongLeftIcon className="w-4" />
+															</button>
 															<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
 																{stage != IDKITStage.ABOUT &&
 																	(_copy?.title || DEFAULT_COPY.title)}
 															</Dialog.Title>
 															<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
-																<XMarkIcon className="h-4 w-4" />
+																<XMarkIcon className="h-5 w-5" />
 															</Dialog.Close>
 														</div>
 														<div className="relative">
@@ -184,23 +190,34 @@ const IDKitWidget: FC<WidgetProps> = ({
 																)}
 															</AnimatePresence>
 														</div>
-														<div className="dark:bg-29343f flex items-center justify-between bg-gray-100 py-3 px-6 md:rounded-b-3xl">
-															<p className="text-70868f flex items-center gap-1 text-sm">
+														<div className="flex items-center justify-between py-3 px-5 md:rounded-b-3xl">
+															<p className="text-9eafc0 flex items-center gap-1 text-sm">
 																<span>Verified with</span>
 																<a
 																	href="https://id.worldcoin.org"
 																	target="_blank"
 																	rel="noreferrer"
 																>
-																	<WorldIDWordmark className="h-4 text-black dark:text-white" />
+																	<WorldIDWordmark className="text-0d151d h-4 dark:text-white" />
 																</a>
 															</p>
-															<button
-																onClick={() => setStage(IDKITStage.PRIVACY)}
-																className="text-70868f text-sm hover:underline"
-															>
-																Privacy Policy
-															</button>
+															{stage != IDKITStage.PRIVACY ? (
+																<button
+																	onClick={() => setStage(IDKITStage.PRIVACY)}
+																	className="text-9eafc0 text-sm hover:underline"
+																>
+																	Privacy
+																</button>
+															) : (
+																<a
+																	target="_blank"
+																	href="https://id.worldcoin.org/privacy"
+																	className="text-0d151d dark:text-9eafc0 text-sm"
+																	rel="noreferrer"
+																>
+																	Learn More &rarr;
+																</a>
+															)}
 														</div>
 													</Toast.Provider>
 												</motion.div>

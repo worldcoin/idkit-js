@@ -3,7 +3,7 @@ import { worldIDHash } from '@/lib/hashing'
 import { ErrorCodes, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
 import type { CallbackFn, ISuccessResult, IErrorState } from '@/types'
-import type { Config, ConfigSource, StringOrAdvanced } from '@/types/config'
+import type { Config, ConfigSource, StringOrAdvanced, VerificationMethods } from '@/types/config'
 
 export type IDKitStore = {
 	code: string
@@ -13,14 +13,20 @@ export type IDKitStore = {
 	phoneNumber: string
 	processing: boolean
 	copy: Config['copy']
-	theme: 'dark' | 'light'
+	theme: Config['theme']
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
 	result: ISuccessResult | null
+	methods: VerificationMethods[]
 	errorState: IErrorState | null
 	verifyCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
+
+	computed: {
+		canGoBack: (stage: IDKITStage) => boolean
+		getDefaultStage: (methods?: Config['methods']) => IDKITStage
+	}
 
 	retryFlow: () => void
 	setCode: (code: string) => void
@@ -49,8 +55,31 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	verifyCallbacks: {},
 	successCallbacks: {},
 	stringifiedActionId: '',
-	stage: IDKITStage.ENTER_PHONE,
+	methods: ['orb', 'phone'],
+	stage: IDKITStage.SELECT_METHOD,
 	copy: {},
+
+	computed: {
+		canGoBack: (stage: IDKITStage) => {
+			switch (stage) {
+				case IDKITStage.ENTER_PHONE:
+					return get().methods.includes('orb')
+				case IDKITStage.WORLD_ID:
+					return get().methods.includes('phone')
+				case IDKITStage.ENTER_CODE:
+				case IDKITStage.PRIVACY:
+					return true
+				default:
+					return false
+			}
+		},
+		getDefaultStage: (methods?: Config['methods']) => {
+			methods = methods ?? get().methods
+
+			if (methods.length > 1) return IDKITStage.SELECT_METHOD
+			return methods[0] === 'phone' ? IDKITStage.ENTER_PHONE : IDKITStage.WORLD_ID
+		},
+	},
 
 	setCode: code => set({ code }),
 	setStage: stage => set({ stage }),
@@ -73,7 +102,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		})
 	},
 	setOptions: (
-		{ handleVerify, onSuccess, signal, actionId, autoClose, copy, theme }: Config,
+		{ handleVerify, onSuccess, signal, actionId, autoClose, copy, theme, methods }: Config,
 		source: ConfigSource
 	) => {
 		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
@@ -81,6 +110,8 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			theme,
 			signal,
 			actionId,
+			methods: methods ?? store.methods,
+			stage: store.computed.getDefaultStage(methods),
 			autoClose,
 			stringifiedActionId,
 			copy: { ...store.copy, ...copy },
@@ -124,12 +155,12 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 
 		set({
 			open,
-			phoneNumber: '',
 			code: '',
-			processing: false,
-			stage: IDKITStage.ENTER_PHONE,
 			result: null,
+			phoneNumber: '',
 			errorState: null,
+			processing: false,
+			stage: get().computed.getDefaultStage(),
 		})
 	},
 }))

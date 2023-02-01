@@ -7,8 +7,8 @@ import WorldcoinLogomark from './Icons/WorldcoinLogomark'
 const logoB64 = window.btoa(renderToString(<WorldcoinLogomark style={{ color: '#6445DD' }} />))
 
 const qrcode = new QRCodeStyling({
-	width: 320,
-	height: 320,
+	width: 200,
+	height: 200,
 	type: 'svg',
 	image: `data:image/svg+xml;base64,${logoB64}`,
 	cornersSquareOptions: {
@@ -25,7 +25,7 @@ const qrcode = new QRCodeStyling({
 		color: 'transparent',
 	},
 	imageOptions: {
-		margin: 16,
+		margin: 4,
 		hideBackgroundDots: true,
 	},
 })
@@ -47,6 +47,7 @@ export const Qrcode = ({ data, className = '' }: Props): JSX.Element => {
 	useEffect(() => {
 		qrcode.update({ data })
 	}, [data])
+
 	return (
 		<div
 			ref={ref}

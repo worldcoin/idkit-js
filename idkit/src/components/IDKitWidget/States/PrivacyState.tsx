@@ -1,52 +1,45 @@
+import WorldIDIcon from '@/components/WorldIDIcon'
+import InfoIcon from '@/components/Icons/InfoIcon'
+
 const PrivacyState = () => {
 	return (
-		<div className="space-y-6">
-			<div className="-mt-6">
-				<p className="text-70868f mt-4 text-justify">
-					Proof of Personhood Verification Service (“POP Service”) allows other developers to leverage the
-					World ID protocol to verify that their users are unique humans.
-				</p>
-				<p className="text-70868f mt-4 text-justify">
-					The POP Service may allow developers to use other signals such as phone number verifications instead
-					of, or in addition to the IrisCode. In the case of phone number verification, we use Twilio to
-					collect, mask, and verify the phone number pursuant to{' '}
+		<div className="-mt-6 flex flex-col items-center justify-center space-y-6">
+			<WorldIDIcon className="h-12 w-12" />
+			<p className="text-center text-2xl font-semibold dark:text-white">
+				IDKit and World ID are fully privacy preserving.
+			</p>
+			<ul className="mb-6 list-disc space-y-3 px-4">
+				<li className="text-left dark:text-white">
+					Phone numbers are never kept by anyone. IDKit and its phone carrier only uses your number to deliver
+					a one-time code.
+					<ul className="text-9eafc0 dark:text-9eafc0 mt-3 list-disc pl-4">
+						<li>
+							Apps only receive a hash-like nullifier which can&apos;t be reversed. Worldcoin or IDKit
+							don&apos;t store nullifier hashes.
+						</li>
+					</ul>
+				</li>
+				<li className="text-left dark:text-white">
+					Orb biometrics analyzed by the Orb are not stored. Orb credential is used with Zero-Knowledge Proofs
+					which makes it cryptographically impossible to track persons across applications.
+				</li>
+				<li className="text-left dark:text-white">
+					Our code is fully open source or source available on{' '}
 					<a
-						href="https://www.twilio.com/legal/privacy"
+						href="https://github.com/worldcoin/idkit-js"
 						target="_blank"
+						className="text-4940e0 underline"
 						rel="noreferrer"
-						className="underline"
 					>
-						its privacy notice
+						GitHub
 					</a>
 					.
-				</p>
-				<p className="text-70868f mt-4 text-justify">
-					Upon receipt of the confirmation of uniqueness from Twilio, we then inform the developers that the
-					phone number has been verified. We only transmit your phone number until receipt of verification
-					code,{' '}
-					<b className="font-medium text-gray-900 dark:text-white/80">
-						we do not store phone numbers or hashes of the phone numbers.
-					</b>{' '}
-					We only provide developers with an irreversible hash of your phone number that lets them validate
-					that the phone number is real and unique.
-				</p>
-				<p className="text-70868f mt-3 text-justify">
-					Please note that this section only covers data that we collect, use, and share. It does not explain
-					what developers do with any data we provide to them (or any other information they may collect about
-					you separately).
-				</p>
-
-				<p className="text-70868f mt-3 text-justify">
-					More details in our{' '}
-					<a
-						href="https://worldcoin.org/privacy-statement"
-						className="underline"
-						target="_blank"
-						rel="noreferrer noopener"
-					>
-						Privacy Statement
-					</a>
-					.
+				</li>
+			</ul>
+			<div className="-ml-4 flex items-center space-x-3">
+				<InfoIcon className="h-4 w-4 text-white" />
+				<p className="whitespace-nowrap text-sm font-medium text-white">
+					Apps will never see your phone number or biometrics.
 				</p>
 			</div>
 		</div>

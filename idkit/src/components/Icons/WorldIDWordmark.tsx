@@ -1,8 +1,10 @@
-const WorldIDWordmark = ({ className = '' }: { className?: string }) => (
+import type { HTMLAttributes, FC } from 'react'
+
+const WorldIDWordmark: FC<HTMLAttributes<SVGElement>> = props => (
 	<svg
+		{...props}
 		xmlns="http://www.w3.org/2000/svg"
 		fill="currentColor"
-		className={className}
 		viewBox="0 0 84 16"
 		clipRule="evenodd"
 		fillRule="evenodd"
