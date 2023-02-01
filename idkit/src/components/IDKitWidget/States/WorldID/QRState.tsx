@@ -51,18 +51,18 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 					whileTap={{ scale: 0.95 }}
 					whileHover={{ scale: 1.05 }}
 					transition={{ layout: { duration: 0.15 } }}
-					layoutId="worldid-button"
+					layoutId={media == 'desktop' ? undefined : 'worldid-button'}
 					href={qrData?.mobile}
 					className={classNames(
 						'flex w-full space-x-2 items-center px-4 py-4 border border-transparent font-medium rounded-2xl shadow-sm',
-						'bg-0d151d dark:bg-white text-white dark:text-0d151d'
+						'bg-0d151d dark:bg-white text-white dark:text-0d151d md:hidden'
 					)}
 				>
 					<WorldcoinIcon className="h-5 w-5" />
 					<motion.span
 						className="flex-1 text-center"
 						transition={{ layout: { duration: 0.15 } }}
-						layoutId="worldid-text"
+						layoutId={media == 'desktop' ? undefined : 'worldid-text'}
 					>
 						Open Worldcoin App
 					</motion.span>

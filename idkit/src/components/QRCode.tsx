@@ -47,6 +47,7 @@ export const Qrcode = ({ data, className = '' }: Props): JSX.Element => {
 	useEffect(() => {
 		qrcode.update({ data })
 	}, [data])
+
 	return (
 		<div
 			ref={ref}

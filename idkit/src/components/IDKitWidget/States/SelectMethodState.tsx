@@ -18,7 +18,6 @@ const getParams = ({ setStage, methods, copy }: IDKitStore) => ({
 
 const SelectMethodState = () => {
 	const { copy, setStage, methods } = useIDKitStore(getParams)
-	console.log(methods)
 
 	return (
 		<div className="-mt-6 space-y-6">
@@ -40,14 +39,14 @@ const SelectMethodState = () => {
 			{methods.includes('orb') && (
 				<div className="mt-4 flex justify-center">
 					<p className="text-70868f text-sm">
-						Don&apos;t have World ID?{' '}
+						Don&apos;t have your World ID yet?{' '}
 						<a
 							className="text-4940e0 font-medium"
 							target="_blank"
 							href="https://worldcoin.org/download"
 							rel="noreferrer"
 						>
-							Install Now
+							Download Now
 						</a>
 					</p>
 				</div>
