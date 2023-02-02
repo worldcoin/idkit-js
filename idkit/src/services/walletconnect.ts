@@ -17,7 +17,7 @@ type WalletConnectStore = {
 	result: OrbResponse | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
-	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced; walletconnect_id: StringOrAdvanced } | null
+	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced; walletconnect_id: string | undefined } | null
 	qrData: {
 		default: string
 		mobile: string
@@ -29,7 +29,7 @@ type WalletConnectStore = {
 	initConnection: (
 		action_id: StringOrAdvanced,
 		signal: StringOrAdvanced,
-		walletconnect_id: StringOrAdvanced
+		walletconnect_id: string | undefined
 	) => Promise<void>
 }
 
@@ -48,12 +48,12 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	initConnection: async (
 		action_id: StringOrAdvanced,
 		signal: StringOrAdvanced,
-		walletconnect_id: StringOrAdvanced
+		walletconnect_id = 'c3e6053f10efbb423808783ee874cf6a' // Default WalletConnect project ID for IDKit
 	) => {
 		set({ config: { action_id, signal, walletconnect_id } })
 
 		client = await Client.init({
-			projectId: walletconnect_id as string,
+			projectId: walletconnect_id,
 			metadata: {
 				name: 'World ID',
 				description: 'Verify with World ID',
@@ -191,12 +191,12 @@ const getStore = (store: WalletConnectStore) => ({
 const useOrbSignal = (
 	action_id: StringOrAdvanced,
 	signal: StringOrAdvanced,
-	walletconnect_id: StringOrAdvanced
+	walletconnect_id: string | undefined
 ): UseOrbSignalResponse => {
 	const { result, verificationState, errorCode, qrData, initConnection, reset } = useWalletConnectStore(getStore)
 
 	useEffect(() => {
-		if (!action_id || !signal || !walletconnect_id) return
+		if (!action_id || !signal) return
 
 		void initConnection(action_id, signal, walletconnect_id)
 	}, [action_id, initConnection, signal, walletconnect_id])

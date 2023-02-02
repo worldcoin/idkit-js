@@ -16,7 +16,7 @@ export type IDKitStore = {
 	theme: 'dark' | 'light'
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
-	walletconnectId: StringOrAdvanced
+	walletconnectId: string | undefined
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
 	result: ISuccessResult | null
 	errorState: IErrorState | null
