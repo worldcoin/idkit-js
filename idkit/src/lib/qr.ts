@@ -16,7 +16,7 @@ export function buildQRData(uri: string, returnUrl?: string): string {
 
 	if (topic) result.searchParams.append('t', topic[0])
 	if (version) result.searchParams.append('v', version[0])
-	if (relay) result.searchParams.append('r', relay[0])
+	if (relay) result.searchParams.append('p', relay[0])
 	if (key) result.searchParams.append('k', key[0])
 
 	// returnUrl optionally instructs the WLD app how to return to the website after the verification is complete (intended for mobile only).
