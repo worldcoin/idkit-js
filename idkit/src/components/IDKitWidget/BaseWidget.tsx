@@ -4,14 +4,12 @@ import { Fragment } from 'react'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useMedia from '@/hooks/useMedia'
-import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
 import { useEffect, useMemo } from 'react'
 import XMarkIcon from '../Icons/XMarkIcon'
 import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
 import { ConfigSource } from '@/types/config'
-import { DEFAULT_COPY } from '@/types/config'
 import LoadingIcon from '../Icons/LoadingIcon'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
@@ -19,6 +17,7 @@ import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import PrivacyState from './States/PrivacyState'
 import * as Dialog from '@radix-ui/react-dialog'
+import { classNames, getCopy } from '@/lib/utils'
 import type { WidgetProps } from '@/types/config'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import EnterPhoneState from './States/EnterPhoneState'
@@ -159,8 +158,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 																<ArrowLongLeftIcon className="w-4" />
 															</button>
 															<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
-																{stage != IDKITStage.ABOUT &&
-																	(_copy?.title || DEFAULT_COPY.title)}
+																{stage != IDKITStage.ABOUT && getCopy(_copy, 'title')}
 															</Dialog.Title>
 															<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
 																<XMarkIcon className="h-5 w-5" />

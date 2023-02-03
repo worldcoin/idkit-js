@@ -47,7 +47,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	verificationState: VerificationState.LoadingWidget,
 
 	initConnection: async (action_id: StringOrAdvanced, signal: StringOrAdvanced) => {
-		if (get().connectorUri) return
 		if (connector.connected) await connector.killSession()
 
 		set({ config: { action_id, signal } })
@@ -56,6 +55,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		get().setConnectorUri(connector.uri)
 
 		connector.on('connect', (error: unknown) => {
+			console.log('called connect hook', error)
 			if (!error) return get().onConnectionEstablished()
 
 			set({ errorCode: OrbErrorCodes.ConnectionFailed })
@@ -63,7 +63,8 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		})
 
 		connector.on('disconnect', (error: unknown) => {
-			if (error) void get().initConnection(action_id, signal)
+			console.log('called disconnect hook', error)
+			void get().initConnection(action_id, signal)
 		})
 	},
 

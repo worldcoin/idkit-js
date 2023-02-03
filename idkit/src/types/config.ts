@@ -34,4 +34,4 @@ export const DEFAULT_COPY = {
 	heading: 'Verify your identity',
 	subheading: "Unlock additional benefits by verifying you're a unique human doing this action once.",
 	success: 'Your phone number has been verified',
-}
+} as const
