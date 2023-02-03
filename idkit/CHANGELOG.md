@@ -4,17 +4,15 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.2.6](https://github.com/worldcoin/idkit-js/compare/v0.2.3...v0.2.6) (2023-02-01)
 
-
 ### Features
 
-* bundle size analyzer and reduce ([#46](https://github.com/worldcoin/idkit-js/issues/46)) ([c7fe058](https://github.com/worldcoin/idkit-js/commit/c7fe058f2dba0242a0027a915049c84b16b0999a))
-* credential selections support & new UI ([#48](https://github.com/worldcoin/idkit-js/issues/48)) ([13c7dcd](https://github.com/worldcoin/idkit-js/commit/13c7dcdd998a4d9d843fed961e5ea38ab0fede27))
-* misc changes ([#43](https://github.com/worldcoin/idkit-js/issues/43)) ([aec2763](https://github.com/worldcoin/idkit-js/commit/aec2763b346251e73c7e1c3e7dd92870830c76cf))
-
+-   bundle size analyzer and reduce ([#46](https://github.com/worldcoin/idkit-js/issues/46)) ([c7fe058](https://github.com/worldcoin/idkit-js/commit/c7fe058f2dba0242a0027a915049c84b16b0999a))
+-   credential selections support & new UI ([#48](https://github.com/worldcoin/idkit-js/issues/48)) ([13c7dcd](https://github.com/worldcoin/idkit-js/commit/13c7dcdd998a4d9d843fed961e5ea38ab0fede27))
+-   misc changes ([#43](https://github.com/worldcoin/idkit-js/issues/43)) ([aec2763](https://github.com/worldcoin/idkit-js/commit/aec2763b346251e73c7e1c3e7dd92870830c76cf))
 
 ### Bug Fixes
 
-* zustand import ([#47](https://github.com/worldcoin/idkit-js/issues/47)) ([8d8f829](https://github.com/worldcoin/idkit-js/commit/8d8f8291271be86ea8e23948eebe767684a637f8))
+-   zustand import ([#47](https://github.com/worldcoin/idkit-js/issues/47)) ([8d8f829](https://github.com/worldcoin/idkit-js/commit/8d8f8291271be86ea8e23948eebe767684a637f8))
 
 ### [0.2.5](https://github.com/worldcoin/idkit-js/compare/v0.2.4...v0.2.3) (2023-01-21)
 
