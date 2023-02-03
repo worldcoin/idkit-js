@@ -47,7 +47,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	verificationState: VerificationState.LoadingWidget,
 
 	initConnection: async (action_id: StringOrAdvanced, signal: StringOrAdvanced) => {
-		if (get().connectorUri) return
 		if (connector.connected) await connector.killSession()
 
 		set({ config: { action_id, signal } })
@@ -62,8 +61,8 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			console.error(`Unable to establish a connection with the WLD app: ${error}`)
 		})
 
-		connector.on('disconnect', (error: unknown) => {
-			if (error) void get().initConnection(action_id, signal)
+		connector.on('disconnect', () => {
+			void get().initConnection(action_id, signal)
 		})
 	},
 

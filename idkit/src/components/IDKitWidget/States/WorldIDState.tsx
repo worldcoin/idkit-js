@@ -1,14 +1,14 @@
+import { getCopy } from '@/lib/utils'
 import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
 import useIDKitStore from '@/store/idkit'
 import { useEffect, useState } from 'react'
-import { DEFAULT_COPY } from '@/types/config'
 import { VerificationState } from '@/types/orb'
 import type { IDKitStore } from '@/store/idkit'
 import { IDKITStage, SignalType } from '@/types'
-import LoadingState from './WorldID/LoadingState'
 import useOrbSignal from '@/services/walletconnect'
 import AboutWorldID from '@/components/AboutWorldID'
+import LoadingIcon from '@/components/Icons/LoadingIcon'
 import DevicePhoneMobileIcon from '@/components/Icons/DevicePhoneMobileIcon'
 
 const getOptions = (store: IDKitStore) => ({
@@ -47,20 +47,25 @@ const WorldIDState = () => {
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
-					{copy?.heading || DEFAULT_COPY.heading}
+					{verificationState === VerificationState.AwaitingVerification
+						? 'Confirm on the Worldcoin app'
+						: getCopy(copy, 'heading')}
 				</p>
 				<p className="text-70868f dark:text-9eafc0 mt-3 text-center md:mt-2">
-					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
-					{copy?.subheading || DEFAULT_COPY.subheading}
+					{verificationState === VerificationState.AwaitingVerification
+						? 'Please confirm the request inside the Worldcoin app to continue.'
+						: getCopy(copy, 'subheading')}
 				</p>
 			</div>
 			{verificationState === VerificationState.AwaitingVerification ? (
-				<LoadingState />
+				<div className="flex items-center justify-center">
+					<LoadingIcon className="h-20 w-20" />
+				</div>
 			) : (
 				<QRState showQR={showQR} setShowQR={setShowQR} qrData={qrData} />
 			)}
 			{showAbout && (media == 'desktop' || !showQR) && <AboutWorldID />}
-			{hasPhone && (
+			{hasPhone && verificationState == VerificationState.AwaitingConnection && (
 				<div className="hidden space-y-3 md:block">
 					<div className="flex items-center justify-between space-x-6">
 						<div className="bg-f2f5f9 dark:bg-29343f h-px flex-1" />
