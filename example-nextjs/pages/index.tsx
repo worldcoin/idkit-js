@@ -24,7 +24,7 @@ export default function Home() {
 					onSuccess={onSuccess}
 					handleVerify={handleProof}
 					actionId="get_this_from_the_dev_portal"
-					walletconnectId="get_this_from_walletconnect_portal"
+					// walletconnectId="get_this_from_walletconnect_portal" // Uses default value if unset
 				>
 					{({ open }) => <button onClick={open}>Click me</button>}
 				</IDKitWidget>
