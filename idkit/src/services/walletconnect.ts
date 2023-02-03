@@ -55,15 +55,13 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		get().setConnectorUri(connector.uri)
 
 		connector.on('connect', (error: unknown) => {
-			console.log('called connect hook', error)
 			if (!error) return get().onConnectionEstablished()
 
 			set({ errorCode: OrbErrorCodes.ConnectionFailed })
 			console.error(`Unable to establish a connection with the WLD app: ${error}`)
 		})
 
-		connector.on('disconnect', (error: unknown) => {
-			console.log('called disconnect hook', error)
+		connector.on('disconnect', () => {
 			void get().initConnection(action_id, signal)
 		})
 	},
