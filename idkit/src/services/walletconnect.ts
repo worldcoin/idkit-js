@@ -17,7 +17,7 @@ type WalletConnectStore = {
 	result: OrbResponse | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
-	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced; walletconnect_id: string | undefined } | null
+	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced; walletconnect_id?: string } | null
 	qrData: {
 		default: string
 		mobile: string
@@ -26,11 +26,7 @@ type WalletConnectStore = {
 	resetConnection: () => void
 	onConnectionEstablished: () => Promise<void>
 	setUri: (uri: string) => void
-	initConnection: (
-		action_id: StringOrAdvanced,
-		signal: StringOrAdvanced,
-		walletconnect_id: string | undefined
-	) => Promise<void>
+	initConnection: (action_id: StringOrAdvanced, signal: StringOrAdvanced, walletconnect_id?: string) => Promise<void>
 }
 
 let client: Client
@@ -191,7 +187,7 @@ const getStore = (store: WalletConnectStore) => ({
 const useOrbSignal = (
 	action_id: StringOrAdvanced,
 	signal: StringOrAdvanced,
-	walletconnect_id: string | undefined
+	walletconnect_id?: string
 ): UseOrbSignalResponse => {
 	const { result, verificationState, errorCode, qrData, initConnection, reset } = useWalletConnectStore(getStore)
 
