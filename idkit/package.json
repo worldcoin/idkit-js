@@ -3,7 +3,7 @@
 	"description": "The identity SDK. Add sybil resistance to your apps through the World ID protocol.",
 	"type": "module",
 	"types": "./build/index.d.ts",
-	"version": "0.2.8",
+	"version": "0.2.9",
 	"private": false,
 	"main": "./build/index.cjs",
 	"module": "./build/index.js",
