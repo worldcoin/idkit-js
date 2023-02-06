@@ -3,7 +3,7 @@
 	"description": "The identity SDK. Add sybil resistance to your apps through the World ID protocol.",
 	"type": "module",
 	"types": "./build/index.d.ts",
-	"version": "0.2.9",
+	"version": "0.2.10",
 	"private": false,
 	"main": "./build/index.cjs",
 	"module": "./build/index.js",
@@ -56,6 +56,7 @@
 		"@radix-ui/react-toast": "^1.1.2",
 		"@tailwindcss/forms": "^0.5.3",
 		"@walletconnect/client": "^1.8.0",
+		"bufferutil": "^4.0.7",
 		"copy-to-clipboard": "^3.3.3",
 		"country-telephone-data": "^0.6.3",
 		"framer-motion": "^7.6.7",
@@ -67,6 +68,7 @@
 		"react-country-flag": "^3.0.2",
 		"react-frame-component": "^5.2.3",
 		"react-shadow": "^19.0.3",
+		"utf-8-validate": "^6.0.2",
 		"zustand": "^4.3.2"
 	},
 	"devDependencies": {
