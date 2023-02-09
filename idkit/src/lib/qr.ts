@@ -4,10 +4,11 @@
 export function buildQRData(uri: string, returnUrl?: string): string {
 	const result = new window.URL('https://worldcoin.org/verify')
 
-	const topicRegex = /(?<=wc:)(.*?)(?=@)/
-	const versionRegex = /(?<=@)(.*?)(?=(\?|$))/
-	const relayRegex = /(?<=relay-protocol=)(.*?)(?=(&|$))/
-	const keyRegex = /(?<=symKey=)(.*?)(?=(&|$))/
+	// Safari does not support lookbehind: https://stackoverflow.com/q/51568821
+	const topicRegex = /(?:wc:)(.*?)(?=@)/
+	const versionRegex = /(?:@)(.*?)(?=(\?|$))/
+	const relayRegex = /(?:relay-protocol=)(.*?)(?=(&|$))/
+	const keyRegex = /(?:symKey=)(.*?)(?=(&|$))/
 
 	const topic = uri.match(topicRegex)
 	const version = uri.match(versionRegex)
