@@ -46,6 +46,8 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		signal: StringOrAdvanced,
 		walletconnect_id = 'c3e6053f10efbb423808783ee874cf6a' // Default WalletConnect project ID for IDKit
 	) => {
+		// FIXME: Debug temp
+		console.log('Attempting to initiate connection...')
 		set({ config: { action_id, signal, walletconnect_id } })
 
 		client = await Client.init({
@@ -69,9 +71,15 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				},
 			})
 
+			// FIXME: Debug temp
+			console.log('Connection started.')
+
 			if (uri) {
 				get().setUri(uri)
+
 				const session = await approval()
+				// FIXME: Debug temp
+				console.log('Connection approved.')
 
 				if (typeof session !== 'undefined') {
 					set({ topic: session.topic })
@@ -79,6 +87,8 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				}
 
 				client.on('session_delete', () => {
+					// FIXME: Debug temp
+					console.log('`session_delete` called`')
 					void get().initConnection(action_id, signal, walletconnect_id)
 				})
 			}
@@ -102,6 +112,8 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	},
 	onConnectionEstablished: async () => {
 		set({ verificationState: VerificationState.AwaitingVerification })
+		// FIXME: Debug temp
+		console.log('Connection established. Sending verification request...')
 
 		await client
 			.request({
@@ -111,12 +123,16 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				request: buildVerificationRequest(get().config!.action_id, get().config!.signal),
 			})
 			.then(result => {
+				// FIXME: Debug temp
+				console.log('Received verification request...')
 				if (!ensureVerificationResponse(result as Record<string, string>))
 					return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
 
 				set({ result: result as OrbResponse, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
+				// FIXME: Debug temp
+				console.warn('Error received from verification request...')
 				let errorCode = OrbErrorCodes.GenericError
 
 				const errorMessage = (error as ExpectedErrorResponse).message
@@ -134,6 +150,8 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	},
 
 	resetConnection: () => {
+		// FIXME: Debug temp
+		console.log('Reset connection called')
 		set({
 			result: null,
 			config: null,
