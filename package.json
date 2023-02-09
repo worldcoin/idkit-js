@@ -10,6 +10,7 @@
 		"cspell": "6.17.0"
 	},
 	"scripts": {
+		"build-react": "cd example-react/ && yarn build:idkit && yarn build",
 		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e idkit/build -e idkit/node_modules -e node_modules -e yarn.lock"
 	}
 }
