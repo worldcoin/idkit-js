@@ -1,16 +1,13 @@
 import { classNames } from '@/lib/utils'
 import { useEffect, useRef } from 'react'
 import QRCodeStyling from 'qr-code-styling-new'
-import { renderToString } from 'react-dom/server'
-import WorldcoinLogomark from './Icons/WorldcoinLogomark'
-
-const logoB64 = window.btoa(renderToString(<WorldcoinLogomark style={{ color: '#6445DD' }} />))
+import worldcoinLogo from '@images/worldcoin.png'
 
 const qrcode = new QRCodeStyling({
 	width: 200,
 	height: 200,
 	type: 'svg',
-	image: `data:image/svg+xml;base64,${logoB64}`,
+	image: worldcoinLogo as string,
 	cornersSquareOptions: {
 		type: 'extra-rounded',
 	},
