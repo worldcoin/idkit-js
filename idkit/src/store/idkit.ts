@@ -90,7 +90,13 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setErrorState: errorState => set({ errorState }),
 	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setProcessing: (processing: boolean) => set({ processing }),
-	retryFlow: () => set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '', errorState: null }),
+	retryFlow: () => {
+		if (get().methods[0] == 'orb') {
+			set({ stage: IDKITStage.WORLD_ID, errorState: null })
+		} else {
+			set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '', errorState: null })
+		}
+	},
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => {
 		set(state => {
 			state.successCallbacks[source] = cb
