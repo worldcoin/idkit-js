@@ -4,19 +4,17 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [0.3.0](https://github.com/worldcoin/idkit-js/compare/v0.2.6...v0.3.0) (2023-02-14)
 
-
 ### ⚠ BREAKING CHANGES
 
-* migrate to WalletConnect v2 (#53)
+-   migrate to WalletConnect v2 (#53)
 
 ### Features
 
-* migrate to WalletConnect v2 ([#53](https://github.com/worldcoin/idkit-js/issues/53)) ([40664f7](https://github.com/worldcoin/idkit-js/commit/40664f7fb5373463f8af6d41a905da9359047071))
-
+-   migrate to WalletConnect v2 ([#53](https://github.com/worldcoin/idkit-js/issues/53)) ([40664f7](https://github.com/worldcoin/idkit-js/commit/40664f7fb5373463f8af6d41a905da9359047071))
 
 ### Bug Fixes
 
-* Design and WC bugs ([#51](https://github.com/worldcoin/idkit-js/issues/51)) ([de74902](https://github.com/worldcoin/idkit-js/commit/de74902bf868680970ee1394394d16254762f4f3))
+-   Design and WC bugs ([#51](https://github.com/worldcoin/idkit-js/issues/51)) ([de74902](https://github.com/worldcoin/idkit-js/commit/de74902bf868680970ee1394394d16254762f4f3))
 
 ### [0.2.7](https://github.com/worldcoin/idkit-js/compare/v0.2.6...v0.2.7) (2023-02-04)
 
