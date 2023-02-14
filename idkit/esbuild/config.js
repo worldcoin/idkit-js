@@ -2,6 +2,7 @@ import fs from 'fs'
 import { createRequire } from 'node:module'
 import { transformFileAsync as babelTransformFileAsync } from '@babel/core'
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
+
 const require = createRequire(import.meta.url)
 
 const packageJson = require('../package.json')

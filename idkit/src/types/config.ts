@@ -9,13 +9,14 @@ export enum ConfigSource {
 }
 
 export type Config = {
+	signal: StringOrAdvanced
+	actionId: StringOrAdvanced
+	walletConnectProjectId?: string
 	autoClose?: boolean
 	onSuccess?: CallbackFn
 	theme?: 'dark' | 'light'
-	signal: StringOrAdvanced
 	enableTelemetry?: boolean
 	handleVerify?: CallbackFn
-	actionId: StringOrAdvanced
 	methods?: VerificationMethods[]
 	copy?: {
 		title?: string
