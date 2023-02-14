@@ -35,8 +35,8 @@ type WalletConnectStore = {
 const namespaces = {
 	eip155: {
 		methods: ['wld_worldIDVerification'],
-		chains: ['eip155:1'], // Chain ID used does not matter, since we only perform signatures
-		events: ['chainChanged', 'accountsChanged'],
+		chains: ['eip155:1'], // Chain ID used does not matter, since we only perform custom JSON RPC messages (World ID verification)
+		events: ['accountsChanged'],
 	},
 }
 
@@ -62,27 +62,13 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			const client = await Client.init({
 				projectId: walletconnect_id,
 				metadata: {
-					name: 'World ID',
+					name: 'IDKit',
 					description: 'Verify with World ID',
 					url: '#',
 					icons: ['https://worldcoin.org/icons/logo-small.svg'],
 				},
 			})
 			set({ client: client })
-
-			// DEBUG
-			// client.on('session_ping', args => {
-			// 	console.log('session_ping:', args)
-			// })
-			// client.on('session_event', args => {
-			// 	console.log('session_event:', args)
-			// })
-			// client.on('session_update', args => {
-			// 	console.log('session_update:', args)
-			// })
-			// client.on('session_delete', args => {
-			// 	console.log('session_delete:', args)
-			// })
 
 			return get().connectClient(client)
 		} catch (error) {
