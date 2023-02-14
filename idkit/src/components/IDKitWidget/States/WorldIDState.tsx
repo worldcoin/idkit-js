@@ -20,20 +20,24 @@ const getOptions = (store: IDKitStore) => ({
 	showAbout: store.methods.length == 1,
 	hasPhone: store.methods.includes('phone'),
 	usePhone: () => store.setStage(IDKITStage.ENTER_PHONE),
+	setStage: store.setStage,
 })
 
 const WorldIDState = () => {
 	const media = useMedia()
 	const [showQR, setShowQR] = useState<boolean>(false)
-	const { actionId, copy, signal, walletconnectId, handleVerify, showAbout, hasPhone, usePhone } =
+	const { actionId, copy, signal, walletconnectId, handleVerify, showAbout, hasPhone, usePhone, setStage } =
 		useIDKitStore(getOptions)
 	const { result, qrData, verificationState, reset } = useOrbSignal(actionId, signal, walletconnectId)
 
 	useEffect(() => reset, [reset])
 
 	useEffect(() => {
-		if (!result) return
+		if (verificationState === VerificationState.Failed) {
+			setStage(IDKITStage.ERROR)
+		}
 
+		if (!result) return
 		handleVerify({
 			signal_type: SignalType.Orb,
 			nullifier_hash: result.nullifier_hash,
@@ -42,7 +46,7 @@ const WorldIDState = () => {
 				merkle_root: result.merkle_root,
 			},
 		})
-	}, [result, reset, handleVerify])
+	}, [result, reset, handleVerify, verificationState, setStage])
 
 	return (
 		<div className="-mt-6 space-y-6">

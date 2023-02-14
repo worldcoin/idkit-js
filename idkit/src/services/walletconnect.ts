@@ -22,14 +22,23 @@ type WalletConnectStore = {
 		default: string
 		mobile: string
 	} | null
+	client: Client | null
 
 	resetConnection: () => void
-	onConnectionEstablished: () => Promise<void>
+	onConnectionEstablished: (client: Client) => void
 	setUri: (uri: string) => void
-	initConnection: (action_id: StringOrAdvanced, signal: StringOrAdvanced, walletconnect_id?: string) => Promise<void>
+	createClient: (action_id: StringOrAdvanced, signal: StringOrAdvanced, walletconnect_id?: string) => Promise<void>
+	connectClient: (client: Client) => Promise<void>
 }
 
-let client: Client
+// let client: Client
+const namespaces = {
+	eip155: {
+		methods: ['wld_worldIDVerification'],
+		chains: ['eip155:1'], // Chain ID used does not matter, since we only perform signatures
+		events: ['chainChanged', 'accountsChanged'],
+	},
+}
 
 const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	qrData: null,
@@ -40,57 +49,61 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	topic: '',
 	errorCode: null,
 	verificationState: VerificationState.LoadingWidget,
+	client: null,
 
-	initConnection: async (
+	createClient: async (
 		action_id: StringOrAdvanced,
 		signal: StringOrAdvanced,
 		walletconnect_id = 'c3e6053f10efbb423808783ee874cf6a' // Default WalletConnect project ID for IDKit
 	) => {
-		// FIXME: Debug temp
-		console.log('Attempting to initiate connection...')
 		set({ config: { action_id, signal, walletconnect_id } })
 
-		client = await Client.init({
-			projectId: walletconnect_id,
-			metadata: {
-				name: 'World ID',
-				description: 'Verify with World ID',
-				url: '#',
-				icons: ['https://worldcoin.org/icons/logo-small.svg'],
-			},
-		})
-
 		try {
-			const { uri, approval } = await client.connect({
-				requiredNamespaces: {
-					eip155: {
-						methods: ['wld_worldIDVerification'],
-						chains: ['eip155:1'], // Chain ID used does not matter, since we only perform signatures
-						events: ['chainChanged', 'accountsChanged'],
-					},
+			const client = await Client.init({
+				projectId: walletconnect_id,
+				metadata: {
+					name: 'World ID',
+					description: 'Verify with World ID',
+					url: '#',
+					icons: ['https://worldcoin.org/icons/logo-small.svg'],
 				},
 			})
+			set({ client: client })
 
-			// FIXME: Debug temp
-			console.log('Connection started.')
+			// DEBUG
+			// client.on('session_ping', args => {
+			// 	console.log('session_ping:', args)
+			// })
+			// client.on('session_event', args => {
+			// 	console.log('session_event:', args)
+			// })
+			// client.on('session_update', args => {
+			// 	console.log('session_update:', args)
+			// })
+			// client.on('session_delete', args => {
+			// 	console.log('session_delete:', args)
+			// })
+
+			return get().connectClient(client)
+		} catch (error) {
+			console.error(error)
+		}
+	},
+
+	connectClient: async (client: Client) => {
+		try {
+			const { uri, approval } = await client.connect({
+				requiredNamespaces: namespaces,
+			})
 
 			if (uri) {
 				get().setUri(uri)
-
 				const session = await approval()
-				// FIXME: Debug temp
-				console.log('Connection approved.')
 
 				if (typeof session !== 'undefined') {
 					set({ topic: session.topic })
-					return get().onConnectionEstablished()
+					return get().onConnectionEstablished(client)
 				}
-
-				client.on('session_delete', () => {
-					// FIXME: Debug temp
-					console.log('`session_delete` called`')
-					void get().initConnection(action_id, signal, walletconnect_id)
-				})
 			}
 		} catch (error) {
 			set({ errorCode: OrbErrorCodes.ConnectionFailed })
@@ -110,10 +123,10 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			},
 		})
 	},
-	onConnectionEstablished: async () => {
+
+	// eslint-disable-next-line @typescript-eslint/no-misused-promises
+	onConnectionEstablished: async (client: Client) => {
 		set({ verificationState: VerificationState.AwaitingVerification })
-		// FIXME: Debug temp
-		console.log('Connection established. Sending verification request...')
 
 		await client
 			.request({
@@ -123,16 +136,12 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				request: buildVerificationRequest(get().config!.action_id, get().config!.signal),
 			})
 			.then(result => {
-				// FIXME: Debug temp
-				console.log('Received verification request...')
 				if (!ensureVerificationResponse(result as Record<string, string>))
 					return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
 
 				set({ result: result as OrbResponse, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
-				// FIXME: Debug temp
-				console.warn('Error received from verification request...')
 				let errorCode = OrbErrorCodes.GenericError
 
 				const errorMessage = (error as ExpectedErrorResponse).message
@@ -142,22 +151,23 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 				set({ errorCode, verificationState: VerificationState.Failed })
 			})
-			.finally(
-				// eslint-disable-next-line @typescript-eslint/no-misused-promises
-				async () => await client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') })
-			)
-			.catch(error => console.error('Unable to kill session', error))
+			// eslint-disable-next-line @typescript-eslint/no-misused-promises
+			.finally(async () => {
+				await client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') })
+			})
+			.catch(error => {
+				console.error(`Unable to disconnect: ${error}`)
+			})
 	},
 
 	resetConnection: () => {
-		// FIXME: Debug temp
-		console.log('Reset connection called')
 		set({
 			result: null,
 			config: null,
 			qrData: null,
 			errorCode: null,
 			connected: false,
+			client: null,
 			verificationState: VerificationState.LoadingWidget,
 		})
 	},
@@ -198,7 +208,9 @@ const getStore = (store: WalletConnectStore) => ({
 	result: store.result,
 	errorCode: store.errorCode,
 	reset: store.resetConnection,
-	initConnection: store.initConnection,
+	client: store.client,
+	createClient: store.createClient,
+	connectClient: store.connectClient,
 	verificationState: store.verificationState,
 })
 
@@ -207,13 +219,15 @@ const useOrbSignal = (
 	signal: StringOrAdvanced,
 	walletconnect_id?: string
 ): UseOrbSignalResponse => {
-	const { result, verificationState, errorCode, qrData, initConnection, reset } = useWalletConnectStore(getStore)
+	const { result, verificationState, errorCode, qrData, client, createClient, reset } =
+		useWalletConnectStore(getStore)
 
 	useEffect(() => {
 		if (!action_id || !signal) return
-
-		void initConnection(action_id, signal, walletconnect_id)
-	}, [action_id, initConnection, signal, walletconnect_id])
+		if (!client) {
+			void createClient(action_id, signal, walletconnect_id)
+		}
+	}, [action_id, signal, walletconnect_id, client, createClient, verificationState])
 
 	return { result, reset, verificationState, errorCode, qrData }
 }
