@@ -30,7 +30,7 @@ If your app is built on React, using the React widget is by far the easiest appr
 ```jsx
 import { IDKitWidget } from "@worldcoin/idkit";
 
-<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" walletconnectId="get_this_from_walletconnect_portal" handleVerify={verifyProof}>
+<IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" handleVerify={verifyProof}>
   {({ open }) => (
     {/* You can render whatever you want here, and call open() to open the widget */}
     <button onClick={open}>Click me</button>
@@ -47,7 +47,7 @@ const { open, setOpen } = useIDKit({
 	signal: "my_signal",
 	handleVerify: verifyProof,
 	actionId: "get_this_from_the_dev_portal",
-	walletconnectId: "get_this_from_walletconnect_portal",
+	walletConnectProjectId: "get_this_from_walletconnect_portal",
 });
 ```
 
@@ -62,7 +62,7 @@ IDKit.init({
 	signal: "my_signal",
 	handleVerify: verifyProof,
 	actionId: "get_this_from_the_dev_portal",
-	walletconnectId: "get_this_from_walletconnect_portal",
+	walletConnectProjectId: "get_this_from_walletconnect_portal",
 });
 ```
 

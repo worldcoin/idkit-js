@@ -16,7 +16,7 @@ export type IDKitStore = {
 	theme: Config['theme']
 	signal: StringOrAdvanced
 	actionId: StringOrAdvanced
-	walletconnectId?: string
+	walletConnectProjectId?: string
 	stringifiedActionId: string // Raw action IDs get hashed and stored (used for phone non-orb signals)
 	result: ISuccessResult | null
 	methods: VerificationMethods[]
@@ -49,7 +49,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	result: null,
 	actionId: '',
 	theme: 'light',
-	walletconnectId: '',
+	walletConnectProjectId: '',
 	errorTitle: '',
 	errorDetail: '',
 	phoneNumber: '',
@@ -112,7 +112,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		})
 	},
 	setOptions: (
-		{ handleVerify, onSuccess, signal, actionId, walletconnectId, autoClose, copy, theme, methods }: Config,
+		{ handleVerify, onSuccess, signal, actionId, walletConnectProjectId, autoClose, copy, theme, methods }: Config,
 		source: ConfigSource
 	) => {
 		const stringifiedActionId = typeof actionId === 'string' ? actionId : worldIDHash(actionId).digest
@@ -122,7 +122,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			actionId,
 			methods: methods ?? store.methods,
 			stage: store.computed.getDefaultStage(methods),
-			walletconnectId,
+			walletConnectProjectId,
 			autoClose,
 			stringifiedActionId,
 			copy: { ...store.copy, ...copy },

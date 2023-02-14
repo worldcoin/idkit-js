@@ -16,7 +16,7 @@ let isInitialized = false
 export const init = (config: Config): void => {
 	if (isInitialized) throw new Error('IDKit is already initialized')
 	if (!config.actionId) throw new Error('You must provide your Action ID')
-	if (!config.walletconnectId) {
+	if (!config.walletConnectProjectId) {
 		console.warn(
 			'WalletConnect project ID not detected.  Using default, but this is not advisable for production usage!'
 		)
