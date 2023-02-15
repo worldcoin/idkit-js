@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/worldcoin/idkit-js/compare/v0.3.0...v0.3.1) (2023-02-15)
+
+### Bug Fixes
+
+-   make hook complimentary to component ([#56](https://github.com/worldcoin/idkit-js/issues/56)) ([0b69dbd](https://github.com/worldcoin/idkit-js/commit/0b69dbdc85b7c1317f6b71abb1d6b0c0bcc8c859))
+
 ## [0.3.0](https://github.com/worldcoin/idkit-js/compare/v0.2.6...v0.3.0) (2023-02-14)
 
 ### ⚠ BREAKING CHANGES
