@@ -91,11 +91,11 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setProcessing: (processing: boolean) => set({ processing }),
 	retryFlow: () => {
-		if (get().methods[0] == 'orb') {
-			set({ stage: IDKITStage.WORLD_ID, errorState: null })
-		} else {
-			set({ stage: IDKITStage.ENTER_PHONE, phoneNumber: '', errorState: null })
+		if (get().methods.length === 1) {
+			set({ stage: get().computed.getDefaultStage(), errorState: null })
 		}
+
+		set({ stage: IDKITStage.SELECT_METHOD, errorState: null })
 	},
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => {
 		set(state => {
@@ -120,11 +120,11 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			theme,
 			signal,
 			actionId,
-			methods: methods ?? store.methods,
-			stage: store.computed.getDefaultStage(methods),
-			walletConnectProjectId,
 			autoClose,
 			stringifiedActionId,
+			walletConnectProjectId,
+			methods: methods ?? store.methods,
+			stage: store.computed.getDefaultStage(methods),
 			copy: { ...store.copy, ...copy },
 		}))
 
