@@ -9,14 +9,7 @@ import type { IDKitConfig } from '@/types/config'
 import { getSdkError } from '@walletconnect/utils'
 import type { ExpectedErrorResponse } from '@/types'
 import { OrbErrorCodes, VerificationState } from '@/types/orb'
-import {
-	packAndEncode,
-	validateABILikeEncoding,
-	hashToField,
-	generateSignal,
-	generateNullifier,
-	encodeAction,
-} from '@/lib/hashing'
+import { validateABILikeEncoding, generateSignal, generateNullifier, encodeAction } from '@/lib/hashing'
 
 type WalletConnectStore = {
 	connected: boolean

@@ -20,10 +20,11 @@ export default function Home() {
 		<div className={styles.container}>
 			<div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
 				<IDKitWidget
+					action="my_action"
 					signal="my_signal"
 					onSuccess={onSuccess}
 					handleVerify={handleProof}
-					actionId="get_this_from_the_dev_portal"
+					app_id="get_this_from_the_dev_portal"
 					// walletConnectProjectId="get_this_from_walletconnect_portal"
 				>
 					{({ open }) => <button onClick={open}>Click me</button>}
