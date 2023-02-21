@@ -4,11 +4,11 @@ import { buildQRData } from '@/lib/qr'
 import { randomNumber } from '@/lib/utils'
 import type { OrbResponse } from '@/types/orb'
 import Client from '@walletconnect/sign-client'
+import type { IDKitConfig } from '@/types/config'
 import { getSdkError } from '@walletconnect/utils'
 import type { ExpectedErrorResponse } from '@/types'
-import type { StringOrAdvanced } from '@/types/config'
 import { OrbErrorCodes, VerificationState } from '@/types/orb'
-import { validateABILikeEncoding, worldIDHash } from '@/lib/hashing'
+import { packAndEncode, validateABILikeEncoding, worldIDHash } from '@/lib/hashing'
 
 type WalletConnectStore = {
 	connected: boolean
@@ -17,7 +17,7 @@ type WalletConnectStore = {
 	result: OrbResponse | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
-	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced; walletconnect_id?: string } | null
+	config: IDKitConfig | null
 	qrData: {
 		default: string
 		mobile: string
@@ -27,7 +27,13 @@ type WalletConnectStore = {
 	resetConnection: () => void
 	onConnectionEstablished: (client: Client) => void
 	setUri: (uri: string) => void
-	createClient: (action_id: StringOrAdvanced, signal: StringOrAdvanced, walletconnect_id?: string) => Promise<void>
+	createClient: (
+		app_id: string,
+		action: string,
+		signal: string,
+		action_description?: string,
+		walletconnect_id?: string
+	) => Promise<void>
 	connectClient: (client: Client) => Promise<void>
 }
 
@@ -52,15 +58,17 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	client: null,
 
 	createClient: async (
-		action_id: StringOrAdvanced,
-		signal: StringOrAdvanced,
-		walletconnect_id = 'c3e6053f10efbb423808783ee874cf6a' // Default WalletConnect project ID for IDKit
+		app_id: string,
+		action: string,
+		signal: string,
+		action_description?: string,
+		walletConnectProjectId = 'c3e6053f10efbb423808783ee874cf6a' // Default WalletConnect project ID for IDKit
 	) => {
-		set({ config: { action_id, signal, walletconnect_id } })
+		set({ config: { app_id, action, signal, action_description, walletConnectProjectId } })
 
 		try {
 			const client = await Client.init({
-				projectId: walletconnect_id,
+				projectId: walletConnectProjectId,
 				metadata: {
 					name: 'IDKit',
 					description: 'Verify with World ID',
@@ -119,7 +127,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				topic: get().topic,
 				chainId: 'eip155:1',
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				request: buildVerificationRequest(get().config!.action_id, get().config!.signal),
+				request: buildVerificationRequest(get().config!),
 			})
 			.then(result => {
 				if (!ensureVerificationResponse(result as Record<string, string>))
@@ -159,11 +167,22 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	},
 }))
 
-const buildVerificationRequest = (action_id: StringOrAdvanced, signal: StringOrAdvanced) => ({
+const buildVerificationRequest = (config: IDKitConfig) => ({
 	jsonrpc: '2.0',
 	method: 'wld_worldIDVerification',
 	id: randomNumber(100000, 9999999),
-	params: [{ signal: worldIDHash(signal).digest, action_id: worldIDHash(action_id).digest }],
+	params: [
+		{
+			app_id: config.app_id,
+			action: config.action,
+			signal: worldIDHash(config.signal).digest,
+			action_description: config.action_description,
+			external_nullifier: packAndEncode([
+				['string', config.app_id],
+				['string', config.action],
+			]).digest,
+		},
+	],
 })
 
 const ensureVerificationResponse = (result: Record<string, string | undefined>): result is OrbResponse => {
@@ -201,19 +220,21 @@ const getStore = (store: WalletConnectStore) => ({
 })
 
 const useOrbSignal = (
-	action_id: StringOrAdvanced,
-	signal: StringOrAdvanced,
+	app_id: string,
+	action: string,
+	signal: string,
+	action_description?: string,
 	walletconnect_id?: string
 ): UseOrbSignalResponse => {
 	const { result, verificationState, errorCode, qrData, client, createClient, reset } =
 		useWalletConnectStore(getStore)
 
 	useEffect(() => {
-		if (!action_id || !signal) return
+		if (!app_id || !action || !signal) return
 		if (!client) {
-			void createClient(action_id, signal, walletconnect_id)
+			void createClient(app_id, action, signal, action_description, walletconnect_id)
 		}
-	}, [action_id, signal, walletconnect_id, client, createClient, verificationState])
+	}, [app_id, action, signal, walletconnect_id, action_description, client, createClient, verificationState])
 
 	return { result, reset, verificationState, errorCode, qrData }
 }

@@ -23,7 +23,7 @@ export function worldIDHash(input: Buffer | BytesLike | StringOrAdvanced): HashF
 	return hashString(input as string)
 }
 
-function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
+export function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
 	const [types, values] = input.reduce<[string[], unknown[]]>(
 		([types, values], [type, value]) => {
 			types.push(type)
