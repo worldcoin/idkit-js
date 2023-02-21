@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.3](https://github.com/worldcoin/idkit-js/compare/v0.2.6...v0.3.3) (2023-02-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate to WalletConnect v2 (#53)
+
+### Features
+
+* export main hashing functions ([#58](https://github.com/worldcoin/idkit-js/issues/58)) ([298eeef](https://github.com/worldcoin/idkit-js/commit/298eeef975c4ababb4a58a9e6852efd3bf4826d9))
+* migrate to WalletConnect v2 ([#53](https://github.com/worldcoin/idkit-js/issues/53)) ([40664f7](https://github.com/worldcoin/idkit-js/commit/40664f7fb5373463f8af6d41a905da9359047071))
+
+
+### Bug Fixes
+
+* Design and WC bugs ([#51](https://github.com/worldcoin/idkit-js/issues/51)) ([de74902](https://github.com/worldcoin/idkit-js/commit/de74902bf868680970ee1394394d16254762f4f3))
+* make hook complimentary to component ([#56](https://github.com/worldcoin/idkit-js/issues/56)) ([0b69dbd](https://github.com/worldcoin/idkit-js/commit/0b69dbdc85b7c1317f6b71abb1d6b0c0bcc8c859))
+
 ### [0.3.2](https://github.com/worldcoin/idkit-js/compare/v0.3.1...v0.3.2) (2023-02-20)
 
 ### Features
