@@ -1,7 +1,7 @@
 import sha3 from 'js-sha3'
+import type { AbiEncodedValue } from '@/types'
 import { pack } from '@ethersproject/solidity'
 import type { BytesLike } from '@ethersproject/bytes'
-import type { StringOrAdvanced } from '@/types/config'
 import { arrayify, concat, hexlify, isBytesLike } from '@ethersproject/bytes'
 
 export interface HashFunctionOutput {
@@ -16,8 +16,7 @@ export interface HashFunctionOutput {
  * @param input Any string, hex-like string, bytes represented as a hex string.
  * @returns
  */
-export function worldIDHash(input: Buffer | BytesLike | StringOrAdvanced): HashFunctionOutput {
-	if (Array.isArray(input)) return packAndEncode(input)
+export function hashToField(input: Buffer | BytesLike): HashFunctionOutput {
 	if (isBytesLike(input)) return hashEncodedBytes(input)
 
 	return hashString(input as string)
@@ -38,25 +37,23 @@ export function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
 }
 
 /**
- * Using `worldIDHash` is recommended! Use this if you're certain you want to hash a string.
  * Converts an input to bytes and then hashes it with the World ID protocol hashing function.
  * @param input - String to hash
  * @returns hash
  */
-export function hashString(input: string): HashFunctionOutput {
+function hashString(input: string): HashFunctionOutput {
 	const bytesInput = Buffer.from(input)
 
 	return hashEncodedBytes(bytesInput)
 }
 
 /**
- * Using `worldIDHash` is recommended! Use this if you're certain you want to hash raw bytes.
  * Hashes raw bytes input using the `keccak256` hashing function used across the World ID protocol, to be used as
  * a ZKP input. Example use cases include when you're hashing an address to be verified in a smart contract.
  * @param input - Bytes represented as a hex string.
  * @returns
  */
-export function hashEncodedBytes(input: BytesLike): HashFunctionOutput {
+function hashEncodedBytes(input: BytesLike): HashFunctionOutput {
 	const hash = BigInt(keccak256(input)) >> BigInt(8)
 	const rawDigest = hash.toString(16)
 
@@ -68,7 +65,7 @@ export function hashEncodedBytes(input: BytesLike): HashFunctionOutput {
  * @param value value to hash
  * @returns
  */
-export function keccak256(value: BytesLike): string {
+function keccak256(value: BytesLike): string {
 	const data = hexlify(concat([arrayify(value)]))
 
 	return '0x' + sha3.keccak_256(arrayify(data))
@@ -77,4 +74,33 @@ export function keccak256(value: BytesLike): string {
 export const validateABILikeEncoding = (value: string): boolean => {
 	const ABI_REGEX = /^0x[\dabcdef]+$/
 	return !!value.toString().match(ABI_REGEX) && value.length >= 66 // Because `0` contains 66 characters
+}
+
+export const solidityEncode = (types: string[], values: unknown[]): AbiEncodedValue => {
+	if (types.length !== values.length) {
+		throw new Error('Types and values arrays must have the same length.')
+	}
+
+	return { types, values } as AbiEncodedValue
+}
+
+export const generateSignal = (signal: AbiEncodedValue | string): HashFunctionOutput => {
+	if (typeof signal === 'string') return hashToField(signal)
+
+	return packAndEncode(signal.types.map((type, index) => [type, signal.values[index]]))
+}
+
+export const generateNullifier = (app_id: string, action: AbiEncodedValue | string): HashFunctionOutput => {
+	if (typeof action === 'string') action = solidityEncode(['string'], [action])
+
+	return packAndEncode([
+		['uint256', hashToField(app_id).hash],
+		...action.types.map((type, index) => [type, (action as AbiEncodedValue).values[index]] as [string, unknown]),
+	])
+}
+
+export const encodeAction = (action: AbiEncodedValue | string): string => {
+	if (typeof action === 'string') return action
+
+	return action.types.map((type, index) => `${type}(${action.values[index]})`).join(',')
 }

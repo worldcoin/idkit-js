@@ -1,15 +1,15 @@
 import { create } from 'zustand'
 import { ErrorCodes, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
-import type { Config, ConfigSource } from '@/types/config'
 import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
+import type { Config, ConfigSource, IDKitConfig } from '@/types/config'
 
 export type IDKitStore = {
-	app_id: string
-	action: string
-	signal: string
-	action_description?: string
-	walletConnectProjectId?: string
+	app_id: IDKitConfig['app_id']
+	action: IDKitConfig['action']
+	signal: IDKitConfig['signal']
+	action_description?: IDKitConfig['action_description']
+	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
 
 	code: string
 	open: boolean

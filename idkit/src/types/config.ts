@@ -1,6 +1,5 @@
-import type { CallbackFn } from '.'
+import type { CallbackFn, AbiEncodedValue } from '.'
 
-export type StringOrAdvanced = Array<[string, unknown]> | string
 export enum ConfigSource {
 	HOOK = 'hook',
 	PROPS = 'props',
@@ -8,11 +7,11 @@ export enum ConfigSource {
 }
 
 export type IDKitConfig = {
-	signal: string
 	app_id: string
-	action: string
 	action_description?: string
 	walletConnectProjectId?: string
+	signal: AbiEncodedValue | string
+	action: AbiEncodedValue | string
 }
 
 type WidgetConfig = {

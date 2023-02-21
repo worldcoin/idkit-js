@@ -42,15 +42,9 @@ const WorldIDState = () => {
 			setStage(IDKITStage.ERROR)
 		}
 
-		if (!result) return
-		handleVerify({
-			signal_type: SignalType.Orb,
-			nullifier_hash: result.nullifier_hash,
-			proof_payload: {
-				proof: result.proof,
-				merkle_root: result.merkle_root,
-			},
-		})
+		if (result) {
+			handleVerify({ ...result, signal_type: SignalType.Orb })
+		}
 	}, [result, reset, handleVerify, verificationState, setStage])
 
 	return (

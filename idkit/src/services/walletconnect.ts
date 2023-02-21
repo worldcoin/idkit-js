@@ -2,13 +2,21 @@ import { create } from 'zustand'
 import { useEffect } from 'react'
 import { buildQRData } from '@/lib/qr'
 import { randomNumber } from '@/lib/utils'
+import { WC_PROJECT_ID } from '@/lib/consts'
 import type { OrbResponse } from '@/types/orb'
 import Client from '@walletconnect/sign-client'
 import type { IDKitConfig } from '@/types/config'
 import { getSdkError } from '@walletconnect/utils'
 import type { ExpectedErrorResponse } from '@/types'
 import { OrbErrorCodes, VerificationState } from '@/types/orb'
-import { packAndEncode, validateABILikeEncoding, worldIDHash } from '@/lib/hashing'
+import {
+	packAndEncode,
+	validateABILikeEncoding,
+	hashToField,
+	generateSignal,
+	generateNullifier,
+	encodeAction,
+} from '@/lib/hashing'
 
 type WalletConnectStore = {
 	connected: boolean
@@ -28,16 +36,15 @@ type WalletConnectStore = {
 	onConnectionEstablished: (client: Client) => void
 	setUri: (uri: string) => void
 	createClient: (
-		app_id: string,
-		action: string,
-		signal: string,
-		action_description?: string,
-		walletconnect_id?: string
+		app_id: IDKitConfig['app_id'],
+		action: IDKitConfig['action'],
+		signal: IDKitConfig['signal'],
+		action_description?: IDKitConfig['action_description'],
+		walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
 	) => Promise<void>
 	connectClient: (client: Client) => Promise<void>
 }
 
-// let client: Client
 const namespaces = {
 	eip155: {
 		methods: ['world_id_v1'],
@@ -58,11 +65,11 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	client: null,
 
 	createClient: async (
-		app_id: string,
-		action: string,
-		signal: string,
-		action_description?: string,
-		walletConnectProjectId = 'c3e6053f10efbb423808783ee874cf6a' // Default WalletConnect project ID for IDKit
+		app_id: IDKitConfig['app_id'],
+		action: IDKitConfig['action'],
+		signal: IDKitConfig['signal'],
+		action_description?: IDKitConfig['action_description'],
+		walletConnectProjectId = WC_PROJECT_ID
 	) => {
 		set({ config: { app_id, action, signal, action_description, walletConnectProjectId } })
 
@@ -86,9 +93,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 	connectClient: async (client: Client) => {
 		try {
-			const { uri, approval } = await client.connect({
-				requiredNamespaces: namespaces,
-			})
+			const { uri, approval } = await client.connect({ requiredNamespaces: namespaces })
 
 			if (uri) {
 				get().setUri(uri)
@@ -174,13 +179,10 @@ const buildVerificationRequest = (config: IDKitConfig) => ({
 	params: [
 		{
 			app_id: config.app_id,
-			action: config.action,
-			signal: worldIDHash(config.signal).digest,
+			action: encodeAction(config.action),
+			signal: generateSignal(config.signal).digest,
 			action_description: config.action_description,
-			external_nullifier: packAndEncode([
-				['bytes', worldIDHash(config.app_id).digest],
-				['string', config.action],
-			]).digest,
+			external_nullifier: generateNullifier(config.app_id, config.action).digest,
 		},
 	],
 })
@@ -220,11 +222,11 @@ const getStore = (store: WalletConnectStore) => ({
 })
 
 const useOrbSignal = (
-	app_id: string,
-	action: string,
-	signal: string,
-	action_description?: string,
-	walletconnect_id?: string
+	app_id: IDKitConfig['app_id'],
+	action: IDKitConfig['action'],
+	signal: IDKitConfig['signal'],
+	action_description?: IDKitConfig['action_description'],
+	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
 ): UseOrbSignalResponse => {
 	const { result, verificationState, errorCode, qrData, client, createClient, reset } =
 		useWalletConnectStore(getStore)
@@ -232,9 +234,9 @@ const useOrbSignal = (
 	useEffect(() => {
 		if (!app_id || !action || !signal) return
 		if (!client) {
-			void createClient(app_id, action, signal, action_description, walletconnect_id)
+			void createClient(app_id, action, signal, action_description, walletConnectProjectId)
 		}
-	}, [app_id, action, signal, walletconnect_id, action_description, client, createClient, verificationState])
+	}, [app_id, action, signal, walletConnectProjectId, action_description, client, createClient, verificationState])
 
 	return { result, reset, verificationState, errorCode, qrData }
 }
