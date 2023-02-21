@@ -9,7 +9,7 @@ import type { IDKitConfig } from '@/types/config'
 import { getSdkError } from '@walletconnect/utils'
 import type { ExpectedErrorResponse } from '@/types'
 import { OrbErrorCodes, VerificationState } from '@/types/orb'
-import { validateABILikeEncoding, generateSignal, generateNullifier, encodeAction } from '@/lib/hashing'
+import { validateABILikeEncoding, generateSignal, generateExternalNullifier, encodeAction } from '@/lib/hashing'
 
 type WalletConnectStore = {
 	connected: boolean
@@ -175,7 +175,7 @@ const buildVerificationRequest = (config: IDKitConfig) => ({
 			action: encodeAction(config.action),
 			signal: generateSignal(config.signal).digest,
 			action_description: config.action_description,
-			external_nullifier: generateNullifier(config.app_id, config.action).digest,
+			external_nullifier: generateExternalNullifier(config.app_id, config.action).digest,
 		},
 	],
 })

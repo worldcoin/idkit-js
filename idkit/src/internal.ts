@@ -1,3 +1,1 @@
-import { hashToField, validateABILikeEncoding } from './lib/hashing'
-
-export { hashToField as worldIDHash, validateABILikeEncoding }
+export { hashToField, validateABILikeEncoding, generateExternalNullifier } from './lib/hashing'
