@@ -40,7 +40,7 @@ type WalletConnectStore = {
 // let client: Client
 const namespaces = {
 	eip155: {
-		methods: ['wld_worldIDVerification'],
+		methods: ['world_id_v1'],
 		chains: ['eip155:1'], // Chain ID used does not matter, since we only perform custom JSON RPC messages (World ID verification)
 		events: ['accountsChanged'],
 	},
