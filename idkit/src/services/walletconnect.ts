@@ -169,7 +169,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 const buildVerificationRequest = (config: IDKitConfig) => ({
 	jsonrpc: '2.0',
-	method: 'wld_worldIDVerification',
+	method: 'world_id_v1',
 	id: randomNumber(100000, 9999999),
 	params: [
 		{
