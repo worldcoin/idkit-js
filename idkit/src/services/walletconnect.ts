@@ -178,7 +178,7 @@ const buildVerificationRequest = (config: IDKitConfig) => ({
 			signal: worldIDHash(config.signal).digest,
 			action_description: config.action_description,
 			external_nullifier: packAndEncode([
-				['string', config.app_id],
+				['bytes', worldIDHash(config.app_id).digest],
 				['string', config.action],
 			]).digest,
 		},
