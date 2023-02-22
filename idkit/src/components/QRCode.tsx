@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
 import QRCodeUtil from 'qrcode'
+import { memo, useMemo } from 'react'
 import type { ReactElement } from 'react'
 import WorldcoinLogomark from './Icons/WorldcoinLogomark'
 
@@ -19,10 +19,9 @@ type Props = {
 	data: string
 	size?: number
 	logoSize?: number
-	logoMargin?: number
 }
 
-const Qrcode = ({ logoMargin = 10, logoSize = 72, size = 300, data }: Props) => {
+const Qrcode = ({ data, logoSize = 72, size = 300 }: Props) => {
 	const dots = useMemo(() => {
 		const dots: ReactElement[] = []
 		const matrix = generateMatrix(data)
@@ -81,29 +80,17 @@ const Qrcode = ({ logoMargin = 10, logoSize = 72, size = 300, data }: Props) => 
 	}, [logoSize, size, data])
 
 	const logoPosition = size / 2 - logoSize / 2
-	const logoWrapperSize = logoSize + logoMargin * 2
 
 	return (
-		<div className="dark:bg-0d151d w-max rounded-lg bg-white">
-			<div className="select-none" style={{ height: size, width: size }}>
-				<div className="relative flex h-0 w-full justify-center" style={{ top: logoPosition, width: size }}>
-					<WorldcoinLogomark height={logoSize} width={logoSize} />
-				</div>
-				<svg height={size} style={{ all: 'revert' }} width={size}>
-					<defs>
-						<clipPath id="clip-wrapper">
-							<rect height={logoWrapperSize} width={logoWrapperSize} />
-						</clipPath>
-						<clipPath id="clip-logo">
-							<rect height={logoSize} width={logoSize} />
-						</clipPath>
-					</defs>
-					<rect fill="transparent" height={size} width={size} />
-					{dots}
-				</svg>
+		<div className="dark:bg-0d151d w-max rounded-lg bg-white" style={{ height: size, width: size }}>
+			<div className="relative flex h-0 w-full justify-center" style={{ top: logoPosition }}>
+				<WorldcoinLogomark height={logoSize} width={logoSize} />
 			</div>
+			<svg height={size} width={size}>
+				{dots}
+			</svg>
 		</div>
 	)
 }
 
-export default Qrcode
+export default memo(Qrcode)

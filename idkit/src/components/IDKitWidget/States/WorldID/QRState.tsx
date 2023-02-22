@@ -39,7 +39,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 								<Qrcode data={media == 'desktop' ? qrData.default : qrData.mobile} />
 							) : (
 								<div className="flex h-[300px] w-[300px] items-center justify-center">
-									<LoadingIcon className="h-24 w-24" />
+									<LoadingIcon className="h-[72px] w-[72px]" />
 								</div>
 							)}
 						</div>
