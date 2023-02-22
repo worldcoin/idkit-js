@@ -1,60 +1,109 @@
-import { classNames } from '@/lib/utils'
-import { useEffect, useRef } from 'react'
-import QRCodeStyling from 'qr-code-styling-new'
-import { renderToString } from 'react-dom/server'
+import { useMemo } from 'react'
+import QRCodeUtil from 'qrcode'
+import type { ReactElement } from 'react'
 import WorldcoinLogomark from './Icons/WorldcoinLogomark'
 
-const logoB64 = window.btoa(renderToString(<WorldcoinLogomark style={{ color: '#6445DD' }} />))
+const generateMatrix = (data: string): Array<number[]> => {
+	const arr = QRCodeUtil.create(data, { errorCorrectionLevel: 'M' }).modules.data
+	const sqrt = Math.sqrt(arr.length)
 
-const qrcode = new QRCodeStyling({
-	width: 200,
-	height: 200,
-	type: 'svg',
-	image: `data:image/svg+xml;base64,${logoB64}`,
-	cornersSquareOptions: {
-		type: 'extra-rounded',
-	},
-	cornersDotOptions: {
-		type: 'dot',
-	},
-	dotsOptions: {
-		color: 'currentColor',
-		type: 'extra-rounded',
-	},
-	backgroundOptions: {
-		color: 'transparent',
-	},
-	imageOptions: {
-		margin: 4,
-		hideBackgroundDots: true,
-	},
-})
+	return arr.reduce((rows, key, index) => {
+		if (index % sqrt === 0) rows.push([key])
+		else rows[rows.length - 1].push(key)
+
+		return rows
+	}, [] as Array<number[]>)
+}
 
 type Props = {
 	data: string
-	className?: string
+	size?: number
+	logoSize?: number
+	logoMargin?: number
 }
 
-export const Qrcode = ({ data, className = '' }: Props): JSX.Element => {
-	const ref = useRef<HTMLDivElement | null>(null)
+const Qrcode = ({ logoMargin = 10, logoSize = 72, size = 300, data }: Props) => {
+	const dots = useMemo(() => {
+		const dots: ReactElement[] = []
+		const matrix = generateMatrix(data)
+		const cellSize = size / matrix.length
+		const qrList = [
+			{ x: 0, y: 0 },
+			{ x: 1, y: 0 },
+			{ x: 0, y: 1 },
+		]
 
-	useEffect(() => {
-		if (!ref.current) return
+		qrList.forEach(({ x, y }) => {
+			const x1 = (matrix.length - 7) * cellSize * x
+			const y1 = (matrix.length - 7) * cellSize * y
 
-		qrcode.append(ref.current)
-	}, [])
+			for (let i = 0; i < 3; i++) {
+				dots.push(
+					<rect
+						fill="currentColor"
+						x={x1 + cellSize * i}
+						y={y1 + cellSize * i}
+						key={`${i}-${x}-${y}`}
+						width={cellSize * (7 - i * 2)}
+						height={cellSize * (7 - i * 2)}
+						rx={(i - 2) * -5 + (i === 0 ? 2 : 0)} // calculated border radius for corner squares
+						ry={(i - 2) * -5 + (i === 0 ? 2 : 0)} // calculated border radius for corner squares
+						className={i % 2 !== 0 ? 'text-white dark:text-black' : 'text-black dark:text-white'}
+					/>
+				)
+			}
+		})
 
-	useEffect(() => {
-		qrcode.update({ data })
-	}, [data])
+		const clearArenaSize = Math.floor((logoSize + 25) / cellSize)
+		const matrixMiddleStart = matrix.length / 2 - clearArenaSize / 2
+		const matrixMiddleEnd = matrix.length / 2 + clearArenaSize / 2 - 1
+
+		matrix.forEach((row, i) => {
+			row.forEach((_, j) => {
+				if (!matrix[i][j]) return
+				if ((i < 7 && j < 7) || (i > matrix.length - 8 && j < 7) || (i < 7 && j > matrix.length - 8)) return
+				if (i > matrixMiddleStart && i < matrixMiddleEnd && j > matrixMiddleStart && j < matrixMiddleEnd) return
+
+				dots.push(
+					<circle
+						fill="currentColor"
+						r={cellSize / 3}
+						key={`circle-${i}-${j}`}
+						cx={i * cellSize + cellSize / 2}
+						cy={j * cellSize + cellSize / 2}
+						className="text-black dark:text-white"
+					/>
+				)
+			})
+		})
+
+		return dots
+	}, [logoSize, size, data])
+
+	const logoPosition = size / 2 - logoSize / 2
+	const logoWrapperSize = logoSize + logoMargin * 2
 
 	return (
-		<div
-			ref={ref}
-			className={classNames(
-				className,
-				'relative z-0 flex items-center justify-center rounded border box-border border-white/10 dark:border-black/10 [&_*]:text-black dark:[&_*]:text-white'
-			)}
-		/>
+		<div className="dark:bg-0d151d w-max rounded-lg bg-white">
+			<div className="select-none" style={{ height: size, width: size }}>
+				<div className="relative flex h-0 w-full justify-center" style={{ top: logoPosition, width: size }}>
+					<WorldcoinLogomark height={logoSize} width={logoSize} />
+				</div>
+				<svg height={size} style={{ all: 'revert' }} width={size}>
+					<defs>
+						<clipPath id="clip-wrapper">
+							<rect height={logoWrapperSize} width={logoWrapperSize} />
+						</clipPath>
+						<clipPath id="clip-logo">
+							<rect height={logoSize} width={logoSize} />
+						</clipPath>
+					</defs>
+					<rect fill="transparent" height={size} width={size} />
+					{dots}
+				</svg>
+			</div>
+		</div>
 	)
 }
+
+export default Qrcode

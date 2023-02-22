@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import copy from 'copy-to-clipboard'
 import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
-import { Qrcode } from '@/components/QRCode'
+import Qrcode from '@/components/QRCode'
 import { AnimatePresence, motion } from 'framer-motion'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
@@ -38,7 +38,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 							{qrData ? (
 								<Qrcode data={media == 'desktop' ? qrData.default : qrData.mobile} />
 							) : (
-								<div className="flex h-[202px] w-[202px] items-center justify-center">
+								<div className="flex h-[300px] w-[300px] items-center justify-center">
 									<LoadingIcon className="h-24 w-24" />
 								</div>
 							)}
