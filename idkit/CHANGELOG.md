@@ -4,25 +4,23 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [0.4.0-alpha.2](https://github.com/worldcoin/idkit-js/compare/v0.2.6...v0.4.0-alpha.2) (2023-02-22)
 
-
 ### ⚠ BREAKING CHANGES
 
-* migrate to WalletConnect v2 (#53)
+-   migrate to WalletConnect v2 (#53)
 
 ### Features
 
-* export main hashing functions ([#58](https://github.com/worldcoin/idkit-js/issues/58)) ([298eeef](https://github.com/worldcoin/idkit-js/commit/298eeef975c4ababb4a58a9e6852efd3bf4826d9))
-* Migrate to app_id architecture, remove external phone support & more ([#61](https://github.com/worldcoin/idkit-js/issues/61)) ([89c7111](https://github.com/worldcoin/idkit-js/commit/89c71110d2fc9c59918b9d5b4fa382b6ee5fe662))
-* migrate to WalletConnect v2 ([#53](https://github.com/worldcoin/idkit-js/issues/53)) ([40664f7](https://github.com/worldcoin/idkit-js/commit/40664f7fb5373463f8af6d41a905da9359047071))
-
+-   export main hashing functions ([#58](https://github.com/worldcoin/idkit-js/issues/58)) ([298eeef](https://github.com/worldcoin/idkit-js/commit/298eeef975c4ababb4a58a9e6852efd3bf4826d9))
+-   Migrate to app_id architecture, remove external phone support & more ([#61](https://github.com/worldcoin/idkit-js/issues/61)) ([89c7111](https://github.com/worldcoin/idkit-js/commit/89c71110d2fc9c59918b9d5b4fa382b6ee5fe662))
+-   migrate to WalletConnect v2 ([#53](https://github.com/worldcoin/idkit-js/issues/53)) ([40664f7](https://github.com/worldcoin/idkit-js/commit/40664f7fb5373463f8af6d41a905da9359047071))
 
 ### Bug Fixes
 
-* Design and WC bugs ([#51](https://github.com/worldcoin/idkit-js/issues/51)) ([de74902](https://github.com/worldcoin/idkit-js/commit/de74902bf868680970ee1394394d16254762f4f3))
-* make hook complimentary to component ([#56](https://github.com/worldcoin/idkit-js/issues/56)) ([0b69dbd](https://github.com/worldcoin/idkit-js/commit/0b69dbdc85b7c1317f6b71abb1d6b0c0bcc8c859))
-* move internal functions to main ([#63](https://github.com/worldcoin/idkit-js/issues/63)) ([9feec7c](https://github.com/worldcoin/idkit-js/commit/9feec7c961700fb54124ede6005c1301209bf278))
-* render qrcode with png image instead of svg ([#54](https://github.com/worldcoin/idkit-js/issues/54)) ([ea0c6ec](https://github.com/worldcoin/idkit-js/commit/ea0c6ece468590b8df79a323c23ad096a823b812))
-* success callback ([#65](https://github.com/worldcoin/idkit-js/issues/65)) ([552de7e](https://github.com/worldcoin/idkit-js/commit/552de7e9fff1c250d0c3efd1e419ec8aa75aeec7))
+-   Design and WC bugs ([#51](https://github.com/worldcoin/idkit-js/issues/51)) ([de74902](https://github.com/worldcoin/idkit-js/commit/de74902bf868680970ee1394394d16254762f4f3))
+-   make hook complimentary to component ([#56](https://github.com/worldcoin/idkit-js/issues/56)) ([0b69dbd](https://github.com/worldcoin/idkit-js/commit/0b69dbdc85b7c1317f6b71abb1d6b0c0bcc8c859))
+-   move internal functions to main ([#63](https://github.com/worldcoin/idkit-js/issues/63)) ([9feec7c](https://github.com/worldcoin/idkit-js/commit/9feec7c961700fb54124ede6005c1301209bf278))
+-   render qrcode with png image instead of svg ([#54](https://github.com/worldcoin/idkit-js/issues/54)) ([ea0c6ec](https://github.com/worldcoin/idkit-js/commit/ea0c6ece468590b8df79a323c23ad096a823b812))
+-   success callback ([#65](https://github.com/worldcoin/idkit-js/issues/65)) ([552de7e](https://github.com/worldcoin/idkit-js/commit/552de7e9fff1c250d0c3efd1e419ec8aa75aeec7))
 
 ## [0.4.0-alpha.1](https://github.com/worldcoin/idkit-js/compare/v0.4.0-alpha.0...v0.4.0-alpha.1) (2023-02-22)
 
