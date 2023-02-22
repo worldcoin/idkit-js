@@ -131,7 +131,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 					return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
 				}
 
-				set({ result: result, verificationState: VerificationState.Confirmed })
+				set({ result, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
 				let errorCode = OrbErrorCodes.GenericError
@@ -143,10 +143,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 				set({ errorCode, verificationState: VerificationState.Failed })
 			})
-			// eslint-disable-next-line @typescript-eslint/no-misused-promises
-			.finally(async () => {
-				await client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') })
-			})
+			.finally(() => void client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') }))
 			.catch(error => {
 				console.error(`Unable to disconnect: ${error}`)
 			})

@@ -157,7 +157,9 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 
 		if (get().stage == IDKITStage.SUCCESS) {
 			const result = get().result
-			if (result) requestAnimationFrame(() => Object.values(get().successCallbacks).map(cb => () => cb?.(result)))
+			const callbacks = get().successCallbacks
+
+			if (result) requestAnimationFrame(() => Object.values(callbacks).forEach(cb => void cb?.(result)))
 		}
 
 		set({
