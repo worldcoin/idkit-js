@@ -3,7 +3,7 @@
     "idkit": {
       "package-name": "idkit",
       "component": "idkit",
-      "changelog-path": "CHANGELOG.md",
+      "changelog-path": "idkit/CHANGELOG.md",
       "release-type": "node",
       "bump-minor-pre-major": false,
       "bump-patch-for-minor-pre-major": false,
