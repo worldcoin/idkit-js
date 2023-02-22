@@ -32,7 +32,7 @@ const configs = {
 	esm: {
 		...baseConfig,
 
-		entryPoints: [require.resolve('../src/index.ts'), require.resolve('../src/internal.ts')],
+		entryPoints: [require.resolve('../src/index.ts')],
 		outdir: 'build/',
 		define: {
 			...baseConfig.define,
