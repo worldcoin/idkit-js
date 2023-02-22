@@ -1,3 +1,4 @@
+import { IDKITStage } from '@/types'
 import { getCopy } from '@/lib/utils'
 import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
@@ -5,7 +6,6 @@ import useIDKitStore from '@/store/idkit'
 import { useEffect, useState } from 'react'
 import { VerificationState } from '@/types/orb'
 import type { IDKitStore } from '@/store/idkit'
-import { IDKITStage, SignalType } from '@/types'
 import useOrbSignal from '@/services/walletconnect'
 import AboutWorldID from '@/components/AboutWorldID'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
@@ -42,9 +42,7 @@ const WorldIDState = () => {
 			setStage(IDKITStage.ERROR)
 		}
 
-		if (result) {
-			handleVerify({ ...result, signal_type: SignalType.Orb })
-		}
+		if (result) handleVerify(result)
 	}, [result, reset, handleVerify, verificationState, setStage])
 
 	return (

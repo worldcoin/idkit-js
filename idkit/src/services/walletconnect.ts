@@ -3,19 +3,18 @@ import { useEffect } from 'react'
 import { buildQRData } from '@/lib/qr'
 import { randomNumber } from '@/lib/utils'
 import { WC_PROJECT_ID } from '@/lib/consts'
-import type { OrbResponse } from '@/types/orb'
 import Client from '@walletconnect/sign-client'
 import type { IDKitConfig } from '@/types/config'
 import { getSdkError } from '@walletconnect/utils'
-import type { ExpectedErrorResponse } from '@/types'
 import { OrbErrorCodes, VerificationState } from '@/types/orb'
+import type { ExpectedErrorResponse, ISuccessResult } from '@/types'
 import { validateABILikeEncoding, generateSignal, generateExternalNullifier, encodeAction } from '@/lib/hashing'
 
 type WalletConnectStore = {
 	connected: boolean
 	uri: string
 	topic: string
-	result: OrbResponse | null
+	result: ISuccessResult | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
 	config: IDKitConfig | null
@@ -128,10 +127,11 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				request: buildVerificationRequest(get().config!),
 			})
 			.then(result => {
-				if (!ensureVerificationResponse(result as Record<string, string>))
+				if (!ensureVerificationResponse(result)) {
 					return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
+				}
 
-				set({ result: result as OrbResponse, verificationState: VerificationState.Confirmed })
+				set({ result: result, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
 				let errorCode = OrbErrorCodes.GenericError
@@ -180,11 +180,14 @@ const buildVerificationRequest = (config: IDKitConfig) => ({
 	],
 })
 
-const ensureVerificationResponse = (result: Record<string, string | undefined>): result is OrbResponse => {
-	const proof = 'proof' in result ? result.proof : undefined
-	const merkle_root = 'merkle_root' in result ? result.merkle_root : undefined
-	const nullifier_hash = 'nullifier_hash' in result ? result.nullifier_hash : undefined
+const ensureVerificationResponse = (result: unknown): result is ISuccessResult => {
+	if (!result || typeof result !== 'object') return false
+	const proof = 'proof' in result ? (result as Record<string, string>).proof : undefined
+	const merkle_root = 'merkle_root' in result ? (result as Record<string, string>).merkle_root : undefined
+	const nullifier_hash = 'nullifier_hash' in result ? (result as Record<string, string>).nullifier_hash : undefined
+	const credential_type = 'credential_type' in result ? (result as Record<string, string>).credential_type : undefined
 
+	if (!credential_type) return false
 	for (const attr of [merkle_root, nullifier_hash, proof]) {
 		if (!attr || !validateABILikeEncoding(attr)) return false
 	}
@@ -194,7 +197,7 @@ const ensureVerificationResponse = (result: Record<string, string | undefined>):
 
 type UseOrbSignalResponse = {
 	reset: () => void
-	result: OrbResponse | null
+	result: ISuccessResult | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
 	qrData: {

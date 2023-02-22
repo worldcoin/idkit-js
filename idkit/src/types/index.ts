@@ -12,7 +12,7 @@ export enum IDKITStage {
 	HOST_APP_VERIFICATION = 'HOST_APP_VERIFICATION',
 }
 
-export enum SignalType {
+export enum CredentialType {
 	Orb = 'orb',
 	Phone = 'phone',
 }
@@ -21,7 +21,7 @@ export interface ISuccessResult {
 	proof: string
 	merkle_root: string
 	nullifier_hash: string
-	signal_type: SignalType
+	credential_type: CredentialType
 }
 
 export type CallbackFn = (result: ISuccessResult) => Promise<void> | void
