@@ -2,22 +2,22 @@ import { create } from 'zustand'
 import { useEffect } from 'react'
 import { buildQRData } from '@/lib/qr'
 import { randomNumber } from '@/lib/utils'
-import type { OrbResponse } from '@/types/orb'
+import { WC_PROJECT_ID } from '@/lib/consts'
 import Client from '@walletconnect/sign-client'
+import type { IDKitConfig } from '@/types/config'
 import { getSdkError } from '@walletconnect/utils'
-import type { ExpectedErrorResponse } from '@/types'
-import type { StringOrAdvanced } from '@/types/config'
 import { OrbErrorCodes, VerificationState } from '@/types/orb'
-import { validateABILikeEncoding, worldIDHash } from '@/lib/hashing'
+import type { ExpectedErrorResponse, ISuccessResult } from '@/types'
+import { validateABILikeEncoding, generateSignal, generateExternalNullifier, encodeAction } from '@/lib/hashing'
 
 type WalletConnectStore = {
 	connected: boolean
 	uri: string
 	topic: string
-	result: OrbResponse | null
+	result: ISuccessResult | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
-	config: { action_id: StringOrAdvanced; signal: StringOrAdvanced; walletconnect_id?: string } | null
+	config: IDKitConfig | null
 	qrData: {
 		default: string
 		mobile: string
@@ -27,14 +27,19 @@ type WalletConnectStore = {
 	resetConnection: () => void
 	onConnectionEstablished: (client: Client) => void
 	setUri: (uri: string) => void
-	createClient: (action_id: StringOrAdvanced, signal: StringOrAdvanced, walletconnect_id?: string) => Promise<void>
+	createClient: (
+		app_id: IDKitConfig['app_id'],
+		action: IDKitConfig['action'],
+		signal: IDKitConfig['signal'],
+		action_description?: IDKitConfig['action_description'],
+		walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
+	) => Promise<void>
 	connectClient: (client: Client) => Promise<void>
 }
 
-// let client: Client
 const namespaces = {
 	eip155: {
-		methods: ['wld_worldIDVerification'],
+		methods: ['world_id_v1'],
 		chains: ['eip155:1'], // Chain ID used does not matter, since we only perform custom JSON RPC messages (World ID verification)
 		events: ['accountsChanged'],
 	},
@@ -52,15 +57,17 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	client: null,
 
 	createClient: async (
-		action_id: StringOrAdvanced,
-		signal: StringOrAdvanced,
-		walletconnect_id = 'c3e6053f10efbb423808783ee874cf6a' // Default WalletConnect project ID for IDKit
+		app_id: IDKitConfig['app_id'],
+		action: IDKitConfig['action'],
+		signal: IDKitConfig['signal'],
+		action_description?: IDKitConfig['action_description'],
+		walletConnectProjectId = WC_PROJECT_ID
 	) => {
-		set({ config: { action_id, signal, walletconnect_id } })
+		set({ config: { app_id, action, signal, action_description, walletConnectProjectId } })
 
 		try {
 			const client = await Client.init({
-				projectId: walletconnect_id,
+				projectId: walletConnectProjectId,
 				metadata: {
 					name: 'IDKit',
 					description: 'Verify with World ID',
@@ -78,9 +85,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 	connectClient: async (client: Client) => {
 		try {
-			const { uri, approval } = await client.connect({
-				requiredNamespaces: namespaces,
-			})
+			const { uri, approval } = await client.connect({ requiredNamespaces: namespaces })
 
 			if (uri) {
 				get().setUri(uri)
@@ -119,13 +124,14 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				topic: get().topic,
 				chainId: 'eip155:1',
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				request: buildVerificationRequest(get().config!.action_id, get().config!.signal),
+				request: buildVerificationRequest(get().config!),
 			})
 			.then(result => {
-				if (!ensureVerificationResponse(result as Record<string, string>))
+				if (!ensureVerificationResponse(result)) {
 					return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
+				}
 
-				set({ result: result as OrbResponse, verificationState: VerificationState.Confirmed })
+				set({ result: result, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
 				let errorCode = OrbErrorCodes.GenericError
@@ -159,18 +165,29 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	},
 }))
 
-const buildVerificationRequest = (action_id: StringOrAdvanced, signal: StringOrAdvanced) => ({
+const buildVerificationRequest = (config: IDKitConfig) => ({
 	jsonrpc: '2.0',
-	method: 'wld_worldIDVerification',
+	method: 'world_id_v1',
 	id: randomNumber(100000, 9999999),
-	params: [{ signal: worldIDHash(signal).digest, action_id: worldIDHash(action_id).digest }],
+	params: [
+		{
+			app_id: config.app_id,
+			action: encodeAction(config.action),
+			signal: generateSignal(config.signal).digest,
+			action_description: config.action_description,
+			external_nullifier: generateExternalNullifier(config.app_id, config.action).digest,
+		},
+	],
 })
 
-const ensureVerificationResponse = (result: Record<string, string | undefined>): result is OrbResponse => {
-	const proof = 'proof' in result ? result.proof : undefined
-	const merkle_root = 'merkle_root' in result ? result.merkle_root : undefined
-	const nullifier_hash = 'nullifier_hash' in result ? result.nullifier_hash : undefined
+const ensureVerificationResponse = (result: unknown): result is ISuccessResult => {
+	if (!result || typeof result !== 'object') return false
+	const proof = 'proof' in result ? (result as Record<string, string>).proof : undefined
+	const merkle_root = 'merkle_root' in result ? (result as Record<string, string>).merkle_root : undefined
+	const nullifier_hash = 'nullifier_hash' in result ? (result as Record<string, string>).nullifier_hash : undefined
+	const credential_type = 'credential_type' in result ? (result as Record<string, string>).credential_type : undefined
 
+	if (!credential_type) return false
 	for (const attr of [merkle_root, nullifier_hash, proof]) {
 		if (!attr || !validateABILikeEncoding(attr)) return false
 	}
@@ -180,7 +197,7 @@ const ensureVerificationResponse = (result: Record<string, string | undefined>):
 
 type UseOrbSignalResponse = {
 	reset: () => void
-	result: OrbResponse | null
+	result: ISuccessResult | null
 	errorCode: OrbErrorCodes | null
 	verificationState: VerificationState
 	qrData: {
@@ -201,19 +218,21 @@ const getStore = (store: WalletConnectStore) => ({
 })
 
 const useOrbSignal = (
-	action_id: StringOrAdvanced,
-	signal: StringOrAdvanced,
-	walletconnect_id?: string
+	app_id: IDKitConfig['app_id'],
+	action: IDKitConfig['action'],
+	signal: IDKitConfig['signal'],
+	action_description?: IDKitConfig['action_description'],
+	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
 ): UseOrbSignalResponse => {
 	const { result, verificationState, errorCode, qrData, client, createClient, reset } =
 		useWalletConnectStore(getStore)
 
 	useEffect(() => {
-		if (!action_id || !signal) return
+		if (!app_id || !action || !signal) return
 		if (!client) {
-			void createClient(action_id, signal, walletconnect_id)
+			void createClient(app_id, action, signal, action_description, walletConnectProjectId)
 		}
-	}, [action_id, signal, walletconnect_id, client, createClient, verificationState])
+	}, [app_id, action, signal, walletConnectProjectId, action_description, client, createClient, verificationState])
 
 	return { result, reset, verificationState, errorCode, qrData }
 }

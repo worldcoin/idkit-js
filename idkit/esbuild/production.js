@@ -32,7 +32,8 @@ const configs = {
 	esm: {
 		...baseConfig,
 
-		entryPoints: [require.resolve('../src/index.ts')],
+		entryPoints: [require.resolve('../src/index.ts'), require.resolve('../src/internal.ts')],
+		outdir: 'build/',
 		define: {
 			...baseConfig.define,
 			window: 'globalThis',
@@ -51,7 +52,6 @@ const configs = {
 		],
 		sourcemap: true,
 		format: 'esm',
-		outfile: 'build/index.js',
 	},
 
 	iife: {

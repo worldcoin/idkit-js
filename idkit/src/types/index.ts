@@ -1,7 +1,9 @@
+declare const brand: unique symbol
+type Brand<T, TBrand extends string> = T & { [brand]: TBrand }
+
+export type AbiEncodedValue = Brand<{ types: string[]; values: unknown[] }, 'AbiEncodedValue'>
+
 export enum IDKITStage {
-	SELECT_METHOD = 'SELECT_METHOD',
-	ENTER_PHONE = 'ENTER_PHONE',
-	ENTER_CODE = 'ENTER_CODE',
 	WORLD_ID = 'WORLD_ID',
 	PRIVACY = 'PRIVACY',
 	SUCCESS = 'SUCCESS',
@@ -10,25 +12,16 @@ export enum IDKITStage {
 	HOST_APP_VERIFICATION = 'HOST_APP_VERIFICATION',
 }
 
-export interface OrbSignalProof {
-	merkle_root: string
-	proof: string
-}
-
-export interface PhoneSignalProof {
-	timestamp: number
-	signature: string
-}
-
-export enum SignalType {
+export enum CredentialType {
 	Orb = 'orb',
 	Phone = 'phone',
 }
 
 export interface ISuccessResult {
-	signal_type: SignalType
-	proof_payload: OrbSignalProof | PhoneSignalProof
+	proof: string
+	merkle_root: string
 	nullifier_hash: string
+	credential_type: CredentialType
 }
 
 export type CallbackFn = (result: ISuccessResult) => Promise<void> | void

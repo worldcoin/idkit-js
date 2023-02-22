@@ -21,6 +21,7 @@
 		"TTFB",
 		"webp",
 		"zustand",
-		"worldid"
+		"worldid",
+		"consts"
 	]
 }

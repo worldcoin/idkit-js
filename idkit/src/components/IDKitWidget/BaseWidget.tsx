@@ -19,11 +19,8 @@ import { classNames, getCopy } from '@/lib/utils'
 import type { WidgetProps } from '@/types/config'
 import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
-import EnterPhoneState from './States/EnterPhoneState'
-import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
-import SelectMethodState from './States/SelectMethodState'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({
@@ -46,14 +43,14 @@ const getParams = ({
 	isOpen: open,
 	onOpenChange,
 	canGoBack: computed.canGoBack(stage),
-	defaultStage: computed.getDefaultStage(),
 })
 
 const IDKitWidget: FC<WidgetProps> = ({
 	children,
-	actionId,
+	app_id,
+	action,
+	action_description,
 	theme,
-	methods,
 	signal,
 	walletConnectProjectId,
 	handleVerify,
@@ -68,7 +65,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 		stage,
 		setStage,
 		canGoBack,
-		defaultStage,
 		setOptions,
 		copy: _copy,
 		theme: _theme,
@@ -77,21 +73,38 @@ const IDKitWidget: FC<WidgetProps> = ({
 
 	useEffect(() => {
 		setOptions(
-			{ actionId, signal, walletConnectProjectId, methods, onSuccess, handleVerify, autoClose, copy, theme },
+			{
+				app_id,
+				action,
+				action_description,
+				signal,
+				walletConnectProjectId,
+				onSuccess,
+				handleVerify,
+				autoClose,
+				copy,
+				theme,
+			},
 			ConfigSource.PROPS
 		)
-	}, [actionId, signal, walletConnectProjectId, methods, onSuccess, theme, handleVerify, autoClose, copy, setOptions])
+	}, [
+		copy,
+		app_id,
+		action,
+		theme,
+		signal,
+		autoClose,
+		onSuccess,
+		setOptions,
+		handleVerify,
+		action_description,
+		walletConnectProjectId,
+	])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
-			case IDKITStage.SELECT_METHOD:
-				return SelectMethodState
-			case IDKITStage.ENTER_PHONE:
-				return EnterPhoneState
 			case IDKITStage.WORLD_ID:
 				return WorldIDState
-			case IDKITStage.ENTER_CODE:
-				return VerifyCodeState
 			case IDKITStage.SUCCESS:
 				return SuccessState
 			case IDKITStage.ERROR:
@@ -151,7 +164,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
 															<button
-																onClick={() => setStage(defaultStage)}
+																onClick={() => setStage(IDKITStage.WORLD_ID)}
 																disabled={!canGoBack}
 																className={classNames(
 																	!canGoBack && 'invisible pointer-events-none',
