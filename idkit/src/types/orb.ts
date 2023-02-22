@@ -15,9 +15,3 @@ export enum VerificationState {
 	Confirmed = 'confirmed',
 	Failed = 'failed',
 }
-
-export type OrbResponse = {
-	proof: string
-	merkle_root: string
-	nullifier_hash: string
-}

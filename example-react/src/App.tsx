@@ -19,10 +19,12 @@ function App() {
 			style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
 		>
 			<IDKitWidget
+				action="my_action"
 				signal="my_signal"
 				onSuccess={onSuccess}
 				handleVerify={handleProof}
-				actionId="wid_staging_1234"
+				app_id="wid_staging_1234"
+				// walletConnectProjectId="get_this_from_walletconnect_portal"
 			>
 				{({ open }) => <button onClick={open}>Click me</button>}
 			</IDKitWidget>

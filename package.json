@@ -10,6 +10,6 @@
 		"cspell": "6.17.0"
 	},
 	"scripts": {
-		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e idkit/build -e idkit/node_modules -e node_modules -e yarn.lock"
+		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e idkit/esbuild-meta.json -e idkit/build -e idkit/node_modules -e node_modules -e yarn.lock"
 	}
 }

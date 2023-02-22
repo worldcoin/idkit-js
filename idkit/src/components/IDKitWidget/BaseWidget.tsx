@@ -1,30 +1,26 @@
 import type { FC } from 'react'
 import root from 'react-shadow'
-import { Fragment } from 'react'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useMedia from '@/hooks/useMedia'
 import useIDKitStore from '@/store/idkit'
-import { useEffect, useMemo } from 'react'
 import XMarkIcon from '../Icons/XMarkIcon'
-import ErrorState from './States/ErrorState'
 import AboutState from './States/AboutState'
+import ErrorState from './States/ErrorState'
 import { ConfigSource } from '@/types/config'
 import LoadingIcon from '../Icons/LoadingIcon'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
+import PrivacyState from './States/PrivacyState'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
-import PrivacyState from './States/PrivacyState'
 import * as Dialog from '@radix-ui/react-dialog'
 import { classNames, getCopy } from '@/lib/utils'
 import type { WidgetProps } from '@/types/config'
+import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
-import EnterPhoneState from './States/EnterPhoneState'
-import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
-import SelectMethodState from './States/SelectMethodState'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({
@@ -47,15 +43,16 @@ const getParams = ({
 	isOpen: open,
 	onOpenChange,
 	canGoBack: computed.canGoBack(stage),
-	defaultStage: computed.getDefaultStage(),
 })
 
 const IDKitWidget: FC<WidgetProps> = ({
 	children,
-	actionId,
+	app_id,
+	action,
+	action_description,
 	theme,
-	methods,
 	signal,
+	walletConnectProjectId,
 	handleVerify,
 	onSuccess,
 	autoClose,
@@ -68,7 +65,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 		stage,
 		setStage,
 		canGoBack,
-		defaultStage,
 		setOptions,
 		copy: _copy,
 		theme: _theme,
@@ -76,19 +72,39 @@ const IDKitWidget: FC<WidgetProps> = ({
 	const media = useMedia()
 
 	useEffect(() => {
-		setOptions({ actionId, signal, methods, onSuccess, handleVerify, autoClose, copy, theme }, ConfigSource.PROPS)
-	}, [actionId, signal, methods, onSuccess, theme, handleVerify, autoClose, copy, setOptions])
+		setOptions(
+			{
+				app_id,
+				action,
+				action_description,
+				signal,
+				walletConnectProjectId,
+				onSuccess,
+				handleVerify,
+				autoClose,
+				copy,
+				theme,
+			},
+			ConfigSource.PROPS
+		)
+	}, [
+		copy,
+		app_id,
+		action,
+		theme,
+		signal,
+		autoClose,
+		onSuccess,
+		setOptions,
+		handleVerify,
+		action_description,
+		walletConnectProjectId,
+	])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
-			case IDKITStage.SELECT_METHOD:
-				return SelectMethodState
-			case IDKITStage.ENTER_PHONE:
-				return EnterPhoneState
 			case IDKITStage.WORLD_ID:
 				return WorldIDState
-			case IDKITStage.ENTER_CODE:
-				return VerifyCodeState
 			case IDKITStage.SUCCESS:
 				return SuccessState
 			case IDKITStage.ERROR:
@@ -148,7 +164,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
 															<button
-																onClick={() => setStage(defaultStage)}
+																onClick={() => setStage(IDKITStage.WORLD_ID)}
 																disabled={!canGoBack}
 																className={classNames(
 																	!canGoBack && 'invisible pointer-events-none',
