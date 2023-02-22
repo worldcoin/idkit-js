@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0-alpha.0](https://github.com/worldcoin/idkit-js/compare/v0.3.3...v0.4.0-alpha.0) (2023-02-22)
+
+### ⚠ BREAKING CHANGES
+
+-   Migrate to app_id architecture, remove external phone support & more (#61)
+
+### Features
+
+-   Migrate to app_id architecture, remove external phone support & more ([#61](https://github.com/worldcoin/idkit-js/issues/61)) ([89c7111](https://github.com/worldcoin/idkit-js/commit/89c71110d2fc9c59918b9d5b4fa382b6ee5fe662))
+
 ### [0.3.3](https://github.com/worldcoin/idkit-js/compare/v0.3.2...v0.3.3) (2023-02-21)
 
 Correct build for changes in 0.3.2.
