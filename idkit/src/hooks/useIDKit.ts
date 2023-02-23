@@ -13,7 +13,7 @@ const getStore = ({ open, onOpenChange, addSuccessCallback, addVerificationCallb
 	addVerificationCallback,
 })
 
-const useIDKit = (options: HookConfig) => {
+const useIDKit = (options: HookConfig = {}) => {
 	const { open, onOpenChange, addSuccessCallback, addVerificationCallback } = useIDKitStore(getStore)
 
 	useEffect(() => {

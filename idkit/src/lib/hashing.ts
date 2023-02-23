@@ -91,6 +91,7 @@ export const generateSignal = (signal: AbiEncodedValue | string): HashFunctionOu
 }
 
 export const generateExternalNullifier = (app_id: string, action: AbiEncodedValue | string): HashFunctionOutput => {
+	if (!action) return packAndEncode([['uint256', hashToField(app_id).hash]])
 	if (typeof action === 'string') action = solidityEncode(['string'], [action])
 
 	return packAndEncode([
@@ -100,6 +101,7 @@ export const generateExternalNullifier = (app_id: string, action: AbiEncodedValu
 }
 
 export const encodeAction = (action: AbiEncodedValue | string): string => {
+	if (!action) return action
 	if (typeof action === 'string') return action
 
 	return action.types.map((type, index) => `${type}(${action.values[index]})`).join(',')

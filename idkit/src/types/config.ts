@@ -11,7 +11,7 @@ export type IDKitConfig = {
 	action_description?: string
 	walletConnectProjectId?: string
 	signal: AbiEncodedValue | string
-	action: AbiEncodedValue | string
+	action?: AbiEncodedValue | string
 }
 
 type WidgetConfig = {
