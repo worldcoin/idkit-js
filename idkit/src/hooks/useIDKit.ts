@@ -13,14 +13,14 @@ const getStore = ({ open, onOpenChange, addSuccessCallback, addVerificationCallb
 	addVerificationCallback,
 })
 
-const useIDKit = (options: HookConfig) => {
+const useIDKit = ({ handleVerify, onSuccess }: HookConfig = {}) => {
 	const { open, onOpenChange, addSuccessCallback, addVerificationCallback } = useIDKitStore(getStore)
 
 	useEffect(() => {
-		if (options.onSuccess) addSuccessCallback(options.onSuccess, ConfigSource.HOOK)
-		if (options.handleVerify) addVerificationCallback(options.handleVerify, ConfigSource.HOOK)
+		if (onSuccess) addSuccessCallback(onSuccess, ConfigSource.HOOK)
+		if (handleVerify) addVerificationCallback(handleVerify, ConfigSource.HOOK)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [options])
+	}, [handleVerify, onSuccess])
 
 	return { open, setOpen: onOpenChange }
 }
