@@ -124,127 +124,122 @@ const IDKitWidget: FC<WidgetProps> = ({
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
-			<Dialog.Portal forceMount>
-				<Fragment>
-					<AnimatePresence>
-						{isOpen && (
-							<root.div mode="open" id="idkit-widget">
-								<Styles />
-								<div
-									id="modal"
-									className={classNames(_theme == 'dark' && 'dark', 'fixed z-10 font-sans')}
-								>
-									<Dialog.Overlay asChild>
+			<AnimatePresence>
+				<root.div mode="open" id="idkit-widget">
+					<Styles />
+					{isOpen ? (
+						<div id="modal" className={classNames(_theme == 'dark' && 'dark', 'fixed z-10 font-sans')}>
+							<Dialog.Overlay asChild forceMount>
+								<motion.div
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									className="fixed inset-0 bg-black/50 backdrop-blur-lg"
+								/>
+							</Dialog.Overlay>
+							<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
+								<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
+									<Dialog.Content asChild forceMount>
 										<motion.div
-											initial={{ opacity: 0 }}
-											animate={{ opacity: 1 }}
-											exit={{ opacity: 0 }}
-											className="fixed inset-0 bg-black/50 backdrop-blur-lg"
-										/>
-									</Dialog.Overlay>
-									<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
-										<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
-											<Dialog.Content asChild>
-												<motion.div
-													layout={media == 'mobile' ? 'position' : true}
-													exit={media == 'mobile' ? 'initMob' : 'init'}
-													initial={media == 'mobile' ? 'initMob' : 'init'}
-													animate={media == 'mobile' ? 'animateMob' : 'animate'}
-													variants={{
-														init: { opacity: 0, scale: 0.9 },
-														initMob: { translateY: '100%' },
-														animate: { opacity: 1, scale: 1 },
-														animateMob: { translateY: 0 },
-													}}
-													transition={{ layout: { duration: 0.15 } }}
-													className={
-														'dark:bg-0d151d relative z-50 w-full rounded-t-3xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 md:max-w-md md:rounded-b-3xl'
-													}
-												>
-													<Toast.Provider>
-														<Toast.Viewport className="flex justify-center" />
-														<div className="mx-6 mb-12 flex items-center justify-between">
-															<button
-																onClick={() => setStage(IDKITStage.WORLD_ID)}
-																disabled={!canGoBack}
-																className={classNames(
-																	!canGoBack && 'invisible pointer-events-none',
-																	'dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white'
-																)}
-															>
-																<ArrowLongLeftIcon className="w-4" />
-															</button>
-															<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
-																{stage != IDKITStage.ABOUT && getCopy(_copy, 'title')}
-															</Dialog.Title>
-															<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
-																<XMarkIcon className="h-5 w-5" />
-															</Dialog.Close>
-														</div>
-														<div className="relative">
+											layout={media == 'mobile' ? 'position' : true}
+											exit={media == 'mobile' ? 'initMob' : 'init'}
+											initial={media == 'mobile' ? 'initMob' : 'init'}
+											animate={media == 'mobile' ? 'animateMob' : 'animate'}
+											variants={{
+												init: { opacity: 0, scale: 0.9 },
+												initMob: { translateY: '100%' },
+												animate: { opacity: 1, scale: 1 },
+												animateMob: { translateY: 0 },
+											}}
+											transition={{ layout: { duration: 0.15 } }}
+											className={
+												'dark:bg-0d151d relative z-50 w-full rounded-t-3xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 md:max-w-md md:rounded-b-3xl'
+											}
+										>
+											<Toast.Provider>
+												<Toast.Viewport className="flex justify-center" />
+												<div className="mx-6 mb-12 flex items-center justify-between">
+													<button
+														onClick={() => setStage(IDKITStage.WORLD_ID)}
+														disabled={!canGoBack}
+														className={classNames(
+															!canGoBack && 'invisible pointer-events-none',
+															'dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white'
+														)}
+													>
+														<ArrowLongLeftIcon className="w-4" />
+													</button>
+													<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
+														{stage != IDKITStage.ABOUT && getCopy(_copy, 'title')}
+													</Dialog.Title>
+													<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
+														<XMarkIcon className="h-5 w-5" />
+													</Dialog.Close>
+												</div>
+												<div className="relative">
+													<motion.div
+														className="mx-6 mb-6"
+														layout="position"
+														animate={{
+															visibility: processing ? 'hidden' : 'visible',
+														}}
+														transition={{ layout: { duration: 0.15 } }}
+													>
+														<StageContent />
+													</motion.div>
+													<AnimatePresence>
+														{processing && (
 															<motion.div
-																className="mx-6 mb-6"
-																layout="position"
-																animate={{
-																	visibility: processing ? 'hidden' : 'visible',
-																}}
-																transition={{ layout: { duration: 0.15 } }}
+																className="absolute inset-0 flex items-center justify-center pb-10"
+																initial={{ opacity: 0 }}
+																animate={{ opacity: 1 }}
+																exit={{ opacity: 0 }}
 															>
-																<StageContent />
+																<LoadingIcon className="h-24 w-24" />
 															</motion.div>
-															<AnimatePresence>
-																{processing && (
-																	<motion.div
-																		className="absolute inset-0 flex items-center justify-center pb-10"
-																		initial={{ opacity: 0 }}
-																		animate={{ opacity: 1 }}
-																		exit={{ opacity: 0 }}
-																	>
-																		<LoadingIcon className="h-24 w-24" />
-																	</motion.div>
-																)}
-															</AnimatePresence>
-														</div>
-														<div className="flex items-center justify-between py-3 px-5 md:rounded-b-3xl">
-															<p className="text-9eafc0 flex items-center gap-1 text-sm">
-																<span>Verified with</span>
-																<a
-																	href="https://id.worldcoin.org"
-																	target="_blank"
-																	rel="noreferrer"
-																>
-																	<WorldIDWordmark className="text-0d151d h-4 dark:text-white" />
-																</a>
-															</p>
-															{stage != IDKITStage.PRIVACY ? (
-																<button
-																	onClick={() => setStage(IDKITStage.PRIVACY)}
-																	className="text-9eafc0 text-sm hover:underline"
-																>
-																	Privacy
-																</button>
-															) : (
-																<a
-																	target="_blank"
-																	href="https://id.worldcoin.org/privacy"
-																	className="text-0d151d dark:text-9eafc0 text-sm"
-																	rel="noreferrer"
-																>
-																	Learn More &rarr;
-																</a>
-															)}
-														</div>
-													</Toast.Provider>
-												</motion.div>
-											</Dialog.Content>
-										</div>
-									</div>
+														)}
+													</AnimatePresence>
+												</div>
+												<div className="flex items-center justify-between py-3 px-5 md:rounded-b-3xl">
+													<p className="text-9eafc0 flex items-center gap-1 text-sm">
+														<span>Verified with</span>
+														<a
+															href="https://id.worldcoin.org"
+															target="_blank"
+															rel="noreferrer"
+														>
+															<WorldIDWordmark className="text-0d151d h-4 dark:text-white" />
+														</a>
+													</p>
+													{stage != IDKITStage.PRIVACY ? (
+														<button
+															onClick={() => setStage(IDKITStage.PRIVACY)}
+															className="text-9eafc0 text-sm hover:underline"
+														>
+															Privacy
+														</button>
+													) : (
+														<a
+															target="_blank"
+															href="https://id.worldcoin.org/privacy"
+															className="text-0d151d dark:text-9eafc0 text-sm"
+															rel="noreferrer"
+														>
+															Learn More &rarr;
+														</a>
+													)}
+												</div>
+											</Toast.Provider>
+										</motion.div>
+									</Dialog.Content>
 								</div>
-							</root.div>
-						)}
-					</AnimatePresence>
-				</Fragment>
-			</Dialog.Portal>
+							</div>
+						</div>
+					) : (
+						<span />
+					)}
+				</root.div>
+			</AnimatePresence>
 		</Dialog.Root>
 	)
 }

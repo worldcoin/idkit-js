@@ -1,19 +1,21 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
+import root from 'react-shadow'
 import { useState } from 'react'
 import { useCallback } from 'react'
-import IDKitWidget from './IDKitWidget'
+import SIWIButton from './SIWIButton'
 import type { ISuccessResult } from '..'
+import IDKitWidget from './IDKitWidget/BaseWidget'
 import type { IDKitConfig, WidgetConfig } from '@/types/config'
 
-type Props = Pick<IDKitConfig, 'app_id' | 'walletConnectProjectId'> &
-	WidgetConfig & {
+type Props = Omit<WidgetConfig, 'handleVerify' | 'onSuccess'> &
+	Pick<IDKitConfig, 'app_id' | 'walletConnectProjectId'> & {
 		nonce?: string
 		onSuccess: (jwt: string) => void
 		children?: ({ open }: { open: () => void }) => JSX.Element
 	}
 
-const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, ...props }) => {
+const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, children, ...props }) => {
 	const [token, setToken] = useState<string>('')
 	const signal = useMemo<string>(() => {
 		if (nonce) return nonce
@@ -53,9 +55,12 @@ const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, ...props }) =>
 			action=""
 			app_id={app_id}
 			signal={signal}
+			internal_isSIWI
 			onSuccess={onIDKitSuccess}
 			handleVerify={handleVerify}
-		/>
+		>
+			{({ open }) => children?.({ open }) ?? <SIWIButton />}
+		</IDKitWidget>
 	)
 }
 

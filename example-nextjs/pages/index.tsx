@@ -1,7 +1,6 @@
 import { useCallback } from "react";
-import { IDKitWidget } from "@worldcoin/idkit";
-import styles from "../styles/Home.module.css";
 import type { ISuccessResult } from "@worldcoin/idkit";
+import { IDKitWidget, SignInWithWorldID } from "@worldcoin/idkit";
 
 export default function Home() {
 	const handleProof = useCallback((result: ISuccessResult) => {
@@ -12,23 +11,14 @@ export default function Home() {
 		});
 	}, []);
 
-	const onSuccess = (result: ISuccessResult) => {
+	const onSuccess = (result: string) => {
 		console.log(result);
 	};
 
 	return (
-		<div className={styles.container}>
+		<div>
 			<div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
-				<IDKitWidget
-					action="my_action"
-					signal="my_signal"
-					onSuccess={onSuccess}
-					handleVerify={handleProof}
-					app_id="get_this_from_the_dev_portal"
-					// walletConnectProjectId="get_this_from_walletconnect_portal"
-				>
-					{({ open }) => <button onClick={open}>Click me</button>}
-				</IDKitWidget>
+				<SignInWithWorldID onSuccess={onSuccess} app_id="get_this_from_the_dev_portal" />
 			</div>
 		</div>
 	);

@@ -31,6 +31,7 @@ export type WidgetConfig = {
 export type Config = IDKitConfig & Required<Pick<IDKitConfig, 'action'>> & WidgetConfig
 
 export type WidgetProps = Config & {
+	internal_isSIWI?: boolean
 	children?: ({ open }: { open: () => void }) => JSX.Element
 }
 
