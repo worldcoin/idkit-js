@@ -1,5 +1,6 @@
 import { ErrorCodes } from '@/types'
 import useIDKitStore from '@/store/idkit'
+import { shallow } from 'zustand/shallow'
 import type { IDKitStore } from '@/store/idkit'
 import XMarkIcon from '@/components/Icons/XMarkIcon'
 
@@ -13,7 +14,7 @@ export const ERROR_TITLES: Record<ErrorCodes, string> = {
 }
 
 const ErrorState = () => {
-	const { retryFlow, errorState } = useIDKitStore(getParams)
+	const { retryFlow, errorState } = useIDKitStore(getParams, shallow)
 
 	return (
 		<div className="space-y-8">
