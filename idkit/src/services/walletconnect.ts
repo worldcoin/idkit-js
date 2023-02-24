@@ -225,7 +225,7 @@ const useOrbSignal = (
 		useWalletConnectStore(getStore)
 
 	useEffect(() => {
-		if (!app_id || !action || !signal) return
+		if (!app_id || !signal) return
 		if (!client) {
 			void createClient(app_id, action, signal, action_description, walletConnectProjectId)
 		}
