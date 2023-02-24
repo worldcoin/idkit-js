@@ -4,6 +4,7 @@ import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useMedia from '@/hooks/useMedia'
 import useIDKitStore from '@/store/idkit'
+import { shallow } from 'zustand/shallow'
 import XMarkIcon from '../Icons/XMarkIcon'
 import AboutState from './States/AboutState'
 import ErrorState from './States/ErrorState'
@@ -68,7 +69,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 		setOptions,
 		copy: _copy,
 		theme: _theme,
-	} = useIDKitStore(getParams)
+	} = useIDKitStore(getParams, shallow)
 	const media = useMedia()
 
 	useEffect(() => {
