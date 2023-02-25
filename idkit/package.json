@@ -54,7 +54,6 @@
 		"@radix-ui/react-scroll-area": "^1.0.2",
 		"@radix-ui/react-select": "^1.1.2",
 		"@radix-ui/react-toast": "^1.1.2",
-		"@stitches/react": "^1.2.8",
 		"@tailwindcss/forms": "^0.5.3",
 		"@walletconnect/client": "^1.8.0",
 		"@walletconnect/sign-client": "^2.2.0",

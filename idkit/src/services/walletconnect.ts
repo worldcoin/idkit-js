@@ -98,7 +98,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			}
 		} catch (error) {
 			set({ errorCode: OrbErrorCodes.ConnectionFailed })
-			console.error('Unable to establish a connection with the WLD app:', error)
+			console.error('Unable to establish a connection with the World app:', error)
 		}
 	},
 

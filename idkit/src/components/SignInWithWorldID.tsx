@@ -2,9 +2,9 @@ import type { FC } from 'react'
 import { useMemo } from 'react'
 import { useState } from 'react'
 import { useCallback } from 'react'
-import SIWIButton from './SIWIButton'
 import IDKitWidget from './IDKitWidget'
 import type { ISuccessResult } from '..'
+import SignInButton from './SignInButton'
 import type { IDKitConfig, WidgetConfig } from '@/types/config'
 
 type Props = Pick<IDKitConfig, 'app_id' | 'walletConnectProjectId'> &
@@ -58,7 +58,7 @@ const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, theme, childre
 			onSuccess={onIDKitSuccess}
 			handleVerify={handleVerify}
 		>
-			{children ?? (({ open }) => <SIWIButton onClick={open} theme={theme} />)}
+			{children ?? (({ open }) => <SignInButton onClick={open} theme={theme} />)}
 		</IDKitWidget>
 	)
 }

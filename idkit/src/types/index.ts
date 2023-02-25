@@ -38,7 +38,7 @@ export enum ErrorCodes {
 	REJECTED_BY_HOST_APP = 'REJECTED_BY_HOST_APP', // Host app rejected the verification request
 }
 
-// Error response received from WLD app through WalletConnect
+// Error response received from World app through WalletConnect
 export interface ExpectedErrorResponse {
 	message: string
 	stack: string

@@ -56,7 +56,7 @@ const ButtonLabel = tw.span`font-sans text-sm`
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & MotionProps & { theme?: 'dark' | 'light' }
 
-const SIWIButton: FC<Props> = ({ className, theme = 'light', ...props }) => (
+const SignInButton: FC<Props> = ({ className, theme = 'light', ...props }) => (
 	<MotionButton whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} theme={theme} {...props}>
 		<ButtonContent theme={theme}>
 			<TextContainer>
@@ -68,4 +68,4 @@ const SIWIButton: FC<Props> = ({ className, theme = 'light', ...props }) => (
 	</MotionButton>
 )
 
-export default SIWIButton
+export default SignInButton
