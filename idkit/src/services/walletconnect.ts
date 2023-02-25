@@ -59,7 +59,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	createClient: async (
 		app_id: IDKitConfig['app_id'],
 		action: IDKitConfig['action'],
-		signal: IDKitConfig['signal'],
+		signal?: IDKitConfig['signal'],
 		action_description?: IDKitConfig['action_description'],
 		walletConnectProjectId = WC_PROJECT_ID
 	) => {
