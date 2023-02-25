@@ -17,7 +17,11 @@ const babelTransforms = {
 
 		build.onLoad({ filter: /\.tsx/i }, async args => {
 			const result = await babelTransformFileAsync(args.path, {
-				plugins: [['@babel/plugin-syntax-typescript', { isTSX: true }]],
+				plugins: [
+					'babel-plugin-twin',
+					'babel-plugin-macros',
+					['@babel/plugin-syntax-typescript', { isTSX: true }],
+				],
 				configFile: false,
 				babelrc: false,
 			})

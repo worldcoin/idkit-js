@@ -98,7 +98,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			}
 		} catch (error) {
 			set({ errorCode: OrbErrorCodes.ConnectionFailed })
-			console.error(`Unable to establish a connection with the WLD app: ${error}`)
+			console.error('Unable to establish a connection with the WLD app:', error)
 		}
 	},
 
@@ -217,7 +217,7 @@ const getStore = (store: WalletConnectStore) => ({
 const useOrbSignal = (
 	app_id: IDKitConfig['app_id'],
 	action: IDKitConfig['action'],
-	signal: IDKitConfig['signal'],
+	signal?: IDKitConfig['signal'],
 	action_description?: IDKitConfig['action_description'],
 	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
 ): UseOrbSignalResponse => {
@@ -225,7 +225,7 @@ const useOrbSignal = (
 		useWalletConnectStore(getStore)
 
 	useEffect(() => {
-		if (!app_id || !signal) return
+		if (!app_id) return
 		if (!client) {
 			void createClient(app_id, action, signal, action_description, walletConnectProjectId)
 		}

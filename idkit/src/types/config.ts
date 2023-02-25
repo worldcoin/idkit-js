@@ -10,7 +10,7 @@ export type IDKitConfig = {
 	app_id: string
 	action_description?: string
 	walletConnectProjectId?: string
-	signal: AbiEncodedValue | string
+	signal?: AbiEncodedValue | string
 	action?: AbiEncodedValue | string
 }
 
