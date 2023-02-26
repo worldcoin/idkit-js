@@ -2,7 +2,7 @@
 	"name": "@worldcoin/idkit",
 	"description": "The identity SDK. Add sybil resistance to your apps through the World ID protocol.",
 	"type": "module",
-	"types": "./build/index.d.ts",
+	"types": "./build/src/index.d.ts",
 	"version": "0.4.0",
 	"private": false,
 	"main": "./build/index.cjs",
