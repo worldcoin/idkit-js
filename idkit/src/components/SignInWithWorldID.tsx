@@ -7,8 +7,8 @@ import type { ISuccessResult } from '..'
 import SignInButton from './SignInButton'
 import type { IDKitConfig, WidgetConfig } from '@/types/config'
 
-type Props = Pick<IDKitConfig, 'app_id' | 'walletConnectProjectId'> &
-	WidgetConfig & {
+type Props = Omit<WidgetConfig, 'autoClose'> &
+	Pick<IDKitConfig, 'app_id' | 'walletConnectProjectId'> & {
 		nonce?: string
 		onSuccess: (jwt: string) => void
 		children?: ({ open }: { open: () => void }) => JSX.Element
@@ -52,6 +52,7 @@ const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, theme, childre
 		<IDKitWidget
 			{...props}
 			action=""
+			autoClose
 			theme={theme}
 			app_id={app_id}
 			signal={signal}
