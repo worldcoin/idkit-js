@@ -38,7 +38,6 @@
 		"lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
 		"lint:fix": "eslint --ext .tsx,.ts,.js,.jsx ./ --fix",
 		"typecheck": "tsc",
-		"prerelease": "standard-version",
 		"analyze-bundle": "esbuild-visualizer --metadata ./esbuild-meta.json --filename esbuild-stats.html && open esbuild-stats.html"
 	},
 	"peerDependencies": {
@@ -109,7 +108,6 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"rimraf": "^3.0.2",
-		"standard-version": "^9.5.0",
 		"tailwindcss": "^3.2.4",
 		"tsc-alias": "^1.7.1",
 		"typescript": "4.9.3"
