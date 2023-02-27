@@ -82,8 +82,8 @@ const Qrcode = ({ data, logoSize = 72, size = 300 }: Props) => {
 	const logoPosition = size / 2 - logoSize / 2
 
 	return (
-		<div className="dark:bg-0d151d w-max rounded-lg bg-white" style={{ height: size, width: size }}>
-			<div className="relative flex h-0 w-full justify-center" style={{ top: logoPosition }}>
+		<div className="dark:bg-0d151d relative w-max rounded-lg bg-white" style={{ height: size, width: size }}>
+			<div className="absolute flex h-0 w-full justify-center" style={{ top: logoPosition }}>
 				<WorldcoinLogomark height={logoSize} width={logoSize} />
 			</div>
 			<svg height={size} width={size}>
