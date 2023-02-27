@@ -18,11 +18,12 @@ jobs:
                   registry-url: "https://registry.npmjs.org"
 
             - name: Install dependencies
-            - run: yarn --frozen-lockfile
+              run: yarn --frozen-lockfile
 
             - name: Build
-              working-directory: ./idkit
-              run: yarn build
+              working-directory: idkit
+              run: |
+                  yarn build
 
             - name: Publish
             - run: npm publish
