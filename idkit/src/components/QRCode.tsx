@@ -1,7 +1,6 @@
 import QRCodeUtil from 'qrcode'
 import { memo, useMemo } from 'react'
 import type { ReactElement } from 'react'
-import WorldcoinLogomark from './Icons/WorldcoinLogomark'
 
 const generateMatrix = (data: string): Array<number[]> => {
 	const arr = QRCodeUtil.create(data, { errorCorrectionLevel: 'M' }).modules.data
@@ -18,10 +17,9 @@ const generateMatrix = (data: string): Array<number[]> => {
 type Props = {
 	data: string
 	size?: number
-	logoSize?: number
 }
 
-const Qrcode = ({ data, logoSize = 72, size = 300 }: Props) => {
+const Qrcode = ({ data, size = 300 }: Props) => {
 	const dots = useMemo(() => {
 		const dots: ReactElement[] = []
 		const matrix = generateMatrix(data)
@@ -53,9 +51,8 @@ const Qrcode = ({ data, logoSize = 72, size = 300 }: Props) => {
 			}
 		})
 
-		const clearArenaSize = Math.floor((logoSize + 25) / cellSize)
-		const matrixMiddleStart = matrix.length / 2 - clearArenaSize / 2
-		const matrixMiddleEnd = matrix.length / 2 + clearArenaSize / 2 - 1
+		const matrixMiddleStart = matrix.length / 2
+		const matrixMiddleEnd = matrix.length / 2 - 1
 
 		matrix.forEach((row, i) => {
 			row.forEach((_, j) => {
@@ -77,15 +74,10 @@ const Qrcode = ({ data, logoSize = 72, size = 300 }: Props) => {
 		})
 
 		return dots
-	}, [logoSize, size, data])
-
-	const logoPosition = size / 2 - logoSize / 2
+	}, [size, data])
 
 	return (
 		<div className="dark:bg-0d151d relative w-max rounded-lg bg-white" style={{ height: size, width: size }}>
-			<div className="absolute flex h-0 w-full justify-center" style={{ top: logoPosition }}>
-				<WorldcoinLogomark height={logoSize} width={logoSize} />
-			</div>
 			<svg height={size} width={size}>
 				{dots}
 			</svg>
