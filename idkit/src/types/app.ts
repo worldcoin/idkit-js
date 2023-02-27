@@ -1,4 +1,4 @@
-export enum OrbErrorCodes {
+export enum AppErrorCodes {
 	ConnectionFailed = 'connection_failed',
 	VerificationRejected = 'verification_rejected',
 	AlreadySigned = 'already_signed',

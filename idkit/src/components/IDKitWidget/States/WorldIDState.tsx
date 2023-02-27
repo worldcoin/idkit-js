@@ -7,8 +7,8 @@ import { shallow } from 'zustand/shallow'
 import { useEffect, useState } from 'react'
 import { VerificationState } from '@/types/orb'
 import type { IDKitStore } from '@/store/idkit'
-import useOrbSignal from '@/services/walletconnect'
 import AboutWorldID from '@/components/AboutWorldID'
+import useAppConnection from '@/services/walletconnect'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 
 const getOptions = (store: IDKitStore) => ({
@@ -28,7 +28,7 @@ const WorldIDState = () => {
 	const { copy, app_id, action, signal, setStage, handleVerify, action_description, walletConnectProjectId } =
 		useIDKitStore(getOptions, shallow)
 
-	const { result, qrData, verificationState, reset } = useOrbSignal(
+	const { result, qrData, verificationState, reset } = useAppConnection(
 		app_id,
 		action,
 		signal,
