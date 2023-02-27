@@ -2,11 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.4.2](https://github.com/worldcoin/idkit-js/compare/v0.2.6...v0.4.2) (2023-02-26)
+### [0.4.2](https://github.com/worldcoin/idkit-js/compare/v0.4.1...v0.4.2) (2023-02-26)
 
 ### Bug Fixes
 
 -   types ([#75](https://github.com/worldcoin/idkit-js/issues/75)) ([a2503da](https://github.com/worldcoin/idkit-js/commit/a2503da3dac513226cad2f74811b532b76a7301d))
+
+### [0.4.1](https://github.com/worldcoin/idkit-js/compare/v0.4.0...v0.4.1) (2023-02-25)
+
+### Bug Fixes
+
+-   @stitches/react should be a dep ([#73](https://github.com/worldcoin/idkit-js/issues/73)) ([b9cf3cc](https://github.com/worldcoin/idkit-js/commit/b9cf3cc7e68a6965c2739a6cbb7df7dac253f73a))
 
 ## [0.4.0](https://github.com/worldcoin/idkit-js/compare/v0.4.0-alpha.2...v0.4.0) (2023-02-25)
 

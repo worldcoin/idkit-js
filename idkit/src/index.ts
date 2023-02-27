@@ -1,11 +1,11 @@
 import useIDKit from './hooks/useIDKit'
 import QRCode from './components/QRCode'
-import type { ISuccessResult } from '@/types'
 import { solidityEncode } from './lib/hashing'
 import IDKitWidget from '@/components/IDKitWidget'
 import useAppConnection from '@/services/walletconnect'
 import type { WidgetProps, Config } from '@/types/config'
 import { VerificationState, AppErrorCodes } from './types/app'
+import type { ISuccessResult, CredentialType } from '@/types'
 import SignInWithWorldID from './components/SignInWithWorldID'
 import { hashToField, validateABILikeEncoding, generateExternalNullifier } from './lib/hashing'
 
@@ -21,4 +21,4 @@ const internal = {
 }
 
 export { IDKitWidget, useIDKit, solidityEncode, internal, SignInWithWorldID }
-export type { ISuccessResult, Config, WidgetProps }
+export type { ISuccessResult, Config, WidgetProps, CredentialType }
