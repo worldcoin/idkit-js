@@ -15,7 +15,6 @@ export type IDKitStore = {
 	open: boolean
 	stage: IDKITStage
 	autoClose: boolean
-	phoneNumber: string
 	processing: boolean
 	copy: Config['copy']
 	theme: Config['theme']
@@ -33,7 +32,6 @@ export type IDKitStore = {
 	setStage: (stage: IDKITStage) => void
 	onOpenChange: (open: boolean) => void
 	setProcessing: (processing: boolean) => void
-	setPhoneNumber: (phoneNumber: string) => void
 	handleVerify: (result: ISuccessResult) => void
 	setErrorState: (state: IErrorState | null) => void
 	setOptions: (options: Config, source: ConfigSource) => void
@@ -54,14 +52,13 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	theme: 'light',
 	errorTitle: '',
 	errorDetail: '',
-	phoneNumber: '',
 	autoClose: false,
 	errorState: null,
 	processing: false,
 	verifyCallbacks: {},
 	successCallbacks: {},
 	stringifiedActionId: '',
-	methods: ['orb', 'phone'],
+	methods: ['orb'],
 	stage: IDKITStage.WORLD_ID,
 	copy: {},
 
@@ -79,7 +76,6 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setCode: code => set({ code }),
 	setStage: stage => set({ stage }),
 	setErrorState: errorState => set({ errorState }),
-	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	setProcessing: (processing: boolean) => set({ processing }),
 	retryFlow: () => {
 		set({ stage: IDKITStage.WORLD_ID, errorState: null })
@@ -166,7 +162,6 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			open,
 			code: '',
 			result: null,
-			phoneNumber: '',
 			errorState: null,
 			processing: false,
 			stage: IDKITStage.WORLD_ID,

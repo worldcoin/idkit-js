@@ -2952,11 +2952,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/country-telephone-data@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.npmjs.org/@types/country-telephone-data/-/country-telephone-data-0.6.1.tgz"
-  integrity sha512-GjrvfnS+mFyEj1wOr5L7KKWHAcFgNxilP/AnNdQj2EM0R7c9rlM8OC+Pf2H5KHiMDbH/XjApJgdnjN/WYbzWew==
-
 "@types/eslint-scope@^3.7.3":
   version "3.7.4"
   resolved "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.4.tgz"
@@ -5374,11 +5369,6 @@ cosmiconfig@^8.0.0:
     js-yaml "^4.1.0"
     parse-json "^5.0.0"
     path-type "^4.0.0"
-
-country-telephone-data@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.npmjs.org/country-telephone-data/-/country-telephone-data-0.6.3.tgz"
-  integrity sha512-3tQLA0vec+NDVlcaHhXGqILq/oQRsv4fRi4EedCfJqUuJUjQGdcSPM8r2IJIT2kZ5yWbiOCkXMgy7YTo8FNS2w==
 
 create-require@^1.1.0:
   version "1.1.1"
@@ -10511,11 +10501,6 @@ performance-now@^2.1.0:
   resolved "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz"
   integrity sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==
 
-phone@^3.1.30:
-  version "3.1.33"
-  resolved "https://registry.npmjs.org/phone/-/phone-3.1.33.tgz"
-  integrity sha512-mTDJ9NsXyRxxsnhEZpdNO6PFoPxSzEW0s5gjaxgTv8rqmIcyfbNBZpKxmdifr6jJVL/0oSwiHHvL2+SNL9BVFw==
-
 picocolors@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-0.2.1.tgz"
@@ -11458,11 +11443,6 @@ react-countdown@^2.3.4:
   integrity sha512-K26ENYEesMfPxhRRtm1r+Pf70SErrvW3g4CArLi/x6MPFjgfDFYePT4UghEj8p2nI0cqVV7/JjDgjyr//U60Og==
   dependencies:
     prop-types "^15.7.2"
-
-react-country-flag@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.npmjs.org/react-country-flag/-/react-country-flag-3.0.2.tgz"
-  integrity sha512-JPaz+q3QD0/nZtHBKj5x3O7r/SgSG9kxbymdaIU0RqlDAcorJIe4KV0DFhWIdKh69q5cPVkIVERcMYGZdvXgAA==
 
 react-dev-utils@^12.0.1:
   version "12.0.1"
