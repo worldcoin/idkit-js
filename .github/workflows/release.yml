@@ -6,7 +6,7 @@ on:
             bump-level:
                 description: "Release Type"
                 required: true
-                default: "patch"
+                default: "bug"
                 type: choice
                 options:
                     - bug
