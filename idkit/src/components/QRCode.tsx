@@ -1,7 +1,6 @@
 import QRCodeUtil from 'qrcode'
 import { memo, useMemo } from 'react'
 import type { ReactElement } from 'react'
-import WorldcoinLogomark from './Icons/WorldcoinLogomark'
 
 const generateMatrix = (data: string): Array<number[]> => {
 	const arr = QRCodeUtil.create(data, { errorCorrectionLevel: 'M' }).modules.data
@@ -18,10 +17,9 @@ const generateMatrix = (data: string): Array<number[]> => {
 type Props = {
 	data: string
 	size?: number
-	logoSize?: number
 }
 
-const Qrcode = ({ data, logoSize = 72, size = 300 }: Props) => {
+const Qrcode = ({ data, size = 300 }: Props) => {
 	const dots = useMemo(() => {
 		const dots: ReactElement[] = []
 		const matrix = generateMatrix(data)
@@ -45,23 +43,18 @@ const Qrcode = ({ data, logoSize = 72, size = 300 }: Props) => {
 						key={`${i}-${x}-${y}`}
 						width={cellSize * (7 - i * 2)}
 						height={cellSize * (7 - i * 2)}
-						rx={(i - 2) * -5 + (i === 0 ? 2 : 0)} // calculated border radius for corner squares
-						ry={(i - 2) * -5 + (i === 0 ? 2 : 0)} // calculated border radius for corner squares
+						rx={(i - 2) * -5} // calculated border radius for corner squares
+						ry={(i - 2) * -5} // calculated border radius for corner squares
 						className={i % 2 !== 0 ? 'text-white dark:text-black' : 'text-black dark:text-white'}
 					/>
 				)
 			}
 		})
 
-		const clearArenaSize = Math.floor((logoSize + 25) / cellSize)
-		const matrixMiddleStart = matrix.length / 2 - clearArenaSize / 2
-		const matrixMiddleEnd = matrix.length / 2 + clearArenaSize / 2 - 1
-
 		matrix.forEach((row, i) => {
 			row.forEach((_, j) => {
 				if (!matrix[i][j]) return
 				if ((i < 7 && j < 7) || (i > matrix.length - 8 && j < 7) || (i < 7 && j > matrix.length - 8)) return
-				if (i > matrixMiddleStart && i < matrixMiddleEnd && j > matrixMiddleStart && j < matrixMiddleEnd) return
 
 				dots.push(
 					<circle
@@ -77,19 +70,12 @@ const Qrcode = ({ data, logoSize = 72, size = 300 }: Props) => {
 		})
 
 		return dots
-	}, [logoSize, size, data])
-
-	const logoPosition = size / 2 - logoSize / 2
+	}, [size, data])
 
 	return (
-		<div className="dark:bg-0d151d relative w-max rounded-lg bg-white" style={{ height: size, width: size }}>
-			<div className="absolute flex h-0 w-full justify-center" style={{ top: logoPosition }}>
-				<WorldcoinLogomark height={logoSize} width={logoSize} />
-			</div>
-			<svg height={size} width={size}>
-				{dots}
-			</svg>
-		</div>
+		<svg height={size} width={size}>
+			{dots}
+		</svg>
 	)
 }
 

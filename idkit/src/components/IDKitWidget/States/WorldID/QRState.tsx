@@ -36,7 +36,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 					<div className="border-f1f5f8 dark:border-f1f5f8/10 relative inline-flex items-center justify-center rounded-2xl border p-2">
 						<div className="text-29343f dark:text-white">
 							{qrData ? (
-								<Qrcode data={qrData.default} />
+								<Qrcode data={qrData.default} size={244} />
 							) : (
 								<div className="flex h-[300px] w-[300px] items-center justify-center">
 									<LoadingIcon className="h-[72px] w-[72px]" />
