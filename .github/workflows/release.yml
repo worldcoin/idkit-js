@@ -4,9 +4,9 @@ on:
     workflow_dispatch:
         inputs:
             bump-level:
-                description: "Release Type"
+                description: "Version level to be bumped"
                 required: true
-                default: "bug"
+                default: bug
                 type: choice
                 options:
                     - bug
