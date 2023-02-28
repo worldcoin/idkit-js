@@ -85,11 +85,14 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 	connectClient: async (client: Client) => {
 		try {
+			console.log('connectClient')
 			const { uri, approval } = await client.connect({ requiredNamespaces: namespaces })
+			console.log('client.connect', new Date().toISOString())
 
 			if (uri) {
 				get().setUri(uri)
 				const session = await approval()
+				console.log('')
 
 				if (typeof session !== 'undefined') {
 					set({ topic: session.topic })
@@ -117,6 +120,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 	// eslint-disable-next-line @typescript-eslint/no-misused-promises
 	onConnectionEstablished: async (client: Client) => {
+		console.log('onConnectionEstablished', new Date().toISOString())
 		set({ verificationState: VerificationState.AwaitingVerification })
 
 		await client
@@ -127,6 +131,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				request: buildVerificationRequest(get().config!),
 			})
 			.then(result => {
+				console.log('result', result)
 				if (!ensureVerificationResponse(result)) {
 					return set({ errorCode: AppErrorCodes.UnexpectedResponse })
 				}
@@ -134,6 +139,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				set({ result, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
+				console.log('catch', error)
 				let errorCode = AppErrorCodes.GenericError
 
 				const errorMessage = (error as ExpectedErrorResponse).message
@@ -143,7 +149,10 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 
 				set({ errorCode, verificationState: VerificationState.Failed })
 			})
-			.finally(() => void client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') }))
+			.finally(() => {
+				console.log('finally')
+				void client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') })
+			})
 			.catch(error => {
 				console.error(`Unable to disconnect: ${error}`)
 			})
@@ -162,21 +171,24 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	},
 }))
 
-const buildVerificationRequest = (config: IDKitConfig) => ({
-	jsonrpc: '2.0',
-	method: 'world_id_v1',
-	id: randomNumber(100000, 9999999),
-	params: [
-		{
-			app_id: config.app_id,
-			action: encodeAction(config.action),
-			signal: generateSignal(config.signal).digest,
-			action_description: config.action_description,
-			external_nullifier: generateExternalNullifier(config.app_id, config.action).digest,
-		},
-	],
-})
-
+const buildVerificationRequest = (config: IDKitConfig) => {
+	const request = {
+		jsonrpc: '2.0',
+		method: 'world_id_v1',
+		id: randomNumber(100000, 9999999),
+		params: [
+			{
+				app_id: config.app_id,
+				action: encodeAction(config.action),
+				signal: generateSignal(config.signal).digest,
+				action_description: config.action_description,
+				external_nullifier: generateExternalNullifier(config.app_id, config.action).digest,
+			},
+		],
+	}
+	console.log('requestReady')
+	return request
+}
 const ensureVerificationResponse = (result: unknown): result is ISuccessResult => {
 	if (!result || typeof result !== 'object') return false
 	const proof = 'proof' in result ? (result as Record<string, string>).proof : undefined
