@@ -10,11 +10,11 @@ export type IDKitConfig = {
 	app_id: string
 	action_description?: string
 	walletConnectProjectId?: string
-	signal: AbiEncodedValue | string
-	action: AbiEncodedValue | string
+	signal?: AbiEncodedValue | string
+	action?: AbiEncodedValue | string
 }
 
-type WidgetConfig = {
+export type WidgetConfig = {
 	autoClose?: boolean
 	onSuccess?: CallbackFn
 	theme?: 'dark' | 'light'
@@ -28,7 +28,7 @@ type WidgetConfig = {
 	}
 }
 
-export type Config = IDKitConfig & WidgetConfig
+export type Config = IDKitConfig & Required<Pick<IDKitConfig, 'action'>> & WidgetConfig
 
 export type WidgetProps = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element

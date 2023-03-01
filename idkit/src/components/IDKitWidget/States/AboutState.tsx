@@ -13,12 +13,11 @@ const AboutState = () => {
 					something once without revealing personal information.
 				</p>
 				<p className="text-70868f mt-3 text-center">
-					It currently supports verification through biometrics (using a device called an Orb), and through
-					phone numbers. Zero-Knowledge Proofs and other cryptographic mechanisms are used to preserve
-					privacy.
+					It currently supports verification through biometrics (using a device called an Orb). Zero-Knowledge
+					Proofs and other cryptographic mechanisms are used to preserve privacy.
 				</p>
 
-				<p className="text-70868f mt-3 text-center">Apps will never see your phone number or biometrics.</p>
+				<p className="text-70868f mt-3 text-center">Apps will never see your biometrics.</p>
 			</div>
 			<div>
 				<motion.a

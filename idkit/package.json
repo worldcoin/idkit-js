@@ -2,8 +2,8 @@
 	"name": "@worldcoin/idkit",
 	"description": "The identity SDK. Add sybil resistance to your apps through the World ID protocol.",
 	"type": "module",
-	"types": "./build/index.d.ts",
-	"version": "0.4.0-alpha.2",
+	"types": "./build/src/index.d.ts",
+	"version": "0.4.3",
 	"private": false,
 	"main": "./build/index.cjs",
 	"module": "./build/index.js",
@@ -53,30 +53,27 @@
 		"@radix-ui/react-scroll-area": "^1.0.2",
 		"@radix-ui/react-select": "^1.1.2",
 		"@radix-ui/react-toast": "^1.1.2",
+		"@stitches/react": "^1.2.8",
 		"@tailwindcss/forms": "^0.5.3",
 		"@walletconnect/client": "^1.8.0",
-		"copy-to-clipboard": "^3.3.3",
 		"@walletconnect/sign-client": "^2.2.0",
 		"@walletconnect/types": "^2.2.0",
 		"@walletconnect/utils": "^2.2.1",
-		"country-telephone-data": "^0.6.3",
+		"copy-to-clipboard": "^3.3.3",
 		"framer-motion": "^7.6.7",
 		"js-sha3": "^0.8.0",
-		"phone": "^3.1.30",
 		"posthog-js-lite": "2.0.0",
 		"qr-code-styling-new": "^1.6.1",
 		"qrcode": "^1.5.1",
 		"react-countdown": "^2.3.4",
-		"react-country-flag": "^3.0.2",
 		"react-frame-component": "^5.2.3",
 		"react-shadow": "^19.0.3",
-		"zustand": "^4.3.2"
+		"zustand": "^4.3.3"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.20.2",
 		"@babel/plugin-syntax-typescript": "^7.20.0",
 		"@esbuild-plugins/node-globals-polyfill": "^0.1.1",
-		"@types/country-telephone-data": "^0.6.1",
 		"@types/node": "18.11.9",
 		"@types/qrcode": "^1.5.0",
 		"@types/react": "18.0.25",
@@ -84,6 +81,8 @@
 		"@typescript-eslint/eslint-plugin": "5.20.0",
 		"@typescript-eslint/parser": "5.20.0",
 		"autoprefixer": "^10.4.13",
+		"babel-plugin-macros": "^3.1.0",
+		"babel-plugin-twin": "^1.1.0",
 		"construct-style-sheets-polyfill": "^3.1.0",
 		"esbuild": "0.14.43",
 		"esbuild-jest": "0.5.0",
@@ -110,6 +109,7 @@
 		"rimraf": "^3.0.2",
 		"tailwindcss": "^3.2.4",
 		"tsc-alias": "^1.7.1",
+		"twin.macro": "^3.1.0",
 		"typescript": "4.9.3"
 	},
 	"browserslist": {
@@ -123,5 +123,11 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"babelMacros": {
+		"twin": {
+			"preset": "stitches",
+			"stitchesConfig": "stitches.config.ts"
+		}
 	}
 }

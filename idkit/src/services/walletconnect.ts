@@ -6,7 +6,7 @@ import { WC_PROJECT_ID } from '@/lib/consts'
 import Client from '@walletconnect/sign-client'
 import type { IDKitConfig } from '@/types/config'
 import { getSdkError } from '@walletconnect/utils'
-import { OrbErrorCodes, VerificationState } from '@/types/orb'
+import { AppErrorCodes, VerificationState } from '@/types/app'
 import type { ExpectedErrorResponse, ISuccessResult } from '@/types'
 import { validateABILikeEncoding, generateSignal, generateExternalNullifier, encodeAction } from '@/lib/hashing'
 
@@ -15,7 +15,7 @@ type WalletConnectStore = {
 	uri: string
 	topic: string
 	result: ISuccessResult | null
-	errorCode: OrbErrorCodes | null
+	errorCode: AppErrorCodes | null
 	verificationState: VerificationState
 	config: IDKitConfig | null
 	qrData: {
@@ -59,7 +59,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	createClient: async (
 		app_id: IDKitConfig['app_id'],
 		action: IDKitConfig['action'],
-		signal: IDKitConfig['signal'],
+		signal?: IDKitConfig['signal'],
 		action_description?: IDKitConfig['action_description'],
 		walletConnectProjectId = WC_PROJECT_ID
 	) => {
@@ -97,8 +97,8 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				}
 			}
 		} catch (error) {
-			set({ errorCode: OrbErrorCodes.ConnectionFailed })
-			console.error(`Unable to establish a connection with the WLD app: ${error}`)
+			set({ errorCode: AppErrorCodes.ConnectionFailed })
+			console.error('Unable to establish a connection with the World app:', error)
 		}
 	},
 
@@ -128,17 +128,17 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			})
 			.then(result => {
 				if (!ensureVerificationResponse(result)) {
-					return set({ errorCode: OrbErrorCodes.UnexpectedResponse })
+					return set({ errorCode: AppErrorCodes.UnexpectedResponse })
 				}
 
 				set({ result, verificationState: VerificationState.Confirmed })
 			})
 			.catch((error: unknown) => {
-				let errorCode = OrbErrorCodes.GenericError
+				let errorCode = AppErrorCodes.GenericError
 
 				const errorMessage = (error as ExpectedErrorResponse).message
-				if (errorMessage && Object.values(OrbErrorCodes).includes(errorMessage as OrbErrorCodes)) {
-					errorCode = errorMessage as OrbErrorCodes
+				if (errorMessage && Object.values(AppErrorCodes).includes(errorMessage as AppErrorCodes)) {
+					errorCode = errorMessage as AppErrorCodes
 				}
 
 				set({ errorCode, verificationState: VerificationState.Failed })
@@ -192,10 +192,10 @@ const ensureVerificationResponse = (result: unknown): result is ISuccessResult =
 	return true
 }
 
-type UseOrbSignalResponse = {
+type UseAppConnectionResponse = {
 	reset: () => void
 	result: ISuccessResult | null
-	errorCode: OrbErrorCodes | null
+	errorCode: AppErrorCodes | null
 	verificationState: VerificationState
 	qrData: {
 		default: string
@@ -214,18 +214,18 @@ const getStore = (store: WalletConnectStore) => ({
 	verificationState: store.verificationState,
 })
 
-const useOrbSignal = (
+const useAppConnection = (
 	app_id: IDKitConfig['app_id'],
 	action: IDKitConfig['action'],
-	signal: IDKitConfig['signal'],
+	signal?: IDKitConfig['signal'],
 	action_description?: IDKitConfig['action_description'],
 	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
-): UseOrbSignalResponse => {
+): UseAppConnectionResponse => {
 	const { result, verificationState, errorCode, qrData, client, createClient, reset } =
 		useWalletConnectStore(getStore)
 
 	useEffect(() => {
-		if (!app_id || !action || !signal) return
+		if (!app_id) return
 		if (!client) {
 			void createClient(app_id, action, signal, action_description, walletConnectProjectId)
 		}
@@ -234,4 +234,4 @@ const useOrbSignal = (
 	return { result, reset, verificationState, errorCode, qrData }
 }
 
-export default useOrbSignal
+export default useAppConnection

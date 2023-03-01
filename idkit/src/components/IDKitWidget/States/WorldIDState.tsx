@@ -3,11 +3,12 @@ import { getCopy } from '@/lib/utils'
 import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
 import useIDKitStore from '@/store/idkit'
+import { shallow } from 'zustand/shallow'
 import { useEffect, useState } from 'react'
-import { VerificationState } from '@/types/orb'
+import { VerificationState } from '@/types/app'
 import type { IDKitStore } from '@/store/idkit'
-import useOrbSignal from '@/services/walletconnect'
 import AboutWorldID from '@/components/AboutWorldID'
+import useAppConnection from '@/services/walletconnect'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 
 const getOptions = (store: IDKitStore) => ({
@@ -25,9 +26,9 @@ const WorldIDState = () => {
 	const media = useMedia()
 	const [showQR, setShowQR] = useState<boolean>(false)
 	const { copy, app_id, action, signal, setStage, handleVerify, action_description, walletConnectProjectId } =
-		useIDKitStore(getOptions)
+		useIDKitStore(getOptions, shallow)
 
-	const { result, qrData, verificationState, reset } = useOrbSignal(
+	const { result, qrData, verificationState, reset } = useAppConnection(
 		app_id,
 		action,
 		signal,

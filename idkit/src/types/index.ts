@@ -14,7 +14,6 @@ export enum IDKITStage {
 
 export enum CredentialType {
 	Orb = 'orb',
-	Phone = 'phone',
 }
 
 export interface ISuccessResult {
@@ -26,6 +25,12 @@ export interface ISuccessResult {
 
 export type CallbackFn = (result: ISuccessResult) => Promise<void> | void
 
+// Error response received from World app through WalletConnect
+export interface ExpectedErrorResponse {
+	message: string
+	stack: string
+}
+
 export interface IErrorState {
 	code: ErrorCodes
 	message?: string
@@ -33,25 +38,5 @@ export interface IErrorState {
 
 export enum ErrorCodes {
 	GENERIC_ERROR = 'GENERIC_ERROR',
-	PHONE_OTP_REQUEST_ERROR = 'PHONE_OTP_REQUEST_ERROR',
-	INVALID_CODE = 'INVALID_CODE', // OTP code is invalid
 	REJECTED_BY_HOST_APP = 'REJECTED_BY_HOST_APP', // Host app rejected the verification request
-}
-
-// Error response received from WLD app through WalletConnect
-export interface ExpectedErrorResponse {
-	message: string
-	stack: string
-}
-
-export enum PhoneVerificationChannel {
-	SMS = 'sms',
-	Call = 'call',
-}
-
-export enum PhoneRequestErrorCodes {
-	MAX_ATTEMPTS = 'max_attempts',
-	TIMEOUT = 'timeout',
-	UNSUPPORTED_COUNTRY = 'unsupported_country',
-	SERVER_ERROR = 'server_error',
 }

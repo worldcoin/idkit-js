@@ -1,5 +1,6 @@
 import { ErrorCodes } from '@/types'
 import useIDKitStore from '@/store/idkit'
+import { shallow } from 'zustand/shallow'
 import type { IDKitStore } from '@/store/idkit'
 import XMarkIcon from '@/components/Icons/XMarkIcon'
 
@@ -7,13 +8,11 @@ const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, error
 
 export const ERROR_TITLES: Record<ErrorCodes, string> = {
 	[ErrorCodes.GENERIC_ERROR]: 'Something went wrong',
-	[ErrorCodes.INVALID_CODE]: 'Invalid code',
-	[ErrorCodes.PHONE_OTP_REQUEST_ERROR]: 'We could not send you a code',
 	[ErrorCodes.REJECTED_BY_HOST_APP]: 'Verification declined by app',
 }
 
 const ErrorState = () => {
-	const { retryFlow, errorState } = useIDKitStore(getParams)
+	const { retryFlow, errorState } = useIDKitStore(getParams, shallow)
 
 	return (
 		<div className="space-y-8">

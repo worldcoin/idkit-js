@@ -1,6 +1,7 @@
 import sha3 from 'js-sha3'
 import type { AbiEncodedValue } from '@/types'
 import { pack } from '@ethersproject/solidity'
+import type { IDKitConfig } from '@/types/config'
 import type { BytesLike } from '@ethersproject/bytes'
 import { arrayify, concat, hexlify, isBytesLike } from '@ethersproject/bytes'
 
@@ -84,13 +85,17 @@ export const solidityEncode = (types: string[], values: unknown[]): AbiEncodedVa
 	return { types, values } as AbiEncodedValue
 }
 
-export const generateSignal = (signal: AbiEncodedValue | string): HashFunctionOutput => {
-	if (typeof signal === 'string') return hashToField(signal)
+export const generateSignal = (signal: IDKitConfig['signal']): HashFunctionOutput => {
+	if (!signal || typeof signal === 'string') return hashToField(signal ?? '')
 
 	return packAndEncode(signal.types.map((type, index) => [type, signal.values[index]]))
 }
 
-export const generateExternalNullifier = (app_id: string, action: AbiEncodedValue | string): HashFunctionOutput => {
+export const generateExternalNullifier = (
+	app_id: IDKitConfig['app_id'],
+	action: IDKitConfig['action']
+): HashFunctionOutput => {
+	if (!action) return packAndEncode([['uint256', hashToField(app_id).hash]])
 	if (typeof action === 'string') action = solidityEncode(['string'], [action])
 
 	return packAndEncode([
@@ -99,7 +104,8 @@ export const generateExternalNullifier = (app_id: string, action: AbiEncodedValu
 	])
 }
 
-export const encodeAction = (action: AbiEncodedValue | string): string => {
+export const encodeAction = (action: IDKitConfig['action']): string => {
+	if (!action) return ''
 	if (typeof action === 'string') return action
 
 	return action.types.map((type, index) => `${type}(${action.values[index]})`).join(',')

@@ -51,6 +51,9 @@ module.exports = {
 					'#ff6848',
 				]),
 			},
+			backgroundImage: {
+				'gradient-conic': 'conic-gradient(var(--tw-gradient-stops))',
+			},
 			fontFamily: {
 				sans: ['Rubik', ...defaultTheme.fontFamily.sans],
 			},

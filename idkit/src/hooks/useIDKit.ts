@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import useIDKitStore from '@/store/idkit'
+import { shallow } from 'zustand/shallow'
 import type { Config } from '@/types/config'
 import { ConfigSource } from '@/types/config'
 import type { IDKitStore } from '@/store/idkit'
@@ -13,14 +14,14 @@ const getStore = ({ open, onOpenChange, addSuccessCallback, addVerificationCallb
 	addVerificationCallback,
 })
 
-const useIDKit = (options: HookConfig) => {
-	const { open, onOpenChange, addSuccessCallback, addVerificationCallback } = useIDKitStore(getStore)
+const useIDKit = ({ handleVerify, onSuccess }: HookConfig = {}) => {
+	const { open, onOpenChange, addSuccessCallback, addVerificationCallback } = useIDKitStore(getStore, shallow)
 
 	useEffect(() => {
-		if (options.onSuccess) addSuccessCallback(options.onSuccess, ConfigSource.HOOK)
-		if (options.handleVerify) addVerificationCallback(options.handleVerify, ConfigSource.HOOK)
+		if (onSuccess) addSuccessCallback(onSuccess, ConfigSource.HOOK)
+		if (handleVerify) addVerificationCallback(handleVerify, ConfigSource.HOOK)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [options])
+	}, [handleVerify, onSuccess])
 
 	return { open, setOpen: onOpenChange }
 }

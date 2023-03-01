@@ -1,5 +1,4 @@
 import { PostHog } from 'posthog-js-lite'
-import type { PhoneVerificationChannel } from '@/types'
 
 // Set at build time
 declare const IDKitVersion: string
@@ -49,12 +48,4 @@ export const initTelemetry = (enableTelemetry?: boolean): void => {
 
 export const telemetryModalOpened = (): void => {
 	posthog?.capture('idkit opened', SUPER_PROPS)
-}
-
-export const telemetryPhoneTyped = (): void => {
-	posthog?.capture('idkit phone typed', SUPER_PROPS)
-}
-
-export const telemetryRetryCode = (channel: PhoneVerificationChannel): void => {
-	posthog?.capture('idkit phone code retried', { ...SUPER_PROPS, channel })
 }
