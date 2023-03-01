@@ -10,16 +10,6 @@ const PrivacyState = () => {
 			</p>
 			<ul className="mb-6 list-disc space-y-3 px-4">
 				<li className="text-left dark:text-white">
-					Phone numbers are never kept by anyone. IDKit and its phone carrier only uses your number to deliver
-					a one-time code.
-					<ul className="text-9eafc0 dark:text-9eafc0 mt-3 list-disc pl-4">
-						<li>
-							Apps only receive a hash-like nullifier which can&apos;t be reversed. Worldcoin or IDKit
-							don&apos;t store nullifier hashes.
-						</li>
-					</ul>
-				</li>
-				<li className="text-left dark:text-white">
 					Orb biometrics analyzed by the Orb are not stored. Orb credential is used with Zero-Knowledge Proofs
 					which makes it cryptographically impossible to track persons across applications.
 				</li>
@@ -38,9 +28,7 @@ const PrivacyState = () => {
 			</ul>
 			<div className="-ml-4 flex items-center space-x-3">
 				<InfoIcon className="h-4 w-4 text-white" />
-				<p className="whitespace-nowrap text-sm font-medium text-white">
-					Apps will never see your phone number or biometrics.
-				</p>
+				<p className="whitespace-nowrap text-sm font-medium text-white">Apps will never see your biometrics.</p>
 			</div>
 		</div>
 	)

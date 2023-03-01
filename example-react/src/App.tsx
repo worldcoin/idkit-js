@@ -5,7 +5,6 @@ function App() {
 		return new Promise<void>((resolve) => {
 			setTimeout(() => resolve(), 3000);
 			// NOTE: Example of how to decline the verification request and show an error message to the user
-			//setTimeout(() => reject({ message: "This phone number has already been used!" }), 3000);
 		});
 	};
 
