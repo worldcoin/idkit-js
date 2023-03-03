@@ -38,6 +38,6 @@ export type WidgetProps = Config & {
 export const DEFAULT_COPY = {
 	title: 'World ID',
 	heading: 'Verify your identity',
-	subheading: "Unlock additional benefits by verifying you're a unique human doing this action once.",
-	success: 'Your phone number has been verified',
+	subheading: "Unlock additional benefits by verifying you're doing this only once.",
+	success: 'You have been verified!',
 } as const
