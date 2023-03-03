@@ -122,9 +122,6 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	onConnectionEstablished: async (client: Client) => {
 		set({ verificationState: VerificationState.AwaitingVerification })
 
-		console.log(get().config?.credential_types)
-		console.log(buildVerificationRequest(get().config!))
-
 		await client
 			.request({
 				topic: get().topic,

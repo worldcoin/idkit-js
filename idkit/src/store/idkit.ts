@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { ErrorCodes, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
+import { CredentialType, ErrorCodes, IDKITStage } from '@/types'
 import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
 import type { Config, ConfigSource, IDKitConfig } from '@/types/config'
 
@@ -110,12 +110,20 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		}: Config,
 		source: ConfigSource
 	) => {
+		const sanitized_credential_types = credential_types?.filter(type => {
+			const isValid = Object.values(CredentialType).includes(type)
+			if (!isValid) {
+				console.warn(`Ignoring invalid credential type received: \`${type}\`.`)
+			}
+			return isValid
+		})
+
 		set(store => ({
 			theme,
 			signal,
 			action,
 			app_id,
-			credential_types,
+			credential_types: sanitized_credential_types,
 			autoClose,
 			action_description,
 			walletConnectProjectId,
