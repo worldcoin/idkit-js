@@ -1,40 +1,49 @@
 import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
+import WorldIDIcon from '@/components/WorldIDIcon'
+import LockIcon from '@/components/Icons/LockIcon'
+import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 
 const AboutState = () => {
 	return (
 		<div className="space-y-6">
-			<div className="-mt-6">
-				<p className="text-center text-xl font-semibold text-gray-900 dark:text-white">
-					Proving unique-humanness without compromising privacy.
-				</p>
-				<p className="text-70868f mt-4 text-center">
-					World ID is an identity protocol centered around persons. It can be used to prove someone is doing
-					something once without revealing personal information.
-				</p>
-				<p className="text-70868f mt-3 text-center">
-					It currently supports verification through biometrics (using a device called an Orb). Zero-Knowledge
-					Proofs and other cryptographic mechanisms are used to preserve privacy.
-				</p>
+			<div className="">
+				<div className="mb-12 space-y-6">
+					<div className="flex items-center justify-center">
+						<WorldcoinIcon className="h-8 w-8 text-black dark:text-white" />
+					</div>
+					<div className="space-y-2">
+						<p className="font-sora text-xl font-semibold text-gray-900 dark:text-white">About Worldcoin</p>
+						<p className="text-3c424b mx-auto max-w-xs text-center">
+							Worldcoin is the largest network of real humans, where everyone has a World ID.
+						</p>
+					</div>
+				</div>
 
-				<p className="text-70868f mt-3 text-center">Apps will never see your biometrics.</p>
-			</div>
-			<div>
-				<motion.a
-					layoutId="submit-button"
-					href="https://id.worldcoin.org/"
-					target="_blank"
-					transition={{ layout: { duration: 0.15 } }}
-					className={classNames(
-						'inline-flex w-full justify-center space-x-2 items-center px-8 py-4 border border-transparent font-medium rounded-2xl shadow-sm',
-						'text-gray-500 dark:text-70868f bg-gray-200 dark:bg-29343f hover:bg-gray-300/50 dark:hover:bg-29343f/50',
-						'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 disabled:cursor-not-allowed transition'
-					)}
-				>
-					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="button-text">
-						Learn more
-					</motion.span>
-				</motion.a>
+				<div className="space-y-2">
+					<div className="bg-f9fafb flex space-x-4 rounded-lg p-6">
+						<div className="h-8 w-8 rounded-lg bg-black p-2.5">
+							<WorldIDIcon className="h-3 w-3 text-white" />
+						</div>
+						<div className="space-y-1 text-left">
+							<p className="text-0d151d font-medium">For unique humans</p>
+							<p className="text-657080 text-sm">
+								Anonymously prove you a real human with only one account.
+							</p>
+						</div>
+					</div>
+					<div className="bg-f9fafb flex space-x-4 rounded-lg p-6">
+						<div className="h-8 w-8 rounded-lg bg-black p-2.5">
+							<LockIcon className="h-3 w-3 text-white" />
+						</div>
+						<div className="space-y-1 text-left">
+							<p className="text-0d151d font-medium">Private by design</p>
+							<p className="text-657080 text-sm">
+								Advanced cryptography to guarantee no one can track you across apps.
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	)

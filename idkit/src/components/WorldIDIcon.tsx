@@ -1,32 +1,26 @@
-import { classNames } from '@/lib/utils'
-import verifiedIcon from '@images/verified.webp'
-import type { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
+import type { FC, SVGAttributes } from 'react'
 
-type Props = Omit<
-	DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { border?: string; size?: 'md' | 'sm' },
-	'height' | 'src' | 'width'
->
-
-const WorldIDIcon = ({ border, size = 'sm', ...props }: Props) => {
-	const heightWidth = size === 'md' ? 36 : 24 // NOTE: we enforce sizes because something larger than 48px will not render well (image's native resolution is 96px)
-	return (
-		<>
-			{border && (
-				<svg
-					className={classNames(
-						border,
-						'absolute left-1/2 top-1/2 w-[34px] -mt-[2px] transform -translate-x-1/2 -translate-y-1/2'
-					)}
-					xmlns="http://www.w3.org/2000/svg"
-					fill="currentColor"
-					viewBox="0 0 26 26"
-				>
-					<path d="M8.382 2.244a6.938 6.938 0 0 1 9.236 0l1.626 1.451c.346.308.722.581 1.122.815l1.882 1.098a6.937 6.937 0 0 1 2.854 8.784l-.877 1.995c-.187.424-.33.866-.428 1.319l-.463 2.129a6.938 6.938 0 0 1-7.473 5.429l-2.168-.218a6.934 6.934 0 0 0-1.386 0l-2.168.218a6.938 6.938 0 0 1-7.473-5.429l-.463-2.13a6.937 6.937 0 0 0-.428-1.318l-.877-1.995a6.938 6.938 0 0 1 2.854-8.784L5.634 4.51c.4-.234.776-.507 1.122-.815l1.626-1.45Z" />
-				</svg>
-			)}
-			<img src={verifiedIcon as string} {...props} alt="Verified" width={heightWidth} height={heightWidth} />
-		</>
-	)
-}
+const WorldIDIcon: FC<SVGAttributes<SVGElement>> = props => (
+	<svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 13 12">
+		<path
+			stroke="currentColor"
+			strokeLinecap="round"
+			strokeMiterlimit="10"
+			strokeWidth="2.145"
+			d="M10.876 3.785 7.274 7.22a1.784 1.784 0 0 1-2.433 0L1.238 3.788"
+		/>
+		<path
+			stroke="currentColor"
+			strokeLinecap="round"
+			strokeMiterlimit="10"
+			strokeWidth="2.145"
+			d="M6.055 10.88V9.136c0-.487.203-.954.564-1.297l4.225-4.027m-4.816 7.064V9.134c0-.487-.204-.954-.564-1.297l-4.226-4.03"
+		/>
+		<path
+			fill="currentColor"
+			d="M6.057 3.955c1.145 0 2.073-.884 2.073-1.975C8.13.888 7.202.004 6.057.004S3.984.888 3.984 1.98c0 1.09.928 1.975 2.073 1.975Z"
+		/>
+	</svg>
+)
 
 export default WorldIDIcon

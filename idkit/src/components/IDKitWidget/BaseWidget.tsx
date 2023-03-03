@@ -3,6 +3,7 @@ import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useMedia from '@/hooks/useMedia'
+import LockIcon from '../Icons/LockIcon'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
 import XMarkIcon from '../Icons/XMarkIcon'
@@ -21,6 +22,7 @@ import type { WidgetProps } from '@/types/config'
 import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import { AnimatePresence, motion } from 'framer-motion'
+import QuestionMarkIcon from '../Icons/QuestionMarkIcon'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
@@ -163,20 +165,25 @@ const IDKitWidget: FC<WidgetProps> = ({
 												>
 													<Toast.Provider>
 														<Toast.Viewport className="flex justify-center" />
-														<div className="mx-6 mb-12 flex items-center justify-between">
+														<div className="mx-6 flex items-center justify-between">
 															<button
-																onClick={() => setStage(IDKITStage.WORLD_ID)}
-																disabled={!canGoBack}
+																onClick={() =>
+																	setStage(
+																		stage == IDKITStage.WORLD_ID
+																			? IDKITStage.ABOUT
+																			: IDKITStage.WORLD_ID
+																	)
+																}
 																className={classNames(
-																	!canGoBack && 'invisible pointer-events-none',
 																	'dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white'
 																)}
 															>
-																<ArrowLongLeftIcon className="w-4" />
+																{stage == IDKITStage.WORLD_ID ? (
+																	<QuestionMarkIcon className="h-4" />
+																) : (
+																	<ArrowLongLeftIcon className="w-4" />
+																)}
 															</button>
-															<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
-																{stage != IDKITStage.ABOUT && getCopy(_copy, 'title')}
-															</Dialog.Title>
 															<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
 																<XMarkIcon className="h-5 w-5" />
 															</Dialog.Close>
@@ -205,21 +212,15 @@ const IDKitWidget: FC<WidgetProps> = ({
 																)}
 															</AnimatePresence>
 														</div>
-														<div className="flex items-center justify-between py-3 px-5 md:rounded-b-3xl">
-															<p className="text-9eafc0 flex items-center gap-1 text-sm">
-																<span>Verified with</span>
-																<a
-																	href="https://id.worldcoin.org"
-																	target="_blank"
-																	rel="noreferrer"
-																>
-																	<WorldIDWordmark className="text-0d151d h-4 dark:text-white" />
-																</a>
+														<div className="flex items-center justify-between py-5 px-6 md:rounded-b-3xl">
+															<p className="text-9ba3ae flex items-center gap-1 text-sm">
+																<LockIcon className="h-3 w-3" />
+																<span>Secured by World ID</span>
 															</p>
 															{stage != IDKITStage.PRIVACY ? (
 																<button
 																	onClick={() => setStage(IDKITStage.PRIVACY)}
-																	className="text-9eafc0 text-sm hover:underline"
+																	className="text-9ba3ae text-sm hover:underline"
 																>
 																	Privacy
 																</button>

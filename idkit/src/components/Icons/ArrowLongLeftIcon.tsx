@@ -3,13 +3,13 @@ import type { FC, HTMLAttributes } from 'react'
 const ArrowLongLeftIcon: FC<HTMLAttributes<SVGElement>> = props => (
 	<svg
 		{...props}
-		fill="none"
-		strokeWidth={1.5}
-		viewBox="0 0 24 24"
-		stroke="currentColor"
+		fillRule="evenodd"
+		clipRule="evenodd"
+		fill="currentColor"
+		viewBox="0 0 14 10"
 		xmlns="http://www.w3.org/2000/svg"
 	>
-		<path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+		<path d="M.47 4.47a.75.75 0 0 0 0 1.06l4 4a.75.75 0 0 0 1.06-1.06L2.81 5.75H13a.75.75 0 0 0 0-1.5H2.81l2.72-2.72A.75.75 0 0 0 4.47.47l-4 4Z" />
 	</svg>
 )
 

@@ -10,6 +10,7 @@ import type { IDKitStore } from '@/store/idkit'
 import AboutWorldID from '@/components/AboutWorldID'
 import useAppConnection from '@/services/walletconnect'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
+import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
@@ -23,7 +24,6 @@ const getOptions = (store: IDKitStore) => ({
 })
 
 const WorldIDState = () => {
-	const media = useMedia()
 	const [showQR, setShowQR] = useState<boolean>(false)
 	const { copy, app_id, action, signal, setStage, handleVerify, action_description, walletConnectProjectId } =
 		useIDKitStore(getOptions, shallow)
@@ -47,20 +47,14 @@ const WorldIDState = () => {
 	}, [result, reset, handleVerify, verificationState, setStage])
 
 	return (
-		<div className="-mt-6 space-y-6">
-			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
-					{verificationState === VerificationState.AwaitingVerification
-						? 'Confirm on the Worldcoin app'
-						: getCopy(copy, 'heading')}
-				</p>
-				<p className="text-70868f dark:text-9eafc0 mt-3 text-center md:mt-2">
-					{verificationState === VerificationState.AwaitingVerification
-						? 'Please confirm the request inside the Worldcoin app to continue.'
-						: getCopy(copy, 'subheading')}
-				</p>
-			</div>
+		<div className="flex flex-col items-center space-y-6">
+			<WorldcoinIcon className="h-8 w-8 text-black dark:text-white" />
+			<p className="font-sora text-center text-2xl font-semibold text-gray-900 dark:text-white">
+				{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+				{verificationState === VerificationState.AwaitingVerification
+					? 'Confirm on the Worldcoin app'
+					: getCopy(copy, 'heading')}
+			</p>
 			{verificationState === VerificationState.AwaitingVerification ? (
 				<div className="flex items-center justify-center">
 					<LoadingIcon className="h-20 w-20" />
@@ -68,7 +62,6 @@ const WorldIDState = () => {
 			) : (
 				<QRState showQR={showQR} setShowQR={setShowQR} qrData={qrData} />
 			)}
-			{(media == 'desktop' || !showQR) && <AboutWorldID />}
 		</div>
 	)
 }
