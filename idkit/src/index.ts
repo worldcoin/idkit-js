@@ -1,5 +1,5 @@
-import { CredentialType } from '@/types'
 import useIDKit from './hooks/useIDKit'
+import { CredentialType } from '@/types'
 import QRCode from './components/QRCode'
 import type { ISuccessResult } from '@/types'
 import { solidityEncode } from './lib/hashing'
