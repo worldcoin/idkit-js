@@ -12,6 +12,12 @@ function App() {
 		console.log(result);
 	};
 
+	const urlParams = new URLSearchParams(window.location.search);
+	const credential_types = (urlParams.get("credential_types")?.split(",") as CredentialType[]) ?? [
+		CredentialType.Orb,
+		CredentialType.Phone,
+	];
+
 	return (
 		<div
 			className="App"
@@ -23,7 +29,7 @@ function App() {
 				onSuccess={onSuccess}
 				handleVerify={handleProof}
 				app_id="wid_staging_1234"
-				credential_types={[CredentialType.Phone, CredentialType.Orb]}
+				credential_types={credential_types}
 				// walletConnectProjectId="get_this_from_walletconnect_portal"
 			>
 				{({ open }) => <button onClick={open}>Click me</button>}
