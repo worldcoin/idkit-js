@@ -8,8 +8,6 @@ const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, error
 
 export const ERROR_TITLES: Record<ErrorCodes, string> = {
 	[ErrorCodes.GENERIC_ERROR]: 'Something went wrong',
-	[ErrorCodes.INVALID_CODE]: 'Invalid code',
-	[ErrorCodes.PHONE_OTP_REQUEST_ERROR]: 'We could not send you a code',
 	[ErrorCodes.REJECTED_BY_HOST_APP]: 'Verification declined by app',
 }
 

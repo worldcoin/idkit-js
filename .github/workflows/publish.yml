@@ -1,0 +1,32 @@
+name: Publish Package to NPM
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Set up Node 18
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: "yarn"
+                  registry-url: "https://registry.npmjs.org"
+
+            - name: Install dependencies
+              run: yarn --frozen-lockfile
+
+            - name: Build
+              working-directory: idkit
+              run: |
+                  yarn build
+
+            - name: Publish
+              run: npm publish
+              working-directory: idkit
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

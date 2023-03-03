@@ -1,0 +1,39 @@
+name: New release
+
+on:
+    workflow_dispatch:
+        inputs:
+            bump-level:
+                description: "Version level to be bumped"
+                required: true
+                default: bug
+                type: choice
+                options:
+                    - bug
+                    - feature
+                    - major
+
+jobs:
+    release:
+        name: Release
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: get-npm-version
+              id: package_version
+              uses: martinbeentjes/npm-get-version-action@main
+              with:
+                  path: idkit
+
+            - name: Bump release version
+              uses: christian-draeger/increment-semantic-version@1.1.0
+              id: bump_version
+              with:
+                  current-version: ${{ steps.package_version.outputs.current-version }}
+                  version-fragment: ${{ github.event.inputs.bump-level }}
+
+            - uses: google-github-actions/release-please-action@v3
+              with:
+                  command: manifest
+                  release-as: ${{ steps.bump_version.outputs.next-version }}
