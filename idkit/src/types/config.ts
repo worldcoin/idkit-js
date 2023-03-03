@@ -1,4 +1,4 @@
-import type { CallbackFn, AbiEncodedValue } from '.'
+import type { CallbackFn, AbiEncodedValue, CredentialType } from '.'
 
 export enum ConfigSource {
 	HOOK = 'hook',
@@ -12,6 +12,7 @@ export type IDKitConfig = {
 	walletConnectProjectId?: string
 	signal?: AbiEncodedValue | string
 	action?: AbiEncodedValue | string
+	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
 }
 
 export type WidgetConfig = {

@@ -14,6 +14,7 @@ export enum IDKITStage {
 
 export enum CredentialType {
 	Orb = 'orb',
+	Phone = 'phone',
 }
 
 export interface ISuccessResult {

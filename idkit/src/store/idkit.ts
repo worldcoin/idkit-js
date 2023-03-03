@@ -10,6 +10,7 @@ export type IDKitStore = {
 	signal: IDKitConfig['signal']
 	action_description?: IDKitConfig['action_description']
 	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
+	credential_types?: IDKitConfig['credential_types']
 
 	code: string
 	open: boolean
@@ -45,6 +46,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	action: '',
 	action_description: '',
 	walletConnectProjectId: '',
+	credential_types: [],
 
 	open: false,
 	code: '',
@@ -57,8 +59,6 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	processing: false,
 	verifyCallbacks: {},
 	successCallbacks: {},
-	stringifiedActionId: '',
-	methods: ['orb'],
 	stage: IDKITStage.WORLD_ID,
 	copy: {},
 
@@ -101,6 +101,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			signal,
 			action,
 			app_id,
+			credential_types,
 			action_description,
 			walletConnectProjectId,
 			autoClose,
@@ -114,6 +115,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			signal,
 			action,
 			app_id,
+			credential_types,
 			autoClose,
 			action_description,
 			walletConnectProjectId,

@@ -58,6 +58,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 	onSuccess,
 	autoClose,
 	copy,
+	credential_types,
 }) => {
 	const {
 		isOpen,
@@ -85,6 +86,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 				autoClose,
 				copy,
 				theme,
+				credential_types,
 			},
 			ConfigSource.PROPS
 		)
@@ -100,6 +102,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 		handleVerify,
 		action_description,
 		walletConnectProjectId,
+		credential_types,
 	])
 
 	const StageContent = useMemo(() => {

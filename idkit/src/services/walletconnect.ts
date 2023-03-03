@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { useEffect } from 'react'
 import { buildQRData } from '@/lib/qr'
+import { CredentialType } from '@/types'
 import { randomNumber } from '@/lib/utils'
 import { WC_PROJECT_ID } from '@/lib/consts'
 import Client from '@walletconnect/sign-client'
@@ -31,6 +32,7 @@ type WalletConnectStore = {
 		app_id: IDKitConfig['app_id'],
 		action: IDKitConfig['action'],
 		signal: IDKitConfig['signal'],
+		credential_types?: IDKitConfig['credential_types'],
 		action_description?: IDKitConfig['action_description'],
 		walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
 	) => Promise<void>
@@ -60,10 +62,11 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		app_id: IDKitConfig['app_id'],
 		action: IDKitConfig['action'],
 		signal?: IDKitConfig['signal'],
+		credential_types?: IDKitConfig['credential_types'],
 		action_description?: IDKitConfig['action_description'],
 		walletConnectProjectId = WC_PROJECT_ID
 	) => {
-		set({ config: { app_id, action, signal, action_description, walletConnectProjectId } })
+		set({ config: { app_id, action, signal, action_description, walletConnectProjectId, credential_types } })
 
 		try {
 			const client = await Client.init({
@@ -71,7 +74,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				metadata: {
 					name: 'IDKit',
 					description: 'Verify with World ID',
-					url: '#',
+					url: 'https://worldcoin.org',
 					icons: ['https://worldcoin.org/icons/logo-small.svg'],
 				},
 			})
@@ -118,6 +121,9 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 	// eslint-disable-next-line @typescript-eslint/no-misused-promises
 	onConnectionEstablished: async (client: Client) => {
 		set({ verificationState: VerificationState.AwaitingVerification })
+
+		console.log(get().config?.credential_types)
+		console.log(buildVerificationRequest(get().config!))
 
 		await client
 			.request({
@@ -173,6 +179,7 @@ const buildVerificationRequest = (config: IDKitConfig) => ({
 			signal: generateSignal(config.signal).digest,
 			action_description: config.action_description,
 			external_nullifier: generateExternalNullifier(config.app_id, config.action).digest,
+			credential_types: config.credential_types?.length ? config.credential_types : [CredentialType.Orb],
 		},
 	],
 })
@@ -218,6 +225,7 @@ const useAppConnection = (
 	app_id: IDKitConfig['app_id'],
 	action: IDKitConfig['action'],
 	signal?: IDKitConfig['signal'],
+	credential_types?: IDKitConfig['credential_types'],
 	action_description?: IDKitConfig['action_description'],
 	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
 ): UseAppConnectionResponse => {
@@ -227,9 +235,19 @@ const useAppConnection = (
 	useEffect(() => {
 		if (!app_id) return
 		if (!client) {
-			void createClient(app_id, action, signal, action_description, walletConnectProjectId)
+			void createClient(app_id, action, signal, credential_types, action_description, walletConnectProjectId)
 		}
-	}, [app_id, action, signal, walletConnectProjectId, action_description, client, createClient, verificationState])
+	}, [
+		app_id,
+		action,
+		signal,
+		walletConnectProjectId,
+		action_description,
+		credential_types,
+		client,
+		createClient,
+		verificationState,
+	])
 
 	return { result, reset, verificationState, errorCode, qrData }
 }
