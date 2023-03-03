@@ -1,4 +1,4 @@
-import { IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
+import { CredentialType, IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
 
 function App() {
 	const handleProof = (result: ISuccessResult) => {
@@ -23,6 +23,7 @@ function App() {
 				onSuccess={onSuccess}
 				handleVerify={handleProof}
 				app_id="wid_staging_1234"
+				credential_types={[CredentialType.Phone, CredentialType.Orb]}
 				// walletConnectProjectId="get_this_from_walletconnect_portal"
 			>
 				{({ open }) => <button onClick={open}>Click me</button>}
