@@ -1,10 +1,10 @@
-import WorldIDIcon from '@/components/WorldIDIcon'
 import InfoIcon from '@/components/Icons/InfoIcon'
+import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 
 const PrivacyState = () => {
 	return (
-		<div className="-mt-6 flex flex-col items-center justify-center space-y-6">
-			<WorldIDIcon className="h-12 w-12" />
+		<div className="flex flex-col items-center justify-center space-y-6">
+			<WorldcoinIcon className="h-8 w-8" />
 			<p className="text-center text-2xl font-semibold dark:text-white">
 				IDKit and World ID are fully privacy preserving.
 			</p>

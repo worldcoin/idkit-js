@@ -55,12 +55,25 @@ const WorldIDState = () => {
 					? 'Confirm on the Worldcoin app'
 					: getCopy(copy, 'heading')}
 			</p>
-			{verificationState === VerificationState.AwaitingVerification ? (
+			{!qrData || verificationState === VerificationState.AwaitingVerification ? (
 				<div className="flex items-center justify-center">
 					<LoadingIcon className="h-20 w-20" />
 				</div>
 			) : (
-				<QRState showQR={showQR} setShowQR={setShowQR} qrData={qrData} />
+				<div className="space-y-6">
+					<QRState showQR={showQR} setShowQR={setShowQR} qrData={qrData} />
+					<a
+						target="_blank"
+						rel="noreferrer"
+						href={qrData.mobile}
+						className="flex items-center justify-center space-x-2"
+					>
+						<div className="flex h-6 w-6 items-center justify-center rounded-lg bg-black">
+							<WorldcoinIcon className="h-3 w-3 text-white" />
+						</div>
+						<span className="text-191c20">Scan with World App</span>
+					</a>
+				</div>
 			)}
 		</div>
 	)
