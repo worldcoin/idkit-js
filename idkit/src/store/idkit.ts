@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { ErrorCodes, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
+import { CredentialType, ErrorCodes, IDKITStage } from '@/types'
 import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
 import type { Config, ConfigSource, IDKitConfig } from '@/types/config'
 
@@ -10,6 +10,7 @@ export type IDKitStore = {
 	signal: IDKitConfig['signal']
 	action_description?: IDKitConfig['action_description']
 	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
+	credential_types?: IDKitConfig['credential_types']
 
 	code: string
 	open: boolean
@@ -45,6 +46,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	action: '',
 	action_description: '',
 	walletConnectProjectId: '',
+	credential_types: [],
 
 	open: false,
 	code: '',
@@ -57,8 +59,6 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	processing: false,
 	verifyCallbacks: {},
 	successCallbacks: {},
-	stringifiedActionId: '',
-	methods: ['orb'],
 	stage: IDKITStage.WORLD_ID,
 	copy: {},
 
@@ -101,6 +101,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			signal,
 			action,
 			app_id,
+			credential_types,
 			action_description,
 			walletConnectProjectId,
 			autoClose,
@@ -109,11 +110,16 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		}: Config,
 		source: ConfigSource
 	) => {
+		const sanitized_credential_types = credential_types?.filter(type =>
+			Object.values(CredentialType).includes(type)
+		)
+
 		set(store => ({
 			theme,
 			signal,
 			action,
 			app_id,
+			credential_types: sanitized_credential_types,
 			autoClose,
 			action_description,
 			walletConnectProjectId,

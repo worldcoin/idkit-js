@@ -1,4 +1,4 @@
-import type { CallbackFn, AbiEncodedValue } from '.'
+import type { CallbackFn, AbiEncodedValue, CredentialType } from '.'
 
 export enum ConfigSource {
 	HOOK = 'hook',
@@ -12,6 +12,7 @@ export type IDKitConfig = {
 	walletConnectProjectId?: string
 	signal?: AbiEncodedValue | string
 	action?: AbiEncodedValue | string
+	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
 }
 
 export type WidgetConfig = {
@@ -37,6 +38,6 @@ export type WidgetProps = Config & {
 export const DEFAULT_COPY = {
 	title: 'World ID',
 	heading: 'Verify your identity',
-	subheading: "Unlock additional benefits by verifying you're a unique human doing this action once.",
-	success: 'Your phone number has been verified',
+	subheading: "Unlock additional benefits by verifying you're doing this only once.",
+	success: 'You have been verified!',
 } as const

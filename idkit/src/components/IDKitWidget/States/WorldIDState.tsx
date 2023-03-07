@@ -16,6 +16,7 @@ const getOptions = (store: IDKitStore) => ({
 	copy: store.copy,
 	app_id: store.app_id,
 	action: store.action,
+	credential_types: store.credential_types,
 	action_description: store.action_description,
 	walletConnectProjectId: store.walletConnectProjectId,
 	handleVerify: store.handleVerify,
@@ -25,13 +26,23 @@ const getOptions = (store: IDKitStore) => ({
 const WorldIDState = () => {
 	const media = useMedia()
 	const [showQR, setShowQR] = useState<boolean>(false)
-	const { copy, app_id, action, signal, setStage, handleVerify, action_description, walletConnectProjectId } =
-		useIDKitStore(getOptions, shallow)
+	const {
+		copy,
+		app_id,
+		action,
+		signal,
+		setStage,
+		handleVerify,
+		action_description,
+		walletConnectProjectId,
+		credential_types,
+	} = useIDKitStore(getOptions, shallow)
 
 	const { result, qrData, verificationState, reset } = useAppConnection(
 		app_id,
 		action,
 		signal,
+		credential_types,
 		action_description,
 		walletConnectProjectId
 	)
