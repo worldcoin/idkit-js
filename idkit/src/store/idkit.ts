@@ -110,13 +110,9 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		}: Config,
 		source: ConfigSource
 	) => {
-		const sanitized_credential_types = credential_types?.filter(type => {
-			const isValid = Object.values(CredentialType).includes(type)
-			if (!isValid) {
-				console.warn(`Ignoring invalid credential type received: \`${type}\`.`)
-			}
-			return isValid
-		})
+		const sanitized_credential_types = credential_types?.filter(type =>
+			Object.values(CredentialType).includes(type)
+		)
 
 		set(store => ({
 			theme,

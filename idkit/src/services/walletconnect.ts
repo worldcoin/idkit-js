@@ -66,7 +66,20 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		action_description?: IDKitConfig['action_description'],
 		walletConnectProjectId = WC_PROJECT_ID
 	) => {
-		set({ config: { app_id, action, signal, action_description, walletConnectProjectId, credential_types } })
+		if (credential_types && !credential_types.length) {
+			console.warn('Cannot set empty `credential_types`. Defaulting to only Orb credential.')
+		}
+
+		set({
+			config: {
+				app_id,
+				action,
+				signal,
+				action_description,
+				walletConnectProjectId,
+				credential_types: credential_types?.length ? credential_types : [CredentialType.Orb],
+			},
+		})
 
 		try {
 			const client = await Client.init({
@@ -176,7 +189,7 @@ const buildVerificationRequest = (config: IDKitConfig) => ({
 			signal: generateSignal(config.signal).digest,
 			action_description: config.action_description,
 			external_nullifier: generateExternalNullifier(config.app_id, config.action).digest,
-			credential_types: config.credential_types?.length ? config.credential_types : [CredentialType.Orb],
+			credential_types: config.credential_types,
 		},
 	],
 })
