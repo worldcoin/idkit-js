@@ -1,15 +1,30 @@
 {
-  "packages": {
-    "idkit": {
-      "package-name": "idkit",
-      "component": "idkit",
-      "changelog-path": "idkit/CHANGELOG.md",
-      "release-type": "node",
-      "bump-minor-pre-major": false,
-      "bump-patch-for-minor-pre-major": false,
-      "draft": false,
-      "prerelease": false
-    }
-  },
-  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
+	"bootstrap-sha": "61ca0dedc321107141753dae699025d41b65ff90",
+	"packages": {
+		".": {
+			"component": "root",
+			"extra-files": [
+				{
+					"type": "json",
+					"path": "example-react/package.json",
+					"jsonpath": "$.version"
+				},
+				{
+					"type": "json",
+					"path": "example-nextjs/package.json",
+					"jsonpath": "$.version"
+				}
+			]
+		},
+		"idkit": {
+			"package-name": "idkit",
+			"component": "idkit",
+			"release-type": "node",
+			"bump-minor-pre-major": false,
+			"bump-patch-for-minor-pre-major": false,
+			"draft": false,
+			"prerelease": false
+		}
+	},
+	"$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
 }
