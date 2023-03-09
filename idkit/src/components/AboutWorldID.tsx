@@ -13,10 +13,10 @@ const AboutWorldID: FC<Props> = ({ className }) => {
 			<p className="text-0d151d text-sm font-medium uppercase dark:text-white">What is World ID?</p>
 			<div className="space-y-3">
 				<FeatureHighlight title="Your global digital ID" icon={HumanIcon}>
-					<p>Seamlessly sign in and prove you are a unique human.</p>
+					<p>With Worldcoin and World ID sign in seamlessly and prove you are a unique human.</p>
 				</FeatureHighlight>
 				<FeatureHighlight title="Privacy-preserving" icon={LockIcon}>
-					<p>Maximum privacy. Can be used fully anonymously thanks to the advanced cryptography.</p>
+					<p>Maximum privacy. Prevents cross-tracking and can be used fully anonymously.</p>
 				</FeatureHighlight>
 			</div>
 		</div>

@@ -229,7 +229,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 																<a
 																	target="_blank"
 																	href="https://docs.worldcoin.org/privacy"
-																	className="text-9eafc0 dark:text-9eafc0 text-sm"
+																	className="text-9eafc0 dark:text-9eafc0 text-sm hover:underline"
 																	rel="noreferrer"
 																>
 																	Learn More &rarr;
