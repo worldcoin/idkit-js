@@ -9,6 +9,7 @@ import type { IDKitStore } from '@/store/idkit'
 import AboutWorldID from '@/components/AboutWorldID'
 import useAppConnection from '@/services/walletconnect'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
+import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
@@ -58,6 +59,9 @@ const WorldIDState = () => {
 	return (
 		<div className="-mt-6 space-y-6">
 			<div>
+				<div className="mb-2 flex items-center justify-center">
+					<WorldcoinIcon className="text-0d151d h-8 dark:text-white" />
+				</div>
 				<p className="font-sora text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{verificationState === VerificationState.AwaitingVerification
