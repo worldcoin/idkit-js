@@ -21,6 +21,7 @@ import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import { AnimatePresence, motion } from 'framer-motion'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
+import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({
@@ -173,6 +174,11 @@ const IDKitWidget: FC<WidgetProps> = ({
 															>
 																<ArrowLongLeftIcon className="w-4" />
 															</button>
+
+															<div className="flex items-center justify-center">
+																<WorldcoinIcon className="text-0d151d h-8 dark:text-white" />
+															</div>
+
 															<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
 																<XMarkIcon className="h-5 w-5" />
 															</Dialog.Close>
@@ -205,7 +211,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 															<p className="text-9eafc0 flex items-center gap-1 text-sm">
 																<span>Verified with</span>
 																<a
-																	href="https://id.worldcoin.org"
+																	href="https://worldcoin.org/world-id"
 																	target="_blank"
 																	rel="noreferrer"
 																>
@@ -222,8 +228,8 @@ const IDKitWidget: FC<WidgetProps> = ({
 															) : (
 																<a
 																	target="_blank"
-																	href="https://id.worldcoin.org/privacy"
-																	className="text-0d151d dark:text-9eafc0 text-sm"
+																	href="https://docs.worldcoin.org/privacy"
+																	className="text-9eafc0 dark:text-9eafc0 text-sm"
 																	rel="noreferrer"
 																>
 																	Learn More &rarr;

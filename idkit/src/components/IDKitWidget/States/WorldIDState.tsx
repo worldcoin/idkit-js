@@ -1,5 +1,4 @@
 import { IDKITStage } from '@/types'
-import { getCopy } from '@/lib/utils'
 import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
 import useIDKitStore from '@/store/idkit'
@@ -59,7 +58,7 @@ const WorldIDState = () => {
 	return (
 		<div className="-mt-6 space-y-6">
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
+				<p className="font-sora text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{verificationState === VerificationState.AwaitingVerification
 						? 'Confirm in World App'
@@ -78,7 +77,9 @@ const WorldIDState = () => {
 			) : (
 				<QRState showQR={showQR} setShowQR={setShowQR} qrData={qrData} />
 			)}
-			{(media == 'desktop' || !showQR) && <AboutWorldID />}
+			{(media == 'desktop' || !showQR) &&
+				(verificationState === VerificationState.AwaitingConnection ||
+					verificationState === VerificationState.LoadingWidget) && <AboutWorldID />}
 		</div>
 	)
 }
