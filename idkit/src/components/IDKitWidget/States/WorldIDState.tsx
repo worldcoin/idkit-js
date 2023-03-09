@@ -27,7 +27,6 @@ const WorldIDState = () => {
 	const media = useMedia()
 	const [showQR, setShowQR] = useState<boolean>(false)
 	const {
-		copy,
 		app_id,
 		action,
 		signal,
@@ -63,14 +62,14 @@ const WorldIDState = () => {
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{verificationState === VerificationState.AwaitingVerification
-						? 'Confirm on the Worldcoin app'
-						: getCopy(copy, 'heading')}
+						? 'Confirm in World App'
+						: 'Continue with Worldcoin'}
 				</p>
-				<p className="text-70868f dark:text-9eafc0 mt-3 text-center md:mt-2">
-					{verificationState === VerificationState.AwaitingVerification
-						? 'Please confirm the request inside the Worldcoin app to continue.'
-						: getCopy(copy, 'subheading')}
-				</p>
+				{verificationState === VerificationState.AwaitingVerification && (
+					<p className="text-70868f dark:text-9eafc0 mt-3 text-center md:mt-2">
+						Please confirm the request in your app to continue.
+					</p>
+				)}
 			</div>
 			{verificationState === VerificationState.AwaitingVerification ? (
 				<div className="flex items-center justify-center">

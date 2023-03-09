@@ -3,10 +3,10 @@ import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import Styles from '@build/index.css'
 import useMedia from '@/hooks/useMedia'
+import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
 import XMarkIcon from '../Icons/XMarkIcon'
-import AboutState from './States/AboutState'
 import ErrorState from './States/ErrorState'
 import { ConfigSource } from '@/types/config'
 import LoadingIcon from '../Icons/LoadingIcon'
@@ -16,7 +16,6 @@ import PrivacyState from './States/PrivacyState'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
-import { classNames, getCopy } from '@/lib/utils'
 import type { WidgetProps } from '@/types/config'
 import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
@@ -68,7 +67,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 		setStage,
 		canGoBack,
 		setOptions,
-		copy: _copy,
 		theme: _theme,
 	} = useIDKitStore(getParams, shallow)
 	const media = useMedia()
@@ -113,8 +111,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 				return SuccessState
 			case IDKITStage.ERROR:
 				return ErrorState
-			case IDKITStage.ABOUT:
-				return AboutState
 			case IDKITStage.PRIVACY:
 				return PrivacyState
 			case IDKITStage.HOST_APP_VERIFICATION:
@@ -161,7 +157,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 													}}
 													transition={{ layout: { duration: 0.15 } }}
 													className={
-														'dark:bg-0d151d relative z-50 w-full rounded-t-3xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 md:max-w-md md:rounded-b-3xl'
+														'dark:bg-0d151d relative z-50 w-full rounded-t-2xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 md:max-w-md md:rounded-b-2xl'
 													}
 												>
 													<Toast.Provider>
@@ -177,9 +173,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 															>
 																<ArrowLongLeftIcon className="w-4" />
 															</button>
-															<Dialog.Title className="dark:text-d3dfea font-medium text-gray-900">
-																{stage != IDKITStage.ABOUT && getCopy(_copy, 'title')}
-															</Dialog.Title>
 															<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
 																<XMarkIcon className="h-5 w-5" />
 															</Dialog.Close>
@@ -208,7 +201,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 																)}
 															</AnimatePresence>
 														</div>
-														<div className="flex items-center justify-between py-3 px-5 md:rounded-b-3xl">
+														<div className="flex items-center justify-between py-3 px-5 md:rounded-b-2xl">
 															<p className="text-9eafc0 flex items-center gap-1 text-sm">
 																<span>Verified with</span>
 																<a

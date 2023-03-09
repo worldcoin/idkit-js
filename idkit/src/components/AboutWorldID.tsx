@@ -12,12 +12,11 @@ const AboutWorldID: FC<Props> = ({ className }) => {
 		<div className={classNames(className, 'space-y-4 text-left')}>
 			<p className="text-0d151d text-sm font-medium uppercase dark:text-white">What is World ID?</p>
 			<div className="space-y-3">
-				<FeatureHighlight title="Proving unique-humanness" icon={HumanIcon}>
-					<p>Human is doing an action only once.</p>
-					<p>Stop bots, stop abouse.</p>
+				<FeatureHighlight title="Your global digital ID" icon={HumanIcon}>
+					<p>Seamlessly sign in and prove you are a unique human.</p>
 				</FeatureHighlight>
-				<FeatureHighlight title="Completely private" icon={LockIcon}>
-					<p>Using Zero-knowledge proofs so no traceable information is ever public.</p>
+				<FeatureHighlight title="Privacy-preserving" icon={LockIcon}>
+					<p>Maximum privacy. Can be used fully anonymously thanks to the advanced cryptography.</p>
 				</FeatureHighlight>
 			</div>
 		</div>
