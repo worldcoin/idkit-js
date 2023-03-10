@@ -18,17 +18,20 @@ function App() {
 		CredentialType.Phone,
 	];
 
+	const action = urlParams.get("action") ?? "my_action";
+	const app_id = urlParams.get("app_id") ?? "wid_staging_1234";
+
 	return (
 		<div
 			className="App"
 			style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
 		>
 			<IDKitWidget
-				action="my_action"
+				action={action}
 				signal="my_signal"
 				onSuccess={onSuccess}
 				handleVerify={handleProof}
-				app_id="wid_staging_1234"
+				app_id={app_id}
 				credential_types={credential_types}
 				// walletConnectProjectId="get_this_from_walletconnect_portal"
 			>
