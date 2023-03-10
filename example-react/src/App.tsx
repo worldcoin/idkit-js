@@ -18,7 +18,7 @@ function App() {
 		CredentialType.Phone,
 	];
 
-	const action = urlParams.get("action") ?? "my_action";
+	const action = urlParams.get("action") ?? "";
 	const app_id = urlParams.get("app_id") ?? "wid_staging_1234";
 
 	return (
