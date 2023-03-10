@@ -1,5 +1,4 @@
 import { IDKITStage } from '@/types'
-import { getCopy } from '@/lib/utils'
 import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
 import useIDKitStore from '@/store/idkit'
@@ -10,6 +9,7 @@ import type { IDKitStore } from '@/store/idkit'
 import AboutWorldID from '@/components/AboutWorldID'
 import useAppConnection from '@/services/walletconnect'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
+import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
@@ -27,7 +27,6 @@ const WorldIDState = () => {
 	const media = useMedia()
 	const [showQR, setShowQR] = useState<boolean>(false)
 	const {
-		copy,
 		app_id,
 		action,
 		signal,
@@ -60,17 +59,20 @@ const WorldIDState = () => {
 	return (
 		<div className="-mt-6 space-y-6">
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
+				<div className="mb-2 flex items-center justify-center">
+					<WorldcoinIcon className="text-0d151d h-8 dark:text-white" />
+				</div>
+				<p className="font-sora text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{verificationState === VerificationState.AwaitingVerification
-						? 'Confirm on the Worldcoin app'
-						: getCopy(copy, 'heading')}
+						? 'Confirm in World App'
+						: 'Continue with Worldcoin'}
 				</p>
-				<p className="text-70868f dark:text-9eafc0 mt-3 text-center md:mt-2">
-					{verificationState === VerificationState.AwaitingVerification
-						? 'Please confirm the request inside the Worldcoin app to continue.'
-						: getCopy(copy, 'subheading')}
-				</p>
+				{verificationState === VerificationState.AwaitingVerification && (
+					<p className="text-70868f dark:text-9eafc0 mt-3 text-center md:mt-2">
+						Please confirm the request in your app to continue.
+					</p>
+				)}
 			</div>
 			{verificationState === VerificationState.AwaitingVerification ? (
 				<div className="flex items-center justify-center">
@@ -79,7 +81,9 @@ const WorldIDState = () => {
 			) : (
 				<QRState showQR={showQR} setShowQR={setShowQR} qrData={qrData} />
 			)}
-			{(media == 'desktop' || !showQR) && <AboutWorldID />}
+			{(media == 'desktop' || !showQR) &&
+				(verificationState === VerificationState.AwaitingConnection ||
+					verificationState === VerificationState.LoadingWidget) && <AboutWorldID />}
 		</div>
 	)
 }

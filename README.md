@@ -93,4 +93,4 @@ This is a new SDK, integrating v2 of the World ID protocol. If you want to find 
 
 <!-- WORLD-ID-SHARED-README-TAG:END -->
 
-[docs]: https://id.worldcoin.org/docs/js
+[docs]: https://docs.worldcoin.org/js

@@ -55,6 +55,7 @@ module.exports = {
 				'gradient-conic': 'conic-gradient(var(--tw-gradient-stops))',
 			},
 			fontFamily: {
+				sora: ['Sora', ...defaultTheme.fontFamily.sans],
 				sans: ['Rubik', ...defaultTheme.fontFamily.sans],
 			},
 			data: {
