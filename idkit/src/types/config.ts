@@ -34,10 +34,3 @@ export type Config = IDKitConfig & Required<Pick<IDKitConfig, 'action'>> & Widge
 export type WidgetProps = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
 }
-
-export const DEFAULT_COPY = {
-	title: 'World ID',
-	heading: 'Verify your identity',
-	subheading: "Unlock additional benefits by verifying you're doing this only once.",
-	success: 'You have been verified!',
-} as const
