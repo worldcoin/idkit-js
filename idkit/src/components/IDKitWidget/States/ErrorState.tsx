@@ -6,12 +6,12 @@ import XMarkIcon from '@/components/Icons/XMarkIcon'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
-export const ERROR_TITLES: Partial<Record<AppErrorCodes, string>> = {
+const ERROR_TITLES: Partial<Record<AppErrorCodes, string>> = {
 	[AppErrorCodes.FailedByHostApp]: 'Verification Declined',
 	[AppErrorCodes.GenericError]: 'Verification Failed',
 }
 
-export const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
+const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	[AppErrorCodes.ConnectionFailed]: 'Connection to the World App or identity wallet failed. Please try again.',
 	[AppErrorCodes.VerificationRejected]: 'Verification request rejected in the World App.',
 	[AppErrorCodes.MaxVerificationsReached]: 'You have already verified the maximum number of times for this action.',
