@@ -27,33 +27,40 @@ const baseConfig = {
 	metafile: true,
 }
 
+/** @type {import('esbuild').BuildOptions>} */
+const esmConfig = {
+	...baseConfig,
+
+	entryPoints: [require.resolve('../src/index.ts')],
+	outdir: 'build/',
+	define: {
+		...baseConfig.define,
+		window: 'globalThis',
+	},
+	plugins: [
+		...baseConfig.plugins,
+
+		nodeExternalsPlugin({
+			packagePath: require.resolve('../package.json'),
+		}),
+		postCssPlugin({
+			postcss: {
+				plugins: [tailwind, autoprefixer],
+			},
+		}),
+	],
+	sourcemap: true,
+	format: 'esm',
+}
+
 /** @type {Record<string, import('esbuild').BuildOptions>} */
 const configs = {
-	esm: {
-		...baseConfig,
-
-		entryPoints: [require.resolve('../src/index.ts')],
-		outdir: 'build/',
-		define: {
-			...baseConfig.define,
-			window: 'globalThis',
-		},
-		plugins: [
-			...baseConfig.plugins,
-
-			nodeExternalsPlugin({
-				packagePath: require.resolve('../package.json'),
-			}),
-			postCssPlugin({
-				postcss: {
-					plugins: [tailwind, autoprefixer],
-				},
-			}),
-		],
-		sourcemap: true,
-		format: 'esm',
+	esm: esmConfig,
+	cjs: {
+		...esmConfig,
+		outExtension: { '.js': '.cjs' },
+		format: 'cjs',
 	},
-
 	iife: {
 		...baseConfig,
 
