@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.5](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.4...idkit-v0.4.5) (2023-03-13)
+
+### Features
+
+-   UI Tweaks (#90).
+-   Add CJS target (#93).
+
+### Bug Fixes
+
+-   qr logo positioning ([#79](https://github.com/worldcoin/idkit-js/issues/79)) ([45db408](https://github.com/worldcoin/idkit-js/commit/45db4087df0b630b9285ba9a4140d0e4662f1633))
+-   remove a bunch of unused phone code ([#83](https://github.com/worldcoin/idkit-js/issues/83)) ([59f3ac0](https://github.com/worldcoin/idkit-js/commit/59f3ac053a86f02db0571c117c237910939fc1e2))
+-   remove unused error codes ([#81](https://github.com/worldcoin/idkit-js/issues/81)) ([9a2b967](https://github.com/worldcoin/idkit-js/commit/9a2b967514d375dc80f51805ccfe6755314933cc))
+
 ## [0.4.4](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.0-alpha.2...idkit-v0.4.4) (2023-03-07)
 
 ### Features
