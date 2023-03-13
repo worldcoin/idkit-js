@@ -18,7 +18,8 @@ const internal = {
 	QRCode,
 	useAppConnection,
 	VerificationState,
+	AppErrorCodes,
 }
 
-export { IDKitWidget, useIDKit, solidityEncode, internal, SignInWithWorldID, CredentialType, AppErrorCodes }
+export { IDKitWidget, useIDKit, solidityEncode, internal, SignInWithWorldID, CredentialType }
 export type { ISuccessResult, Config, WidgetProps }
