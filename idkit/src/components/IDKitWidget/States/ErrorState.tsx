@@ -1,14 +1,14 @@
-import { ErrorCodes } from '@/types'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
+import { AppErrorCodes } from '@/types/app'
 import type { IDKitStore } from '@/store/idkit'
 import XMarkIcon from '@/components/Icons/XMarkIcon'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
-export const ERROR_TITLES: Record<ErrorCodes, string> = {
-	[ErrorCodes.GENERIC_ERROR]: 'Something went wrong',
-	[ErrorCodes.REJECTED_BY_HOST_APP]: 'Verification declined by app',
+export const ERROR_TITLES: Record<AppErrorCodes, string> = {
+	[AppErrorCodes.GenericError]: 'Something went wrong',
+	[AppErrorCodes.VerificationRejected]: 'Verification rejected in the app',
 }
 
 const ErrorState = () => {
@@ -25,7 +25,7 @@ const ErrorState = () => {
 			</div>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{ERROR_TITLES[errorState?.code ?? ErrorCodes.GENERIC_ERROR]}
+					{ERROR_TITLES[errorState?.code ?? AppErrorCodes.GenericError]}
 				</p>
 				<p className="mt-2 text-center text-lg text-gray-400">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}

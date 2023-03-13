@@ -1,3 +1,5 @@
+import type { AppErrorCodes } from './app'
+
 declare const brand: unique symbol
 type Brand<T, TBrand extends string> = T & { [brand]: TBrand }
 
@@ -33,11 +35,6 @@ export interface ExpectedErrorResponse {
 }
 
 export interface IErrorState {
-	code: ErrorCodes
+	code: AppErrorCodes
 	message?: string
-}
-
-export enum ErrorCodes {
-	GENERIC_ERROR = 'GENERIC_ERROR',
-	REJECTED_BY_HOST_APP = 'REJECTED_BY_HOST_APP', // Host app rejected the verification request
 }

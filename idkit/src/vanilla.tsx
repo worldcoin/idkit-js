@@ -37,7 +37,7 @@ export const init = (config: Config): void => {
 				isInitialized = true
 			}
 		} catch (error) {
-			console.error('Error while rendering Widget', error)
+			console.error('Error while rendering IDKit', error)
 		}
 	}
 
