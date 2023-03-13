@@ -1,7 +1,6 @@
 import { create } from 'zustand'
-import { useEffect } from 'react'
 import { buildQRData } from '@/lib/qr'
-import { CredentialType } from '@/types'
+import { useEffect, useRef } from 'react'
 import { randomNumber } from '@/lib/utils'
 import { WC_PROJECT_ID } from '@/lib/consts'
 import Client from '@walletconnect/sign-client'
@@ -9,7 +8,7 @@ import type { IDKitConfig } from '@/types/config'
 import { getSdkError } from '@walletconnect/utils'
 import { AppErrorCodes, VerificationState } from '@/types/app'
 import type { ExpectedErrorResponse, ISuccessResult } from '@/types'
-import { validateABILikeEncoding, generateSignal, generateExternalNullifier, encodeAction } from '@/lib/hashing'
+import { encodeAction, generateExternalNullifier, generateSignal, validateABILikeEncoding } from '@/lib/hashing'
 
 type WalletConnectStore = {
 	connected: boolean
@@ -77,7 +76,8 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				signal,
 				action_description,
 				walletConnectProjectId,
-				credential_types: credential_types?.length ? credential_types : [CredentialType.Orb],
+				// credential_types: credential_types?.length ? credential_types : [CredentialType.Orb],
+				// credential_types,
 			},
 		})
 
@@ -245,10 +245,19 @@ const useAppConnection = (
 	const { result, verificationState, errorCode, qrData, client, createClient, reset } =
 		useWalletConnectStore(getStore)
 
+	const ref_credential_types = useRef(credential_types)
+
 	useEffect(() => {
 		if (!app_id) return
 		if (!client) {
-			void createClient(app_id, action, signal, credential_types, action_description, walletConnectProjectId)
+			void createClient(
+				app_id,
+				action,
+				signal,
+				ref_credential_types.current,
+				action_description,
+				walletConnectProjectId
+			)
 		}
 	}, [
 		app_id,
@@ -256,10 +265,10 @@ const useAppConnection = (
 		signal,
 		walletConnectProjectId,
 		action_description,
-		credential_types,
 		client,
 		createClient,
 		verificationState,
+		ref_credential_types,
 	])
 
 	return { result, reset, verificationState, errorCode, qrData }

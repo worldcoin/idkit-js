@@ -1,4 +1,4 @@
-import type { CallbackFn, AbiEncodedValue, CredentialType } from '.'
+import type { AbiEncodedValue, CallbackFn, CredentialType } from '.'
 
 export enum ConfigSource {
 	HOOK = 'hook',
