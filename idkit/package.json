@@ -27,6 +27,7 @@
 		"build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify",
 		"build:declarations": "tsc && tsc-alias",
 		"build:esm": "node esbuild/production.js -p esm",
+		"build:cjs": "node esbuild/production.js -p cjs",
 		"build:iife": "node esbuild/production.js -p iife",
 		"clean": "rimraf build/",
 		"dev": "npm-run-all clean dev:styles --parallel dev:*",

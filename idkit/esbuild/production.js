@@ -53,6 +53,31 @@ const configs = {
 		sourcemap: true,
 		format: 'esm',
 	},
+	cjs: {
+		...baseConfig,
+
+		entryPoints: [require.resolve('../src/index.ts')],
+		outdir: 'build/',
+		outExtension: { '.js': '.cjs' },
+		define: {
+			...baseConfig.define,
+			window: 'globalThis',
+		},
+		plugins: [
+			...baseConfig.plugins,
+
+			nodeExternalsPlugin({
+				packagePath: require.resolve('../package.json'),
+			}),
+			postCssPlugin({
+				postcss: {
+					plugins: [tailwind, autoprefixer],
+				},
+			}),
+		],
+		sourcemap: true,
+		format: 'cjs',
+	},
 
 	iife: {
 		...baseConfig,
