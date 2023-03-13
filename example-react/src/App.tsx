@@ -24,7 +24,12 @@ function App() {
 	return (
 		<div
 			className="App"
-			style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
+			style={{
+				minHeight: "100vh",
+				display: "flex",
+				justifyContent: "center",
+				alignItems: "center",
+			}}
 		>
 			<IDKitWidget
 				action={action}
