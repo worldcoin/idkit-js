@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { buildQRData } from '@/lib/qr'
+import { CredentialType } from '@/types'
 import { useEffect, useRef } from 'react'
 import { randomNumber } from '@/lib/utils'
 import { WC_PROJECT_ID } from '@/lib/consts'
@@ -76,8 +77,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				signal,
 				action_description,
 				walletConnectProjectId,
-				// credential_types: credential_types?.length ? credential_types : [CredentialType.Orb],
-				// credential_types,
+				credential_types: credential_types?.length ? credential_types : [CredentialType.Orb],
 			},
 		})
 
