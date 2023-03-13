@@ -6,9 +6,27 @@ import XMarkIcon from '@/components/Icons/XMarkIcon'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
-export const ERROR_TITLES: Record<AppErrorCodes, string> = {
-	[AppErrorCodes.GenericError]: 'Something went wrong',
-	[AppErrorCodes.VerificationRejected]: 'Verification rejected in the app',
+export const ERROR_TITLES: Partial<Record<AppErrorCodes, string>> = {
+	[AppErrorCodes.FailedByHostApp]: 'Verification Declined',
+	[AppErrorCodes.GenericError]: 'Verification Failed',
+}
+
+export const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
+	[AppErrorCodes.ConnectionFailed]: 'Connection to the World App or identity wallet failed. Please try again.',
+	[AppErrorCodes.VerificationRejected]: 'Verification request rejected in the World App.',
+	[AppErrorCodes.MaxVerificationsReached]: 'You have already verified the maximum number of times for this action.',
+	[AppErrorCodes.AlreadySigned]: 'You have already verified for this action.',
+	[AppErrorCodes.CredentialUnavailable]: 'It seems you do not have the credential required by this app.',
+	[AppErrorCodes.MalformedRequest]:
+		'There was a problem with this request. Please try again or contact the app owner.',
+	[AppErrorCodes.InvalidNetwork]:
+		'This app is not available on the network you are connected to. Visit docs.worldcoin.org/test for details.',
+	[AppErrorCodes.InclusionProofFailed]: 'There was an issue fetching your credential. Please try again.',
+	[AppErrorCodes.InclusionProofPending]:
+		'Your credential is still being registered. Please wait a few minutes and try again.',
+	[AppErrorCodes.FailedByHostApp]: 'Verification failed by the app. Please contact the app owner for details.',
+	[AppErrorCodes.UnexpectedResponse]: 'Unexpected response from the World App or identity wallet. Please try again.',
+	[AppErrorCodes.GenericError]: 'Something unexpected went wrong. Please try again.',
 }
 
 const ErrorState = () => {
@@ -25,11 +43,11 @@ const ErrorState = () => {
 			</div>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{ERROR_TITLES[errorState?.code ?? AppErrorCodes.GenericError]}
+					{(errorState?.code && ERROR_TITLES[errorState.code]) || ERROR_TITLES[AppErrorCodes.GenericError]}
 				</p>
 				<p className="mt-2 text-center text-lg text-gray-400">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
-					{errorState?.message || 'Please try again in a moment.'}
+					{errorState?.message || ERROR_MESSAGES[errorState?.code ?? AppErrorCodes.GenericError]}
 				</p>
 			</div>
 			<div className="flex justify-center">

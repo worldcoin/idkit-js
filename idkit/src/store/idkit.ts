@@ -1,6 +1,7 @@
 import { create } from 'zustand'
+import { AppErrorCodes } from '@/types/app'
+import { CredentialType, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
-import { CredentialType, ErrorCodes, IDKITStage } from '@/types'
 import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
 import type { Config, ConfigSource, IDKitConfig } from '@/types/config'
 
@@ -146,7 +147,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 
 				set({
 					stage: IDKITStage.ERROR,
-					errorState: { code: ErrorCodes.REJECTED_BY_HOST_APP, message: errorMessage },
+					errorState: { code: AppErrorCodes.FailedByHostApp, message: errorMessage },
 				})
 			}
 		)
