@@ -157,6 +157,9 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 					errorCode = errorMessage as AppErrorCodes
 				}
 
+				console.warn('Error receiving proof:', errorCode)
+				console.warn('Raw error response:', error)
+
 				set({ errorCode, verificationState: VerificationState.Failed })
 			})
 			.finally(() => void client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') }))

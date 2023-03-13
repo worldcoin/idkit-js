@@ -4,12 +4,12 @@ import QRState from './WorldID/QRState'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
 import { useEffect, useState } from 'react'
-import { VerificationState } from '@/types/app'
 import type { IDKitStore } from '@/store/idkit'
 import AboutWorldID from '@/components/AboutWorldID'
 import useAppConnection from '@/services/walletconnect'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
+import { AppErrorCodes, VerificationState } from '@/types/app'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
@@ -21,6 +21,7 @@ const getOptions = (store: IDKitStore) => ({
 	walletConnectProjectId: store.walletConnectProjectId,
 	handleVerify: store.handleVerify,
 	setStage: store.setStage,
+	setErrorState: store.setErrorState,
 })
 
 const WorldIDState = () => {
@@ -35,9 +36,10 @@ const WorldIDState = () => {
 		action_description,
 		walletConnectProjectId,
 		credential_types,
+		setErrorState,
 	} = useIDKitStore(getOptions, shallow)
 
-	const { result, qrData, verificationState, reset } = useAppConnection(
+	const { result, qrData, verificationState, reset, errorCode } = useAppConnection(
 		app_id,
 		action,
 		signal,
@@ -51,10 +53,11 @@ const WorldIDState = () => {
 	useEffect(() => {
 		if (verificationState === VerificationState.Failed) {
 			setStage(IDKITStage.ERROR)
+			setErrorState({ code: errorCode ?? AppErrorCodes.GenericError })
 		}
 
 		if (result) handleVerify(result)
-	}, [result, reset, handleVerify, verificationState, setStage])
+	}, [result, reset, handleVerify, verificationState, setStage, errorCode, setErrorState])
 
 	return (
 		<div className="-mt-6 space-y-6">

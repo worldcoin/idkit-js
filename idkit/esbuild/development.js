@@ -22,7 +22,7 @@ esbuild
 				clients.length = 0
 
 				if (error) {
-					console.log(error)
+					console.warn(error)
 				}
 			},
 		},
