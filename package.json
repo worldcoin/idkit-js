@@ -13,5 +13,5 @@
 	"scripts": {
 		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e idkit/esbuild-meta.json -e idkit/build -e idkit/node_modules -e node_modules -e yarn.lock"
 	},
-	"version": "0.4.5"
+	"version": "0.4.6"
 }
