@@ -1,10 +1,9 @@
 import type { FC } from 'react'
-import { useState } from 'react'
-import { useCallback } from 'react'
 import copy from 'copy-to-clipboard'
 import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
 import Qrcode from '@/components/QRCode'
+import { useCallback, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
@@ -38,7 +37,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 							{qrData ? (
 								<Qrcode data={qrData.default} size={244} />
 							) : (
-								<div className="flex h-[300px] w-[300px] items-center justify-center">
+								<div className="flex h-[244px] w-[244px] items-center justify-center">
 									<LoadingIcon className="h-[72px] w-[72px]" />
 								</div>
 							)}
