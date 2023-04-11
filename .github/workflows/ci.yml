@@ -63,9 +63,11 @@ jobs:
                   cache: "yarn"
 
             - name: Install dependencies
+              working-directory: ./idkit
               run: yarn --frozen-lockfile
 
             - name: Run tests
+              working-directory: ./idkit
               run: yarn test
 
     test-build:
@@ -81,6 +83,7 @@ jobs:
                   cache: "yarn"
 
             - name: Install dependencies
+              working-directory: ./idkit
               run: yarn --frozen-lockfile
 
             - name: Build
