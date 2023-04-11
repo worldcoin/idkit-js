@@ -3,6 +3,10 @@
  * https://jestjs.io/docs/configuration
  */
 
+import type { PackageJson } from 'type-fest'
+import * as packageJson from './package.json'
+const { version }: Pick<PackageJson, 'version'> = packageJson
+
 export default {
 	// Automatically clear mock calls, instances, contexts and results before every test
 	clearMocks: true,
@@ -23,5 +27,8 @@ export default {
 				sourcemap: true,
 			},
 		],
+	},
+	globals: {
+		IDKitVersion: version,
 	},
 }
