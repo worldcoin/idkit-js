@@ -14,6 +14,8 @@ Integration is very straightforward. Follow the relevant steps below.
 yarn add idkit
 # or
 npm install idkit
+# or
+pnpm install idkit
 ```
 
 ```jsx
