@@ -10,10 +10,10 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Set up Node 16
+            - name: Set up Node 18
               uses: actions/setup-node@v3
               with:
-                  node-version: 16
+                  node-version: 18
                   cache: "yarn"
 
             - name: Install dependencies
@@ -32,10 +32,10 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Set up Node 16
+            - name: Set up Node 18
               uses: actions/setup-node@v3
               with:
-                  node-version: 16
+                  node-version: 18
                   cache: "yarn"
 
             - name: Install dependencies
@@ -50,24 +50,25 @@ jobs:
               run: |
                   yarn typecheck
 
-    # TODO: We need to add tests
-    # test:
-    #   name: Test
-    #   runs-on: ubuntu-20.04
-    #   steps:
-    #     - uses: actions/checkout@v3
+    test:
+        name: Test
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v3
 
-    #     - name: Set up Node 16
-    #       uses: actions/setup-node@v3
-    #       with:
-    #         node-version: 16
-    #         cache: "pnpm"
+            - name: Set up Node 18
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: "yarn"
 
-    #     - name: Install dependencies
-    #       run: pnpm i --frozen-lockfile
+            - name: Install dependencies
+              working-directory: ./idkit
+              run: yarn --frozen-lockfile
 
-    #     - name: Run tests
-    #       run: yarn test
+            - name: Run tests
+              working-directory: ./idkit
+              run: yarn test
 
     test-build:
         name: Test production build
@@ -75,13 +76,14 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Set up Node 16
+            - name: Set up Node 18
               uses: actions/setup-node@v3
               with:
-                  node-version: 16
+                  node-version: 18
                   cache: "yarn"
 
             - name: Install dependencies
+              working-directory: ./idkit
               run: yarn --frozen-lockfile
 
             - name: Build
@@ -95,10 +97,10 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Set up Node 16
+            - name: Set up Node 18
               uses: actions/setup-node@v3
               with:
-                  node-version: 16
+                  node-version: 18
                   cache: "yarn"
 
             - name: Install dependencies
