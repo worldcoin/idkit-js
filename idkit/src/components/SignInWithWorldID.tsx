@@ -23,7 +23,7 @@ const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, theme, childre
 
 	const handleVerify = useCallback(
 		async (proof: ISuccessResult) => {
-			const response = await fetch('https://dev2.worldcoin.org/api/v1/oidc/authorize', {
+			const response = await fetch('https://developer.worldcoin.org/api/v1/oidc/authorize', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
