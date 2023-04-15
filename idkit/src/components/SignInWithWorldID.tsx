@@ -28,7 +28,7 @@ const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, theme, childre
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ ...proof, app_id, nonce: signal, response_type: 'implicit' }),
+				body: JSON.stringify({ ...proof, app_id, nonce: signal, response_type: 'id_token' }),
 			})
 
 			if (!response.ok) {
