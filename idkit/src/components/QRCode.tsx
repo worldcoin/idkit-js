@@ -45,13 +45,7 @@ const Qrcode = ({ data, size = 300 }: Props) => {
 						height={cellSize * (7 - i * 2)}
 						rx={(i - 2) * -5} // calculated border radius for corner squares
 						ry={(i - 2) * -5} // calculated border radius for corner squares
-						className={
-							i % 3 === 0
-								? 'text-black'
-								: i % 3 === 1
-								? 'text-white'
-								: 'text-black'
-						}
+						className={i % 3 === 0 ? 'text-black' : i % 3 === 1 ? 'text-white' : 'text-black'}
 					/>
 				)
 			}
