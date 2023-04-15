@@ -9,12 +9,13 @@ import type { IDKitConfig, WidgetConfig } from '@/types/config'
 
 type Props = Omit<WidgetConfig, 'autoClose'> &
 	Pick<IDKitConfig, 'app_id' | 'walletConnectProjectId'> & {
+		response_type: 'code' | 'id_token' | 'token'
 		nonce?: string
 		onSuccess: (jwt: string) => void
 		children?: ({ open }: { open: () => void }) => JSX.Element
 	}
 
-const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, theme, children, ...props }) => {
+const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, theme, response_type, children, ...props }) => {
 	const [token, setToken] = useState<string>('')
 	const signal = useMemo<string>(() => {
 		if (nonce) return nonce
@@ -28,7 +29,7 @@ const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, theme, childre
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ ...proof, app_id, nonce: signal, response_type: 'id_token' }),
+				body: JSON.stringify({ ...proof, app_id, nonce: signal, response_type: response_type }),
 			})
 
 			if (!response.ok) {
@@ -43,7 +44,7 @@ const SignInWithWorldID: FC<Props> = ({ onSuccess, app_id, nonce, theme, childre
 			const { jwt } = (await response.json()) as { jwt: string }
 			setToken(jwt)
 		},
-		[app_id, signal]
+		[app_id, signal, response_type]
 	)
 
 	const onIDKitSuccess = useCallback(() => void onSuccess(token), [onSuccess, token])
