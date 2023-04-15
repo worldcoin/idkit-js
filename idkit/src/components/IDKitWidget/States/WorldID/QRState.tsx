@@ -30,21 +30,27 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 
 	return (
 		<>
-			<AnimatePresence>
-				{(media == 'desktop' || showQR) && (
-					<div className="border-f1f5f8 dark:border-f1f5f8/10 relative inline-flex items-center justify-center rounded-2xl border p-2">
-						<div className="text-29343f dark:text-white">
-							{qrData ? (
+			{(media == 'desktop' || showQR) && (<>
+				<AnimatePresence>
+					{copiedLink && (
+						<motion.div className="text-9eafc0 text-sm" key="copied" initial="hidden" animate="visible" exit="hidden" variants={{ visible: { y: 0, opacity: 1 }, hidden: { y: '100%', opacity: 0 }, exit: { y: "100%", opacity: 0, transition: { duration: 0.5 } } }} transition={{ duration: 0.5, ease: "easeInOut" }}><span className="border-f1f5f8 rounded-lg border py-1 px-2 text-sm">QR Code copied</span></motion.div>
+					)}
+				</AnimatePresence>
+				<div className="border-f1f5f8 dark:border-f1f5f8/10 relative inline-flex items-center justify-center rounded-2xl border p-2">
+					<div className="text-29343f dark:text-white">
+						{qrData ? (
+							<div onClick={copyLink} className="cursor-pointer">
 								<Qrcode data={qrData.default} size={244} />
-							) : (
-								<div className="flex h-[244px] w-[244px] items-center justify-center">
-									<LoadingIcon className="h-[72px] w-[72px]" />
-								</div>
-							)}
-						</div>
+							</div>
+						) : (
+							<div className="flex h-[244px] w-[244px] items-center justify-center">
+								<LoadingIcon className="h-[72px] w-[72px]" />
+							</div>
+						)}
 					</div>
-				)}
-			</AnimatePresence>
+				</div>
+			</>
+			)}
 			<div className="space-y-4">
 				<motion.a
 					whileTap={{ scale: 0.95 }}
