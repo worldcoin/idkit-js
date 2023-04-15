@@ -2,14 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [0.4.6](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.5...idkit-v0.4.6) (2023-03-14)
+## [0.4.7](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.6...idkit-v0.4.7) (2023-04-15)
+
+### Features
+
+-   Bump deps & remove unused (#98).
+-   Update README (#101).
+-   Update QRCode (#105).
+-   Basic tests (#104).
+
+### Bug Fixes
+
+-   Fix spinner size (#100).
+-   Fix Developer Portal URL.
+
+## [0.4.6](https://github.com/worldcoin/idkit-js/compare/v0.4.5...idkit-v0.4.6) (2023-03-14)
 
 ### Bug Fixes
 
 -   QR code dark mode styles (#96).
 -   Infinite loop credential types (#95).
 
-## [0.4.5](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.4...idkit-v0.4.5) (2023-03-13)
+## [0.4.5](https://github.com/worldcoin/idkit-js/compare/v0.4.4...v0.4.5) (2023-03-13)
 
 ### Features
 
@@ -22,7 +36,7 @@ All notable changes to this project will be documented in this file. See [standa
 -   remove a bunch of unused phone code ([#83](https://github.com/worldcoin/idkit-js/issues/83)) ([59f3ac0](https://github.com/worldcoin/idkit-js/commit/59f3ac053a86f02db0571c117c237910939fc1e2))
 -   remove unused error codes ([#81](https://github.com/worldcoin/idkit-js/issues/81)) ([9a2b967](https://github.com/worldcoin/idkit-js/commit/9a2b967514d375dc80f51805ccfe6755314933cc))
 
-## [0.4.4](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.0-alpha.2...idkit-v0.4.4) (2023-03-07)
+## [0.4.4](https://github.com/worldcoin/idkit-js/compare/v0.4.0-alpha.2...v0.4.4) (2023-03-07)
 
 ### Features
 
