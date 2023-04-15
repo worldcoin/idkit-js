@@ -47,10 +47,10 @@ const Qrcode = ({ data, size = 300 }: Props) => {
 						ry={(i - 2) * -5} // calculated border radius for corner squares
 						className={
 							i % 3 === 0
-								? 'text-black'
+								? 'text-black dark:text-white'
 								: i % 3 === 1
-								? 'text-white'
-								: 'text-black'
+								? 'text-white dark:text-black'
+								: 'text-black dark:text-white'
 						}
 					/>
 				)
