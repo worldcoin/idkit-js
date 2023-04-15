@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.8](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.7...idkit-v0.4.8) (2023-04-15)
+
+### Features
+
+-   QR Code on Desktop (#107)
+
 ## [0.4.7](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.6...idkit-v0.4.7) (2023-04-15)
 
 ### Features
