@@ -11,11 +11,11 @@ IDKit is the new toolkit for identity online. With IDKit you can easily interact
 Integration is very straightforward. Follow the relevant steps below.
 
 ```bash
-yarn add idkit
+yarn add @worldcoin/idkit
 # or
-npm install idkit
+npm i @worldcoin/idkit
 # or
-pnpm install idkit
+pnpm install @worldcoin/idkit
 ```
 
 ```jsx
