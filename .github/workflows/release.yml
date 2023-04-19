@@ -1,17 +1,9 @@
 name: New release
 
 on:
-    workflow_dispatch:
-        inputs:
-            bump-level:
-                description: "Version level to be bumped"
-                required: true
-                default: bug
-                type: choice
-                options:
-                    - bug
-                    - feature
-                    - major
+    push:
+        branches:
+            - main
 
 jobs:
     release:
@@ -20,31 +12,6 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Set up Node 16
-              uses: actions/setup-node@v3
+            - uses: google-github-actions/release-please-action@v3
               with:
-                  node-version: 16
-                  cache: "yarn"
-
-            - name: Install dependencies
-              run: yarn --frozen-lockfile
-
-            - name: Get current version
-              id: package_version
-              uses: martinbeentjes/npm-get-version-action@main
-              with:
-                  path: idkit
-
-            - name: Calculate next version
-              uses: christian-draeger/increment-semantic-version@1.1.0
-              id: bump_version
-              with:
-                  current-version: ${{ steps.package_version.outputs.current-version }}
-                  version-fragment: ${{ github.event.inputs.bump-level }}
-
-            - name: Release
-              run: |
-                  npx release-please release-pr \
-                    --token=${{ secrets.GITHUB_TOKEN }} \
-                    --repo-url=${{ github.repository }} \
-                    --release-as=${{ steps.bump_version.outputs.next-version }}
+                  command: manifest

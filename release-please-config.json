@@ -14,7 +14,8 @@
 					"path": "example-nextjs/package.json",
 					"jsonpath": "$.version"
 				}
-			]
+			],
+			"skip-github-release": true
 		},
 		"idkit": {
 			"package-name": "idkit",
