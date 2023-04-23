@@ -16,10 +16,11 @@ const getOptions = (store: IDKitStore) => ({
 	copy: store.copy,
 	app_id: store.app_id,
 	action: store.action,
-	credential_types: store.credential_types,
-	action_description: store.action_description,
 	walletConnectProjectId: store.walletConnectProjectId,
 	handleVerify: store.handleVerify,
+	showAbout: store.methods.length == 1,
+	hasPhone: store.methods.includes('phone'),
+	usePhone: () => store.setStage(IDKITStage.ENTER_PHONE),
 	setStage: store.setStage,
 	setErrorState: store.setErrorState,
 })
@@ -32,10 +33,10 @@ const WorldIDState = () => {
 		action,
 		signal,
 		setStage,
+		usePhone,
 		handleVerify,
-		action_description,
+		hasPhone,
 		walletConnectProjectId,
-		credential_types,
 		setErrorState,
 	} = useIDKitStore(getOptions, shallow)
 
@@ -87,6 +88,21 @@ const WorldIDState = () => {
 			{(media == 'desktop' || !showQR) &&
 				(verificationState === VerificationState.AwaitingConnection ||
 					verificationState === VerificationState.LoadingWidget) && <AboutWorldID />}
+			{hasPhone && verificationState == VerificationState.AwaitingConnection && (
+				<div className="hidden space-y-3 md:block">
+					<div className="flex items-center justify-between space-x-6">
+						<div className="bg-f2f5f9 dark:bg-29343f h-px flex-1" />
+						<p className="text-9eafc0 dark:text-596673 text-xs">or</p>
+						<div className="bg-f2f5f9 dark:bg-29343f h-px flex-1" />
+					</div>
+					<div className="flex items-center justify-center">
+						<button onClick={usePhone} className="flex items-center space-x-2">
+							<DevicePhoneMobileIcon className="text-0d151d/70 h-6 w-6 dark:text-white/70" />
+							<p className="text-0d151d text-sm font-medium dark:text-white">Verify with Phone Number</p>
+						</button>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

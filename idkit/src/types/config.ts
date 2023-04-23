@@ -1,5 +1,7 @@
-import type { AbiEncodedValue, CallbackFn, CredentialType } from '.'
+import type { CallbackFn } from '.'
 
+export type VerificationMethods = 'orb' | 'phone'
+export type StringOrAdvanced = Array<[string, unknown]> | string
 export enum ConfigSource {
 	HOOK = 'hook',
 	PROPS = 'props',
@@ -8,11 +10,9 @@ export enum ConfigSource {
 
 export type IDKitConfig = {
 	app_id: string
-	action_description?: string
+	signal: StringOrAdvanced
+	action?: StringOrAdvanced
 	walletConnectProjectId?: string
-	signal?: AbiEncodedValue | string
-	action?: AbiEncodedValue | string
-	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
 }
 
 export type WidgetConfig = {
@@ -21,6 +21,7 @@ export type WidgetConfig = {
 	theme?: 'dark' | 'light'
 	enableTelemetry?: boolean
 	handleVerify?: CallbackFn
+	methods?: VerificationMethods[]
 	copy?: {
 		title?: string
 		heading?: string

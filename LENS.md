@@ -22,11 +22,11 @@ _These instructions assume you're integrating into a React/Next.js app. If you'r
 
 1. Install IDKit JS
     ```bash
-    yarn add @worldcoin/idkit@0.3.3
+    yarn add @worldcoin/idkit
     # or
-    npm install @worldcoin/idkit@0.3.3
+    npm install @worldcoin/idkit
     # or
-    pnpm install @worldcoin/idkit@0.3.3
+    pnpm install @worldcoin/idkit
     ```
 2. Load IDKit JS. Note the action ID below, the Action ID is the **same for all Lens-powered apps.**
 

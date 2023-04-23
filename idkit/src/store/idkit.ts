@@ -1,17 +1,16 @@
 import { create } from 'zustand'
+import { IDKITStage } from '@/types'
 import { AppErrorCodes } from '@/types/app'
-import { CredentialType, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
+import type { VerificationMethods } from '@/types/config'
 import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
-import type { Config, ConfigSource, IDKitConfig } from '@/types/config'
+import type { Config, ConfigSource, IDKitConfig, StringOrAdvanced } from '@/types/config'
 
 export type IDKitStore = {
 	app_id: IDKitConfig['app_id']
 	action: IDKitConfig['action']
 	signal: IDKitConfig['signal']
-	action_description?: IDKitConfig['action_description']
 	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
-	credential_types?: IDKitConfig['credential_types']
 
 	code: string
 	open: boolean
@@ -20,13 +19,16 @@ export type IDKitStore = {
 	processing: boolean
 	copy: Config['copy']
 	theme: Config['theme']
+	actionId: StringOrAdvanced
 	result: ISuccessResult | null
+	methods: VerificationMethods[]
 	errorState: IErrorState | null
 	verifyCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
 
 	computed: {
 		canGoBack: (stage: IDKITStage) => boolean
+		getDefaultStage: (methods?: Config['methods']) => IDKITStage
 	}
 
 	retryFlow: () => void
@@ -45,13 +47,14 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	app_id: '',
 	signal: '',
 	action: '',
+	methods: [],
 	action_description: '',
 	walletConnectProjectId: '',
-	credential_types: [],
 
 	open: false,
 	code: '',
 	result: null,
+	actionId: '',
 	theme: 'light',
 	errorTitle: '',
 	errorDetail: '',
@@ -60,17 +63,28 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	processing: false,
 	verifyCallbacks: {},
 	successCallbacks: {},
-	stage: IDKITStage.WORLD_ID,
+	stage: IDKITStage.SELECT_METHOD,
 	copy: {},
 
 	computed: {
 		canGoBack: (stage: IDKITStage) => {
 			switch (stage) {
+				case IDKITStage.ENTER_PHONE:
+					return get().methods.includes('orb')
+				case IDKITStage.WORLD_ID:
+					return get().methods.includes('phone')
+				case IDKITStage.ENTER_CODE:
 				case IDKITStage.PRIVACY:
 					return true
 				default:
 					return false
 			}
+		},
+		getDefaultStage: (methods?: Config['methods']) => {
+			methods = methods ?? get().methods
+
+			if (methods.length > 1) return IDKITStage.SELECT_METHOD
+			return methods[0] === 'phone' ? IDKITStage.ENTER_PHONE : IDKITStage.WORLD_ID
 		},
 	},
 
@@ -79,7 +93,11 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setErrorState: errorState => set({ errorState }),
 	setProcessing: (processing: boolean) => set({ processing }),
 	retryFlow: () => {
-		set({ stage: IDKITStage.WORLD_ID, errorState: null })
+		if (get().methods.length === 1) {
+			set({ stage: get().computed.getDefaultStage(), errorState: null })
+		}
+
+		set({ stage: IDKITStage.SELECT_METHOD, errorState: null })
 	},
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => {
 		set(state => {
@@ -102,8 +120,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			signal,
 			action,
 			app_id,
-			credential_types,
-			action_description,
+			methods,
 			walletConnectProjectId,
 			autoClose,
 			copy,
@@ -111,19 +128,15 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		}: Config,
 		source: ConfigSource
 	) => {
-		const sanitized_credential_types = credential_types?.filter(type =>
-			Object.values(CredentialType).includes(type)
-		)
-
 		set(store => ({
 			theme,
 			signal,
 			action,
 			app_id,
-			credential_types: sanitized_credential_types,
 			autoClose,
-			action_description,
 			walletConnectProjectId,
+			methods: methods ?? store.methods,
+			stage: store.computed.getDefaultStage(methods),
 			copy: { ...store.copy, ...copy },
 		}))
 
@@ -171,7 +184,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			result: null,
 			errorState: null,
 			processing: false,
-			stage: IDKITStage.WORLD_ID,
+			stage: get().computed.getDefaultStage(),
 		})
 	},
 }))

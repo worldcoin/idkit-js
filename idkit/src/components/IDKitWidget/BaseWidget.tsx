@@ -19,8 +19,11 @@ import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
 import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
+import EnterPhoneState from './States/EnterPhoneState'
+import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
+import SelectMethodState from './States/SelectMethodState'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({
@@ -43,21 +46,21 @@ const getParams = ({
 	isOpen: open,
 	onOpenChange,
 	canGoBack: computed.canGoBack(stage),
+	defaultStage: computed.getDefaultStage(),
 })
 
 const IDKitWidget: FC<WidgetProps> = ({
 	children,
 	app_id,
 	action,
-	action_description,
 	theme,
+	methods,
 	signal,
 	walletConnectProjectId,
 	handleVerify,
 	onSuccess,
 	autoClose,
 	copy,
-	credential_types,
 }) => {
 	const {
 		isOpen,
@@ -66,6 +69,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 		stage,
 		setStage,
 		canGoBack,
+		defaultStage,
 		setOptions,
 		theme: _theme,
 	} = useIDKitStore(getParams, shallow)
@@ -76,7 +80,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 			{
 				app_id,
 				action,
-				action_description,
 				signal,
 				walletConnectProjectId,
 				onSuccess,
@@ -84,7 +87,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 				autoClose,
 				copy,
 				theme,
-				credential_types,
+				methods,
 			},
 			ConfigSource.PROPS
 		)
@@ -98,15 +101,20 @@ const IDKitWidget: FC<WidgetProps> = ({
 		onSuccess,
 		setOptions,
 		handleVerify,
-		action_description,
 		walletConnectProjectId,
-		credential_types,
+		methods,
 	])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
+			case IDKITStage.SELECT_METHOD:
+				return SelectMethodState
+			case IDKITStage.ENTER_PHONE:
+				return EnterPhoneState
 			case IDKITStage.WORLD_ID:
 				return WorldIDState
+			case IDKITStage.ENTER_CODE:
+				return VerifyCodeState
 			case IDKITStage.SUCCESS:
 				return SuccessState
 			case IDKITStage.ERROR:
@@ -164,7 +172,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
 															<button
-																onClick={() => setStage(IDKITStage.WORLD_ID)}
+																onClick={() => setStage(defaultStage)}
 																disabled={!canGoBack}
 																className={classNames(
 																	!canGoBack && 'invisible pointer-events-none',
