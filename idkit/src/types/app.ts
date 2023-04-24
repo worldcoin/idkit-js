@@ -11,6 +11,7 @@ export enum AppErrorCodes {
 	UnexpectedResponse = 'unexpected_response', // NOTE: when the World app returns an unexpected response
 	FailedByHostApp = 'failed_by_host_app', // NOTE: Host app failed/rejected verification (does not come from World App / simulator)
 	GenericError = 'generic_error',
+	InvalidPhoneOTP = 'invalid_phone_otp', // NOTE: Experimental, only for phone verification
 }
 
 export enum VerificationState {

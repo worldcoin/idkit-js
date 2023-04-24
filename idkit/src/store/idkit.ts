@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { IDKITStage } from '@/types'
 import { AppErrorCodes } from '@/types/app'
+import { CredentialType, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
 import type { VerificationMethods } from '@/types/config'
 import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
@@ -10,14 +10,16 @@ export type IDKitStore = {
 	app_id: IDKitConfig['app_id']
 	action: IDKitConfig['action']
 	signal: IDKitConfig['signal']
+	action_description?: IDKitConfig['action_description']
 	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
+	credential_types?: IDKitConfig['credential_types']
+	phoneNumber: string // EXPERIMENTAL
 
 	code: string
 	open: boolean
 	stage: IDKITStage
 	autoClose: boolean
 	processing: boolean
-	copy: Config['copy']
 	theme: Config['theme']
 	actionId: StringOrAdvanced
 	result: ISuccessResult | null
@@ -41,15 +43,18 @@ export type IDKitStore = {
 	setOptions: (options: Config, source: ConfigSource) => void
 	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => void
 	addVerificationCallback: (cb: CallbackFn, source: ConfigSource) => void
+	setPhoneNumber: (phoneNumber: string) => void // EXPERIMENTAL
 }
 
 const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	app_id: '',
 	signal: '',
 	action: '',
+	phoneNumber: '', // EXPERIMENTAL
 	methods: [],
 	action_description: '',
 	walletConnectProjectId: '',
+	credential_types: [],
 
 	open: false,
 	code: '',
@@ -63,8 +68,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	processing: false,
 	verifyCallbacks: {},
 	successCallbacks: {},
-	stage: IDKITStage.SELECT_METHOD,
-	copy: {},
+	stage: IDKITStage.WORLD_ID,
 
 	computed: {
 		canGoBack: (stage: IDKITStage) => {
@@ -92,6 +96,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setStage: stage => set({ stage }),
 	setErrorState: errorState => set({ errorState }),
 	setProcessing: (processing: boolean) => set({ processing }),
+	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	retryFlow: () => {
 		if (get().methods.length === 1) {
 			set({ stage: get().computed.getDefaultStage(), errorState: null })
@@ -120,14 +125,18 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			signal,
 			action,
 			app_id,
+			credential_types,
+			action_description,
 			methods,
 			walletConnectProjectId,
 			autoClose,
-			copy,
 			theme,
 		}: Config,
 		source: ConfigSource
 	) => {
+		const sanitized_credential_types = credential_types?.filter(type =>
+			Object.values(CredentialType).includes(type)
+		)
 		set(store => ({
 			theme,
 			signal,
@@ -135,9 +144,10 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			app_id,
 			autoClose,
 			walletConnectProjectId,
+			credential_types: sanitized_credential_types,
+			action_description,
 			methods: methods ?? store.methods,
 			stage: store.computed.getDefaultStage(methods),
-			copy: { ...store.copy, ...copy },
 		}))
 
 		if (onSuccess) get().addSuccessCallback(onSuccess, source)

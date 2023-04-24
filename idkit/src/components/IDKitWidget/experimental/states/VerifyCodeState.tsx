@@ -1,52 +1,47 @@
+import { IDKITStage } from '@/types'
 import { motion } from 'framer-motion'
 import { useMemo, useRef } from 'react'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
+import { AppErrorCodes } from '@/types/app'
 import type { IDKitStore } from '@/store/idkit'
 import { getTelemetryId } from '@/lib/telemetry'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import ResendButton from '@/components/ResendButton'
 import SMSCodeInput from '@/components/SMSCodeInput'
-import { ErrorCodes, IDKITStage, SignalType } from '@/types'
 import { isVerifyCodeError, verifyCode } from '@/services/phone'
 
 const getParams = ({
 	processing,
 	phoneNumber,
 	code,
-	stringifiedActionId,
 	setStage,
 	setProcessing,
 	setCode,
-	copy,
 	handleVerify,
 	setErrorState,
 	errorState,
+	app_id,
 }: IDKitStore) => ({
 	processing,
 	phoneNumber,
 	code,
-	stringifiedActionId,
 	errorState,
 	setCode,
 	setErrorState,
-	copy,
+	app_id,
 	onSubmit: async () => {
 		try {
 			setErrorState(null)
 			setProcessing(true)
-			const { nullifier_hash, ...proof_payload } = await verifyCode(
-				phoneNumber,
-				code,
-				stringifiedActionId,
-				getTelemetryId()
-			)
-			handleVerify({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
+			const { nullifier_hash, ...proof_payload } = await verifyCode(phoneNumber, code, app_id, getTelemetryId())
+			// FIXME
+			// handleVerify({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)
 			setCode('')
 			if (isVerifyCodeError(error)) {
-				setErrorState({ code: ErrorCodes.INVALID_CODE })
+				setErrorState({ code: AppErrorCodes.InvalidPhoneOTP })
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)

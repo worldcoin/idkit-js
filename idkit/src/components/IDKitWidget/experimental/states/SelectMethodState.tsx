@@ -1,30 +1,26 @@
 import type { FC } from 'react'
 import { IDKITStage } from '@/types'
 import { motion } from 'framer-motion'
+import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
-import { classNames, getCopy } from '@/lib/utils'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import AboutWorldID from '@/components/AboutWorldID'
 import type { VerificationMethods } from '@/types/config'
-import DevicePhoneMobileIcon from '@/components/Icons/DevicePhoneMobileIcon'
 
-const getParams = ({ setStage, methods, copy }: IDKitStore) => ({
-	copy,
+const getParams = ({ setStage, methods }: IDKitStore) => ({
 	methods,
 	setStage,
 })
 
 const SelectMethodState = () => {
-	const { copy, setStage, methods } = useIDKitStore(getParams)
+	const { setStage, methods } = useIDKitStore(getParams)
 
 	return (
 		<div className="-mt-6 space-y-6">
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{getCopy(copy, 'heading')}
-				</p>
-				<p className="text-70868f mt-3 text-center md:mt-2">{getCopy(copy, 'subheading')}</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Hello world</p>
+				<p className="text-70868f mt-3 text-center md:mt-2">Hey there</p>
 			</div>
 			<div className="space-y-3">
 				{methods.map((method, i) => (
@@ -72,7 +68,8 @@ const MethodButton: FC<{ primary: boolean; setStage: IDKitStore['setStage']; met
 		{method == 'orb' ? (
 			<WorldIDIcon className="h-5 w-5 text-gray-400" />
 		) : (
-			<DevicePhoneMobileIcon className="h-5 w-5 text-gray-400" />
+			<></>
+			// <DevicePhoneMobileIcon className="h-5 w-5 text-gray-400" />
 		)}
 		<motion.span
 			className="flex-1 text-center"

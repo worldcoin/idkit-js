@@ -13,11 +13,12 @@ import { AppErrorCodes, VerificationState } from '@/types/app'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
-	copy: store.copy,
 	app_id: store.app_id,
 	action: store.action,
 	walletConnectProjectId: store.walletConnectProjectId,
 	handleVerify: store.handleVerify,
+	credential_types: store.credential_types,
+	action_description: store.action_description,
 	showAbout: store.methods.length == 1,
 	hasPhone: store.methods.includes('phone'),
 	usePhone: () => store.setStage(IDKITStage.ENTER_PHONE),
@@ -35,6 +36,8 @@ const WorldIDState = () => {
 		setStage,
 		usePhone,
 		handleVerify,
+		action_description,
+		credential_types,
 		hasPhone,
 		walletConnectProjectId,
 		setErrorState,
