@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
+import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import PhoneInput from '@/components/PhoneInput'
-import { classNames, getCopy } from '@/lib/utils'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import AboutWorldID from '@/components/AboutWorldID'
 import XMarkIcon from '@/components/Icons/XMarkIcon'
@@ -15,18 +15,16 @@ const getParams = ({
 	processing,
 	errorState,
 	phoneNumber,
-	stringifiedActionId,
 	setStage,
 	methods,
 	setProcessing,
 	setErrorState,
-	copy,
+	app_id,
 }: IDKitStore) => ({
-	copy,
 	processing,
 	errorState,
+	app_id,
 	phoneNumber,
-	stringifiedActionId,
 	showAbout: methods.length == 1,
 	hasWorldID: methods.includes('orb'),
 	useWorldID: () => setStage(IDKITStage.WORLD_ID),
@@ -59,17 +57,8 @@ const getParams = ({
 })
 
 const EnterPhoneState = () => {
-	const {
-		copy,
-		phoneNumber,
-		processing,
-		showAbout,
-		onSubmit,
-		errorState,
-		onResetErrorState,
-		hasWorldID,
-		useWorldID,
-	} = useIDKitStore(getParams)
+	const { phoneNumber, processing, showAbout, onSubmit, errorState, onResetErrorState, hasWorldID, useWorldID } =
+		useIDKitStore(getParams)
 
 	return (
 		<div className="-mt-6 space-y-6">
@@ -94,10 +83,8 @@ const EnterPhoneState = () => {
 				</motion.div>
 			</Toast.Root>
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{getCopy(copy, 'heading')}
-				</p>
-				<p className="text-70868f mt-3 text-center md:mt-2">{getCopy(copy, 'subheading')}</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Heading</p>
+				<p className="text-70868f mt-3 text-center md:mt-2">Subheading</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />

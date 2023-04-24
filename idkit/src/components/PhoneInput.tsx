@@ -1,25 +1,25 @@
 import { phone } from 'phone'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
-import CountryCodeSelect from './CountryCodeSelect'
 import { Fragment, memo, useEffect, useState } from 'react'
+import CountryCodeSelect from './IDKitWidget/experimental/components/CountryCodeSelect'
 
-const getParams = ({ setPhoneNumber }: IDKitStore) => ({ setFullPhone: setPhoneNumber })
+const getParams = ({ setPhoneNumber }: IDKitStore) => ({ setPhoneNumber })
 
 const PhoneInput = ({ disabled, onSubmit }: { disabled?: boolean; onSubmit?: () => Promise<void> | void }) => {
-	const { setFullPhone } = useIDKitStore(getParams)
+	const { setPhoneNumber } = useIDKitStore(getParams)
 	const [countryCode, setCountryCode] = useState<string>('1')
-	const [phoneNumber, setPhoneNumber] = useState<string>('')
+	const [phoneNumberState, setPhoneNumberState] = useState<string>('')
 
 	useEffect(() => {
-		const validatedPhone = phone(`+${countryCode} ${phoneNumber}`)
+		const validatedPhone = phone(`+${countryCode} ${phoneNumberState}`)
 		if (!validatedPhone.isValid) {
-			setFullPhone('')
+			setPhoneNumber('')
 			return
 		}
 
-		setFullPhone(validatedPhone.phoneNumber)
-	}, [countryCode, phoneNumber, setFullPhone])
+		setPhoneNumber(validatedPhone.phoneNumber)
+	}, [countryCode, phoneNumberState, setPhoneNumber])
 
 	return (
 		<Fragment>
@@ -35,11 +35,10 @@ const PhoneInput = ({ disabled, onSubmit }: { disabled?: boolean; onSubmit?: () 
 				</div>
 				<input
 					type="tel"
-					id="phone-number"
 					name="phone-number"
-					value={phoneNumber}
+					value={phoneNumberState}
 					placeholder="Phone number"
-					onChange={e => setPhoneNumber(e.target.value)}
+					onChange={e => setPhoneNumberState(e.target.value)}
 					className="placeholder:text-9eafc0 block w-full rounded-md border-transparent bg-transparent pl-6 focus:border-transparent focus:ring-transparent dark:text-white sm:text-sm"
 					disabled={disabled}
 					onKeyDown={e => e.key === 'Enter' && void onSubmit?.()}

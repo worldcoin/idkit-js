@@ -13,7 +13,6 @@ import { AppErrorCodes, VerificationState } from '@/types/app'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
-	copy: store.copy,
 	app_id: store.app_id,
 	action: store.action,
 	walletConnectProjectId: store.walletConnectProjectId,

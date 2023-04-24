@@ -19,25 +19,14 @@ import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
 import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
-import EnterPhoneState from './States/EnterPhoneState'
-import VerifyCodeState from './States/VerifyCodeState'
 import { AnimatePresence, motion } from 'framer-motion'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
-import SelectMethodState from './States/SelectMethodState'
+import EnterPhoneState from './experimental/states/EnterPhoneState'
+import VerifyCodeState from './experimental/states/VerifyCodeState'
+import SelectMethodState from './experimental/states/SelectMethodState'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
-const getParams = ({
-	copy,
-	open,
-	processing,
-	onOpenChange,
-	stage,
-	setStage,
-	theme,
-	computed,
-	setOptions,
-}: IDKitStore) => ({
-	copy,
+const getParams = ({ open, processing, onOpenChange, stage, setStage, theme, computed, setOptions }: IDKitStore) => ({
 	stage,
 	theme,
 	setStage,
@@ -60,7 +49,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 	handleVerify,
 	onSuccess,
 	autoClose,
-	copy,
 }) => {
 	const {
 		isOpen,
@@ -85,25 +73,12 @@ const IDKitWidget: FC<WidgetProps> = ({
 				onSuccess,
 				handleVerify,
 				autoClose,
-				copy,
 				theme,
 				methods,
 			},
 			ConfigSource.PROPS
 		)
-	}, [
-		copy,
-		app_id,
-		action,
-		theme,
-		signal,
-		autoClose,
-		onSuccess,
-		setOptions,
-		handleVerify,
-		walletConnectProjectId,
-		methods,
-	])
+	}, [app_id, action, theme, signal, autoClose, onSuccess, setOptions, handleVerify, walletConnectProjectId, methods])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {

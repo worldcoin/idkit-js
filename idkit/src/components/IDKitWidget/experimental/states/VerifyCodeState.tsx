@@ -14,33 +14,26 @@ const getParams = ({
 	processing,
 	phoneNumber,
 	code,
-	stringifiedActionId,
 	setStage,
 	setProcessing,
 	setCode,
-	copy,
 	handleVerify,
 	setErrorState,
 	errorState,
+	app_id,
 }: IDKitStore) => ({
 	processing,
 	phoneNumber,
 	code,
-	stringifiedActionId,
 	errorState,
 	setCode,
 	setErrorState,
-	copy,
+	app_id,
 	onSubmit: async () => {
 		try {
 			setErrorState(null)
 			setProcessing(true)
-			const { nullifier_hash, ...proof_payload } = await verifyCode(
-				phoneNumber,
-				code,
-				stringifiedActionId,
-				getTelemetryId()
-			)
+			const { nullifier_hash, ...proof_payload } = await verifyCode(phoneNumber, code, app_id, getTelemetryId())
 			handleVerify({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)

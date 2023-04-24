@@ -16,18 +16,13 @@ export type IDKitConfig = {
 }
 
 export type WidgetConfig = {
+	experimentalMode?: boolean
 	autoClose?: boolean
 	onSuccess?: CallbackFn
 	theme?: 'dark' | 'light'
 	enableTelemetry?: boolean
 	handleVerify?: CallbackFn
 	methods?: VerificationMethods[]
-	copy?: {
-		title?: string
-		heading?: string
-		subheading?: string
-		success?: string
-	}
 }
 
 export type Config = IDKitConfig & Required<Pick<IDKitConfig, 'action'>> & WidgetConfig
