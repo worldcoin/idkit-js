@@ -1,7 +1,8 @@
+import { IDKITStage } from '@/types'
 import { memo, useState } from 'react'
 import Countdown from 'react-countdown'
 import useIDKitStore from '@/store/idkit'
-import { ErrorCodes, IDKITStage } from '@/types'
+import { AppErrorCodes } from '@/types/app'
 import { PhoneVerificationChannel } from '@/types'
 import { isRequestCodeError, requestCode } from '@/services/phone'
 import { getTelemetryId, telemetryRetryCode } from '@/lib/telemetry'
@@ -19,21 +20,21 @@ const renderer = ({ minutes, seconds, completed }: { minutes: number; seconds: n
 }
 
 const ResendButton = () => {
-	const { phoneNumber, stringifiedActionId, setProcessing, setStage, setErrorState } = useIDKitStore()
+	const { phoneNumber, app_id, setProcessing, setStage, setErrorState } = useIDKitStore()
 	const [nextTime, setNextTime] = useState<number | undefined>(new Date().getTime() + ONE_MINUTE)
 
 	const handleRetry = async (channel: PhoneVerificationChannel) => {
 		setNextTime(new Date().getTime() + ONE_MINUTE)
 		try {
 			setProcessing(true)
-			await requestCode(phoneNumber, stringifiedActionId, channel, getTelemetryId())
+			await requestCode(phoneNumber, app_id, channel, getTelemetryId())
 			telemetryRetryCode(channel)
 			setProcessing(false)
 		} catch (error) {
 			setProcessing(false)
 			setNextTime(undefined)
 			if (isRequestCodeError(error) && error.code !== 'server_error') {
-				setErrorState({ code: ErrorCodes.GENERIC_ERROR })
+				setErrorState({ code: AppErrorCodes.GenericError })
 				console.error(error)
 			} else {
 				setStage(IDKITStage.ERROR)

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
+import { AppErrorCodes } from '@/types/app'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import PhoneInput from '@/components/PhoneInput'
@@ -9,7 +10,7 @@ import AboutWorldID from '@/components/AboutWorldID'
 import XMarkIcon from '@/components/Icons/XMarkIcon'
 import { isRequestCodeError, requestCode } from '@/services/phone'
 import { getTelemetryId, telemetryPhoneTyped } from '@/lib/telemetry'
-import { ErrorCodes, IDKITStage, PhoneRequestErrorCodes, PhoneVerificationChannel } from '@/types'
+import { IDKITStage, PhoneRequestErrorCodes, PhoneVerificationChannel } from '@/types'
 
 const getParams = ({
 	processing,
@@ -32,7 +33,7 @@ const getParams = ({
 		try {
 			setProcessing(true)
 			setErrorState(null)
-			await requestCode(phoneNumber, stringifiedActionId, PhoneVerificationChannel.SMS, getTelemetryId())
+			await requestCode(phoneNumber, app_id, PhoneVerificationChannel.SMS, getTelemetryId())
 			telemetryPhoneTyped()
 			setProcessing(false)
 			setStage(IDKITStage.ENTER_CODE)
@@ -48,7 +49,7 @@ const getParams = ({
 			} else {
 				setStage(IDKITStage.ERROR)
 			}
-			setErrorState({ code: ErrorCodes.PHONE_OTP_REQUEST_ERROR, message })
+			setErrorState({ code: AppErrorCodes.InvalidPhoneOTP, message })
 		}
 	},
 	onResetErrorState: () => {

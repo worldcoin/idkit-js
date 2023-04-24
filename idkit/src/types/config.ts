@@ -1,4 +1,4 @@
-import type { CallbackFn } from '.'
+import type { CallbackFn, CredentialType } from '.'
 
 export type VerificationMethods = 'orb' | 'phone'
 export type StringOrAdvanced = Array<[string, unknown]> | string
@@ -10,9 +10,11 @@ export enum ConfigSource {
 
 export type IDKitConfig = {
 	app_id: string
-	signal: StringOrAdvanced
+	action_description?: string
+	signal?: StringOrAdvanced
 	action?: StringOrAdvanced
 	walletConnectProjectId?: string
+	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
 }
 
 export type WidgetConfig = {
