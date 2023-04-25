@@ -27,6 +27,7 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	[AppErrorCodes.FailedByHostApp]: 'Verification failed by the app. Please contact the app owner for details.',
 	[AppErrorCodes.UnexpectedResponse]: 'Unexpected response from the World App or identity wallet. Please try again.',
 	[AppErrorCodes.GenericError]: 'Something unexpected went wrong. Please try again.',
+	[AppErrorCodes.InvalidPhoneOTP]: 'The phone verification code you entered is invalid. Please try again.',
 }
 
 const ErrorState = () => {

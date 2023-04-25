@@ -22,11 +22,15 @@ export type WidgetConfig = {
 	enableTelemetry?: boolean
 } & (
 	| {
+			experimental_methods?: never
+			onSuccess?: CallbackFn<ISuccessResult>
+			handleVerify?: CallbackFn<ISuccessResult>
+	  }
+	| {
 			experimental_methods?: VerificationMethods[]
 			onSuccess?: CallbackFn<IExperimentalSuccessResult>
 			handleVerify?: CallbackFn<IExperimentalSuccessResult>
 	  }
-	| { experimental_methods: never; onSuccess?: CallbackFn<ISuccessResult>; handleVerify?: CallbackFn<ISuccessResult> }
 )
 
 export type Config = IDKitConfig & Required<Pick<IDKitConfig, 'action'>> & WidgetConfig
