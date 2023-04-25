@@ -35,7 +35,7 @@ export interface ISuccessResult {
 	credential_type: CredentialType
 }
 
-export type CallbackFn = (result: ISuccessResult) => Promise<void> | void
+export type CallbackFn<T> = (result: T) => Promise<void> | void
 
 // Error response received from World app through WalletConnect
 export interface ExpectedErrorResponse {

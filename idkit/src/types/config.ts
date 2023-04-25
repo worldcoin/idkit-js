@@ -1,7 +1,6 @@
-import type { CallbackFn, CredentialType } from '.'
+import type { AbiEncodedValue, CallbackFn, CredentialType, IExperimentalSuccessResult, ISuccessResult } from '.'
 
 export type VerificationMethods = 'orb' | 'phone'
-export type StringOrAdvanced = Array<[string, unknown]> | string
 export enum ConfigSource {
 	HOOK = 'hook',
 	PROPS = 'props',
@@ -11,20 +10,24 @@ export enum ConfigSource {
 export type IDKitConfig = {
 	app_id: string
 	action_description?: string
-	signal?: StringOrAdvanced
-	action?: StringOrAdvanced
+	signal?: AbiEncodedValue | string
+	action?: AbiEncodedValue | string
 	walletConnectProjectId?: string
 	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
 }
 
 export type WidgetConfig = {
 	autoClose?: boolean
-	onSuccess?: CallbackFn
 	theme?: 'dark' | 'light'
 	enableTelemetry?: boolean
-	handleVerify?: CallbackFn
-	experimental_methods?: VerificationMethods[]
-}
+} & (
+	| {
+			experimental_methods?: VerificationMethods[]
+			onSuccess?: CallbackFn<IExperimentalSuccessResult>
+			handleVerify?: CallbackFn<IExperimentalSuccessResult>
+	  }
+	| { experimental_methods: never; onSuccess?: CallbackFn<ISuccessResult>; handleVerify?: CallbackFn<ISuccessResult> }
+)
 
 export type Config = IDKitConfig & Required<Pick<IDKitConfig, 'action'>> & WidgetConfig
 

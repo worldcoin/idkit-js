@@ -7,6 +7,7 @@ import type { IDKitStore } from '@/store/idkit'
 import WorldIDIcon from '@/components/WorldIDIcon'
 import AboutWorldID from '@/components/AboutWorldID'
 import type { VerificationMethods } from '@/types/config'
+import DevicePhoneMobileIcon from '@/components/Icons/DevicePhoneMobileIcon'
 
 const getParams = ({ setStage, methods }: IDKitStore) => ({
 	methods,
@@ -68,8 +69,7 @@ const MethodButton: FC<{ primary: boolean; setStage: IDKitStore['setStage']; met
 		{method == 'orb' ? (
 			<WorldIDIcon className="h-5 w-5 text-gray-400" />
 		) : (
-			<></>
-			// <DevicePhoneMobileIcon className="h-5 w-5 text-gray-400" />
+			<DevicePhoneMobileIcon className="h-5 w-5 text-gray-400" />
 		)}
 		<motion.span
 			className="flex-1 text-center"

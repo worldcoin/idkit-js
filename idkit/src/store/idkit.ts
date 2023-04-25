@@ -3,8 +3,8 @@ import { AppErrorCodes } from '@/types/app'
 import { CredentialType, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
 import type { VerificationMethods } from '@/types/config'
-import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
-import type { Config, ConfigSource, IDKitConfig, StringOrAdvanced } from '@/types/config'
+import type { Config, ConfigSource, IDKitConfig } from '@/types/config'
+import type { CallbackFn, IErrorState, IExperimentalSuccessResult, ISuccessResult } from '@/types'
 
 export type IDKitStore = {
 	app_id: IDKitConfig['app_id']
@@ -21,12 +21,15 @@ export type IDKitStore = {
 	autoClose: boolean
 	processing: boolean
 	theme: Config['theme']
-	actionId: StringOrAdvanced
-	result: ISuccessResult | null
+	result: IExperimentalSuccessResult | ISuccessResult | null
 	methods: VerificationMethods[]
 	errorState: IErrorState | null
-	verifyCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
-	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
+	verifyCallbacks:
+		| Record<ConfigSource, CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult> | undefined>
+		| Record<string, never>
+	successCallbacks:
+		| Record<ConfigSource, CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult> | undefined>
+		| Record<string, never>
 
 	computed: {
 		canGoBack: (stage: IDKITStage) => boolean
@@ -38,11 +41,17 @@ export type IDKitStore = {
 	setStage: (stage: IDKITStage) => void
 	onOpenChange: (open: boolean) => void
 	setProcessing: (processing: boolean) => void
-	handleVerify: (result: ISuccessResult) => void
+	handleVerify: (result: IExperimentalSuccessResult | ISuccessResult) => void
 	setErrorState: (state: IErrorState | null) => void
 	setOptions: (options: Config, source: ConfigSource) => void
-	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => void
-	addVerificationCallback: (cb: CallbackFn, source: ConfigSource) => void
+	addSuccessCallback: (
+		cb: CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult>,
+		source: ConfigSource
+	) => void
+	addVerificationCallback: (
+		cb: CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult>,
+		source: ConfigSource
+	) => void
 	setPhoneNumber: (phoneNumber: string) => void // EXPERIMENTAL
 }
 
@@ -51,7 +60,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	signal: '',
 	action: '',
 	phoneNumber: '', // EXPERIMENTAL
-	methods: [],
+	methods: ['orb'],
 	action_description: '',
 	walletConnectProjectId: '',
 	credential_types: [],
@@ -59,7 +68,6 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	open: false,
 	code: '',
 	result: null,
-	actionId: '',
 	theme: 'light',
 	errorTitle: '',
 	errorDetail: '',
@@ -104,14 +112,20 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 
 		set({ stage: IDKITStage.SELECT_METHOD, errorState: null })
 	},
-	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => {
+	addSuccessCallback: (
+		cb: CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult>,
+		source: ConfigSource
+	) => {
 		set(state => {
 			state.successCallbacks[source] = cb
 
 			return state
 		})
 	},
-	addVerificationCallback: (cb: CallbackFn, source: ConfigSource) => {
+	addVerificationCallback: (
+		cb: CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult>,
+		source: ConfigSource
+	) => {
 		set(state => {
 			state.verifyCallbacks[source] = cb
 
@@ -153,10 +167,14 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		if (onSuccess) get().addSuccessCallback(onSuccess, source)
 		if (handleVerify) get().addVerificationCallback(handleVerify, source)
 	},
-	handleVerify: (result: ISuccessResult) => {
+	handleVerify: (result: IExperimentalSuccessResult | ISuccessResult) => {
 		set({ stage: IDKITStage.HOST_APP_VERIFICATION, processing: false })
 
-		Promise.all(Object.values(get().verifyCallbacks).map(cb => cb?.(result))).then(
+		Promise.all(
+			Object.values(get().verifyCallbacks).map(cb =>
+				(cb as CallbackFn<IExperimentalSuccessResult | ISuccessResult>)(result)
+			)
+		).then(
 			() => {
 				set({ stage: IDKITStage.SUCCESS, result })
 
@@ -185,7 +203,12 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			const result = get().result
 			const callbacks = get().successCallbacks
 
-			if (result) requestAnimationFrame(() => Object.values(callbacks).forEach(cb => void cb?.(result)))
+			if (result)
+				requestAnimationFrame(() =>
+					Object.values(callbacks).forEach(
+						cb => void (cb as CallbackFn<IExperimentalSuccessResult | ISuccessResult>)(result)
+					)
+				)
 		}
 
 		set({

@@ -38,18 +38,7 @@ const getParams = ({ open, processing, onOpenChange, stage, setStage, theme, com
 	defaultStage: computed.getDefaultStage(),
 })
 
-const IDKitWidget: FC<WidgetProps> = ({
-	children,
-	app_id,
-	action,
-	theme,
-	experimental_methods,
-	signal,
-	walletConnectProjectId,
-	handleVerify,
-	onSuccess,
-	autoClose,
-}) => {
+const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 	const {
 		isOpen,
 		onOpenChange,
@@ -64,32 +53,8 @@ const IDKitWidget: FC<WidgetProps> = ({
 	const media = useMedia()
 
 	useEffect(() => {
-		setOptions(
-			{
-				app_id,
-				action,
-				signal,
-				walletConnectProjectId,
-				onSuccess,
-				handleVerify,
-				autoClose,
-				theme,
-				experimental_methods,
-			},
-			ConfigSource.PROPS
-		)
-	}, [
-		app_id,
-		action,
-		theme,
-		signal,
-		autoClose,
-		onSuccess,
-		setOptions,
-		handleVerify,
-		walletConnectProjectId,
-		experimental_methods,
-	])
+		setOptions(config, ConfigSource.PROPS)
+	}, [config, setOptions])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {

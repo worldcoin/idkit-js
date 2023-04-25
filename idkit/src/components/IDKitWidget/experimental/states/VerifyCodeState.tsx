@@ -35,8 +35,8 @@ const getParams = ({
 			setErrorState(null)
 			setProcessing(true)
 			const { nullifier_hash, ...proof_payload } = await verifyCode(phoneNumber, code, app_id, getTelemetryId())
-			// FIXME
-			// handleVerify({ signal_type: SignalType.Phone, nullifier_hash, proof_payload })
+
+			handleVerify({ credential_type: 'phone', nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)
 			setCode('')
