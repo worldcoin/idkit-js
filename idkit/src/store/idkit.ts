@@ -30,7 +30,7 @@ export type IDKitStore = {
 
 	computed: {
 		canGoBack: (stage: IDKITStage) => boolean
-		getDefaultStage: (methods?: Config['methods']) => IDKITStage
+		getDefaultStage: (methods?: Config['experimental_methods']) => IDKITStage
 	}
 
 	retryFlow: () => void
@@ -84,7 +84,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 					return false
 			}
 		},
-		getDefaultStage: (methods?: Config['methods']) => {
+		getDefaultStage: (methods?: Config['experimental_methods']) => {
 			methods = methods ?? get().methods
 
 			if (methods.length > 1) return IDKITStage.SELECT_METHOD
@@ -127,7 +127,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			app_id,
 			credential_types,
 			action_description,
-			methods,
+			experimental_methods,
 			walletConnectProjectId,
 			autoClose,
 			theme,
@@ -146,8 +146,8 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			walletConnectProjectId,
 			credential_types: sanitized_credential_types,
 			action_description,
-			methods: methods ?? store.methods,
-			stage: store.computed.getDefaultStage(methods),
+			methods: experimental_methods ?? store.methods,
+			stage: store.computed.getDefaultStage(experimental_methods),
 		}))
 
 		if (onSuccess) get().addSuccessCallback(onSuccess, source)

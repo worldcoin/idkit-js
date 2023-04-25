@@ -10,6 +10,7 @@ import useAppConnection from '@/services/walletconnect'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 import { AppErrorCodes, VerificationState } from '@/types/app'
+import DevicePhoneMobileIcon from '@/components/Icons/DevicePhoneMobileIcon'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,

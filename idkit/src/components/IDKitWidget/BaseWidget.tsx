@@ -43,7 +43,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 	app_id,
 	action,
 	theme,
-	methods,
+	experimental_methods,
 	signal,
 	walletConnectProjectId,
 	handleVerify,
@@ -74,11 +74,22 @@ const IDKitWidget: FC<WidgetProps> = ({
 				handleVerify,
 				autoClose,
 				theme,
-				methods,
+				experimental_methods,
 			},
 			ConfigSource.PROPS
 		)
-	}, [app_id, action, theme, signal, autoClose, onSuccess, setOptions, handleVerify, walletConnectProjectId, methods])
+	}, [
+		app_id,
+		action,
+		theme,
+		signal,
+		autoClose,
+		onSuccess,
+		setOptions,
+		handleVerify,
+		walletConnectProjectId,
+		experimental_methods,
+	])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
