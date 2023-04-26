@@ -20,8 +20,10 @@ const SelectMethodState = () => {
 	return (
 		<div className="-mt-6 space-y-6">
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Hello world</p>
-				<p className="text-70868f mt-3 text-center md:mt-2">Hey there</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Verify your account</p>
+				<p className="text-70868f mt-3 text-center md:mt-2">
+					Help prevent spam and abuse by verifying your account.
+				</p>
 			</div>
 			<div className="space-y-3">
 				{methods.map((method, i) => (
