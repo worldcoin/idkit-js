@@ -151,6 +151,9 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 		const sanitized_credential_types = credential_types?.filter(type =>
 			Object.values(CredentialType).includes(type)
 		)
+
+		const hasUpdatedMethods = experimental_methods && experimental_methods !== get().methods
+
 		set(store => ({
 			theme,
 			signal,
@@ -161,7 +164,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			credential_types: sanitized_credential_types,
 			action_description,
 			methods: experimental_methods ?? store.methods,
-			stage: store.computed.getDefaultStage(experimental_methods),
+			stage: hasUpdatedMethods ? store.computed.getDefaultStage(experimental_methods) : get().stage,
 		}))
 
 		if (onSuccess) get().addSuccessCallback(onSuccess, source)

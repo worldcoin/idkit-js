@@ -27,7 +27,7 @@ const SelectMethodState = () => {
 			</div>
 			<div className="space-y-3">
 				{methods.map((method, i) => (
-					<MethodButton primary={i == 0} key={method} method={method} setStage={setStage} />
+					<MethodButton primary={i == 0} key={method} method={method} />
 				))}
 			</div>
 			{methods.includes('orb') && (
@@ -50,37 +50,39 @@ const SelectMethodState = () => {
 	)
 }
 
-const MethodButton: FC<{ primary: boolean; setStage: IDKitStore['setStage']; method: VerificationMethods }> = ({
-	method,
-	primary,
-	setStage,
-}) => (
-	<motion.button
-		whileTap={{ scale: 0.95 }}
-		whileHover={{ scale: 1.05 }}
-		transition={{ layout: { duration: 0.15 } }}
-		layoutId={method == 'orb' ? 'worldid-button' : 'phone-button'}
-		onClick={() => setStage(method == 'orb' ? IDKITStage.WORLD_ID : IDKITStage.ENTER_PHONE)}
-		className={classNames(
-			'flex w-full space-x-2 items-center px-4 py-4 border border-transparent font-medium rounded-2xl shadow-sm',
-			primary
-				? 'bg-0d151d dark:bg-white text-white dark:text-0d151d'
-				: 'bg-d3dfea/30 dark:bg-29343f text-0d151d dark:text-white'
-		)}
-	>
-		{method == 'orb' ? (
-			<WorldIDIcon className="h-5 w-5 text-gray-400" />
-		) : (
-			<DevicePhoneMobileIcon className="h-5 w-5 text-gray-400" />
-		)}
-		<motion.span
-			className="flex-1 text-center"
+const getSetStage = ({ setStage }: IDKitStore) => setStage
+
+const MethodButton: FC<{ primary: boolean; method: VerificationMethods }> = ({ method, primary }) => {
+	const setStage = useIDKitStore(getSetStage)
+
+	return (
+		<motion.button
+			whileTap={{ scale: 0.95 }}
+			whileHover={{ scale: 1.05 }}
 			transition={{ layout: { duration: 0.15 } }}
-			layoutId={method == 'orb' ? 'worldid-text' : 'phone-text'}
+			layoutId={method == 'orb' ? 'worldid-button' : 'phone-button'}
+			onClick={() => setStage(method == 'orb' ? IDKITStage.WORLD_ID : IDKITStage.ENTER_PHONE)}
+			className={classNames(
+				'flex w-full space-x-2 items-center px-4 py-4 border border-transparent font-medium rounded-2xl shadow-sm',
+				primary
+					? 'bg-0d151d dark:bg-white text-white dark:text-0d151d'
+					: 'bg-d3dfea/30 dark:bg-29343f text-0d151d dark:text-white'
+			)}
 		>
-			{method == 'orb' ? 'Verify with World ID' : 'Verify with Phone Number'}
-		</motion.span>
-	</motion.button>
-)
+			{method == 'orb' ? (
+				<WorldIDIcon className="h-5 w-5 text-gray-400" />
+			) : (
+				<DevicePhoneMobileIcon className="h-5 w-5 text-gray-400" />
+			)}
+			<motion.span
+				className="flex-1 text-center"
+				transition={{ layout: { duration: 0.15 } }}
+				layoutId={method == 'orb' ? 'worldid-text' : 'phone-text'}
+			>
+				{method == 'orb' ? 'Verify with World ID' : 'Verify with Phone Number'}
+			</motion.span>
+		</motion.button>
+	)
+}
 
 export default SelectMethodState
