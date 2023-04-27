@@ -10,8 +10,35 @@ jobs:
         name: Release
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-
-            - uses: google-github-actions/release-please-action@v3
+            - name: Release
+              id: release
+              uses: google-github-actions/release-please-action@v3
               with:
                   command: manifest
+
+            - name: Checkout
+              uses: actions/checkout@v3
+              if: ${{ steps.release.outputs.release_created }}
+
+            - name: Set up Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: "yarn"
+                  registry-url: "https://registry.npmjs.org"
+                  if: ${{ steps.release.outputs.release_created }}
+
+            - name: Install dependencies
+              run: yarn --frozen-lockfile
+              if: ${{ steps.release.outputs.release_created }}
+
+            - name: Build
+              working-directory: idkit
+              run: yarn build
+
+            - name: Publish
+              run: npm publish
+              if: ${{ steps.release.outputs.release_created }}
+              working-directory: idkit
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
