@@ -3,7 +3,7 @@
  */
 import type { PhoneRequestErrorCodes, PhoneSignalProof, PhoneVerificationChannel } from '@/types'
 
-const API_BASE_URL = 'https://world-id-lens-bridge.vercel.app/api/v1/'
+const API_BASE_URL = 'https://world-id-lens-bridge.vercel.app/api/v1'
 
 export async function requestCode(
 	phone_number: string,
