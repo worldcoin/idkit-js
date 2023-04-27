@@ -60,7 +60,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	signal: '',
 	action: '',
 	phoneNumber: '', // EXPERIMENTAL
-	methods: ['orb'],
+	methods: [],
 	action_description: '',
 	walletConnectProjectId: '',
 	credential_types: [],

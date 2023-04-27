@@ -8,6 +8,7 @@ import type { IDKitStore } from '@/store/idkit'
 import AboutWorldID from '@/components/AboutWorldID'
 import useAppConnection from '@/services/walletconnect'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
+import type { IExperimentalSuccessResult } from '@/types'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 import { AppErrorCodes, VerificationState } from '@/types/app'
 import DevicePhoneMobileIcon from '@/components/Icons/DevicePhoneMobileIcon'
@@ -25,6 +26,7 @@ const getOptions = (store: IDKitStore) => ({
 	usePhone: () => store.setStage(IDKITStage.ENTER_PHONE),
 	setStage: store.setStage,
 	setErrorState: store.setErrorState,
+	isExperimental: store.methods.length > 0,
 })
 
 const WorldIDState = () => {
@@ -37,6 +39,7 @@ const WorldIDState = () => {
 		setStage,
 		usePhone,
 		handleVerify,
+		isExperimental,
 		action_description,
 		credential_types,
 		hasPhone,
@@ -61,8 +64,14 @@ const WorldIDState = () => {
 			setErrorState({ code: errorCode ?? AppErrorCodes.GenericError })
 		}
 
-		if (result) handleVerify(result)
-	}, [result, reset, handleVerify, verificationState, setStage, errorCode, setErrorState])
+		if (result) {
+			if (!isExperimental) return handleVerify(result)
+
+			const { nullifier_hash, credential_type, ...proof_payload } = result
+
+			handleVerify({ proof_payload, nullifier_hash, credential_type })
+		}
+	}, [result, reset, handleVerify, verificationState, setStage, errorCode, setErrorState, isExperimental])
 
 	return (
 		<div className="-mt-6 space-y-6">
