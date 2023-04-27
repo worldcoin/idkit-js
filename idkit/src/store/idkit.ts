@@ -2,8 +2,9 @@ import { create } from 'zustand'
 import { AppErrorCodes } from '@/types/app'
 import { CredentialType, IDKITStage } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
-import type { CallbackFn, IErrorState, ISuccessResult } from '@/types'
+import type { VerificationMethods } from '@/types/config'
 import type { Config, ConfigSource, IDKitConfig } from '@/types/config'
+import type { CallbackFn, IErrorState, IExperimentalSuccessResult, ISuccessResult } from '@/types'
 
 export type IDKitStore = {
 	app_id: IDKitConfig['app_id']
@@ -12,21 +13,27 @@ export type IDKitStore = {
 	action_description?: IDKitConfig['action_description']
 	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
 	credential_types?: IDKitConfig['credential_types']
+	phoneNumber: string // EXPERIMENTAL
 
 	code: string
 	open: boolean
 	stage: IDKITStage
 	autoClose: boolean
 	processing: boolean
-	copy: Config['copy']
 	theme: Config['theme']
-	result: ISuccessResult | null
+	result: IExperimentalSuccessResult | ISuccessResult | null
+	methods: VerificationMethods[]
 	errorState: IErrorState | null
-	verifyCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
-	successCallbacks: Record<ConfigSource, CallbackFn | undefined> | Record<string, never>
+	verifyCallbacks:
+		| Record<ConfigSource, CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult> | undefined>
+		| Record<string, never>
+	successCallbacks:
+		| Record<ConfigSource, CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult> | undefined>
+		| Record<string, never>
 
 	computed: {
 		canGoBack: (stage: IDKITStage) => boolean
+		getDefaultStage: (methods?: Config['experimental_methods']) => IDKITStage
 	}
 
 	retryFlow: () => void
@@ -34,17 +41,26 @@ export type IDKitStore = {
 	setStage: (stage: IDKITStage) => void
 	onOpenChange: (open: boolean) => void
 	setProcessing: (processing: boolean) => void
-	handleVerify: (result: ISuccessResult) => void
+	handleVerify: (result: IExperimentalSuccessResult | ISuccessResult) => void
 	setErrorState: (state: IErrorState | null) => void
 	setOptions: (options: Config, source: ConfigSource) => void
-	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => void
-	addVerificationCallback: (cb: CallbackFn, source: ConfigSource) => void
+	addSuccessCallback: (
+		cb: CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult>,
+		source: ConfigSource
+	) => void
+	addVerificationCallback: (
+		cb: CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult>,
+		source: ConfigSource
+	) => void
+	setPhoneNumber: (phoneNumber: string) => void // EXPERIMENTAL
 }
 
 const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	app_id: '',
 	signal: '',
 	action: '',
+	phoneNumber: '', // EXPERIMENTAL
+	methods: [],
 	action_description: '',
 	walletConnectProjectId: '',
 	credential_types: [],
@@ -61,16 +77,26 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	verifyCallbacks: {},
 	successCallbacks: {},
 	stage: IDKITStage.WORLD_ID,
-	copy: {},
 
 	computed: {
 		canGoBack: (stage: IDKITStage) => {
 			switch (stage) {
+				case IDKITStage.ENTER_PHONE:
+					return get().methods.includes('orb')
+				case IDKITStage.WORLD_ID:
+					return get().methods.includes('phone')
+				case IDKITStage.ENTER_CODE:
 				case IDKITStage.PRIVACY:
 					return true
 				default:
 					return false
 			}
+		},
+		getDefaultStage: (methods?: Config['experimental_methods']) => {
+			methods = methods ?? get().methods
+
+			if (methods.length > 1) return IDKITStage.SELECT_METHOD
+			return methods[0] === 'phone' ? IDKITStage.ENTER_PHONE : IDKITStage.WORLD_ID
 		},
 	},
 
@@ -78,17 +104,28 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	setStage: stage => set({ stage }),
 	setErrorState: errorState => set({ errorState }),
 	setProcessing: (processing: boolean) => set({ processing }),
+	setPhoneNumber: phoneNumber => set({ phoneNumber }),
 	retryFlow: () => {
-		set({ stage: IDKITStage.WORLD_ID, errorState: null })
+		if (get().methods.length === 1) {
+			set({ stage: get().computed.getDefaultStage(), errorState: null })
+		}
+
+		set({ stage: IDKITStage.SELECT_METHOD, errorState: null })
 	},
-	addSuccessCallback: (cb: CallbackFn, source: ConfigSource) => {
+	addSuccessCallback: (
+		cb: CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult>,
+		source: ConfigSource
+	) => {
 		set(state => {
 			state.successCallbacks[source] = cb
 
 			return state
 		})
 	},
-	addVerificationCallback: (cb: CallbackFn, source: ConfigSource) => {
+	addVerificationCallback: (
+		cb: CallbackFn<IExperimentalSuccessResult> | CallbackFn<ISuccessResult>,
+		source: ConfigSource
+	) => {
 		set(state => {
 			state.verifyCallbacks[source] = cb
 
@@ -104,9 +141,9 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			app_id,
 			credential_types,
 			action_description,
+			experimental_methods,
 			walletConnectProjectId,
 			autoClose,
-			copy,
 			theme,
 		}: Config,
 		source: ConfigSource
@@ -115,25 +152,32 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			Object.values(CredentialType).includes(type)
 		)
 
+		const hasUpdatedMethods = experimental_methods && experimental_methods !== get().methods
+
 		set(store => ({
 			theme,
 			signal,
 			action,
 			app_id,
-			credential_types: sanitized_credential_types,
 			autoClose,
-			action_description,
 			walletConnectProjectId,
-			copy: { ...store.copy, ...copy },
+			credential_types: sanitized_credential_types,
+			action_description,
+			methods: experimental_methods ?? store.methods,
+			stage: hasUpdatedMethods ? store.computed.getDefaultStage(experimental_methods) : get().stage,
 		}))
 
 		if (onSuccess) get().addSuccessCallback(onSuccess, source)
 		if (handleVerify) get().addVerificationCallback(handleVerify, source)
 	},
-	handleVerify: (result: ISuccessResult) => {
+	handleVerify: (result: IExperimentalSuccessResult | ISuccessResult) => {
 		set({ stage: IDKITStage.HOST_APP_VERIFICATION, processing: false })
 
-		Promise.all(Object.values(get().verifyCallbacks).map(cb => cb?.(result))).then(
+		Promise.all(
+			Object.values(get().verifyCallbacks).map(cb =>
+				(cb as CallbackFn<IExperimentalSuccessResult | ISuccessResult>)(result)
+			)
+		).then(
 			() => {
 				set({ stage: IDKITStage.SUCCESS, result })
 
@@ -162,7 +206,12 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			const result = get().result
 			const callbacks = get().successCallbacks
 
-			if (result) requestAnimationFrame(() => Object.values(callbacks).forEach(cb => void cb?.(result)))
+			if (result)
+				requestAnimationFrame(() =>
+					Object.values(callbacks).forEach(
+						cb => void (cb as CallbackFn<IExperimentalSuccessResult | ISuccessResult>)(result)
+					)
+				)
 		}
 
 		set({
@@ -171,7 +220,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			result: null,
 			errorState: null,
 			processing: false,
-			stage: IDKITStage.WORLD_ID,
+			stage: get().computed.getDefaultStage(),
 		})
 	},
 }))

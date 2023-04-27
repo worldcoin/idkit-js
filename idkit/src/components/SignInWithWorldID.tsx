@@ -7,7 +7,7 @@ import type { ISuccessResult } from '..'
 import SignInButton from './SignInButton'
 import type { IDKitConfig, WidgetConfig } from '@/types/config'
 
-type Props = Omit<WidgetConfig, 'autoClose'> &
+type Props = Omit<WidgetConfig, 'autoClose' | 'experimental_methods' | 'handleVerify'> &
 	Pick<IDKitConfig, 'app_id' | 'walletConnectProjectId'> & {
 		nonce?: string
 		onSuccess: (jwt: string) => void

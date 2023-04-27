@@ -21,20 +21,12 @@ import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import { AnimatePresence, motion } from 'framer-motion'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
+import EnterPhoneState from './experimental/states/EnterPhoneState'
+import VerifyCodeState from './experimental/states/VerifyCodeState'
+import SelectMethodState from './experimental/states/SelectMethodState'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
-const getParams = ({
-	copy,
-	open,
-	processing,
-	onOpenChange,
-	stage,
-	setStage,
-	theme,
-	computed,
-	setOptions,
-}: IDKitStore) => ({
-	copy,
+const getParams = ({ open, processing, onOpenChange, stage, setStage, theme, computed, setOptions }: IDKitStore) => ({
 	stage,
 	theme,
 	setStage,
@@ -43,22 +35,10 @@ const getParams = ({
 	isOpen: open,
 	onOpenChange,
 	canGoBack: computed.canGoBack(stage),
+	defaultStage: computed.getDefaultStage(),
 })
 
-const IDKitWidget: FC<WidgetProps> = ({
-	children,
-	app_id,
-	action,
-	action_description,
-	theme,
-	signal,
-	walletConnectProjectId,
-	handleVerify,
-	onSuccess,
-	autoClose,
-	copy,
-	credential_types,
-}) => {
+const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 	const {
 		isOpen,
 		onOpenChange,
@@ -66,47 +46,26 @@ const IDKitWidget: FC<WidgetProps> = ({
 		stage,
 		setStage,
 		canGoBack,
+		defaultStage,
 		setOptions,
 		theme: _theme,
 	} = useIDKitStore(getParams, shallow)
 	const media = useMedia()
 
 	useEffect(() => {
-		setOptions(
-			{
-				app_id,
-				action,
-				action_description,
-				signal,
-				walletConnectProjectId,
-				onSuccess,
-				handleVerify,
-				autoClose,
-				copy,
-				theme,
-				credential_types,
-			},
-			ConfigSource.PROPS
-		)
-	}, [
-		copy,
-		app_id,
-		action,
-		theme,
-		signal,
-		autoClose,
-		onSuccess,
-		setOptions,
-		handleVerify,
-		action_description,
-		walletConnectProjectId,
-		credential_types,
-	])
+		setOptions(config, ConfigSource.PROPS)
+	}, [config, setOptions])
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
+			case IDKITStage.SELECT_METHOD:
+				return SelectMethodState
+			case IDKITStage.ENTER_PHONE:
+				return EnterPhoneState
 			case IDKITStage.WORLD_ID:
 				return WorldIDState
+			case IDKITStage.ENTER_CODE:
+				return VerifyCodeState
 			case IDKITStage.SUCCESS:
 				return SuccessState
 			case IDKITStage.ERROR:
@@ -164,7 +123,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
 															<button
-																onClick={() => setStage(IDKITStage.WORLD_ID)}
+																onClick={() => setStage(defaultStage)}
 																disabled={!canGoBack}
 																className={classNames(
 																	!canGoBack && 'invisible pointer-events-none',

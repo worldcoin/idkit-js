@@ -1,4 +1,5 @@
 import type { AppErrorCodes } from './app'
+import type { VerificationMethods } from './config'
 
 declare const brand: unique symbol
 type Brand<T, TBrand extends string> = T & { [brand]: TBrand }
@@ -6,6 +7,9 @@ type Brand<T, TBrand extends string> = T & { [brand]: TBrand }
 export type AbiEncodedValue = Brand<{ types: string[]; values: unknown[] }, 'AbiEncodedValue'>
 
 export enum IDKITStage {
+	SELECT_METHOD = 'SELECT_METHOD', // EXPERIMENTAL
+	ENTER_PHONE = 'ENTER_PHONE', // EXPERIMENTAL
+	ENTER_CODE = 'ENTER_CODE', // EXPERIMENTAL
 	WORLD_ID = 'WORLD_ID',
 	PRIVACY = 'PRIVACY',
 	SUCCESS = 'SUCCESS',
@@ -18,6 +22,12 @@ export enum CredentialType {
 	Phone = 'phone',
 }
 
+export interface IExperimentalSuccessResult {
+	nullifier_hash: string
+	credential_type: VerificationMethods
+	proof_payload: OrbSignalProof | PhoneSignalProof
+}
+
 export interface ISuccessResult {
 	proof: string
 	merkle_root: string
@@ -25,7 +35,7 @@ export interface ISuccessResult {
 	credential_type: CredentialType
 }
 
-export type CallbackFn = (result: ISuccessResult) => Promise<void> | void
+export type CallbackFn<T> = (result: T) => Promise<void> | void
 
 // Error response received from World app through WalletConnect
 export interface ExpectedErrorResponse {
@@ -36,4 +46,27 @@ export interface ExpectedErrorResponse {
 export interface IErrorState {
 	code: AppErrorCodes
 	message?: string
+}
+
+// ANCHOR: Experimental
+
+export enum PhoneVerificationChannel {
+	SMS = 'sms',
+	Call = 'call',
+}
+
+export enum PhoneRequestErrorCodes {
+	MAX_ATTEMPTS = 'max_attempts',
+	TIMEOUT = 'timeout',
+	UNSUPPORTED_COUNTRY = 'unsupported_country',
+	SERVER_ERROR = 'server_error',
+}
+
+export interface OrbSignalProof {
+	merkle_root: string
+	proof: string
+}
+export interface PhoneSignalProof {
+	timestamp: number
+	signature: string
 }
