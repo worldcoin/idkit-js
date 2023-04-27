@@ -3,7 +3,7 @@
 	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
 	"type": "module",
 	"types": "./build/src/index.d.ts",
-	"version": "0.4.8",
+	"version": "0.4.9",
 	"private": false,
 	"main": "./build/index.cjs",
 	"module": "./build/index.js",
