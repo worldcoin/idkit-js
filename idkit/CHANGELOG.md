@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.9](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.8...idkit-v0.4.9) (2023-04-27)
+
+
+### Features
+
+* experimental mode selection ([#115](https://github.com/worldcoin/idkit-js/issues/115)) ([bff8c71](https://github.com/worldcoin/idkit-js/commit/bff8c71a471ca5eb1bc69f7e84af801c52fc2f0f))
+
+
+### Bug Fixes
+
+* Update SignInWithWorldID.tsx ([#110](https://github.com/worldcoin/idkit-js/issues/110)) ([ac9c69c](https://github.com/worldcoin/idkit-js/commit/ac9c69cfb062d61fca6a8d8887ff4b8a875619db)), closes [#109](https://github.com/worldcoin/idkit-js/issues/109)
+
+
+### Miscellaneous Chores
+
+* release 0.4.9 ([b94084e](https://github.com/worldcoin/idkit-js/commit/b94084e30653e2246c13d9bd30c2e5edd127bcde))
+
 ## [0.4.8](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.7...idkit-v0.4.8) (2023-04-15)
 
 ### Features
