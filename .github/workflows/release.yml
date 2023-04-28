@@ -22,11 +22,11 @@ jobs:
 
             - name: Set up Node
               uses: actions/setup-node@v3
+              if: ${{ steps.release.outputs.release_created }}
               with:
                   node-version: 18
                   cache: "yarn"
                   registry-url: "https://registry.npmjs.org"
-                  if: ${{ steps.release.outputs.release_created }}
 
             - name: Install dependencies
               run: yarn --frozen-lockfile
