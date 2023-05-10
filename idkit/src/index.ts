@@ -4,6 +4,7 @@ import QRCode from './components/QRCode'
 import type { ISuccessResult } from '@/types'
 import { solidityEncode } from './lib/hashing'
 import IDKitWidget from '@/components/IDKitWidget'
+import SignInButton from './components/SignInButton'
 import useAppConnection from '@/services/walletconnect'
 import type { WidgetProps, Config } from '@/types/config'
 import { VerificationState, AppErrorCodes } from './types/app'
@@ -21,5 +22,5 @@ const internal = {
 	AppErrorCodes,
 }
 
-export { IDKitWidget, useIDKit, solidityEncode, internal, SignInWithWorldID, CredentialType }
+export { IDKitWidget, useIDKit, solidityEncode, internal, SignInWithWorldID, CredentialType, SignInButton }
 export type { ISuccessResult, Config, WidgetProps }
