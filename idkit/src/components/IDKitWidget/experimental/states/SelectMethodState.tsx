@@ -15,7 +15,7 @@ const getParams = ({ setStage, methods }: IDKitStore) => ({
 })
 
 const SelectMethodState = () => {
-	const { setStage, methods } = useIDKitStore(getParams)
+	const { methods } = useIDKitStore(getParams)
 
 	return (
 		<div className="-mt-6 space-y-6">
