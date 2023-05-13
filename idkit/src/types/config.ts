@@ -8,7 +8,7 @@ export enum ConfigSource {
 }
 
 export type IDKitConfig = {
-	/** Unique identifier for the app verifying the action. This should be the action ID obtained from the Developer Portal. */
+	/** Unique identifier for the app verifying the action. This should be the app ID obtained from the Developer Portal. */
 	app_id: string
 	/** The description of the specific action (shown to users in World App). Only recommended for actions created on-the-fly. */
 	action_description?: string
