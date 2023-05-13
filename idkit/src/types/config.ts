@@ -12,7 +12,7 @@ export type IDKitConfig = {
 	app_id: string
 	/** The description of the specific action (shown to users in World App). Only recommended for actions created on-the-fly. */
 	action_description?: string
-	/** For use when validating proofs on-chain. Read more on the [On-chain section](https://docs.worldcoin.org/advanced/on-chain). */
+	/** Encodes data into a proof that must match when validating. Read more on the [On-chain section](https://docs.worldcoin.org/advanced/on-chain). */
 	signal?: AbiEncodedValue | string
 	/** Identifier for the action the user is performing. Should be left blank for [Sign in with Worldcoin](https://docs.worldcoin.org/id/sign-in). */
 	action?: AbiEncodedValue | string

@@ -5,7 +5,7 @@ import type { Config } from '@/types/config'
 import { ConfigSource } from '@/types/config'
 import type { IDKitStore } from '@/store/idkit'
 
-type HookConfig = Pick<Config, 'handleVerify' | 'onSuccess'>
+type HookConfig = Partial<Pick<Config, 'handleVerify' | 'onSuccess'>>
 
 const getStore = ({ open, onOpenChange, addSuccessCallback, addVerificationCallback }: IDKitStore) => ({
 	open,
