@@ -167,7 +167,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			stage: hasUpdatedMethods ? store.computed.getDefaultStage(experimental_methods) : get().stage,
 		}))
 
-		if (onSuccess) get().addSuccessCallback(onSuccess, source)
+		get().addSuccessCallback(onSuccess, source)
 		if (handleVerify) get().addVerificationCallback(handleVerify, source)
 	},
 	handleVerify: (result: IExperimentalSuccessResult | ISuccessResult) => {
