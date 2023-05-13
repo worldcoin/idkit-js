@@ -71,7 +71,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	theme: 'light',
 	errorTitle: '',
 	errorDetail: '',
-	autoClose: false,
+	autoClose: true,
 	errorState: null,
 	processing: false,
 	verifyCallbacks: {},
