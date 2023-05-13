@@ -34,7 +34,7 @@ export type WidgetConfig = {
 			experimental_methods?: VerificationMethods[]
 			/** Function to trigger when verification is successful. Should receive a single parameter of type `IExperimentalSuccessResult` which contains the proof details. */
 			onSuccess: CallbackFn<IExperimentalSuccessResult>
-			/** Called after the proof is returned from the World App, but before showing the success screen. Throwing in this screen will show the user a custom error. Used to perform additional validation when needed. */
+			/** Called after the proof is returned from the World App, but before showing the success screen. Throwing an error in this screen will show the user a custom error. Used to perform additional validation when needed. */
 			handleVerify?: CallbackFn<IExperimentalSuccessResult>
 	  }
 	| {
