@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
@@ -144,7 +145,7 @@ const SMSCodeInput = ({ submitRef, disabled }: { submitRef: RefObject<HTMLButton
 
 	return (
 		<fieldset className="flex items-center justify-center space-x-3">
-			<legend className="sr-only">Enter your SMS code</legend>
+			<legend className="sr-only">{__('Enter your SMS code')}</legend>
 			{inputsRefs.map((ref, i) => (
 				<input
 					ref={ref}

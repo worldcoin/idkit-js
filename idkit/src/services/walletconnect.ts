@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import { create } from 'zustand'
 import { buildQRData } from '@/lib/qr'
 import { CredentialType } from '@/types'
@@ -67,7 +68,9 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 		walletConnectProjectId = WC_PROJECT_ID
 	) => {
 		if (credential_types && !credential_types.length) {
-			console.warn('Cannot set empty `credential_types`. Defaulting to only Orb credential.')
+			console.warn(
+				__('Cannot set empty `:param`. Defaulting to only Orb credential.', { param: 'credential_types' })
+			)
 		}
 
 		set({
@@ -86,7 +89,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 				projectId: walletConnectProjectId,
 				metadata: {
 					name: 'IDKit',
-					description: 'Verify with World ID',
+					description: __('Verify with World ID'),
 					url: 'https://worldcoin.org',
 					icons: ['https://worldcoin.org/icons/logo-small.svg'],
 				},
@@ -114,7 +117,7 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 			}
 		} catch (error) {
 			set({ errorCode: AppErrorCodes.ConnectionFailed })
-			console.error('Unable to establish a connection with the World app:', error)
+			console.error(__('Unable to establish a connection with the World app.'), error)
 		}
 	},
 
@@ -157,14 +160,14 @@ const useWalletConnectStore = create<WalletConnectStore>()((set, get) => ({
 					errorCode = errorMessage as AppErrorCodes
 				}
 
-				console.warn('Error receiving proof:', errorCode)
-				console.warn('Raw error response:', error)
+				console.warn(__('Error receiving proof: :errorCode', { errorCode }))
+				console.warn(__('Raw error response'), error)
 
 				set({ errorCode, verificationState: VerificationState.Failed })
 			})
 			.finally(() => void client.disconnect({ topic: get().topic, reason: getSdkError('USER_DISCONNECTED') }))
-			.catch(error => {
-				console.error(`Unable to disconnect: ${error}`)
+			.catch((error: string) => {
+				console.error(__(`Unable to disconnect: :error`, { error }))
 			})
 	},
 
@@ -189,10 +192,10 @@ const buildVerificationRequest = (config: IDKitConfig) => ({
 		{
 			app_id: config.app_id,
 			action: encodeAction(config.action),
+			credential_types: config.credential_types,
 			signal: generateSignal(config.signal).digest,
 			action_description: config.action_description,
 			external_nullifier: generateExternalNullifier(config.app_id, config.action).digest,
-			credential_types: config.credential_types,
 		},
 	],
 })

@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import { IDKITStage } from '@/types'
 import { memo, useState } from 'react'
 import Countdown from 'react-countdown'
@@ -50,7 +51,7 @@ const ResendButton = () => {
 				className="font-medium text-indigo-500 disabled:cursor-wait disabled:text-gray-900 dark:disabled:text-white"
 				onClick={() => void handleRetry(PhoneVerificationChannel.SMS)}
 			>
-				Resend{' '}
+				{__('Resend')}{' '}
 				{nextTime && (
 					<Countdown onComplete={() => setNextTime(undefined)} date={nextTime} renderer={renderer} />
 				)}
@@ -62,7 +63,7 @@ const ResendButton = () => {
 				disabled={!!nextTime}
 				onClick={() => void handleRetry(PhoneVerificationChannel.Call)}
 			>
-				Call me
+				{__('Call me')}
 			</button>
 		</>
 	)

@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import { IDKITStage } from '@/types'
 import { motion } from 'framer-motion'
 import { useMemo, useRef } from 'react'
@@ -65,10 +66,10 @@ const VerifyCodeState = () => {
 		<div className="space-y-6">
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					Enter your 6-digit code to complete the verification.
+					{__('Enter your 6-digit code to complete the verification.')}
 				</p>
 				<p className="text-70868f mt-2 text-center">
-					Code has been sent to <span className="font-medium">{phoneNumber}</span>
+					{__('Code has been sent to')} <span className="font-medium">{phoneNumber}</span>
 				</p>
 			</div>
 			<form className="mt-2 space-y-2">
@@ -77,9 +78,9 @@ const VerifyCodeState = () => {
 				</motion.div>
 				<p className="text-70868f text-center text-xs">
 					{errorState ? (
-						<span className="text-red-400">That code is invalid. Please try again.</span>
+						<span className="text-red-400">{__('That code is invalid. Please try again.')}</span>
 					) : (
-						'Did not receive a code?'
+						__('Did not receive a code?')
 					)}{' '}
 					<ResendButton />
 				</p>
@@ -87,7 +88,7 @@ const VerifyCodeState = () => {
 			<div className="flex items-center justify-center space-x-1">
 				<div className="flex items-center space-x-2">
 					<WorldIDIcon />
-					<p className="text-70868f font-medium">I have World ID</p>
+					<p className="text-70868f font-medium">{__('I have World ID')}</p>
 				</div>
 				<span className="font-medium text-gray-400">&bull;</span>
 				<button
@@ -95,7 +96,7 @@ const VerifyCodeState = () => {
 					onClick={useWorldID}
 					className="bg-gradient-to-r from-[#FF6848] to-[#4940E0] bg-clip-text font-medium text-transparent"
 				>
-					Verify human
+					{__('Verify human')}
 				</button>
 			</div>
 			<div className="mt-4 flex justify-center">
@@ -117,7 +118,7 @@ const VerifyCodeState = () => {
 					)}
 				>
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="phone-text">
-						Continue
+						{__('Continue')}
 					</motion.span>
 				</motion.button>
 			</div>

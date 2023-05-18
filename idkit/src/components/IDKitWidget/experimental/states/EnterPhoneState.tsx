@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import { motion } from 'framer-motion'
 import { classNames } from '@/lib/utils'
 import useIDKitStore from '@/store/idkit'
@@ -76,7 +77,7 @@ const EnterPhoneState = () => {
 				>
 					<Toast.Title className="text-xs font-medium text-red-600">
 						{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
-						{errorState?.message || 'Unable to send code. Please try again.'}
+						{__(errorState?.message || 'Unable to send code. Please try again.')}
 					</Toast.Title>
 					<Toast.Action altText="Close">
 						<XMarkIcon className="h-4 w-4" />
@@ -84,13 +85,14 @@ const EnterPhoneState = () => {
 				</motion.div>
 			</Toast.Root>
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Heading</p>
-				<p className="text-70868f mt-3 text-center md:mt-2">Subheading</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
+					{__('Verify with Phone')}
+				</p>
 			</div>
 			<div className="mt-2 space-y-2">
 				<PhoneInput disabled={processing} onSubmit={onSubmit} />
 				<p className="text-9eafc0 dark:text-9eafc0 text-center text-xs">
-					We&apos;ll call or text to confirm your number. No data is stored.
+					{__("We'll call or text to confirm your number. No data is stored.")}
 				</p>
 			</div>
 			<div className="mt-4 flex justify-center">
@@ -111,7 +113,7 @@ const EnterPhoneState = () => {
 					)}
 				>
 					<motion.span transition={{ layout: { duration: 0.15 } }} layoutId="phone-text">
-						Continue
+						{__('Continue')}
 					</motion.span>
 				</motion.button>
 			</div>
@@ -126,7 +128,9 @@ const EnterPhoneState = () => {
 					<div className="flex items-center justify-center">
 						<button onClick={useWorldID} className="flex items-center space-x-2">
 							<WorldIDIcon />
-							<p className="text-0d151d text-sm font-medium dark:text-white">Verify with World ID</p>
+							<p className="text-0d151d text-sm font-medium dark:text-white">
+								{__('Verify with World ID')}
+							</p>
 						</button>
 					</div>
 				</div>
