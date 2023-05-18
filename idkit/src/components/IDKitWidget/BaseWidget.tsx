@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import type { FC } from 'react'
 import root from 'react-shadow'
 import { IDKITStage } from '@/types'
@@ -75,7 +76,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 			case IDKITStage.HOST_APP_VERIFICATION:
 				return HostAppVerificationState
 			default:
-				throw new Error('Invalid IDKitStage.')
+				throw new Error(__('Invalid IDKitStage.'))
 		}
 	}, [stage])
 
@@ -163,7 +164,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 														</div>
 														<div className="flex items-center justify-between py-3 px-5 md:rounded-b-2xl">
 															<p className="text-9eafc0 flex items-center gap-1 text-sm">
-																<span>Verified with</span>
+																<span>{__('Verified with')}</span>
 																<a
 																	href="https://worldcoin.org/world-id"
 																	target="_blank"
@@ -177,7 +178,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 																	onClick={() => setStage(IDKITStage.PRIVACY)}
 																	className="text-9eafc0 text-sm hover:underline"
 																>
-																	Privacy
+																	{__('Privacy')}
 																</button>
 															) : (
 																<a
@@ -186,7 +187,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 																	className="text-9eafc0 dark:text-9eafc0 text-sm hover:underline"
 																	rel="noreferrer"
 																>
-																	Learn More &rarr;
+																	{__('Learn More')} &rarr;
 																</a>
 															)}
 														</div>

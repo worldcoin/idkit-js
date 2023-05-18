@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import { IDKITStage } from '@/types'
 import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
@@ -16,16 +17,16 @@ const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
 	app_id: store.app_id,
 	action: store.action,
-	walletConnectProjectId: store.walletConnectProjectId,
-	handleVerify: store.handleVerify,
-	credential_types: store.credential_types,
-	action_description: store.action_description,
-	showAbout: store.methods.length == 1,
-	hasPhone: store.methods.includes('phone'),
-	usePhone: () => store.setStage(IDKITStage.ENTER_PHONE),
 	setStage: store.setStage,
+	handleVerify: store.handleVerify,
 	setErrorState: store.setErrorState,
+	showAbout: store.methods.length == 1,
+	credential_types: store.credential_types,
 	isExperimental: store.methods.length > 0,
+	hasPhone: store.methods.includes('phone'),
+	action_description: store.action_description,
+	walletConnectProjectId: store.walletConnectProjectId,
+	usePhone: () => store.setStage(IDKITStage.ENTER_PHONE),
 })
 
 const WorldIDState = () => {
@@ -81,8 +82,8 @@ const WorldIDState = () => {
 				<p className="font-sora text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{verificationState === VerificationState.AwaitingVerification
-						? 'Confirm in World App'
-						: 'Continue with Worldcoin'}
+						? __('Confirm in World App')
+						: __('Continue with Worldcoin')}
 				</p>
 				{verificationState === VerificationState.AwaitingVerification && (
 					<p className="text-70868f dark:text-9eafc0 mt-3 text-center md:mt-2">
@@ -110,7 +111,9 @@ const WorldIDState = () => {
 					<div className="flex items-center justify-center">
 						<button onClick={usePhone} className="flex items-center space-x-2">
 							<DevicePhoneMobileIcon className="text-0d151d/70 h-6 w-6 dark:text-white/70" />
-							<p className="text-0d151d text-sm font-medium dark:text-white">Verify with Phone Number</p>
+							<p className="text-0d151d text-sm font-medium dark:text-white">
+								{__('Verify with Phone Number')}
+							</p>
 						</button>
 					</div>
 				</div>

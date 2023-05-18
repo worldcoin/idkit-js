@@ -1,3 +1,5 @@
+import { __ } from '@/lang'
+
 const LoadingIcon = ({ className = '' }: { className?: string }) => (
 	<div className="flex items-center justify-center">
 		<div
@@ -5,7 +7,7 @@ const LoadingIcon = ({ className = '' }: { className?: string }) => (
 			role="status"
 		>
 			<span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-				Loading...
+				{__('Loading...')}
 			</span>
 		</div>
 	</div>

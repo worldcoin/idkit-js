@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import { create } from 'zustand'
 import { AppErrorCodes } from '@/types/app'
 import { CredentialType, IDKITStage } from '@/types'
@@ -191,7 +192,10 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 
 				set({
 					stage: IDKITStage.ERROR,
-					errorState: { code: AppErrorCodes.FailedByHostApp, message: errorMessage },
+					errorState: {
+						code: AppErrorCodes.FailedByHostApp,
+						message: errorMessage ? __(errorMessage) : undefined,
+					},
 				})
 			}
 		)

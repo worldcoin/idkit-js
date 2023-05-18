@@ -3,6 +3,7 @@
  * before we show a success/error state.
  */
 
+import { __ } from '@/lang'
 import { memo } from 'react'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 
@@ -12,7 +13,7 @@ const HostAppVerificationState = () => {
 			<div className="flex justify-center">
 				<LoadingIcon className="h-24 w-24" />
 			</div>
-			<div className="text-70868f mt-4">Transmitting verification to host app. Please wait...</div>
+			<div className="text-70868f mt-4">{__('Transmitting verification to host app. Please wait...')}</div>
 		</div>
 	)
 }

@@ -1,9 +1,10 @@
+import { __ } from '@/lang'
 import { classNames } from '@/lib/utils'
-import CheckIcon from '../../../Icons/CheckIcon'
 import ReactCountryFlag from 'react-country-flag'
+import CheckIcon from '@/components/Icons/CheckIcon'
 import { allCountries } from 'country-telephone-data'
 import { Listbox, Transition } from '@headlessui/react'
-import ChevronDownIcon from '../../../Icons/ChevronDownIcon'
+import ChevronDownIcon from '@/components/Icons/ChevronDownIcon'
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 
 type Props = {
@@ -67,7 +68,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 			{({ open }) => (
 				<>
 					<Listbox.Label className="sr-only block text-sm font-medium text-gray-700">
-						Country Code
+						{__('Country Code')}
 					</Listbox.Label>
 					<Listbox.Button className="relative z-20 flex flex-none items-center">
 						<ReactCountryFlag

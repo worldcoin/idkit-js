@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import type { FC } from 'react'
 import copy from 'copy-to-clipboard'
 import useMedia from '@/hooks/useMedia'
@@ -48,7 +49,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 								transition={{ duration: 0.5, ease: 'easeInOut' }}
 							>
 								<span className="border-f1f5f8 rounded-lg border py-1 px-2 text-sm">
-									QR Code copied
+									{__('QR Code copied')}
 								</span>
 							</motion.div>
 						)}
@@ -87,18 +88,18 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 						transition={{ layout: { duration: 0.15 } }}
 						layoutId={media == 'desktop' ? undefined : 'worldid-text'}
 					>
-						Open Worldcoin App
+						{__('Open Worldcoin App')}
 					</motion.span>
 				</motion.a>
 				<div className="space-x-2 md:hidden">
 					<motion.button className="text-9eafc0 text-sm" onClick={() => setShowQR(state => !state)}>
-						{showQR ? 'Hide QR Code' : 'Show QR Code instead'}
+						{showQR ? __('Hide QR Code') : __('Show QR Code instead')}
 					</motion.button>
 					{showQR && (
 						<>
 							<span className="text-9eafc0">&middot;</span>
 							<button className="text-sm dark:text-white" onClick={copyLink}>
-								{copiedLink ? 'Copied!' : 'Copy QR Code'}
+								{copiedLink ? __('Copied!') : __('Copy QR Code')}
 							</button>
 						</>
 					)}

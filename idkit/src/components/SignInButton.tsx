@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import { motion } from 'framer-motion'
 import tw, { styled } from 'twin.macro'
 import { keyframes } from 'stitches.config'
@@ -61,7 +62,7 @@ const SignInButton: FC<Props> = ({ className, theme = 'light', ...props }) => (
 		<ButtonContent theme={theme}>
 			<TextContainer>
 				<WorldcoinIcon tw="h-4 w-4" />
-				<ButtonLabel>Sign in with World ID</ButtonLabel>
+				<ButtonLabel>{__('Sign in with World ID')}</ButtonLabel>
 			</TextContainer>
 		</ButtonContent>
 		<AnimatedBorder aria-hidden theme={theme} />

@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import LockIcon from './Icons/LockIcon'
 import { classNames } from '@/lib/utils'
 import HumanIcon from './Icons/HumanIcon'
@@ -10,13 +11,13 @@ type Props = {
 const AboutWorldID: FC<Props> = ({ className }) => {
 	return (
 		<div className={classNames(className, 'space-y-4 text-left')}>
-			<p className="text-0d151d text-sm font-medium uppercase dark:text-white">What is World ID?</p>
+			<p className="text-0d151d text-sm font-medium uppercase dark:text-white">{__('What is World ID?')}</p>
 			<div className="space-y-3">
 				<FeatureHighlight title="Your global digital ID" icon={HumanIcon}>
-					<p>With Worldcoin and World ID sign in seamlessly and prove you are a unique human.</p>
+					<p>{__('With Worldcoin and World ID sign in seamlessly and prove you are a unique human.')}</p>
 				</FeatureHighlight>
 				<FeatureHighlight title="Privacy-preserving" icon={LockIcon}>
-					<p>Maximum privacy. Prevents cross-tracking and can be used fully anonymously.</p>
+					<p>{__('Maximum privacy. Prevents cross-tracking and can be used fully anonymously.')}</p>
 				</FeatureHighlight>
 			</div>
 		</div>

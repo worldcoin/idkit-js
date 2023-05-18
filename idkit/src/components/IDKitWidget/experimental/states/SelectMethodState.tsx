@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import type { FC } from 'react'
 import { IDKITStage } from '@/types'
 import { motion } from 'framer-motion'
@@ -20,9 +21,11 @@ const SelectMethodState = () => {
 	return (
 		<div className="-mt-6 space-y-6">
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Verify your account</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
+					{__('Verify your account')}
+				</p>
 				<p className="text-70868f mt-3 text-center md:mt-2">
-					Help prevent spam and abuse by verifying your account.
+					{__('Help prevent spam and abuse by verifying your account.')}
 				</p>
 			</div>
 			<div className="space-y-3">
@@ -33,14 +36,14 @@ const SelectMethodState = () => {
 			{methods.includes('orb') && (
 				<div className="mt-4 flex justify-center">
 					<p className="text-70868f text-sm">
-						Don&apos;t have your World ID yet?{' '}
+						{__("Don't have your World ID yet?")}{' '}
 						<a
 							className="text-4940e0 font-medium"
 							target="_blank"
 							href="https://worldcoin.org/download"
 							rel="noreferrer"
 						>
-							Download Now
+							{__('Download Now')}
 						</a>
 					</p>
 				</div>
@@ -79,7 +82,7 @@ const MethodButton: FC<{ primary: boolean; method: VerificationMethods }> = ({ m
 				transition={{ layout: { duration: 0.15 } }}
 				layoutId={method == 'orb' ? 'worldid-text' : 'phone-text'}
 			>
-				{method == 'orb' ? 'Verify with World ID' : 'Verify with Phone Number'}
+				{method == 'orb' ? __('Verify with World ID') : __('Verify with Phone Number')}
 			</motion.span>
 		</motion.button>
 	)

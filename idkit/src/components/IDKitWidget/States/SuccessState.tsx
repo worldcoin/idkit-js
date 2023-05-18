@@ -1,3 +1,4 @@
+import { __ } from '@/lang'
 import CheckIcon from '@/components/Icons/CheckIcon'
 
 const SuccessState = () => {
@@ -11,9 +12,9 @@ const SuccessState = () => {
 				</div>
 			</div>
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">Success! 🎉</p>
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">{__('Success! 🎉')}</p>
 				{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
-				<p className="text-70868f mt-2 text-center text-lg">World ID verification was successful</p>
+				<p className="text-70868f mt-2 text-center text-lg">{__('World ID verification was successful')}</p>
 			</div>
 		</div>
 	)

@@ -1,3 +1,4 @@
+import { __ } from './lang'
 import useIDKitStore from './store/idkit'
 import type { Config } from './types/config'
 import type { Root } from 'react-dom/client'
@@ -14,13 +15,13 @@ let isInitialized = false
  * @param config The IDKit configuration object
  */
 export const init = (config: Config): void => {
-	if (isInitialized) throw new Error('IDKit is already initialized')
-	if (!config.app_id) throw new Error('You must provide your App ID & Action')
+	if (isInitialized) throw new Error(__('IDKit is already initialized'))
+	if (!config.app_id) throw new Error(__('You must provide your App ID & Action'))
 	if (!config.walletConnectProjectId) {
 		console.warn(
-			'WalletConnect project ID not detected. Using default, but this is not advisable for production usage!'
+			__('WalletConnect project ID not detected. Using default, but this is not advisable for production usage!')
 		)
-		console.warn('Get your own project ID at https://cloud.walletconnect.com/')
+		console.warn(__('Get your own project ID at :url', { url: 'https://cloud.walletconnect.com/' }))
 	}
 
 	const startApp = () => {
@@ -37,7 +38,7 @@ export const init = (config: Config): void => {
 				isInitialized = true
 			}
 		} catch (error) {
-			console.error('Error while rendering IDKit', error)
+			console.error(__('Error while rendering IDKit'), error)
 		}
 	}
 
@@ -52,7 +53,7 @@ export const init = (config: Config): void => {
 }
 
 export const update = (config: Config): void => {
-	if (!isInitialized) throw new Error('IDKit is not initialized')
+	if (!isInitialized) throw new Error(__('IDKit is not initialized'))
 
 	useIDKitStore.getState().setOptions(config, ConfigSource.PROPS)
 }
@@ -60,7 +61,7 @@ export const update = (config: Config): void => {
 export const open = () => {
 	// eslint-disable-next-line compat/compat -- Promise is polyfilled
 	return new Promise((resolve, reject) => {
-		if (!isInitialized) return reject('IDKitWidget is not initialized')
+		if (!isInitialized) return reject(__('IDKitWidget is not initialized'))
 		useIDKitStore.getState().addSuccessCallback(resolve, ConfigSource.MANUAL)
 		useIDKitStore.setState({ open: true })
 	})
@@ -70,7 +71,7 @@ export const open = () => {
  * Reset internal state. Useful for unit-testing
  */
 export const reset = () => {
-	console.warn('Advanced method intended for internal use! Avoid calling this method directly.')
+	console.warn(__('Advanced method intended for internal use! Avoid calling this method directly.'))
 
 	root.unmount()
 	isInitialized = false
