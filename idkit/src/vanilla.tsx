@@ -1,11 +1,9 @@
 import { __ } from './lang'
 import useIDKitStore from './store/idkit'
-import { hashToField } from './lib/hashing'
 import type { Config } from './types/config'
 import type { Root } from 'react-dom/client'
 import { ConfigSource } from './types/config'
 import { createRoot } from 'react-dom/client'
-import { pack } from '@ethersproject/solidity'
 import { initTelemetry } from './lib/telemetry'
 import IDKitWidget from './components/IDKitWidget'
 
@@ -23,7 +21,7 @@ export const init = (config: Config): void => {
 		console.warn(
 			__('WalletConnect project ID not detected. Using default, but this is not advisable for production usage!')
 		)
-		console.warn(__('Get your own project ID at https://cloud.walletconnect.com/'))
+		console.warn(__('Get your own project ID at :url', { url: 'https://cloud.walletconnect.com/' }))
 	}
 
 	const startApp = () => {
