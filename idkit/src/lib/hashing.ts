@@ -2,6 +2,7 @@ import sha3 from 'js-sha3'
 import type { AbiEncodedValue } from '@/types'
 import { pack } from '@ethersproject/solidity'
 import type { IDKitConfig } from '@/types/config'
+import type { KeyPair } from 'libsodium-wrappers'
 import type { BytesLike } from '@ethersproject/bytes'
 import { arrayify, concat, hexlify, isBytesLike } from '@ethersproject/bytes'
 
@@ -109,4 +110,10 @@ export const encodeAction = (action: IDKitConfig['action']): string => {
 	if (typeof action === 'string') return action
 
 	return action.types.map((type, index) => `${type}(${action.values[index]})`).join(',')
+}
+
+export const encodeKey = (key: KeyPair): string => {
+	return `0x${Array.from(key.publicKey)
+		.map(b => b.toString(16).padStart(2, '0'))
+		.join('')}`
 }
