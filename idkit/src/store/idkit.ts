@@ -11,8 +11,8 @@ export type IDKitStore = {
 	app_id: IDKitConfig['app_id']
 	action: IDKitConfig['action']
 	signal: IDKitConfig['signal']
+	bridgeUrl?: IDKitConfig['bridgeUrl']
 	action_description?: IDKitConfig['action_description']
-	walletConnectProjectId?: IDKitConfig['walletConnectProjectId']
 	credential_types?: IDKitConfig['credential_types']
 	phoneNumber: string // EXPERIMENTAL
 
@@ -63,7 +63,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 	phoneNumber: '', // EXPERIMENTAL
 	methods: [],
 	action_description: '',
-	walletConnectProjectId: '',
+	bridgeUrl: '',
 	credential_types: [],
 
 	open: false,
@@ -143,7 +143,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			credential_types,
 			action_description,
 			experimental_methods,
-			walletConnectProjectId,
+			bridgeUrl,
 			autoClose,
 			theme,
 		}: Config,
@@ -161,7 +161,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			action,
 			app_id,
 			autoClose,
-			walletConnectProjectId,
+			bridgeUrl,
 			credential_types: sanitized_credential_types,
 			action_description,
 			methods: experimental_methods ?? store.methods,

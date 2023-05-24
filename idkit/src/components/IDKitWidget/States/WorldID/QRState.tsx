@@ -10,10 +10,7 @@ import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 
 type Props = {
-	qrData: {
-		default: string
-		mobile: string
-	} | null
+	qrData: string | null
 	showQR: boolean
 	setShowQR: (show: boolean | ((state: boolean) => boolean)) => void
 }
@@ -23,7 +20,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 	const [copiedLink, setCopiedLink] = useState(false)
 
 	const copyLink = useCallback(() => {
-		copy(qrData?.default ?? '')
+		copy(qrData ?? '')
 
 		setCopiedLink(true)
 		setTimeout(() => setCopiedLink(false), 2000)
@@ -59,7 +56,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 							{qrData ? (
 								// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 								<div onClick={copyLink} className="cursor-pointer">
-									<Qrcode data={qrData.default} size={244} />
+									<Qrcode data={qrData} size={244} />
 								</div>
 							) : (
 								<div className="flex h-[244px] w-[244px] items-center justify-center">
@@ -72,11 +69,11 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 			)}
 			<div className="space-y-4">
 				<motion.a
+					href={qrData ?? ''}
 					whileTap={{ scale: 0.95 }}
 					whileHover={{ scale: 1.05 }}
 					transition={{ layout: { duration: 0.15 } }}
 					layoutId={media == 'desktop' ? undefined : 'worldid-button'}
-					href={qrData?.mobile}
 					className={classNames(
 						'flex w-full space-x-2 items-center px-4 py-4 border border-transparent font-medium rounded-2xl shadow-sm',
 						'bg-0d151d dark:bg-white text-white dark:text-0d151d md:hidden'

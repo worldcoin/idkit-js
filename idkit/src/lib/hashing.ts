@@ -112,8 +112,8 @@ export const encodeAction = (action: IDKitConfig['action']): string => {
 	return action.types.map((type, index) => `${type}(${action.values[index]})`).join(',')
 }
 
-export const encodeKey = (key: KeyPair): string => {
-	return `0x${Array.from(key.publicKey)
+export const encodeKey = (key: Uint8Array): string => {
+	return `0x${Array.from(key)
 		.map(b => b.toString(16).padStart(2, '0'))
 		.join('')}`
 }

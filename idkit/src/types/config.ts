@@ -16,7 +16,7 @@ export type IDKitConfig = {
 	signal?: AbiEncodedValue | string
 	/** Identifier for the action the user is performing. Should be left blank for [Sign in with Worldcoin](https://docs.worldcoin.org/id/sign-in). */
 	action?: AbiEncodedValue | string
-	walletConnectProjectId?: string
+	bridgeUrl?: string
 	/** An array of credential types to allow for verification. Will accept any combination of "orb" & "phone". Defaults to orb. TypeScript apps can use the `CredentialType` enum. */
 	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
 }
