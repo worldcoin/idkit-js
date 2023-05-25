@@ -57,7 +57,7 @@ export default /** @type {import('esbuild').BuildOptions} */ ({
 	entryPoints: [require.resolve('../src/index.ts')],
 	globalName: 'IDKit',
 	inject: [require.resolve('./react-shim.js')],
-	target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
+	target: ['chrome67', 'firefox68', 'safari14', 'edge79'],
 	plugins: [
 		styleLoader,
 		NodeGlobalsPolyfillPlugin({

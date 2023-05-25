@@ -1,14 +1,9 @@
-import sha3 from 'js-sha3'
+import type { ByteArray } from 'viem'
 import type { AbiEncodedValue } from '@/types'
-import { pack } from '@ethersproject/solidity'
 import type { IDKitConfig } from '@/types/config'
-import type { BytesLike } from '@ethersproject/bytes'
-import { arrayify, concat, hexlify, isBytesLike } from '@ethersproject/bytes'
+import { encodePacked, keccak256, isBytes, isHex } from 'viem'
 
-export interface HashFunctionOutput {
-	hash: BigInt
-	digest: string
-}
+export type HashFunctionOutput = { hash: BigInt; digest: string }
 
 /**
  * Hashes an input using the `keccak256` hashing function used across the World ID protocol, to be used as
@@ -17,10 +12,10 @@ export interface HashFunctionOutput {
  * @param input Any string, hex-like string, bytes represented as a hex string.
  * @returns
  */
-export function hashToField(input: Buffer | BytesLike): HashFunctionOutput {
-	if (isBytesLike(input)) return hashEncodedBytes(input)
+export function hashToField(input: Uint8Array | string | `0x${string}`): HashFunctionOutput {
+	if (isBytes(input) || isHex(input)) return hashEncodedBytes(input)
 
-	return hashString(input as string)
+	return hashString(input)
 }
 
 export function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
@@ -34,7 +29,7 @@ export function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
 		[[], []]
 	)
 
-	return hashEncodedBytes(pack(types, values))
+	return hashEncodedBytes(encodePacked(types, values))
 }
 
 /**
@@ -54,22 +49,11 @@ function hashString(input: string): HashFunctionOutput {
  * @param input - Bytes represented as a hex string.
  * @returns
  */
-function hashEncodedBytes(input: BytesLike): HashFunctionOutput {
+function hashEncodedBytes(input: ByteArray | `0x${string}`): HashFunctionOutput {
 	const hash = BigInt(keccak256(input)) >> BigInt(8)
 	const rawDigest = hash.toString(16)
 
 	return { hash, digest: `0x${rawDigest.padStart(64, '0')}` }
-}
-
-/**
- * Partial implementation of `keccak256` hash from @ethersproject/solidity; only supports hashing a single BytesLike value
- * @param value value to hash
- * @returns
- */
-function keccak256(value: BytesLike): string {
-	const data = hexlify(concat([arrayify(value)]))
-
-	return '0x' + sha3.keccak_256(arrayify(data))
 }
 
 export const validateABILikeEncoding = (value: string): boolean => {
