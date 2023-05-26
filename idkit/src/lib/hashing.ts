@@ -1,7 +1,7 @@
 import type { ByteArray } from 'viem'
 import type { AbiEncodedValue } from '@/types'
 import type { IDKitConfig } from '@/types/config'
-import { encodePacked, keccak256, isBytes, isHex } from 'viem'
+import { encodePacked, keccak256, isBytes, isHex, toHex } from 'viem'
 
 export type HashFunctionOutput = { hash: BigInt; digest: string }
 
@@ -15,7 +15,7 @@ export type HashFunctionOutput = { hash: BigInt; digest: string }
 export function hashToField(input: Uint8Array | string | `0x${string}`): HashFunctionOutput {
 	if (isBytes(input) || isHex(input)) return hashEncodedBytes(input)
 
-	return hashString(input)
+	return hashEncodedBytes(toHex(input))
 }
 
 export function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
@@ -30,17 +30,6 @@ export function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
 	)
 
 	return hashEncodedBytes(encodePacked(types, values))
-}
-
-/**
- * Converts an input to bytes and then hashes it with the World ID protocol hashing function.
- * @param input - String to hash
- * @returns hash
- */
-function hashString(input: string): HashFunctionOutput {
-	const bytesInput = Buffer.from(input)
-
-	return hashEncodedBytes(bytesInput)
 }
 
 /**
