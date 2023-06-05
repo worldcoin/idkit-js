@@ -54,8 +54,8 @@ dependencies:
     specifier: ^3.1.37
     version: 3.1.37
   posthog-js-lite:
-    specifier: 2.0.0
-    version: 2.0.0
+    specifier: 2.4.0
+    version: 2.4.0
   qr-code-styling-new:
     specifier: ^1.6.1
     version: 1.6.1
@@ -6648,8 +6648,8 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
-  /posthog-js-lite@2.0.0:
-    resolution: {integrity: sha512-q6y0LWF7/faYtsMpX8tLoYDBsvhinMIVoVuubaK4K/md4VYYrfWgiOuhmqj48L2fWkkU2Qjv1gSuA9lsqrcVNw==}
+  /posthog-js-lite@2.4.0:
+    resolution: {integrity: sha512-BslsygPtDEeFIIRgW9za0mzTtZGv5iy5HrmpRd5KIUPtd3J24mItFMhf8cU9GguqS+oq/Dugt2K2ijpC8mSlzQ==}
     dev: false
 
   /prelude-ls@1.1.2:
