@@ -1,29 +1,23 @@
 import { create } from 'zustand'
 import type { ISuccessResult } from '..'
 import { useEffect, useRef } from 'react'
-import libsodium from 'libsodium-wrappers'
 import type { IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { AppErrorCodes } from '@/types/bridge'
+import { exportKey, generateKey, hashKey } from '@/lib/crypto'
 import { encodeAction, encodeKey, generateSignal } from '@/lib/hashing'
 
 const DEFAULT_BRIDGE_URL = 'https://bridge.worldcoin.org/'
 
 type WorldBridgeStore = {
 	bridgeUrl: string
+	key: CryptoKey | null
 	connectorURI: string | null
 	result: ISuccessResult | null
-	key: libsodium.KeyPair | null
 	errorCode: AppErrorCodes | null
 	verificationState: VerificationState
 
-	getConnectorURI: (
-		app_id: IDKitConfig['app_id'],
-		action: IDKitConfig['action'],
-		signal?: IDKitConfig['signal'],
-		credential_types?: IDKitConfig['credential_types'],
-		action_description?: IDKitConfig['action_description']
-	) => string
+	getConnectorURI: () => Promise<string>
 
 	createClient: (
 		app_id: IDKitConfig['app_id'],
@@ -55,47 +49,51 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		credential_types?: IDKitConfig['credential_types'],
 		action_description?: IDKitConfig['action_description']
 	) => {
-		await libsodium.ready
+		const key = await generateKey()
+
+		// const res = await fetch(`${bridgeUrl ?? DEFAULT_BRIDGE_URL}/${await hashKey(key)}`, {
+		// 	method: 'PUT',
+		// 	headers: { 'Content-Type': 'application/json' },
+		// 	body: JSON.stringify({
+		// 		app_id,
+		// 		credential_types,
+		// 		action_description,
+		// 		action: encodeAction(action),
+		// 		signal: generateSignal(signal).digest,
+		// 	}),
+		// })
+
+		// if (!res.ok) {
+		// 	set({ verificationState: VerificationState.Failed })
+		// 	throw new Error('Failed to create client')
+		// }
 
 		set({
-			key: libsodium.crypto_box_keypair(),
+			key,
 			bridgeUrl: bridgeUrl ?? DEFAULT_BRIDGE_URL,
 			verificationState: VerificationState.PollingForUpdates,
+			connectorURI: `https://id.worldcoin.org/verify?key=${await exportKey(key)}`,
 		})
-		set({ connectorURI: get().getConnectorURI(app_id, action, signal, credential_types, action_description) })
 	},
 
-	getConnectorURI: (
-		app_id: IDKitConfig['app_id'],
-		action: IDKitConfig['action'],
-		signal?: IDKitConfig['signal'],
-		credential_types?: IDKitConfig['credential_types'],
-		action_description?: IDKitConfig['action_description']
-	) => {
+	getConnectorURI: async () => {
 		const key = get().key
 		if (!key) throw new Error('No keypair found. Please call `createClient` first.')
 
-		const params = new URLSearchParams({ app_id, action: encodeAction(action), key: encodeKey(key.publicKey) })
-		if (credential_types) params.set('credential_types', credential_types.join(','))
-		if (action_description) params.set('action_description', action_description)
-		if (signal) params.set('signal', generateSignal(signal).digest)
-
-		return `https://id.worldcoin.org/verify?${params.toString()}`
+		return `https://id.worldcoin.org/verify?key=${encodeKey(await window.crypto.subtle.exportKey('raw', key))}`
 	},
 
 	pollForUpdates: async () => {
 		const key = get().key
 		if (!key) throw new Error('No keypair found. Please call `createClient` first.')
 
-		const response = await fetch(`${get().bridgeUrl}/${encodeKey(libsodium.crypto_generichash(32, key.publicKey))}`)
-
-		if (response.ok) return
+		const response = await fetch(`${get().bridgeUrl}/${hashKey(key)}`)
 
 		// ...
 	},
 
 	reset: () => {
-		set({ key: null, connectorURI: null })
+		set({ key: null, connectorURI: null, verificationState: VerificationState.PreparingClient })
 	},
 }))
 

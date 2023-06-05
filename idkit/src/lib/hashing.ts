@@ -2,13 +2,12 @@ import sha3 from 'js-sha3'
 import type { AbiEncodedValue } from '@/types'
 import { pack } from '@ethersproject/solidity'
 import type { IDKitConfig } from '@/types/config'
-import type { KeyPair } from 'libsodium-wrappers'
 import type { BytesLike } from '@ethersproject/bytes'
 import { arrayify, concat, hexlify, isBytesLike } from '@ethersproject/bytes'
 
 export interface HashFunctionOutput {
 	hash: BigInt
-	digest: string
+	digest: `0x${string}`
 }
 
 /**
@@ -112,8 +111,6 @@ export const encodeAction = (action: IDKitConfig['action']): string => {
 	return action.types.map((type, index) => `${type}(${action.values[index]})`).join(',')
 }
 
-export const encodeKey = (key: Uint8Array): string => {
-	return `0x${Array.from(key)
-		.map(b => b.toString(16).padStart(2, '0'))
-		.join('')}`
+export const encodeKey = (key: ArrayBuffer): `0x${string}` => {
+	return `0x${[...new Uint8Array(key)].map(b => b.toString(16).padStart(2, '0')).join('')}`
 }

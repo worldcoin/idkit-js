@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@ethersproject/bytes':
@@ -46,9 +50,6 @@ dependencies:
   js-sha3:
     specifier: ^0.8.0
     version: 0.8.0
-  libsodium-wrappers:
-    specifier: ^0.7.11
-    version: 0.7.11
   phone:
     specifier: ^3.1.37
     version: 3.1.37
@@ -99,9 +100,6 @@ devDependencies:
   '@types/jest':
     specifier: ^29.5.0
     version: 29.5.0
-  '@types/libsodium-wrappers':
-    specifier: ^0.7.10
-    version: 0.7.10
   '@types/node':
     specifier: 18.11.9
     version: 18.11.9
@@ -1660,10 +1658,6 @@ packages:
 
   /@types/less@3.0.3:
     resolution: {integrity: sha512-1YXyYH83h6We1djyoUEqTlVyQtCfJAFXELSKW2ZRtjHD4hQ82CC4lvrv5D0l0FLcKBaiPbXyi3MpMsI9ZRgKsw==}
-    dev: true
-
-  /@types/libsodium-wrappers@0.7.10:
-    resolution: {integrity: sha512-BqI9B92u+cM3ccp8mpHf+HzJ8fBlRwdmyd6+fz3p99m3V6ifT5O3zmOMi612PGkpeFeG/G6loxUnzlDNhfjPSA==}
     dev: true
 
   /@types/minimist@1.2.2:
@@ -5704,16 +5698,6 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
     dev: true
-
-  /libsodium-wrappers@0.7.11:
-    resolution: {integrity: sha512-SrcLtXj7BM19vUKtQuyQKiQCRJPgbpauzl3s0rSwD+60wtHqSUuqcoawlMDheCJga85nKOQwxNYQxf/CKAvs6Q==}
-    dependencies:
-      libsodium: 0.7.11
-    dev: false
-
-  /libsodium@0.7.11:
-    resolution: {integrity: sha512-WPfJ7sS53I2s4iM58QxY3Inb83/6mjlYgcmZs7DJsvDlnmVUwNinBCi5vBT43P6bHRy01O4zsMU2CoVR6xJ40A==}
-    dev: false
 
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
