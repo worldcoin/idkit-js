@@ -47,8 +47,6 @@
 		"react-dom": ">18.0.0"
 	},
 	"dependencies": {
-		"@ethersproject/bytes": "^5.7.0",
-		"@ethersproject/solidity": "^5.7.0",
 		"@fontsource/rubik": "^4.5.11",
 		"@headlessui/react": "^1.7.4",
 		"@radix-ui/react-dialog": "^1.0.3",
@@ -61,7 +59,6 @@
 		"copy-to-clipboard": "^3.3.3",
 		"country-telephone-data": "^0.6.3",
 		"framer-motion": "^7.6.7",
-		"js-sha3": "^0.8.0",
 		"phone": "^3.1.37",
 		"posthog-js-lite": "2.4.0",
 		"qr-code-styling-new": "^1.6.1",
@@ -70,6 +67,7 @@
 		"react-country-flag": "^3.1.0",
 		"react-frame-component": "^5.2.3",
 		"react-shadow": "^19.0.3",
+		"viem": "^0.3.37",
 		"zustand": "^4.3.3"
 	},
 	"devDependencies": {
