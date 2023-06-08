@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.9...idkit-v0.5.0) (2023-06-08)
+
+
+### Features
+
+* Add docstrings ([#121](https://github.com/worldcoin/idkit-js/issues/121)) ([d5e2012](https://github.com/worldcoin/idkit-js/commit/d5e2012210071217bd9c4f704f9cb68fad025d7d))
+* i18n ([#125](https://github.com/worldcoin/idkit-js/issues/125)) ([1101350](https://github.com/worldcoin/idkit-js/commit/1101350266f81491b476e2a0513e782388fd2cf4))
+* update logos to new branding ([#124](https://github.com/worldcoin/idkit-js/issues/124)) ([0c36052](https://github.com/worldcoin/idkit-js/commit/0c360528675b3516a75407cc87f99e48cb7a0ac4))
+
+
+### Bug Fixes
+
+* move publish into release workflow ([#118](https://github.com/worldcoin/idkit-js/issues/118)) ([9c9b417](https://github.com/worldcoin/idkit-js/commit/9c9b4172baa97951544953123d70d80b8527b6eb))
+
 ## [0.4.9](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.8...idkit-v0.4.9) (2023-04-27)
 
 
