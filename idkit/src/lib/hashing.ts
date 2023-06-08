@@ -3,7 +3,7 @@ import type { AbiEncodedValue } from '@/types'
 import type { IDKitConfig } from '@/types/config'
 import { encodePacked, keccak256, isBytes, isHex, toHex } from 'viem'
 
-export type HashFunctionOutput = { hash: BigInt; digest: string }
+export type HashFunctionOutput = { hash: BigInt; digest: `0x${string}` }
 
 /**
  * Hashes an input using the `keccak256` hashing function used across the World ID protocol, to be used as
