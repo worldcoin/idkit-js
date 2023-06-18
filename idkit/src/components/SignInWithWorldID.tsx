@@ -1,7 +1,5 @@
 import type { FC } from 'react'
-import { useMemo } from 'react'
-import { useState } from 'react'
-import { useCallback } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import IDKitWidget from './IDKitWidget'
 import type { ISuccessResult } from '..'
 import SignInButton from './SignInButton'
