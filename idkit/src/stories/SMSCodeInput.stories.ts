@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import SMSCodeInput from '@/components/SMSCodeInput';
 
 const meta: Meta<typeof SMSCodeInput> = {
-  title: 'SMSCodeInput',
+  title: 'Inputs/SMS Code',
   component: SMSCodeInput,
   tags: ['autodocs'],
 };

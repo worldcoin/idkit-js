@@ -1,6 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-webpack5'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 
 const config: StorybookConfig = {
     stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import ResendButton from '@/components/ResendButton';
 
 const meta: Meta<typeof ResendButton> = {
-  title: 'ResendButton',
+  title: 'Buttons/Resend',
   component: ResendButton,
   tags: ['autodocs'],
 };

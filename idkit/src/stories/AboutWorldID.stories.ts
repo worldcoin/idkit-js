@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import AboutWorldID from '@/components/AboutWorldID';
 
 const meta: Meta<typeof AboutWorldID> = {
-  title: 'AboutWorldID',
+  title: 'General/About World ID',
   component: AboutWorldID,
   tags: ['autodocs'],
 };

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import PhoneInput from '@/components/PhoneInput';
 
 const meta: Meta<typeof PhoneInput> = {
-  title: 'PhoneInput',
+  title: 'Inputs/Phone',
   component: PhoneInput,
   tags: ['autodocs'],
 };
