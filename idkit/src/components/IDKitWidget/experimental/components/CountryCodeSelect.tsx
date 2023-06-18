@@ -10,9 +10,10 @@ import { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 type Props = {
 	value: string
 	onChange: (value: string) => void
+	disabled?: boolean
 }
 
-const CountryCodeSelect = ({ value, onChange }: Props) => {
+const CountryCodeSelect = ({ value, onChange, disabled }: Props) => {
 	const [countryCode, setCountryCode] = useState<string>('us')
 	const listRef = useRef<HTMLUListElement>(null)
 
@@ -64,7 +65,7 @@ const CountryCodeSelect = ({ value, onChange }: Props) => {
 	}, [countryCode, onChange])
 
 	return (
-		<Listbox value={countryCode} onChange={setCountryCode}>
+		<Listbox value={countryCode} onChange={setCountryCode} disabled={disabled}>
 			{({ open }) => (
 				<>
 					<Listbox.Label className="sr-only block text-sm font-medium text-gray-700">

@@ -32,7 +32,7 @@ const PhoneInput = ({ disabled, onSubmit }: { disabled?: boolean; onSubmit?: () 
 					<label htmlFor="country" className="sr-only">
 						{__('Country')}
 					</label>
-					<CountryCodeSelect value={countryCode} onChange={setCountryCode} />
+					<CountryCodeSelect value={countryCode} onChange={setCountryCode} disabled={disabled} />
 				</div>
 				<input
 					type="tel"
