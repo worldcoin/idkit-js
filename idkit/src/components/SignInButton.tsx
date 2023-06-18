@@ -22,8 +22,8 @@ const ButtonContent = styled.div({
 	...tw`absolute inset-px z-10 grid place-items-center rounded-xl cursor-pointer`,
 	variants: {
 		theme: {
-			dark: tw`bg-black`,
-			light: tw`bg-f2f5f9`,
+			dark: tw`bg-black text-white`,
+			light: tw`bg-f2f5f9 text-black`,
 		},
 	},
 })
