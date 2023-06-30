@@ -1,20 +1,23 @@
 {
-	"bootstrap-sha": "61ca0dedc321107141753dae699025d41b65ff90",
 	"packages": {
-		".": {
-			"component": "root",
-			"extra-files": [
-				{
-					"type": "json",
-					"path": "example-react/package.json",
-					"jsonpath": "$.version"
-				},
-				{
-					"type": "json",
-					"path": "example-nextjs/package.json",
-					"jsonpath": "$.version"
-				}
-			],
+		"example-react": {
+			"package-name": "example-react",
+			"component": "example-react",
+			"release-type": "node",
+			"bump-minor-pre-major": false,
+			"bump-patch-for-minor-pre-major": false,
+			"draft": false,
+			"prerelease": false,
+			"skip-github-release": true
+		},
+		"example-nextjs": {
+			"package-name": "example-nextjs",
+			"component": "example-nextjs",
+			"release-type": "node",
+			"bump-minor-pre-major": false,
+			"bump-patch-for-minor-pre-major": false,
+			"draft": false,
+			"prerelease": false,
 			"skip-github-release": true
 		},
 		"idkit": {
