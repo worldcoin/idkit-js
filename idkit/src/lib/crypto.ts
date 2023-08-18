@@ -8,8 +8,14 @@ export const exportKey = async (key: CryptoKey): Promise<`0x${string}`> => {
 	return encodeKey(await window.crypto.subtle.exportKey('raw', key))
 }
 
-export const hashKey = async (key: CryptoKey): Promise<`0x${string}`> => {
-	const rawKey = await window.crypto.subtle.exportKey('raw', key)
+export const getRequestId = async (key: CryptoKey): Promise<`0x${string}`> => {
+	return encodeKey(await window.crypto.subtle.sign('HMAC', key, Buffer.from('world-id-v1')))
+}
 
-	return encodeKey(await window.crypto.subtle.digest('SHA-256', rawKey))
+export const encryptRequest = async (key: CryptoKey, request: string): Promise<`0x${string}`> => {
+	return encodeKey(await window.crypto.subtle.encrypt({ name: 'RSA-OAEP' }, key, Buffer.from(request)))
+}
+
+export const decryptResponse = async (key: CryptoKey, response: ArrayBuffer): Promise<string> => {
+	return encodeKey(await window.crypto.subtle.decrypt({ name: 'RSA-OAEP' }, key, response))
 }
