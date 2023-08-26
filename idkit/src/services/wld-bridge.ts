@@ -11,7 +11,7 @@ const DEFAULT_BRIDGE_URL = 'https://bridge.id.worldcoin.org/'
 
 type WorldBridgeStore = {
 	bridgeUrl: string
-	key: CryptoKey | null
+	key: CryptoKeyPair | null
 	connectorURI: string | null
 	result: ISuccessResult | null
 	requestId: `0x${string}` | null
@@ -50,7 +50,7 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		action_description?: IDKitConfig['action_description']
 	) => {
 		const key = await generateKey()
-		const requestId = await getRequestId(key)
+		const requestId = await getRequestId(key.publicKey)
 
 		const res = await fetch(`${bridgeUrl ?? DEFAULT_BRIDGE_URL}/request/${requestId}`, {
 			method: 'PUT',
@@ -58,7 +58,7 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 				'Content-Type': 'application/octet-stream',
 			},
 			body: await encryptRequest(
-				key,
+				key.publicKey,
 				JSON.stringify({
 					app_id,
 					credential_types,
@@ -79,8 +79,8 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			requestId,
 			bridgeUrl: bridgeUrl ?? DEFAULT_BRIDGE_URL,
 			verificationState: VerificationState.PollingForUpdates,
-			connectorURI: `https://id.worldcoin.org/verify?t=wld&key=${await exportKey(key)}${
-				bridgeUrl ? `&bridge=${encodeURIComponent(bridgeUrl)}` : ''
+			connectorURI: `https://worldcoin.org/verify?t=wld&k=${await exportKey(key.privateKey)}${
+				bridgeUrl ? `&b=${encodeURIComponent(bridgeUrl)}` : ''
 			}`,
 		})
 	},
@@ -97,13 +97,13 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 
 		if (!res.ok) return
 
-		const result = JSON.parse(await decryptResponse(key, await res.arrayBuffer())) as
+		const result = JSON.parse(await decryptResponse(key.privateKey, await res.arrayBuffer())) as
 			| ISuccessResult
-			| { error: AppErrorCodes }
+			| { error_code: AppErrorCodes }
 
-		if ('error' in result) {
+		if ('error_code' in result) {
 			return set({
-				errorCode: result.error,
+				errorCode: result.error_code,
 				verificationState: VerificationState.Failed,
 			})
 		}
