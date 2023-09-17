@@ -1,30 +1,37 @@
 import { encodeKey } from './hashing'
+import { buffer_decode, buffer_encode } from './utils'
 
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
-export const generateKey = (): Promise<CryptoKeyPair> => {
-	return window.crypto.subtle.generateKey(
-		{ name: 'RSA-OAEP', modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: 'SHA-256' },
-		true,
-		['encrypt', 'decrypt']
-	)
+export const generateKey = async (): Promise<{ key: CryptoKey; iv: Uint8Array }> => {
+	return {
+		iv: window.crypto.getRandomValues(new Uint8Array(12)),
+		key: await window.crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']),
+	}
 }
 
 export const exportKey = async (key: CryptoKey): Promise<string> => {
-	const jwk = await window.crypto.subtle.exportKey('jwk', key)
-
-	return Buffer.from(JSON.stringify(jwk)).toString('base64')
+	return buffer_encode(await window.crypto.subtle.exportKey('raw', key))
 }
 
-export const getRequestId = async (key: CryptoKey): Promise<`0x${string}`> => {
-	return encodeKey(await window.crypto.subtle.encrypt({ name: 'RSA-OAEP' }, key, encoder.encode('world-id-v1')))
+export const getRequestId = async (key: CryptoKey, iv: Uint8Array): Promise<`0x${string}`> => {
+	return encodeKey(await window.crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, encoder.encode('world-id-v1')))
 }
 
-export const encryptRequest = async (key: CryptoKey, request: string): Promise<ArrayBuffer> => {
-	return window.crypto.subtle.encrypt({ name: 'RSA-OAEP' }, key, encoder.encode(request))
+export const encryptRequest = async (
+	key: CryptoKey,
+	iv: Uint8Array,
+	request: string
+): Promise<{ payload: string; encrypted_iv: string }> => {
+	return {
+		payload: buffer_encode(
+			await window.crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, encoder.encode(request))
+		),
+		encrypted_iv: buffer_encode(await window.crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, iv)),
+	}
 }
 
-export const decryptResponse = async (key: CryptoKey, response: ArrayBuffer): Promise<string> => {
-	return decoder.decode(await window.crypto.subtle.decrypt({ name: 'RSA-OAEP' }, key, response))
+export const decryptResponse = async (key: CryptoKey, iv: Uint8Array, payload: string): Promise<string> => {
+	return decoder.decode(await window.crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, buffer_decode(payload)))
 }

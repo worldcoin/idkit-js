@@ -11,7 +11,8 @@ const DEFAULT_BRIDGE_URL = 'https://bridge.id.worldcoin.org/'
 
 type WorldBridgeStore = {
 	bridgeUrl: string
-	key: CryptoKeyPair | null
+	iv: Uint8Array | null
+	key: CryptoKey | null
 	connectorURI: string | null
 	result: ISuccessResult | null
 	requestId: `0x${string}` | null
@@ -33,6 +34,7 @@ type WorldBridgeStore = {
 }
 
 const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
+	iv: null,
 	key: null,
 	result: null,
 	errorCode: null,
@@ -49,25 +51,32 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		credential_types?: IDKitConfig['credential_types'],
 		action_description?: IDKitConfig['action_description']
 	) => {
-		const key = await generateKey()
-		const requestId = await getRequestId(key.publicKey)
+		console.log('generating key')
+		const { key, iv } = await generateKey()
+		console.log('generated key')
+		console.log('getting request id')
+		const requestId = await getRequestId(key, iv)
+		console.log('got request id')
 
+		console.log('posting to bridge', `${bridgeUrl ?? DEFAULT_BRIDGE_URL}/request/${requestId}`)
 		const res = await fetch(`${bridgeUrl ?? DEFAULT_BRIDGE_URL}/request/${requestId}`, {
 			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/octet-stream',
-			},
-			body: await encryptRequest(
-				key.publicKey,
-				JSON.stringify({
-					app_id,
-					credential_types,
-					action_description,
-					action: encodeAction(action),
-					signal: generateSignal(signal).digest,
-				})
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(
+				await encryptRequest(
+					key,
+					iv,
+					JSON.stringify({
+						app_id,
+						credential_types,
+						action_description,
+						action: encodeAction(action),
+						signal: generateSignal(signal).digest,
+					})
+				)
 			),
 		})
+		console.log('posted to bridge', res.status, res)
 
 		if (!res.ok) {
 			set({ verificationState: VerificationState.Failed })
@@ -79,7 +88,7 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			requestId,
 			bridgeUrl: bridgeUrl ?? DEFAULT_BRIDGE_URL,
 			verificationState: VerificationState.PollingForUpdates,
-			connectorURI: `https://worldcoin.org/verify?t=wld&k=${await exportKey(key.privateKey)}${
+			connectorURI: `https://worldcoin.org/verify?t=wld&k=${encodeURIComponent(await exportKey(key))}${
 				bridgeUrl ? `&b=${encodeURIComponent(bridgeUrl)}` : ''
 			}`,
 		})
@@ -97,7 +106,7 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 
 		if (!res.ok) return
 
-		const result = JSON.parse(await decryptResponse(key.privateKey, await res.arrayBuffer())) as
+		const result = JSON.parse(await decryptResponse(key, get().iv!, await res.text())) as
 			| ISuccessResult
 			| { error_code: AppErrorCodes }
 
@@ -112,7 +121,13 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 	},
 
 	reset: () => {
-		set({ requestId: null, key: null, connectorURI: null, verificationState: VerificationState.PreparingClient })
+		set({
+			iv: null,
+			key: null,
+			requestId: null,
+			connectorURI: null,
+			verificationState: VerificationState.PreparingClient,
+		})
 	},
 }))
 
