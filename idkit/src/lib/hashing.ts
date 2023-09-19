@@ -110,7 +110,3 @@ export const encodeAction = (action: IDKitConfig['action']): string => {
 
 	return action.types.map((type, index) => `${type}(${action.values[index]})`).join(',')
 }
-
-export const encodeKey = (key: ArrayBuffer): `0x${string}` => {
-	return `0x${[...new Uint8Array(key)].map(b => b.toString(16).padStart(2, '0')).join('')}`
-}

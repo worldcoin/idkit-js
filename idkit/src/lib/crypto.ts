@@ -1,4 +1,3 @@
-import { encodeKey } from './hashing'
 import { buffer_decode, buffer_encode } from './utils'
 
 const encoder = new TextEncoder()
@@ -15,20 +14,16 @@ export const exportKey = async (key: CryptoKey): Promise<string> => {
 	return buffer_encode(await window.crypto.subtle.exportKey('raw', key))
 }
 
-export const getRequestId = async (key: CryptoKey, iv: Uint8Array): Promise<`0x${string}`> => {
-	return encodeKey(await window.crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, encoder.encode('world-id-v1')))
-}
-
 export const encryptRequest = async (
 	key: CryptoKey,
 	iv: Uint8Array,
 	request: string
-): Promise<{ payload: string; encrypted_iv: string }> => {
+): Promise<{ payload: string; iv: string }> => {
 	return {
+		iv: buffer_encode(iv),
 		payload: buffer_encode(
 			await window.crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, encoder.encode(request))
 		),
-		encrypted_iv: buffer_encode(await window.crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, iv)),
 	}
 }
 

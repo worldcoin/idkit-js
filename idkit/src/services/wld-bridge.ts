@@ -5,7 +5,7 @@ import type { IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { AppErrorCodes } from '@/types/bridge'
 import { encodeAction, generateSignal } from '@/lib/hashing'
-import { decryptResponse, encryptRequest, exportKey, generateKey, getRequestId } from '@/lib/crypto'
+import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
 
 const DEFAULT_BRIDGE_URL = 'https://bridge.id.worldcoin.org/'
 
@@ -13,9 +13,9 @@ type WorldBridgeStore = {
 	bridgeUrl: string
 	iv: Uint8Array | null
 	key: CryptoKey | null
+	requestId: string | null
 	connectorURI: string | null
 	result: ISuccessResult | null
-	requestId: `0x${string}` | null
 	errorCode: AppErrorCodes | null
 	verificationState: VerificationState
 
@@ -51,14 +51,9 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		credential_types?: IDKitConfig['credential_types'],
 		action_description?: IDKitConfig['action_description']
 	) => {
-		console.log('generating key')
 		const { key, iv } = await generateKey()
-		console.log('generated key')
-		console.log('getting request id')
-		const requestId = await getRequestId(key, iv)
-		console.log('got request id')
+		const requestId = window.crypto.randomUUID()
 
-		console.log('posting to bridge', `${bridgeUrl ?? DEFAULT_BRIDGE_URL}/request/${requestId}`)
 		const res = await fetch(`${bridgeUrl ?? DEFAULT_BRIDGE_URL}/request/${requestId}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
@@ -76,7 +71,6 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 				)
 			),
 		})
-		console.log('posted to bridge', res.status, res)
 
 		if (!res.ok) {
 			set({ verificationState: VerificationState.Failed })
@@ -84,13 +78,14 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		}
 
 		set({
+			iv,
 			key,
 			requestId,
 			bridgeUrl: bridgeUrl ?? DEFAULT_BRIDGE_URL,
 			verificationState: VerificationState.PollingForUpdates,
-			connectorURI: `https://worldcoin.org/verify?t=wld&k=${encodeURIComponent(await exportKey(key))}${
-				bridgeUrl ? `&b=${encodeURIComponent(bridgeUrl)}` : ''
-			}`,
+			connectorURI: `https://worldcoin.org/verify?t=wld&i=${requestId}&k=${encodeURIComponent(
+				await exportKey(key)
+			)}${bridgeUrl ? `&b=${encodeURIComponent(bridgeUrl)}` : ''}`,
 		})
 	},
 
