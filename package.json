@@ -1,17 +1,5 @@
 {
-	"name": "idkit-js",
 	"private": true,
-	"workspaces": [
-		"example-nextjs",
-		"example-react",
-		"idkit"
-	],
-	"devDependencies": {
-		"cspell": "6.17.0",
-		"release-please": "^15.8.0"
-	},
-	"scripts": {
-		"spellcheck": "cspell **/*.{ts,js,tsx,json} -e idkit/esbuild-meta.json -e idkit/build -e idkit/node_modules -e node_modules -e yarn.lock"
-	},
-	"version": "0.4.9"
+	"version": "0.0.0",
+	"name": "idkit-monorepo"
 }

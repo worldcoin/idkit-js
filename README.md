@@ -38,7 +38,6 @@ const { open, setOpen } = useIDKit({
 	signal: "my_signal",
 	handleVerify: verifyProof,
 	actionId: "get_this_from_the_dev_portal",
-	walletConnectProjectId: "get_this_from_walletconnect_portal",
 });
 ```
 
