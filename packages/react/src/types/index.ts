@@ -1,10 +1,4 @@
-import type { AppErrorCodes } from './app'
-import type { VerificationMethods } from './config'
-
-declare const brand: unique symbol
-type Brand<T, TBrand extends string> = T & { [brand]: TBrand }
-
-export type AbiEncodedValue = Brand<{ types: string[]; values: unknown[] }, 'AbiEncodedValue'>
+export type VerificationMethods = 'orb' | 'phone'
 
 export enum IDKITStage {
 	SELECT_METHOD = 'SELECT_METHOD', // EXPERIMENTAL
@@ -17,29 +11,18 @@ export enum IDKITStage {
 	HOST_APP_VERIFICATION = 'HOST_APP_VERIFICATION',
 }
 
-export enum CredentialType {
-	Orb = 'orb',
-	Phone = 'phone',
-}
-
 export interface IExperimentalSuccessResult {
 	nullifier_hash: string
 	credential_type: VerificationMethods
 	proof_payload: OrbSignalProof | PhoneSignalProof
 }
 
-export interface ISuccessResult {
-	proof: string
-	merkle_root: string
-	nullifier_hash: string
-	credential_type: CredentialType
-}
-
 export type CallbackFn<T> = (result: T) => Promise<void> | void
 
-export interface IErrorState {
-	code: AppErrorCodes
-	message?: string
+// Error response received from World app through WalletConnect
+export interface ExpectedErrorResponse {
+	message: string
+	stack: string
 }
 
 // ANCHOR: Experimental

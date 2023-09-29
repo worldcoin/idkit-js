@@ -1,0 +1,58 @@
+{
+	"name": "@worldcoin/idkit-core",
+	"version": "0.0.1",
+	"author": "Tools for Humanity",
+	"homepage": "https://docs.worldcoin.org/id/idkit",
+	"license": "MIT",
+	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/worldcoin/idkit-js",
+		"directory": "packages/idkit-core"
+	},
+	"type": "module",
+	"exports": {
+		"import": "./build/index.es.js",
+		"types": "./build/index.d.ts"
+	},
+	"types": "./build/index.d.ts",
+	"engines": {
+		"node": ">=12.4"
+	},
+	"files": [
+		"build",
+		"README.md"
+	],
+	"scripts": {
+		"lint": "eslint src --ext .ts",
+		"build": "rollup --config rollup.config.prod.js",
+		"dev": "rollup --config rollup.config.dev.js -w",
+		"start": "rollup --config rollup.config.dev.js -w"
+	},
+	"keywords": [
+		"identity",
+		"ID",
+		"web3",
+		"proof-of-personhood",
+		"sybil resistance"
+	],
+	"dependencies": {
+		"viem": "^1.14.0",
+		"zustand": "^4.3.3"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "5.20.0",
+		"@typescript-eslint/parser": "5.20.0",
+		"esbuild": "0.14.43",
+		"esbuild-node-externals": "1.4.1",
+		"esbuild-plugin-alias": "0.2.1",
+		"esbuild-style-plugin": "^1.6.0",
+		"esbuild-visualizer": "^0.4.0",
+		"eslint": "8.29.0",
+		"prettier": "^2.7.1",
+		"prettier-plugin-sort-imports-desc": "^1.0.0",
+		"rollup-plugin-peer-deps-external": "^2.2.4",
+		"rollup-plugin-typescript2": "^0.36.0",
+		"typescript": "4.9.3"
+	}
+}

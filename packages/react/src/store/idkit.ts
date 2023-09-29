@@ -1,11 +1,17 @@
 import { __ } from '@/lang'
 import { create } from 'zustand'
-import { AppErrorCodes } from '@/types/app'
-import { CredentialType, IDKITStage } from '@/types'
+import { IDKITStage } from '@/types'
+import type { VerificationMethods } from '@/types'
 import { telemetryModalOpened } from '@/lib/telemetry'
-import type { VerificationMethods } from '@/types/config'
-import type { Config, ConfigSource, IDKitConfig } from '@/types/config'
-import type { CallbackFn, IErrorState, IExperimentalSuccessResult, ISuccessResult } from '@/types'
+import type { Config, ConfigSource } from '@/types/config'
+import type { CallbackFn, IExperimentalSuccessResult } from '@/types'
+import {
+	AppErrorCodes,
+	ISuccessResult,
+	IErrorState,
+	CredentialType,
+	IDKitConfig,
+} from '@worldcoin/idkit-core/src/types'
 
 export type IDKitStore = {
 	app_id: IDKitConfig['app_id']

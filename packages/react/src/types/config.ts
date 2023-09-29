@@ -1,24 +1,10 @@
-import type { AbiEncodedValue, CallbackFn, CredentialType, IExperimentalSuccessResult, ISuccessResult } from '.'
+import { ISuccessResult, IDKitConfig } from '@worldcoin/idkit-core/src/types'
+import { CallbackFn, IExperimentalSuccessResult, VerificationMethods } from '.'
 
-export type VerificationMethods = 'orb' | 'phone'
 export enum ConfigSource {
 	HOOK = 'hook',
 	PROPS = 'props',
 	MANUAL = 'manual',
-}
-
-export type IDKitConfig = {
-	/** Unique identifier for the app verifying the action. This should be the app ID obtained from the Developer Portal. */
-	app_id: string
-	/** The description of the specific action (shown to users in World App). Only recommended for actions created on-the-fly. */
-	action_description?: string
-	/** Encodes data into a proof that must match when validating. Read more on the [On-chain section](https://docs.worldcoin.org/advanced/on-chain). */
-	signal?: AbiEncodedValue | string
-	/** Identifier for the action the user is performing. Should be left blank for [Sign in with Worldcoin](https://docs.worldcoin.org/id/sign-in). */
-	action?: AbiEncodedValue | string
-	bridgeUrl?: string
-	/** An array of credential types to allow for verification. Will accept any combination of "orb" & "phone". Defaults to orb. TypeScript apps can use the `CredentialType` enum. */
-	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
 }
 
 export type WidgetConfig = {

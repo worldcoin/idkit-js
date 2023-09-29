@@ -1,5 +1,5 @@
-import type { AbiEncodedValue } from '@/types'
 import type { IDKitConfig } from '@/types/config'
+import type { AbiEncodedValue } from '@/types/config'
 import { encodePacked, isBytes, isHex, keccak256 } from 'viem'
 
 export interface HashFunctionOutput {
