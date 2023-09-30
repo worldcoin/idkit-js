@@ -1,5 +1,5 @@
-import { ISuccessResult, IDKitConfig } from '@worldcoin/idkit-core/src/types'
 import { CallbackFn, IExperimentalSuccessResult, VerificationMethods } from '.'
+import { ISuccessResult, IDKitConfig } from '@worldcoin/idkit-core/build/types'
 
 export enum ConfigSource {
 	HOOK = 'hook',

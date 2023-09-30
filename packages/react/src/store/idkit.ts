@@ -11,7 +11,7 @@ import {
 	IErrorState,
 	CredentialType,
 	IDKitConfig,
-} from '@worldcoin/idkit-core/src/types'
+} from '@worldcoin/idkit-core/build/types'
 
 export type IDKitStore = {
 	app_id: IDKitConfig['app_id']

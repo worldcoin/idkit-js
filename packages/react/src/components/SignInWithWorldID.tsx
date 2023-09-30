@@ -6,7 +6,7 @@ import IDKitWidget from './IDKitWidget'
 import type { ISuccessResult } from '..'
 import SignInButton from './SignInButton'
 import type { WidgetConfig } from '@/types/config'
-import type { IDKitConfig } from '@worldcoin/idkit-core/src/types'
+import type { IDKitConfig } from '@worldcoin/idkit-core/build/types'
 
 type Props = Omit<WidgetConfig, 'autoClose' | 'experimental_methods' | 'handleVerify'> &
 	Pick<IDKitConfig, 'app_id'> & {

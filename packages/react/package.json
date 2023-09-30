@@ -13,7 +13,8 @@
 	"type": "module",
 	"exports": {
 		"import": "./build/index.es.js",
-		"types": "./build/index.d.ts"
+		"types": "./build/index.d.ts",
+		"internal": "./build/internal/index.es.js"
 	},
 	"types": "./build/index.d.ts",
 	"engines": {

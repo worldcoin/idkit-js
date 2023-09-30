@@ -271,6 +271,52 @@ importers:
         specifier: 4.9.3
         version: 4.9.3
 
+  packages/standalone:
+    dependencies:
+      '@worldcoin/idkit-react':
+        specifier: workspace:^
+        version: link:../react
+      react:
+        specifier: '>18.0.0'
+        version: 18.2.0
+      react-dom:
+        specifier: '>18.0.0'
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@types/react':
+        specifier: 18.0.25
+        version: 18.0.25
+      '@types/react-dom':
+        specifier: 18.0.9
+        version: 18.0.9
+      '@typescript-eslint/eslint-plugin':
+        specifier: 5.20.0
+        version: 5.20.0(@typescript-eslint/parser@5.20.0)(eslint@8.29.0)(typescript@4.9.3)
+      '@typescript-eslint/parser':
+        specifier: 5.20.0
+        version: 5.20.0(eslint@8.29.0)(typescript@4.9.3)
+      eslint:
+        specifier: 8.29.0
+        version: 8.29.0
+      prettier:
+        specifier: ^2.7.1
+        version: 2.8.8
+      prettier-plugin-sort-imports-desc:
+        specifier: ^1.0.0
+        version: 1.0.0
+      rollup-plugin-iife:
+        specifier: ^0.7.0
+        version: 0.7.0(rollup@3.29.3)
+      rollup-plugin-peer-deps-external:
+        specifier: ^2.2.4
+        version: 2.2.4(rollup@3.29.3)
+      rollup-plugin-typescript2:
+        specifier: ^0.36.0
+        version: 0.36.0(rollup@3.29.3)(typescript@4.9.3)
+      typescript:
+        specifier: 4.9.3
+        version: 4.9.3
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
@@ -3122,6 +3168,16 @@ packages:
       stop-iteration-iterator: 1.0.0
     dev: true
 
+  /es-iife@0.2.2:
+    resolution: {integrity: sha512-4TwowD4ZJKlwL/Ix3BClKBaWRyH28spveFP0hDfPya1cLFDXuqUKR23guHsEUYrmf/nOLaRaXckIWYc5Zdpaxw==}
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      camelcase: 6.3.0
+      estree-walker: 2.0.2
+      is-reference: 1.2.1
+      magic-string: 0.25.9
+    dev: true
+
   /es-iterator-helpers@1.0.15:
     resolution: {integrity: sha512-GhoY8uYqd6iwUl2kgjTm4CZAf6oo5mHK7BPqx3rKgx893YSsy0LGHV6gfqqQvZt/8xM8xeOnfXBCfqclMKkJ5g==}
     dependencies:
@@ -4672,6 +4728,12 @@ packages:
     resolution: {integrity: sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==}
     dev: true
 
+  /is-reference@1.2.1:
+    resolution: {integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==}
+    dependencies:
+      '@types/estree': 1.0.2
+    dev: true
+
   /is-regex@1.1.4:
     resolution: {integrity: sha512-kvRdxDsxZjhzUX07ZnLydzS1TU/TJlTUHHY4YLL87e37oUA49DfkLqgy+VjFocowy29cKvcSiu+kIv728jTTVg==}
     engines: {node: '>= 0.4'}
@@ -5634,6 +5696,12 @@ packages:
   /lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
+    dev: true
+
+  /magic-string@0.25.9:
+    resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
+    dependencies:
+      sourcemap-codec: 1.4.8
     dev: true
 
   /make-dir@3.1.0:
@@ -6855,6 +6923,17 @@ packages:
       glob: 7.2.3
     dev: true
 
+  /rollup-plugin-iife@0.7.0(rollup@3.29.3):
+    resolution: {integrity: sha512-Y5sNo1G0W2la5ffw2Bk/9YcIb/RyhWZBouKE1IYyxdl7YuJirpXzMR2UgcQ1OxYy8CtepGj+M/TMDSf+J1NX5Q==}
+    engines: {node: '>=8'}
+    peerDependencies:
+      rollup: ^3.2.3
+    dependencies:
+      es-iife: 0.2.2
+      lodash: 4.17.21
+      rollup: 3.29.3
+    dev: true
+
   /rollup-plugin-peer-deps-external@2.2.4(rollup@3.29.3):
     resolution: {integrity: sha512-AWdukIM1+k5JDdAqV/Cxd+nejvno2FVLVeZ74NKggm3Q5s9cbbcOgUPGdbxPi4BXu7xGaZ8HG12F+thImYu/0g==}
     peerDependencies:
@@ -7152,7 +7231,6 @@ packages:
   /sourcemap-codec@1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
     deprecated: Please use @jridgewell/sourcemap-codec instead
-    dev: false
 
   /spdx-correct@3.2.0:
     resolution: {integrity: sha512-kN9dJbvnySHULIluDHy32WHRUu3Og7B9sbY7tsFLctQkIqnMh3hErYgdMjTYuqmcXX+lK5T1lnUt3G7zNswmZA==}
