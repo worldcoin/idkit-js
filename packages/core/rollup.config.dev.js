@@ -5,7 +5,7 @@ export default [
 	{
 		input: ['./src/index.ts', './src/lib/hashing.ts'],
 		external: ['viem', 'zustand'],
-		output: [{ dir: './build', format: 'esm', sourcemap: false }],
+		output: [{ dir: './build', format: 'esm', sourcemap: false, preserveModules: true }],
 		plugins: [
 			peerDepsExternal(),
 			typescript({

@@ -13,11 +13,17 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"import": "./build/index.es.js",
-			"types": "./build/index.d.ts"
+			"import": "./build/index.js",
+			"types": "./build/index.d.ts",
+			"module": "./build/index.es.js"
 		},
 		"./hashing": {
-			"import": "./build/hashing.js",
+			"import": {
+				"default": "./build/lib/hashing.js",
+				"types": "./build/lib/hashing.d.ts"
+			},
+			"default": "./build/lib/hashing.js",
+			"module": "./build/lib/hashing.js",
 			"types": "./build/lib/hashing.d.ts"
 		},
 		"./types": {

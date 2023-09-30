@@ -8,7 +8,7 @@ export default [
 	{
 		input: ['./src/index.ts'],
 		external: ['react', 'react-dom', 'framer-motion', 'posthog-js-lite', 'zustand', 'zustand/shallow', 'qrcode'],
-		output: [{ file: packageJson.exports.import, format: 'esm', sourcemap: false }],
+		output: [{ file: packageJson.exports.import, format: 'esm', sourcemap: false, preserveModules: true }],
 		plugins: [
 			peerDepsExternal(),
 			image(),
