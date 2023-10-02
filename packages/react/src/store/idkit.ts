@@ -5,7 +5,13 @@ import { shallow } from 'zustand/shallow'
 import { telemetryModalOpened } from '@/lib/telemetry'
 import type { Config, ConfigSource } from '@/types/config'
 import { createWithEqualityFn } from 'zustand/traditional'
-import { AppErrorCodes, ISuccessResult, IErrorState, CredentialType, IDKitConfig } from '@worldcoin/idkit-core'
+import {
+	AppErrorCodes,
+	CredentialType,
+	type IErrorState,
+	type IDKitConfig,
+	type ISuccessResult,
+} from '@worldcoin/idkit-core'
 
 export type IDKitStore = {
 	app_id: IDKitConfig['app_id']

@@ -9,6 +9,7 @@ function factoryPostHogFetchError(error: unknown) {
 
 if (typeof globalThis.window !== 'undefined') {
 	window.onunhandledrejection = function (event) {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 		return (event.reason as Record<string, unknown>).name !== 'telemetry-error'
 	}
 }

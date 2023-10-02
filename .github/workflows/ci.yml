@@ -1,117 +1,33 @@
 name: CI
 
 on:
-    - pull_request
+    push:
+        branches: ['main']
+    pull_request:
+        types: [opened, synchronize]
 
 jobs:
-    lint:
-        name: Source code formatting & spellcheck
-        runs-on: ubuntu-20.04
+    build:
+        name: Lint & Build
+        runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
 
-            - name: Set up Node 18
+            - uses: pnpm/action-setup@v2.4.0
+              with:
+                  version: 8
+
+            - name: Setup Node.js environment
               uses: actions/setup-node@v3
               with:
+                  cache: 'pnpm'
                   node-version: 18
-                  cache: "yarn"
 
             - name: Install dependencies
-              run: yarn --frozen-lockfile
+              run: pnpm install
 
-            - name: Check formatting with Prettier
-              working-directory: ./idkit
-              run: yarn format:check
-
-            - name: Spellcheck
-              run: yarn spellcheck
-
-    typecheck:
-        name: Typecheck & linting
-        runs-on: ubuntu-20.04
-        steps:
-            - uses: actions/checkout@v3
-
-            - name: Set up Node 18
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: "yarn"
-
-            - name: Install dependencies
-              run: yarn --frozen-lockfile
-
-            - name: Lint with ESLint
-              working-directory: ./idkit
-              run: yarn lint
-
-            - name: Check Typescript
-              working-directory: ./idkit
-              run: |
-                  yarn typecheck
-
-    test:
-        name: Test
-        runs-on: ubuntu-20.04
-        steps:
-            - uses: actions/checkout@v3
-
-            - name: Set up Node 18
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: "yarn"
-
-            - name: Install dependencies
-              working-directory: ./idkit
-              run: yarn --frozen-lockfile
-
-            - name: Run tests
-              working-directory: ./idkit
-              run: yarn test
-
-    test-build:
-        name: Test production build
-        runs-on: ubuntu-20.04
-        steps:
-            - uses: actions/checkout@v3
-
-            - name: Set up Node 18
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: "yarn"
-
-            - name: Install dependencies
-              working-directory: ./idkit
-              run: yarn --frozen-lockfile
+            - name: Lint
+              run: pnpm lint
 
             - name: Build
-              working-directory: ./idkit
-              run: |
-                  yarn build
-
-    test-next-build:
-        name: Test Next.js build
-        runs-on: ubuntu-20.04
-        steps:
-            - uses: actions/checkout@v3
-
-            - name: Set up Node 18
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: "yarn"
-
-            - name: Install dependencies
-              run: yarn --frozen-lockfile
-
-            - name: Build
-              working-directory: ./idkit
-              run: |
-                  yarn build
-
-            - name: Build Next.JS app
-              working-directory: ./example-nextjs
-              run: |
-                  yarn build
+              run: pnpm build

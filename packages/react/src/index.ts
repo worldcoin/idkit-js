@@ -1,10 +1,11 @@
 import useIDKit from './hooks/useIDKit'
 import { hashing } from '@worldcoin/idkit-core'
-import { WidgetProps, Config } from '@/types/config'
 import SignInButton from './components/SignInButton'
+import { CredentialType } from '@worldcoin/idkit-core'
 import IDKitWidget from '@/components/IDKitWidget/index'
+import type { WidgetProps, Config } from '@/types/config'
+import type { ISuccessResult } from '@worldcoin/idkit-core'
 import SignInWithWorldID from './components/SignInWithWorldID'
-import { CredentialType, ISuccessResult } from '@worldcoin/idkit-core'
 
 const solidityEncode = hashing.solidityEncode
 

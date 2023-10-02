@@ -1,5 +1,5 @@
-import { CredentialType } from './config'
 import type { AppErrorCodes } from './bridge'
+import type { CredentialType } from './config'
 
 export interface ISuccessResult {
 	proof: string

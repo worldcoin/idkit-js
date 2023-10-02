@@ -1,5 +1,12 @@
 {
 	"private": true,
 	"version": "0.0.0",
-	"name": "idkit-monorepo"
+	"name": "idkit-monorepo",
+	"scripts": {
+		"lint": "turbo run lint",
+		"build": "turbo run build"
+	},
+	"devDependencies": {
+		"turbo": "^1.10.14"
+	}
 }

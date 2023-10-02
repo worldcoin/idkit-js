@@ -14,10 +14,10 @@ export interface HashFunctionOutput {
  * @param input Any string, hex-like string, bytes represented as a hex string.
  * @returns
  */
-export function hashToField(input: Uint8Array | `0x${string}` | string): HashFunctionOutput {
+export function hashToField(input: Uint8Array | string): HashFunctionOutput {
 	if (isBytes(input) || isHex(input)) return hashEncodedBytes(input)
 
-	return hashString(input as string)
+	return hashString(input)
 }
 
 export function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
