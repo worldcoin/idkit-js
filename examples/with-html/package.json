@@ -1,0 +1,17 @@
+{
+	"name": "with-html",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"lint": "prettier index.html -c"
+	},
+	"dependencies": {
+		"@worldcoin/idkit-standalone": "workspace:^"
+	},
+	"devDependencies": {
+		"vite": "^4.4.5"
+	}
+}

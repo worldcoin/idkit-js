@@ -11,10 +11,8 @@
 		"url": "git+https://github.com/worldcoin/idkit-js"
 	},
 	"type": "module",
-	"exports": {
-		"import": "./build/index.es.js",
-		"types": "./build/index.d.ts"
-	},
+	"main": "./build/index.global.js",
+	"exports": "./build/index.global.js",
 	"types": "./build/index.d.ts",
 	"engines": {
 		"node": ">=12.4"

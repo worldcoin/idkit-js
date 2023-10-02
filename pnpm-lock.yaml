@@ -12,6 +12,16 @@ importers:
         specifier: ^1.10.14
         version: 1.10.14
 
+  examples/with-html:
+    dependencies:
+      '@worldcoin/idkit-standalone':
+        specifier: workspace:^
+        version: link:../../packages/standalone
+    devDependencies:
+      vite:
+        specifier: ^4.4.5
+        version: 4.4.9
+
   packages/core:
     dependencies:
       zustand:
@@ -9097,6 +9107,41 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
+    dev: true
+
+  /vite@4.4.9:
+    resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.18.20
+      postcss: 8.4.30
+      rollup: 3.29.3
+    optionalDependencies:
+      fsevents: 2.3.3
     dev: true
 
   /w3c-xmlserializer@4.0.0:
