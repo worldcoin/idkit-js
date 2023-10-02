@@ -1,6 +1,7 @@
 build
 .turbo
 .DS_Store
+.rollup.cache
 node_modules
 
 # editors

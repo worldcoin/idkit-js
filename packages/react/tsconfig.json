@@ -1,7 +1,6 @@
 {
 	"compilerOptions": {
 		"strict": true,
-		"composite": true,
 		"rootDir": "src",
 		"outDir": "build",
 		"declaration": true,

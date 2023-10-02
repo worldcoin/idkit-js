@@ -14,20 +14,11 @@
 	"exports": {
 		".": {
 			"import": "./build/index.js",
-			"types": "./build/index.d.ts",
-			"module": "./build/index.es.js"
+			"types": "./build/index.d.ts"
 		},
 		"./hashing": {
-			"import": {
-				"default": "./build/lib/hashing.js",
-				"types": "./build/lib/hashing.d.ts"
-			},
-			"default": "./build/lib/hashing.js",
-			"module": "./build/lib/hashing.js",
+			"import": "./build/lib/hashing.js",
 			"types": "./build/lib/hashing.d.ts"
-		},
-		"./types": {
-			"types": "./build/types/index.d.ts"
 		}
 	},
 	"types": "./build/index.d.ts",
@@ -40,9 +31,8 @@
 	],
 	"scripts": {
 		"lint": "eslint src --ext .ts",
-		"build": "rollup --config rollup.config.prod.js",
-		"dev": "rollup --config rollup.config.dev.js -w",
-		"start": "rollup --config rollup.config.dev.js -w"
+		"build": "tsup",
+		"dev": "tsup --watch"
 	},
 	"keywords": [
 		"identity",
@@ -52,22 +42,16 @@
 		"sybil resistance"
 	],
 	"dependencies": {
-		"viem": "^1.14.0",
 		"zustand": "^4.3.3"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "5.20.0",
 		"@typescript-eslint/parser": "5.20.0",
 		"esbuild": "0.14.43",
-		"esbuild-node-externals": "1.4.1",
-		"esbuild-plugin-alias": "0.2.1",
-		"esbuild-style-plugin": "^1.6.0",
-		"esbuild-visualizer": "^0.4.0",
-		"eslint": "8.29.0",
 		"prettier": "^2.7.1",
 		"prettier-plugin-sort-imports-desc": "^1.0.0",
-		"rollup-plugin-peer-deps-external": "^2.2.4",
-		"rollup-plugin-typescript2": "^0.36.0",
-		"typescript": "4.9.3"
+		"tsup": "^7.2.0",
+		"typescript": "5.2.2",
+		"viem": "^1.14.0"
 	}
 }

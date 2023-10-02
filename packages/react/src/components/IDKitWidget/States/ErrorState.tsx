@@ -1,9 +1,8 @@
 import { __ } from '@/lang'
 import useIDKitStore from '@/store/idkit'
-import { shallow } from 'zustand/shallow'
-import { AppErrorCodes } from '@/types/app'
 import type { IDKitStore } from '@/store/idkit'
 import XMarkIcon from '@/components/Icons/XMarkIcon'
+import { AppErrorCodes } from '@worldcoin/idkit-core'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
@@ -35,11 +34,10 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 		'Unexpected response from the World App or identity wallet. Please try again.'
 	),
 	[AppErrorCodes.GenericError]: __('Something unexpected went wrong. Please try again.'),
-	[AppErrorCodes.InvalidPhoneOTP]: __('The phone verification code you entered is invalid. Please try again.'),
 }
 
 const ErrorState = () => {
-	const { retryFlow, errorState } = useIDKitStore(getParams, shallow)
+	const { retryFlow, errorState } = useIDKitStore(getParams)
 
 	return (
 		<div className="space-y-8">

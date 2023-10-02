@@ -10,7 +10,7 @@ import AboutWorldID from '@/components/AboutWorldID'
 import { useWorldBridge } from '@/services/wld-bridge'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
-import { AppErrorCodes, VerificationState } from '@/types/bridge'
+import { AppErrorCodes, VerificationState } from '@worldcoin/idkit-core'
 import DevicePhoneMobileIcon from '@/components/Icons/DevicePhoneMobileIcon'
 
 const getOptions = (store: IDKitStore) => ({
@@ -21,12 +21,8 @@ const getOptions = (store: IDKitStore) => ({
 	bridgeUrl: store.bridgeUrl,
 	handleVerify: store.handleVerify,
 	setErrorState: store.setErrorState,
-	showAbout: store.methods.length == 1,
 	credential_types: store.credential_types,
-	isExperimental: store.methods.length > 0,
-	hasPhone: store.methods.includes('phone'),
 	action_description: store.action_description,
-	usePhone: () => store.setStage(IDKITStage.ENTER_PHONE),
 })
 
 const WorldIDState = () => {
@@ -37,13 +33,10 @@ const WorldIDState = () => {
 		action,
 		signal,
 		setStage,
-		usePhone,
 		handleVerify,
-		isExperimental,
 		bridgeUrl,
 		action_description,
 		credential_types,
-		hasPhone,
 		setErrorState,
 	} = useIDKitStore(getOptions, shallow)
 
@@ -65,13 +58,9 @@ const WorldIDState = () => {
 		}
 
 		if (result) {
-			if (!isExperimental) return handleVerify(result)
-
-			const { nullifier_hash, credential_type, ...proof_payload } = result
-
-			handleVerify({ proof_payload, nullifier_hash, credential_type })
+			return handleVerify(result)
 		}
-	}, [result, reset, handleVerify, verificationState, setStage, errorCode, setErrorState, isExperimental])
+	}, [result, reset, handleVerify, verificationState, setStage, errorCode, setErrorState])
 
 	return (
 		<div className="-mt-6 space-y-6">
@@ -91,23 +80,6 @@ const WorldIDState = () => {
 				<QRState showQR={showQR} setShowQR={setShowQR} qrData={connectorURI} />
 			)}
 			{(media == 'desktop' || !showQR) && <AboutWorldID />}
-			{hasPhone && (
-				<div className="hidden space-y-3 md:block">
-					<div className="flex items-center justify-between space-x-6">
-						<div className="h-px flex-1 bg-f2f5f9 dark:bg-29343f" />
-						<p className="text-xs text-9eafc0 dark:text-596673">or</p>
-						<div className="h-px flex-1 bg-f2f5f9 dark:bg-29343f" />
-					</div>
-					<div className="flex items-center justify-center">
-						<button onClick={usePhone} className="flex items-center space-x-2">
-							<DevicePhoneMobileIcon className="h-6 w-6 text-0d151d/70 dark:text-white/70" />
-							<p className="text-sm font-medium text-0d151d dark:text-white">
-								{__('Verify with Phone Number')}
-							</p>
-						</button>
-					</div>
-				</div>
-			)}
 		</div>
 	)
 }

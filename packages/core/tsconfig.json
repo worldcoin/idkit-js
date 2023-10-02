@@ -1,7 +1,6 @@
 {
 	"compilerOptions": {
 		"strict": true,
-		"composite": true,
 		"rootDir": "src",
 		"outDir": "build",
 		"declaration": true,
@@ -21,7 +20,7 @@
 		}
 	},
 	"include": ["src/**/*"],
-	"exclude": ["node_modules", "build"],
+	"exclude": ["node_modules/**", "build"],
 	"watchOptions": {
 		"watchFile": "useFsEvents",
 		"watchDirectory": "useFsEvents",

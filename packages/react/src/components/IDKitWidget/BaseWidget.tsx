@@ -2,9 +2,9 @@ import { __ } from '@/lang'
 import type { FC } from 'react'
 import root from 'react-shadow'
 import { IDKITStage } from '@/types'
-import Styles from '@build/index.css'
 import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
+import Styles from '@/styles/styles.css'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
 import XMarkIcon from '../Icons/XMarkIcon'
@@ -15,16 +15,12 @@ import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import PrivacyState from './States/PrivacyState'
 import SuccessState from './States/SuccessState'
-import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
 import { Fragment, useEffect, useMemo } from 'react'
 import WorldIDWordmark from '../Icons/WorldIDWordmark'
 import { AnimatePresence, motion } from 'framer-motion'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
-import EnterPhoneState from './experimental/states/EnterPhoneState'
-import VerifyCodeState from './experimental/states/VerifyCodeState'
-import SelectMethodState from './experimental/states/SelectMethodState'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({ open, processing, onOpenChange, stage, setStage, theme, computed, setOptions }: IDKitStore) => ({
@@ -36,7 +32,6 @@ const getParams = ({ open, processing, onOpenChange, stage, setStage, theme, com
 	isOpen: open,
 	onOpenChange,
 	canGoBack: computed.canGoBack(stage),
-	defaultStage: computed.getDefaultStage(),
 })
 
 const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
@@ -47,7 +42,6 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 		stage,
 		setStage,
 		canGoBack,
-		defaultStage,
 		setOptions,
 		theme: _theme,
 	} = useIDKitStore(getParams, shallow)
@@ -59,14 +53,6 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
-			case IDKITStage.SELECT_METHOD:
-				return SelectMethodState
-			case IDKITStage.ENTER_PHONE:
-				return EnterPhoneState
-			case IDKITStage.WORLD_ID:
-				return WorldIDState
-			case IDKITStage.ENTER_CODE:
-				return VerifyCodeState
 			case IDKITStage.SUCCESS:
 				return SuccessState
 			case IDKITStage.ERROR:
@@ -124,7 +110,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
 															<button
-																onClick={() => setStage(defaultStage)}
+																onClick={() => setStage(IDKITStage.WORLD_ID)}
 																disabled={!canGoBack}
 																className={classNames(
 																	!canGoBack && 'invisible pointer-events-none',

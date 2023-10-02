@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom'
-import builtStyles from '@build/index.css'
+import builtStyles from '@/styles/styles.css'
 import { useLayoutEffect, useRef } from 'react'
 import type { FC, HTMLAttributes, PropsWithChildren } from 'react'
 

@@ -12,9 +12,14 @@
 	},
 	"type": "module",
 	"exports": {
-		"import": "./build/index.es.js",
-		"types": "./build/index.d.ts",
-		"internal": "./build/internal/index.es.js"
+		".": {
+			"import": "./build/index.js",
+			"types": "./build/index.d.ts"
+		},
+		"./internal": {
+			"import": "./build/internal.js",
+			"types": "./build/internal.d.ts"
+		}
 	},
 	"types": "./build/index.d.ts",
 	"engines": {
@@ -26,9 +31,8 @@
 	],
 	"scripts": {
 		"lint": "eslint src --ext .ts",
-		"build": "rollup --config rollup.config.prod.js",
-		"dev": "rollup --config rollup.config.dev.js -w",
-		"start": "rollup --config rollup.config.dev.js -w"
+		"build": "tsup",
+		"dev": "tsup --watch"
 	},
 	"keywords": [
 		"identity",
@@ -69,6 +73,7 @@
 		"@esbuild-plugins/node-globals-polyfill": "^0.1.1",
 		"@rollup/plugin-babel": "^6.0.3",
 		"@rollup/plugin-image": "^3.0.2",
+		"@rollup/plugin-typescript": "^11.1.4",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^14.0.0",
 		"@types/country-telephone-data": "^0.6.1",
@@ -102,16 +107,18 @@
 		"jest-environment-jsdom": "^29.5.0",
 		"meow": "^11.0.0",
 		"npm-run-all": "^4.1.5",
-		"postcss": "^8.4.19",
+		"postcss": "^8.4.30",
 		"prettier": "^2.7.1",
 		"prettier-plugin-sort-imports-desc": "^1.0.0",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"rimraf": "^3.0.2",
 		"rollup-plugin-peer-deps-external": "^2.2.4",
+		"rollup-plugin-postcss": "^4.0.2",
 		"rollup-plugin-typescript2": "^0.36.0",
 		"tailwindcss": "^3.2.4",
 		"tsc-alias": "^1.7.1",
+		"tsup": "^7.2.0",
 		"twin.macro": "^3.1.0",
 		"typescript": "4.9.3"
 	},

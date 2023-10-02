@@ -24,10 +24,9 @@
 		"README.md"
 	],
 	"scripts": {
-		"lint": "eslint src --ext .ts",
-		"build": "rollup --config rollup.config.prod.js",
-		"dev": "rollup --config rollup.config.dev.js -w",
-		"start": "rollup --config rollup.config.dev.js -w"
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"lint": "eslint src --ext .ts"
 	},
 	"keywords": [
 		"identity",
@@ -54,6 +53,7 @@
 		"rollup-plugin-iife": "^0.7.0",
 		"rollup-plugin-peer-deps-external": "^2.2.4",
 		"rollup-plugin-typescript2": "^0.36.0",
+		"tsup": "^7.2.0",
 		"typescript": "4.9.3"
 	}
 }
