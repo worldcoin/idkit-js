@@ -40,13 +40,33 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 								key="copied"
 								initial="hidden"
 								animate="visible"
-								exit="hidden"
+								exit="exit"
 								variants={{
-									visible: { y: 0, opacity: 1 },
-									hidden: { y: '100%', opacity: 0 },
-									exit: { y: '100%', opacity: 0, transition: { duration: 0.5 } },
+									hidden: { opacity: 0, height: 0, marginTop: 0, y: 0 },
+									visible: {
+										opacity: 1,
+										height: 'auto',
+										marginTop: 8,
+										y: 6,
+										transition: {
+											duration: 0.25,
+											opacity: { delay: 0.05, duration: 0.2 },
+											ease: 'easeInOut',
+										},
+									},
+									exit: {
+										opacity: 0,
+										height: 0,
+										marginTop: 0,
+										y: 0,
+										transition: {
+											duration: 0.4,
+											delay: 0.1,
+											opacity: { duration: 0.25, delay: 0 },
+											ease: 'easeInOut',
+										},
+									},
 								}}
-								transition={{ duration: 0.5, ease: 'easeInOut' }}
 							>
 								<span className="border-f1f5f8 rounded-lg border py-1 px-2 text-sm">
 									{__('QR Code copied')}
