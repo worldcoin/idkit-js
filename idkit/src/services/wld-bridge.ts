@@ -115,7 +115,7 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			})
 		}
 
-		set({ result, verificationState: VerificationState.Confirmed, key: null, connectorURI: null, requestId: null })
+		set({
 			result,
 			verificationState: VerificationState.Confirmed,
 			key: null,
