@@ -16,7 +16,7 @@ export const exportKey = async (key: CryptoKey): Promise<string> => {
 
 export const encryptRequest = async (
 	key: CryptoKey,
-	iv: Uint8Array,
+	iv: ArrayBuffer,
 	request: string
 ): Promise<{ payload: string; iv: string }> => {
 	return {
@@ -27,6 +27,6 @@ export const encryptRequest = async (
 	}
 }
 
-export const decryptResponse = async (key: CryptoKey, iv: Uint8Array, payload: string): Promise<string> => {
+export const decryptResponse = async (key: CryptoKey, iv: ArrayBuffer, payload: string): Promise<string> => {
 	return decoder.decode(await window.crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, buffer_decode(payload)))
 }

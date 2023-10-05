@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import type { ISuccessResult } from '..'
 import { useEffect, useRef } from 'react'
+import { buffer_decode } from '@/lib/utils'
 import type { IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { AppErrorCodes } from '@/types/bridge'
@@ -101,7 +102,9 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 
 		if (!res.ok) return
 
-		const result = JSON.parse(await decryptResponse(key, get().iv!, await res.text())) as
+		const { iv, payload } = JSON.parse(await res.text()) as { iv: string; payload: string }
+
+		const result = JSON.parse(await decryptResponse(key, buffer_decode(iv), payload)) as
 			| ISuccessResult
 			| { error_code: AppErrorCodes }
 
@@ -113,6 +116,12 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		}
 
 		set({ result, verificationState: VerificationState.Confirmed, key: null, connectorURI: null, requestId: null })
+			result,
+			verificationState: VerificationState.Confirmed,
+			key: null,
+			connectorURI: null,
+			requestId: null,
+		})
 	},
 
 	reset: () => {
@@ -156,7 +165,7 @@ export const useWorldBridge = (
 	useEffect(() => {
 		if (!connectorURI || result || errorCode) return
 
-		const interval = setInterval(() => void pollForUpdates(), 5000)
+		const interval = setInterval(() => void pollForUpdates(), 500)
 
 		return () => clearInterval(interval)
 	}, [connectorURI, pollForUpdates, errorCode, result])
