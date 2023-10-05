@@ -100,7 +100,9 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 
 		if (!res.ok) return
 
-		const result = JSON.parse(await decryptResponse(key, get().iv!, await res.text())) as
+		const { iv, payload } = JSON.parse(await res.text()) as { iv: string; payload: string }
+
+		const result = JSON.parse(await decryptResponse(key, buffer_decode(iv), payload)) as
 			| ISuccessResult
 			| { error_code: AppErrorCodes }
 
