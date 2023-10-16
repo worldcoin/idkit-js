@@ -96,13 +96,3 @@ export const encodeAction = (action: IDKitConfig['action']): string => {
 
 	return action.types.map((type, index) => `${type}(${action.values[index]})`).join(',')
 }
-
-export const hashing = {
-	hashToField,
-	packAndEncode,
-	validateABILikeEncoding,
-	solidityEncode,
-	generateSignal,
-	generateExternalNullifier,
-	encodeAction,
-}

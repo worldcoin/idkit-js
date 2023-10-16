@@ -7,7 +7,8 @@ export {
 	CredentialType,
 	IDKitConfig,
 } from '@/types'
-import {
+
+export {
 	hashToField,
 	packAndEncode,
 	validateABILikeEncoding,
@@ -16,14 +17,5 @@ import {
 	generateExternalNullifier,
 	encodeAction,
 } from '@/lib/hashing'
-export { useWorldBridgeStore, WorldBridgeStore } from '@/bridge'
 
-export const hashing = {
-	hashToField,
-	packAndEncode,
-	validateABILikeEncoding,
-	solidityEncode,
-	generateSignal,
-	generateExternalNullifier,
-	encodeAction,
-}
+export { useWorldBridgeStore, WorldBridgeStore } from '@/bridge'
