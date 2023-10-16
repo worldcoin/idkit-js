@@ -21,7 +21,7 @@
 			"types": "./build/lib/hashing.d.ts"
 		}
 	},
-	"types": "./build/index.d.ts",
+	"main": "src/index.ts",
 	"engines": {
 		"node": ">=12.4"
 	},

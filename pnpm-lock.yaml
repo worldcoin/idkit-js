@@ -15,7 +15,7 @@ importers:
   examples/with-html:
     dependencies:
       '@worldcoin/idkit-standalone':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/standalone
     devDependencies:
       vite:
@@ -74,7 +74,7 @@ importers:
         specifier: ^0.5.3
         version: 0.5.6(tailwindcss@3.3.3)
       '@worldcoin/idkit-core':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../core
       copy-to-clipboard:
         specifier: ^3.3.3
