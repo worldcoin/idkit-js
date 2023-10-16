@@ -8,14 +8,4 @@ export {
 	IDKitConfig,
 } from '@/types'
 
-export {
-	hashToField,
-	packAndEncode,
-	validateABILikeEncoding,
-	solidityEncode,
-	generateSignal,
-	generateExternalNullifier,
-	encodeAction,
-} from '@/lib/hashing'
-
 export { useWorldBridgeStore, WorldBridgeStore } from '@/bridge'

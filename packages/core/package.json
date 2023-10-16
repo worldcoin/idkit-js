@@ -23,13 +23,15 @@
 	},
 	"typesVersions": {
 		"*": {
+			"hashing": [
+				"./build/lib/hashing.d.ts"
+			],
 			"*": [
 				"./build/*/index.d.ts",
 				"./build/index.d.ts"
 			]
 		}
 	},
-	"main": "src/index.ts",
 	"engines": {
 		"node": ">=12.4"
 	},
