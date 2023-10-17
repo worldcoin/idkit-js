@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { buffer_decode } from './lib/utils'
 import type { IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { AppErrorCodes } from '@/types/bridge'
