@@ -21,12 +21,22 @@
 			"types": "./build/lib/hashing.d.ts"
 		}
 	},
-	"types": "./build/index.d.ts",
+	"typesVersions": {
+		"*": {
+			"hashing": [
+				"./build/lib/hashing.d.ts"
+			],
+			"*": [
+				"./build/*/index.d.ts",
+				"./build/index.d.ts"
+			]
+		}
+	},
 	"engines": {
 		"node": ">=12.4"
 	},
 	"files": [
-		"build",
+		"build/**",
 		"README.md"
 	],
 	"scripts": {

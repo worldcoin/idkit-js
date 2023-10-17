@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { buffer_decode } from './lib/utils'
 import type { IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { AppErrorCodes } from '@/types/bridge'
@@ -100,7 +101,9 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 
 		if (!res.ok) return
 
-		const result = JSON.parse(await decryptResponse(key, get().iv!, await res.text())) as
+		const { iv, payload } = (await res.json()) as { iv: string; payload: string }
+
+		const result = JSON.parse(await decryptResponse(key, buffer_decode(iv), payload)) as
 			| ISuccessResult
 			| { error_code: AppErrorCodes }
 

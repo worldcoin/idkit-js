@@ -9,7 +9,7 @@
 		"lint": "prettier index.html -c"
 	},
 	"dependencies": {
-		"@worldcoin/idkit-standalone": "workspace:^"
+		"@worldcoin/idkit-standalone": "workspace:*"
 	},
 	"devDependencies": {
 		"vite": "^4.4.5"

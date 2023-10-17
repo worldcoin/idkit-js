@@ -4,7 +4,8 @@
 	"name": "idkit-monorepo",
 	"scripts": {
 		"lint": "turbo run lint",
-		"build": "turbo run build"
+		"build": "turbo run build",
+		"dev": "turbo run dev"
 	},
 	"devDependencies": {
 		"turbo": "^1.10.14"
