@@ -37,7 +37,7 @@ const getParams = ({
 			setProcessing(true)
 			const { nullifier_hash, ...proof_payload } = await verifyCode(phoneNumber, code, app_id, getTelemetryId())
 
-			handleVerify({ credential_type: 'phone', nullifier_hash, proof_payload })
+			handleVerify({ credential_type: 'device', nullifier_hash, proof_payload })
 		} catch (error) {
 			setProcessing(false)
 			setCode('')

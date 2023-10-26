@@ -85,7 +85,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 				case IDKITStage.ENTER_PHONE:
 					return get().methods.includes('orb')
 				case IDKITStage.WORLD_ID:
-					return get().methods.includes('phone')
+					return get().methods.includes('device')
 				case IDKITStage.ENTER_CODE:
 				case IDKITStage.PRIVACY:
 					return true
@@ -97,7 +97,7 @@ const useIDKitStore = create<IDKitStore>()((set, get) => ({
 			methods = methods ?? get().methods
 
 			if (methods.length > 1) return IDKITStage.SELECT_METHOD
-			return methods[0] === 'phone' ? IDKITStage.ENTER_PHONE : IDKITStage.WORLD_ID
+			return methods[0] === 'device' ? IDKITStage.ENTER_PHONE : IDKITStage.WORLD_ID
 		},
 	},
 

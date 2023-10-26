@@ -23,7 +23,7 @@ const getOptions = (store: IDKitStore) => ({
 	showAbout: store.methods.length == 1,
 	credential_types: store.credential_types,
 	isExperimental: store.methods.length > 0,
-	hasPhone: store.methods.includes('phone'),
+	hasPhone: store.methods.includes('device'),
 	action_description: store.action_description,
 	walletConnectProjectId: store.walletConnectProjectId,
 	usePhone: () => store.setStage(IDKITStage.ENTER_PHONE),
