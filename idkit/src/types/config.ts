@@ -1,6 +1,6 @@
 import type { AbiEncodedValue, CallbackFn, CredentialType, IExperimentalSuccessResult, ISuccessResult } from '.'
 
-export type VerificationMethods = 'orb' | 'phone'
+export type VerificationMethods = 'device' | 'orb'
 export enum ConfigSource {
 	HOOK = 'hook',
 	PROPS = 'props',
@@ -17,7 +17,7 @@ export type IDKitConfig = {
 	/** Identifier for the action the user is performing. Should be left blank for [Sign in with Worldcoin](https://docs.worldcoin.org/id/sign-in). */
 	action?: AbiEncodedValue | string
 	walletConnectProjectId?: string
-	/** An array of credential types to allow for verification. Will accept any combination of "orb" & "phone". Defaults to orb. TypeScript apps can use the `CredentialType` enum. */
+	/** An array of credential types to allow for verification. Will accept any combination of "orb" & "device". Defaults to orb. TypeScript apps can use the `CredentialType` enum. */
 	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
 }
 

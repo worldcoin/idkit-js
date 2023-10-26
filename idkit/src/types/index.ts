@@ -19,7 +19,7 @@ export enum IDKITStage {
 
 export enum CredentialType {
 	Orb = 'orb',
-	Phone = 'phone',
+	Device = 'device',
 }
 
 export interface IExperimentalSuccessResult {

@@ -15,7 +15,7 @@ function App() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const credential_types = (urlParams.get("credential_types")?.split(",") as CredentialType[]) ?? [
 		CredentialType.Orb,
-		CredentialType.Phone,
+		CredentialType.Device,
 	];
 
 	const action = urlParams.get("action") ?? "";
