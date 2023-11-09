@@ -5,7 +5,6 @@ import type { ISuccessResult } from '@/types'
 import { solidityEncode } from './lib/hashing'
 import IDKitWidget from '@/components/IDKitWidget'
 import SignInButton from './components/SignInButton'
-import useAppConnection from '@/services/walletconnect'
 import type { WidgetProps, Config } from '@/types/config'
 import { VerificationState, AppErrorCodes } from './types/app'
 import SignInWithWorldID from './components/SignInWithWorldID'
@@ -17,7 +16,6 @@ const internal = {
 	validateABILikeEncoding,
 	generateExternalNullifier,
 	QRCode,
-	useAppConnection,
 	VerificationState,
 	AppErrorCodes,
 }
