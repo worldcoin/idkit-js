@@ -38,7 +38,6 @@ function App() {
 				handleVerify={handleProof}
 				app_id={app_id}
 				credential_types={credential_types}
-				// walletConnectProjectId="get_this_from_walletconnect_portal"
 			>
 				{({ open }) => <button onClick={open}>Click me</button>}
 			</IDKitWidget>

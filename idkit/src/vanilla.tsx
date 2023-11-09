@@ -17,12 +17,6 @@ let isInitialized = false
 export const init = (config: Config): void => {
 	if (isInitialized) throw new Error(__('IDKit is already initialized'))
 	if (!config.app_id) throw new Error(__('You must provide your App ID & Action'))
-	if (!config.walletConnectProjectId) {
-		console.warn(
-			__('WalletConnect project ID not detected. Using default, but this is not advisable for production usage!')
-		)
-		console.warn(__('Get your own project ID at :url', { url: 'https://cloud.walletconnect.com/' }))
-	}
 
 	const startApp = () => {
 		try {

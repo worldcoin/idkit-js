@@ -44,7 +44,6 @@ const WorldIDState = () => {
 		action_description,
 		credential_types,
 		hasPhone,
-		walletConnectProjectId,
 		setErrorState,
 	} = useIDKitStore(getOptions, shallow)
 

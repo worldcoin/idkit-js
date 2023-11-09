@@ -24,7 +24,6 @@ export default function Home() {
 					onSuccess={onSuccess}
 					handleVerify={handleProof}
 					app_id="get_this_from_the_dev_portal"
-					// walletConnectProjectId="get_this_from_walletconnect_portal"
 				>
 					{({ open }) => <button onClick={open}>Click me</button>}
 				</IDKitWidget>

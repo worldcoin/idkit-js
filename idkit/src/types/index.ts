@@ -37,12 +37,6 @@ export interface ISuccessResult {
 
 export type CallbackFn<T> = (result: T) => Promise<void> | void
 
-// Error response received from World app through WalletConnect
-export interface ExpectedErrorResponse {
-	message: string
-	stack: string
-}
-
 export interface IErrorState {
 	code: AppErrorCodes
 	message?: string
