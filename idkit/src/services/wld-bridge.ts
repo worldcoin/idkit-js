@@ -5,10 +5,10 @@ import { buffer_decode } from '@/lib/utils'
 import type { IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { AppErrorCodes } from '@/types/bridge'
-import { encodeAction, generateSignal } from '@/lib/hashing'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
+import { encodeAction, generateExternalNullifier, generateSignal } from '@/lib/hashing'
 
-const DEFAULT_BRIDGE_URL = 'https://bridge.id.worldcoin.org/'
+const DEFAULT_BRIDGE_URL = 'https://bridge.worldcoin.org'
 
 type WorldBridgeStore = {
 	bridgeUrl: string
@@ -67,6 +67,7 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 						credential_types,
 						action_description,
 						action: encodeAction(action),
+						external_nullifier: generateExternalNullifier(app_id, action).digest,
 						signal: generateSignal(signal).digest,
 					})
 				)
