@@ -1,4 +1,11 @@
-import type { AbiEncodedValue, CallbackFn, CredentialType, IExperimentalSuccessResult, ISuccessResult } from '.'
+import type {
+	CallbackFn,
+	IErrorState,
+	CredentialType,
+	ISuccessResult,
+	AbiEncodedValue,
+	IExperimentalSuccessResult,
+} from '.'
 
 export type VerificationMethods = 'orb' | 'phone'
 export enum ConfigSource {
@@ -28,6 +35,9 @@ export type WidgetConfig = {
 	theme?: 'dark' | 'light'
 	/** Whether opt-in telemetry is enabled. Very few events are sent, with no PII to help improve the project. Defaults to `false`. */
 	enableTelemetry?: boolean
+
+	/** Function to trigger when verification is not successful. Should receive a single parameter of type `IErrorState` which contains the error details. */
+	onError?: CallbackFn<IErrorState>
 } & (
 	| {
 			/** Optionally enable the experimental verification flow. This flow is not recommended for production apps. */

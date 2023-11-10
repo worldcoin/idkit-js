@@ -1,4 +1,4 @@
-import { CredentialType, IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
+import { CredentialType, IDKitWidget, IErrorState, ISuccessResult } from "@worldcoin/idkit";
 
 function App() {
 	const handleProof = (result: ISuccessResult) => {
@@ -10,6 +10,10 @@ function App() {
 
 	const onSuccess = (result: ISuccessResult) => {
 		console.log(result);
+	};
+
+	const onError = (error: IErrorState) => {
+		console.log(error);
 	};
 
 	const urlParams = new URLSearchParams(window.location.search);
@@ -33,6 +37,7 @@ function App() {
 		>
 			<IDKitWidget
 				action={action}
+				onError={onError}
 				signal="my_signal"
 				onSuccess={onSuccess}
 				handleVerify={handleProof}

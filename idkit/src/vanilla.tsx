@@ -62,6 +62,8 @@ export const open = () => {
 	// eslint-disable-next-line compat/compat -- Promise is polyfilled
 	return new Promise((resolve, reject) => {
 		if (!isInitialized) return reject(__('IDKitWidget is not initialized'))
+
+		useIDKitStore.getState().addErrorCallback(reject, ConfigSource.MANUAL)
 		useIDKitStore.getState().addSuccessCallback(resolve, ConfigSource.MANUAL)
 		useIDKitStore.setState({ open: true })
 	})
