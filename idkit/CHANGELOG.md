@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/worldcoin/idkit-js/compare/idkit-v0.5.0...idkit-v0.6.0) (2023-11-10)
+
+
+### Features
+
+* error handling ([#167](https://github.com/worldcoin/idkit-js/issues/167)) ([3360eaf](https://github.com/worldcoin/idkit-js/commit/3360eaf73b19079281c08a8a086a9084bedb7730))
+
+
+### Bug Fixes
+
+* qr code copied animation ([#158](https://github.com/worldcoin/idkit-js/issues/158)) ([f09401f](https://github.com/worldcoin/idkit-js/commit/f09401f93b83114787c60cb638a4ef87bec9f392))
+
 ## [0.5.0](https://github.com/worldcoin/idkit-js/compare/idkit-v0.4.9...idkit-v0.5.0) (2023-06-08)
 
 
