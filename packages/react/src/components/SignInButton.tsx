@@ -1,33 +1,8 @@
 import { __ } from '@/lang'
 import { motion } from 'framer-motion'
-import { keyframes } from '@stitches/react'
 import type { MotionProps } from 'framer-motion'
 import WorldcoinIcon from './Icons/WorldcoinIcon'
 import type { ButtonHTMLAttributes, FC } from 'react'
-
-const disco = keyframes({
-	'0%': { transform: 'translateY(-50%) rotate(0deg)' },
-	'100%': { transform: 'translateY(-50%) rotate(360deg)' },
-})
-
-const AnimatedBorder = styled.span({
-	...tw`absolute inset-0 z-0 scale-x-[2.0] blur`,
-	'&::before': {
-		content: `''`,
-		animation: `${disco} 1.5s linear infinite`,
-		...tw`absolute inset-0 top-1/2 aspect-square bg-gradient-conic`,
-	},
-	variants: {
-		theme: {
-			dark: {
-				'&::before': tw`from-black via-white/30 to-black`,
-			},
-			light: {
-				'&::before': tw`from-f2f5f9 via-gray-200 to-gray-200`,
-			},
-		},
-	},
-})
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & MotionProps & { theme?: 'dark' | 'light' }
 
@@ -73,7 +48,6 @@ const SignInButton: FC<Props> = ({ style, theme = 'light', ...props }) => (
 				</span>
 			</div>
 		</div>
-		<AnimatedBorder aria-hidden theme={theme} />
 	</motion.button>
 )
 

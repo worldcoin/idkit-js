@@ -1,9 +1,10 @@
-import QRCodeUtil from 'qrcode'
 import { memo, useMemo } from 'react'
 import type { ReactElement } from 'react'
+import QRCodeUtil from 'qrcode/lib/core/qrcode'
 
 const generateMatrix = (data: string): Array<number[]> => {
-	const arr = QRCodeUtil.create(data, { errorCorrectionLevel: 'M' }).modules.data
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+	const arr = QRCodeUtil.create(data, { errorCorrectionLevel: 'M' }).modules.data as Uint8Array
 	const sqrt = Math.sqrt(arr.length)
 
 	return arr.reduce((rows, key, index) => {

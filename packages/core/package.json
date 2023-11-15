@@ -52,8 +52,9 @@
 		"sybil resistance"
 	],
 	"dependencies": {
-		"zustand": "^4.3.3",
-		"viem": "^1.14.0"
+		"buffer": "^6.0.3",
+		"viem": "^1.14.0",
+		"zustand": "^4.3.3"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "6.7.4",

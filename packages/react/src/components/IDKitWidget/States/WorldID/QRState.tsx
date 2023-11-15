@@ -33,25 +33,45 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 					<AnimatePresence>
 						{copiedLink && (
 							<motion.div
-								className="text-9eafc0 text-sm"
+								className="text-sm text-9eafc0"
 								key="copied"
 								initial="hidden"
 								animate="visible"
-								exit="hidden"
+								exit="exit"
 								variants={{
-									visible: { y: 0, opacity: 1 },
-									hidden: { y: '100%', opacity: 0 },
-									exit: { y: '100%', opacity: 0, transition: { duration: 0.5 } },
+									hidden: { opacity: 0, height: 0, marginTop: 0, y: 0 },
+									visible: {
+										opacity: 1,
+										height: 'auto',
+										marginTop: 8,
+										y: 6,
+										transition: {
+											duration: 0.25,
+											opacity: { delay: 0.05, duration: 0.2 },
+											ease: 'easeInOut',
+										},
+									},
+									exit: {
+										opacity: 0,
+										height: 0,
+										marginTop: 0,
+										y: 0,
+										transition: {
+											duration: 0.4,
+											delay: 0.1,
+											opacity: { duration: 0.25, delay: 0 },
+											ease: 'easeInOut',
+										},
+									},
 								}}
-								transition={{ duration: 0.5, ease: 'easeInOut' }}
 							>
-								<span className="border-f1f5f8 rounded-lg border py-1 px-2 text-sm">
+								<span className="rounded-lg border border-f1f5f8 px-2 py-1 text-sm">
 									{__('QR Code copied')}
 								</span>
 							</motion.div>
 						)}
 					</AnimatePresence>
-					<div className="border-f1f5f8 dark:border-f1f5f8/10 relative inline-flex items-center justify-center rounded-2xl border p-2">
+					<div className="relative inline-flex items-center justify-center rounded-2xl border border-f1f5f8 p-2 dark:border-f1f5f8/10">
 						<div className="text-29343f dark:text-white">
 							{qrData ? (
 								// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
@@ -89,7 +109,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 					</motion.span>
 				</motion.a>
 				<div className="space-x-2 md:hidden">
-					<motion.button className="text-9eafc0 text-sm" onClick={() => setShowQR(state => !state)}>
+					<motion.button className="text-sm text-9eafc0" onClick={() => setShowQR(state => !state)}>
 						{showQR ? __('Hide QR Code') : __('Show QR Code instead')}
 					</motion.button>
 					{showQR && (

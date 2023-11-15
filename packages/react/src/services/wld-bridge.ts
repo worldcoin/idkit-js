@@ -14,7 +14,7 @@ export const useWorldBridge = (
 	app_id: IDKitConfig['app_id'],
 	action: IDKitConfig['action'],
 	signal?: IDKitConfig['signal'],
-	bridgeUrl?: IDKitConfig['bridgeUrl'],
+	bridge_url?: IDKitConfig['bridge_url'],
 	credential_types?: IDKitConfig['credential_types'],
 	action_description?: IDKitConfig['action_description']
 ): UseAppBridgeResponse => {
@@ -25,9 +25,9 @@ export const useWorldBridge = (
 	useEffect(() => {
 		if (!app_id) return
 		if (!connectorURI) {
-			void createClient(app_id, action, signal, bridgeUrl, ref_credential_types.current, action_description)
+			void createClient(app_id, action, signal, bridge_url, ref_credential_types.current, action_description)
 		}
-	}, [app_id, action, signal, action_description, createClient, ref_credential_types, bridgeUrl, connectorURI])
+	}, [app_id, action, signal, action_description, createClient, ref_credential_types, bridge_url, connectorURI])
 
 	useEffect(() => {
 		if (!connectorURI || result || errorCode) return

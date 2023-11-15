@@ -4,7 +4,7 @@ import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import useMedia from '@/hooks/useMedia'
 import { classNames } from '@/lib/utils'
-import Styles from '@/styles/styles.css'
+import Styles from '@/components/Styles'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
 import XMarkIcon from '../Icons/XMarkIcon'
@@ -15,6 +15,7 @@ import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
 import PrivacyState from './States/PrivacyState'
 import SuccessState from './States/SuccessState'
+import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
 import { Fragment, useEffect, useMemo } from 'react'
@@ -53,6 +54,8 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 
 	const StageContent = useMemo(() => {
 		switch (stage) {
+			case IDKITStage.WORLD_ID:
+				return WorldIDState
 			case IDKITStage.SUCCESS:
 				return SuccessState
 			case IDKITStage.ERROR:
@@ -62,7 +65,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 			case IDKITStage.HOST_APP_VERIFICATION:
 				return HostAppVerificationState
 			default:
-				throw new Error(__('Invalid IDKitStage.'))
+				throw new Error(__('Invalid IDKitStage :stage.', { stage }))
 		}
 	}, [stage])
 
@@ -103,7 +106,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 													}}
 													transition={{ layout: { duration: 0.15 } }}
 													className={
-														'dark:bg-0d151d relative z-50 w-full rounded-t-2xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 md:max-w-md md:rounded-b-2xl'
+														'relative z-50 w-full rounded-t-2xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 dark:bg-0d151d md:max-w-md md:rounded-b-2xl'
 													}
 												>
 													<Toast.Provider>
@@ -120,7 +123,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 																<ArrowLongLeftIcon className="w-4" />
 															</button>
 
-															<Dialog.Close className="dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white">
+															<Dialog.Close className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-d3dfea/15 dark:text-white">
 																<XMarkIcon className="h-5 w-5" />
 															</Dialog.Close>
 														</div>
@@ -148,21 +151,21 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 																)}
 															</AnimatePresence>
 														</div>
-														<div className="flex items-center justify-between py-3 px-5 md:rounded-b-2xl">
-															<p className="text-9eafc0 flex items-center gap-1 text-sm">
+														<div className="flex items-center justify-between px-5 py-3 md:rounded-b-2xl">
+															<p className="flex items-center gap-1 text-sm text-9eafc0">
 																<span>{__('Verified with')}</span>
 																<a
 																	href="https://worldcoin.org/world-id"
 																	target="_blank"
 																	rel="noreferrer"
 																>
-																	<WorldIDWordmark className="text-0d151d h-4 dark:text-white" />
+																	<WorldIDWordmark className="h-4 text-0d151d dark:text-white" />
 																</a>
 															</p>
 															{stage != IDKITStage.PRIVACY ? (
 																<button
 																	onClick={() => setStage(IDKITStage.PRIVACY)}
-																	className="text-9eafc0 text-sm hover:underline"
+																	className="text-sm text-9eafc0 hover:underline"
 																>
 																	{__('Privacy')}
 																</button>
@@ -170,7 +173,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 																<a
 																	target="_blank"
 																	href="https://docs.worldcoin.org/privacy"
-																	className="text-9eafc0 dark:text-9eafc0 text-sm hover:underline"
+																	className="text-sm text-9eafc0 hover:underline dark:text-9eafc0"
 																	rel="noreferrer"
 																>
 																	{__('Learn More')} &rarr;

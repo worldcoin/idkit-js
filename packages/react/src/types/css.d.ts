@@ -1,4 +1,4 @@
 declare module '*.css' {
-	const content: () => JSX.Element
+	const content: string
 	export default content
 }

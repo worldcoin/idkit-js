@@ -7,10 +7,26 @@ import type { ISuccessResult } from '@/types/result'
 import { encodeAction, generateSignal } from '@/lib/hashing'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
 
-const DEFAULT_BRIDGE_URL = 'https://bridge.id.worldcoin.org/'
+const DEFAULT_BRIDGE_URL = 'https://bridge.id.worldcoin.org'
+
+export enum ResponseStatus {
+	Retrieved = 'retrieved',
+	Completed = 'completed',
+	Initialized = 'initialized',
+}
+
+type BridgeResponse =
+	| {
+			status: ResponseStatus.Retrieved | ResponseStatus.Initialized
+			response: null
+	  }
+	| {
+			status: ResponseStatus.Completed
+			response: { iv: string; payload: string }
+	  }
 
 export type WorldBridgeStore = {
-	bridgeUrl: string
+	bridge_url: string
 	iv: Uint8Array | null
 	key: CryptoKey | null
 	requestId: string | null
@@ -23,7 +39,7 @@ export type WorldBridgeStore = {
 		app_id: IDKitConfig['app_id'],
 		action: IDKitConfig['action'],
 		signal?: IDKitConfig['signal'],
-		bridgeUrl?: IDKitConfig['bridgeUrl'],
+		bridge_url?: IDKitConfig['bridge_url'],
 		credential_types?: IDKitConfig['credential_types'],
 		action_description?: IDKitConfig['action_description']
 	) => Promise<void>
@@ -40,22 +56,21 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 	errorCode: null,
 	requestId: null,
 	connectorURI: null,
-	bridgeUrl: DEFAULT_BRIDGE_URL,
+	bridge_url: DEFAULT_BRIDGE_URL,
 	verificationState: VerificationState.PreparingClient,
 
 	createClient: async (
 		app_id: IDKitConfig['app_id'],
 		action: IDKitConfig['action'],
 		signal?: IDKitConfig['signal'],
-		bridgeUrl?: IDKitConfig['bridgeUrl'],
+		bridge_url?: IDKitConfig['bridge_url'],
 		credential_types?: IDKitConfig['credential_types'],
 		action_description?: IDKitConfig['action_description']
 	) => {
 		const { key, iv } = await generateKey()
-		const requestId = window.crypto.randomUUID()
 
-		const res = await fetch(`${bridgeUrl ?? DEFAULT_BRIDGE_URL}/request/${requestId}`, {
-			method: 'PUT',
+		const res = await fetch(`${bridge_url ?? DEFAULT_BRIDGE_URL}/request`, {
+			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(
 				await encryptRequest(
@@ -77,15 +92,17 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			throw new Error('Failed to create client')
 		}
 
+		const { request_id } = (await res.json()) as { request_id: string }
+
 		set({
 			iv,
 			key,
-			requestId,
-			bridgeUrl: bridgeUrl ?? DEFAULT_BRIDGE_URL,
-			verificationState: VerificationState.PollingForUpdates,
-			connectorURI: `https://worldcoin.org/verify?t=wld&i=${requestId}&k=${encodeURIComponent(
+			requestId: request_id,
+			bridge_url: bridge_url ?? DEFAULT_BRIDGE_URL,
+			verificationState: VerificationState.WaitingForConnection,
+			connectorURI: `https://worldcoin.org/verify?t=wld&i=${request_id}&k=${encodeURIComponent(
 				await exportKey(key)
-			)}${bridgeUrl ? `&b=${encodeURIComponent(bridgeUrl)}` : ''}`,
+			)}${bridge_url ? `&b=${encodeURIComponent(bridge_url)}` : ''}`,
 		})
 	},
 
@@ -93,17 +110,20 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		const key = get().key
 		if (!key) throw new Error('No keypair found. Please call `createClient` first.')
 
-		const res = await fetch(`${get().bridgeUrl}/response/${get().requestId}`)
+		const res = await fetch(`${get().bridge_url}/response/${get().requestId}`)
 
-		if (res.status == 500) {
-			return set({ verificationState: VerificationState.Failed })
+		const { response, status } = (await res.json()) as BridgeResponse
+
+		if (status != ResponseStatus.Completed) {
+			return set({
+				verificationState:
+					status == ResponseStatus.Retrieved
+						? VerificationState.WaitingForApp
+						: VerificationState.WaitingForConnection,
+			})
 		}
 
-		if (!res.ok) return
-
-		const { iv, payload } = (await res.json()) as { iv: string; payload: string }
-
-		const result = JSON.parse(await decryptResponse(key, buffer_decode(iv), payload)) as
+		const result = JSON.parse(await decryptResponse(key, buffer_decode(response.iv), response.payload)) as
 			| ISuccessResult
 			| { error_code: AppErrorCodes }
 

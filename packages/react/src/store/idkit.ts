@@ -17,7 +17,7 @@ export type IDKitStore = {
 	app_id: IDKitConfig['app_id']
 	action: IDKitConfig['action']
 	signal: IDKitConfig['signal']
-	bridgeUrl?: IDKitConfig['bridgeUrl']
+	bridge_url?: IDKitConfig['bridge_url']
 	action_description?: IDKitConfig['action_description']
 	credential_types?: IDKitConfig['credential_types']
 
@@ -28,6 +28,7 @@ export type IDKitStore = {
 	theme: Config['theme']
 	result: ISuccessResult | null
 	errorState: IErrorState | null
+	errorCallbacks: Record<ConfigSource, CallbackFn<IErrorState> | undefined> | Record<string, never>
 	verifyCallbacks: Record<ConfigSource, CallbackFn<ISuccessResult> | undefined> | Record<string, never>
 	successCallbacks: Record<ConfigSource, CallbackFn<ISuccessResult> | undefined> | Record<string, never>
 
@@ -42,6 +43,7 @@ export type IDKitStore = {
 	handleVerify: (result: ISuccessResult) => void
 	setErrorState: (state: IErrorState | null) => void
 	setOptions: (options: Config, source: ConfigSource) => void
+	addErrorCallback: (cb: CallbackFn<IErrorState>, source: ConfigSource) => void
 	addSuccessCallback: (cb: CallbackFn<ISuccessResult>, source: ConfigSource) => void
 	addVerificationCallback: (cb: CallbackFn<ISuccessResult>, source: ConfigSource) => void
 }
@@ -52,7 +54,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		signal: '',
 		action: '',
 		action_description: '',
-		bridgeUrl: '',
+		bridge_url: '',
 		credential_types: [],
 
 		open: false,
@@ -63,6 +65,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		autoClose: true,
 		errorState: null,
 		processing: false,
+		errorCallbacks: {},
 		verifyCallbacks: {},
 		successCallbacks: {},
 		stage: IDKITStage.WORLD_ID,
@@ -78,6 +81,13 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		setProcessing: (processing: boolean) => set({ processing }),
 		retryFlow: () => {
 			set({ stage: IDKITStage.WORLD_ID, errorState: null })
+		},
+		addErrorCallback: (cb: CallbackFn<IErrorState>, source: ConfigSource) => {
+			set(state => {
+				state.errorCallbacks[source] = cb
+
+				return state
+			})
 		},
 		addSuccessCallback: (cb: CallbackFn<ISuccessResult>, source: ConfigSource) => {
 			set(state => {
@@ -100,9 +110,10 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				signal,
 				action,
 				app_id,
+				onError,
 				credential_types,
 				action_description,
-				bridgeUrl,
+				bridge_url,
 				autoClose,
 				theme,
 			}: Config,
@@ -118,12 +129,13 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				action,
 				app_id,
 				autoClose,
-				bridgeUrl,
+				bridge_url,
 				credential_types: sanitized_credential_types,
 				action_description,
 			})
 
 			get().addSuccessCallback(onSuccess, source)
+			if (onError) get().addErrorCallback(onError, source)
 			if (handleVerify) get().addVerificationCallback(handleVerify, source)
 		},
 		handleVerify: (result: ISuccessResult) => {
@@ -157,11 +169,18 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				return set({ open })
 			}
 
-			if (get().stage == IDKITStage.SUCCESS) {
-				const result = get().result
+			const errorState = get().errorState
+			if (get().stage === IDKITStage.ERROR && errorState) {
+				const callbacks = get().errorCallbacks
+
+				requestAnimationFrame(() => Object.values(callbacks).forEach(cb => void cb?.(errorState)))
+			}
+
+			const result = get().result
+			if (get().stage == IDKITStage.SUCCESS && result) {
 				const callbacks = get().successCallbacks
 
-				if (result) requestAnimationFrame(() => Object.values(callbacks).forEach(cb => void cb?.(result)))
+				requestAnimationFrame(() => Object.values(callbacks).forEach(cb => void cb?.(result)))
 			}
 
 			set({

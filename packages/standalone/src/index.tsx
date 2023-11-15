@@ -9,7 +9,7 @@ let isInitialized = false
  * Initializes IDKitWidget, should only be called once per app. Note that nothing will be shown until you call `open()`
  * @param config The IDKit configuration object
  */
-export const init = (config: Config): void => {
+const init = (config: Config): void => {
 	if (isInitialized) throw new Error(__('IDKit is already initialized'))
 	if (!config.app_id) throw new Error(__('You must provide your App ID & Action'))
 
@@ -39,13 +39,13 @@ export const init = (config: Config): void => {
 	}
 }
 
-export const update = (config: Config): void => {
+const update = (config: Config): void => {
 	if (!isInitialized) throw new Error(__('IDKit is not initialized'))
 
 	useIDKitStore.getState().setOptions(config, ConfigSource.PROPS)
 }
 
-export const open = () => {
+const open = () => {
 	return new Promise((resolve, reject) => {
 		if (!isInitialized) return reject(__('IDKitWidget is not initialized'))
 		useIDKitStore.getState().addSuccessCallback(resolve, ConfigSource.MANUAL)
@@ -56,10 +56,19 @@ export const open = () => {
 /**
  * Reset internal state. Useful for unit-testing
  */
-export const reset = () => {
+const reset = () => {
 	console.warn(__('Advanced method intended for internal use! Avoid calling this method directly.'))
 
 	root.unmount()
 	isInitialized = false
 	useIDKitStore.destroy()
+}
+
+const IDKit = { init, update, open, reset }
+window.IDKit = IDKit
+
+declare global {
+	interface Window {
+		IDKit: typeof IDKit
+	}
 }

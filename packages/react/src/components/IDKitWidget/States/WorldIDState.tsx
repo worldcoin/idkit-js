@@ -11,14 +11,13 @@ import { useWorldBridge } from '@/services/wld-bridge'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 import { AppErrorCodes, VerificationState } from '@worldcoin/idkit-core'
-import DevicePhoneMobileIcon from '@/components/Icons/DevicePhoneMobileIcon'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
 	app_id: store.app_id,
 	action: store.action,
 	setStage: store.setStage,
-	bridgeUrl: store.bridgeUrl,
+	bridge_url: store.bridge_url,
 	handleVerify: store.handleVerify,
 	setErrorState: store.setErrorState,
 	credential_types: store.credential_types,
@@ -34,7 +33,7 @@ const WorldIDState = () => {
 		signal,
 		setStage,
 		handleVerify,
-		bridgeUrl,
+		bridge_url,
 		action_description,
 		credential_types,
 		setErrorState,
@@ -44,7 +43,7 @@ const WorldIDState = () => {
 		app_id,
 		action,
 		signal,
-		bridgeUrl,
+		bridge_url,
 		credential_types,
 		action_description
 	)
@@ -69,10 +68,17 @@ const WorldIDState = () => {
 					<WorldcoinIcon className="h-8 text-0d151d dark:text-white" />
 				</div>
 				<p className="text-center font-sora text-2xl font-semibold text-gray-900 dark:text-white">
-					{__('Continue with Worldcoin')}
+					{verificationState === VerificationState.WaitingForApp
+						? __('Confirm in World App')
+						: __('Continue with Worldcoin')}
 				</p>
+				{verificationState === VerificationState.WaitingForApp && (
+					<p className="mt-3 text-center text-70868f dark:text-9eafc0 md:mt-2">
+						Please confirm the request in your app to continue.
+					</p>
+				)}
 			</div>
-			{verificationState === VerificationState.PreparingClient ? (
+			{verificationState === VerificationState.WaitingForApp ? (
 				<div className="flex items-center justify-center">
 					<LoadingIcon className="h-20 w-20" />
 				</div>

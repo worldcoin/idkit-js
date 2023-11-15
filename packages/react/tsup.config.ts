@@ -10,4 +10,7 @@ export default defineConfig({
 	define: {
 		IDKitVersion: JSON.stringify(packageJson.version),
 	},
+	loader: {
+		'.css': 'text',
+	},
 })

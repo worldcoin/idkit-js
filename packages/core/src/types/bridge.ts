@@ -2,7 +2,6 @@ export enum AppErrorCodes {
 	ConnectionFailed = 'connection_failed',
 	VerificationRejected = 'verification_rejected',
 	MaxVerificationsReached = 'max_verifications_reached',
-	AlreadySigned = 'already_signed', // NOTE: Deprecated, handled for backwards compatibility
 	CredentialUnavailable = 'credential_unavailable',
 	MalformedRequest = 'malformed_request',
 	InvalidNetwork = 'invalid_network',
@@ -15,7 +14,8 @@ export enum AppErrorCodes {
 
 export enum VerificationState {
 	PreparingClient = 'loading_widget',
-	PollingForUpdates = 'awaiting_connection',
+	WaitingForConnection = 'awaiting_connection',
+	WaitingForApp = 'awaiting_app',
 	Confirmed = 'confirmed',
 	Failed = 'failed',
 }
