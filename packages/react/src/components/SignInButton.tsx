@@ -1,32 +1,9 @@
 import { __ } from '@/lang'
 import { motion } from 'framer-motion'
-import tw, { styled } from 'twin.macro'
 import { keyframes } from '@stitches/react'
 import type { MotionProps } from 'framer-motion'
 import WorldcoinIcon from './Icons/WorldcoinIcon'
 import type { ButtonHTMLAttributes, FC } from 'react'
-
-const MotionButton = motion(
-	styled.button({
-		...tw`relative overflow-hidden rounded-xl px-24 py-6 will-change-transform focus:outline-none border-none dark:border border-white/10`,
-		variants: {
-			theme: {
-				dark: tw`bg-black`,
-				light: tw`bg-f2f5f9`,
-			},
-		},
-	})
-)
-
-const ButtonContent = styled.div({
-	...tw`absolute inset-px z-10 grid place-items-center rounded-xl cursor-pointer`,
-	variants: {
-		theme: {
-			dark: tw`bg-black`,
-			light: tw`bg-f2f5f9`,
-		},
-	},
-})
 
 const disco = keyframes({
 	'0%': { transform: 'translateY(-50%) rotate(0deg)' },
@@ -52,21 +29,52 @@ const AnimatedBorder = styled.span({
 	},
 })
 
-const ButtonLabel = tw.span`font-sans text-sm`
-const TextContainer = tw.div`flex items-center space-x-4`
-
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & MotionProps & { theme?: 'dark' | 'light' }
 
-const SignInButton: FC<Props> = ({ className, theme = 'light', ...props }) => (
-	<MotionButton whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} theme={theme} {...props}>
-		<ButtonContent theme={theme}>
-			<TextContainer>
-				<WorldcoinIcon tw="h-4 w-4" />
-				<ButtonLabel>{__('Sign in with World ID')}</ButtonLabel>
-			</TextContainer>
-		</ButtonContent>
+const SignInButton: FC<Props> = ({ style, theme = 'light', ...props }) => (
+	<motion.button
+		whileTap={{ scale: 0.98 }}
+		whileHover={{ scale: 1.02 }}
+		style={{
+			overflow: 'hidden',
+			borderStyle: 'none',
+			display: 'relative',
+			padding: '1.5rem 6rem',
+			borderRadius: '0.75rem',
+			borderColor: 'rgba(255, 255, 255, 0.1)',
+			borderWidth: theme == 'dark' ? '1px' : '0px',
+			...style,
+		}}
+		{...props}
+	>
+		<div
+			style={{
+				zIndex: 10,
+				inset: '1px',
+				display: 'grid',
+				cursor: 'pointer',
+				placeItems: 'center',
+				position: 'absolute',
+				borderRadius: '0.75rem',
+				backgroundColor: theme == 'dark' ? '#000' : '#f2f5f9',
+			}}
+		>
+			<div style={{ display: 'flex', alignItems: 'center' }}>
+				<WorldcoinIcon style={{ height: '1rem', width: '1rem' }} />
+				<span
+					style={{
+						marginLeft: '1rem',
+						fontSize: '0.875rem',
+						lineHeight: '1.25rem',
+						fontFamily: 'Rubik, ui-sans-serif, system-ui, -apple-system, sans-serif',
+					}}
+				>
+					{__('Sign in with World ID')}
+				</span>
+			</div>
+		</div>
 		<AnimatedBorder aria-hidden theme={theme} />
-	</MotionButton>
+	</motion.button>
 )
 
 export default SignInButton

@@ -65,14 +65,10 @@
 		"react-country-flag": "^3.1.0",
 		"react-frame-component": "^5.2.3",
 		"react-shadow": "^19.0.3",
-		"viem": "^1.14.0",
 		"zustand": "^4.3.3"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.20.2",
-		"@babel/plugin-syntax-typescript": "^7.20.0",
 		"@esbuild-plugins/node-globals-polyfill": "^0.1.1",
-		"@rollup/plugin-babel": "^6.0.3",
 		"@rollup/plugin-image": "^3.0.2",
 		"@rollup/plugin-typescript": "^11.1.4",
 		"@testing-library/jest-dom": "^5.16.5",
@@ -86,8 +82,6 @@
 		"@typescript-eslint/eslint-plugin": "5.20.0",
 		"@typescript-eslint/parser": "5.20.0",
 		"autoprefixer": "^10.4.13",
-		"babel-plugin-macros": "^3.1.0",
-		"babel-plugin-twin": "^1.1.0",
 		"construct-style-sheets-polyfill": "^3.1.0",
 		"esbuild": "0.14.43",
 		"esbuild-jest": "0.5.0",
@@ -120,13 +114,6 @@
 		"tailwindcss": "^3.2.4",
 		"tsc-alias": "^1.7.1",
 		"tsup": "^7.2.0",
-		"twin.macro": "^3.1.0",
 		"typescript": "4.9.3"
-	},
-	"babelMacros": {
-		"twin": {
-			"preset": "stitches",
-			"stitchesConfig": "stitches.config.ts"
-		}
 	}
 }

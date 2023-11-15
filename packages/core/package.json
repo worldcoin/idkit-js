@@ -52,7 +52,8 @@
 		"sybil resistance"
 	],
 	"dependencies": {
-		"zustand": "^4.3.3"
+		"zustand": "^4.3.3",
+		"viem": "^1.14.0"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "6.7.4",
@@ -61,7 +62,6 @@
 		"prettier": "^2.7.1",
 		"prettier-plugin-sort-imports-desc": "^1.0.0",
 		"tsup": "^7.2.0",
-		"typescript": "5.2.2",
-		"viem": "^1.14.0"
+		"typescript": "5.2.2"
 	}
 }

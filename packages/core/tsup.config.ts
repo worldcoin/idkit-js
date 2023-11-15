@@ -5,6 +5,6 @@ export default defineConfig({
 	clean: true,
 	format: 'esm',
 	outDir: 'build',
-	external: ['viem'],
+	external: ['zustand', 'viem'],
 	entry: ['src/index.ts', 'src/lib/hashing.ts'],
 })
