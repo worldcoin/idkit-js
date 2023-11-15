@@ -53,10 +53,9 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		action_description?: IDKitConfig['action_description']
 	) => {
 		const { key, iv } = await generateKey()
-		const requestId = window.crypto.randomUUID()
 
-		const res = await fetch(`${bridgeUrl ?? DEFAULT_BRIDGE_URL}/request/${requestId}`, {
-			method: 'PUT',
+		const res = await fetch(`${bridgeUrl ?? DEFAULT_BRIDGE_URL}/request`, {
+			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(
 				await encryptRequest(
@@ -79,13 +78,15 @@ const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			throw new Error('Failed to create client')
 		}
 
+		const { request_id } = await res.json()
+
 		set({
 			iv,
 			key,
-			requestId,
+			requestId: request_id,
 			bridgeUrl: bridgeUrl ?? DEFAULT_BRIDGE_URL,
 			verificationState: VerificationState.PollingForUpdates,
-			connectorURI: `https://worldcoin.org/verify?t=wld&i=${requestId}&k=${encodeURIComponent(
+			connectorURI: `https://worldcoin.org/verify?t=wld&i=${request_id}&k=${encodeURIComponent(
 				await exportKey(key)
 			)}${bridgeUrl ? `&b=${encodeURIComponent(bridgeUrl)}` : ''}`,
 		})
