@@ -32,7 +32,7 @@ export const useWorldBridge = (
 	useEffect(() => {
 		if (!connectorURI || result || errorCode) return
 
-		const interval = setInterval(() => void pollForUpdates(), 5000)
+		const interval = setInterval(() => void pollForUpdates(), 3000)
 
 		return () => clearInterval(interval)
 	}, [connectorURI, pollForUpdates, errorCode, result])

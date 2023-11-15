@@ -1,6 +1,6 @@
 import { createRoot, type Root } from 'react-dom/client'
-import { IDKitWidget, type Config } from '@worldcoin/idkit-react'
-import { __, useIDKitStore, ConfigSource } from '@worldcoin/idkit-react/internal'
+import { IDKitWidget, type Config } from '@worldcoin/idkit'
+import { __, useIDKitStore, ConfigSource } from '@worldcoin/idkit/internal'
 
 let root: Root
 let isInitialized = false

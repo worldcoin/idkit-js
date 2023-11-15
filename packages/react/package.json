@@ -1,5 +1,5 @@
 {
-	"name": "@worldcoin/idkit-react",
+	"name": "@worldcoin/idkit",
 	"version": "0.0.1",
 	"author": "Tools for Humanity",
 	"homepage": "https://docs.worldcoin.org/id/idkit",
@@ -8,7 +8,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/worldcoin/idkit-js",
-		"directory": "packages/idkit-react"
+		"directory": "packages/react"
 	},
 	"type": "module",
 	"exports": {
