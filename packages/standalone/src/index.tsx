@@ -48,6 +48,8 @@ const update = (config: Config): void => {
 const open = () => {
 	return new Promise((resolve, reject) => {
 		if (!isInitialized) return reject(__('IDKitWidget is not initialized'))
+
+		useIDKitStore.getState().addErrorCallback(reject, ConfigSource.MANUAL)
 		useIDKitStore.getState().addSuccessCallback(resolve, ConfigSource.MANUAL)
 		useIDKitStore.setState({ open: true })
 	})
