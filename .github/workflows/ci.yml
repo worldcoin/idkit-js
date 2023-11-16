@@ -25,8 +25,9 @@ jobs:
             - name: Install dependencies
               run: pnpm install
 
-            - name: Lint
-              run: pnpm lint
-
             - name: Typecheck & Build
               run: pnpm build
+            
+            # NOTE: Lint needs to run after build because it checks the compiled files for types
+            - name: Lint
+              run: pnpm lint
