@@ -78,19 +78,6 @@ export const generateSignal = (signal: IDKitConfig['signal']): HashFunctionOutpu
 	return packAndEncode(signal.types.map((type, index) => [type, signal.values[index]]))
 }
 
-export const generateExternalNullifier = (
-	app_id: IDKitConfig['app_id'],
-	action: IDKitConfig['action']
-): HashFunctionOutput => {
-	if (!action) return packAndEncode([['uint256', hashToField(app_id).hash]])
-	if (typeof action === 'string') action = solidityEncode(['string'], [action])
-
-	return packAndEncode([
-		['uint256', hashToField(app_id).hash],
-		...action.types.map((type, index) => [type, (action as AbiEncodedValue).values[index]] as [string, unknown]),
-	])
-}
-
 export const encodeAction = (action: IDKitConfig['action']): string => {
 	if (!action) return ''
 	if (typeof action === 'string') return action
