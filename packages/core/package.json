@@ -1,7 +1,6 @@
 {
 	"name": "@worldcoin/idkit-core",
-	"version": "0.0.1",
-	"author": "Tools for Humanity",
+	"version": "1.0.0-alpha.0",
 	"homepage": "https://docs.worldcoin.org/id/idkit",
 	"license": "MIT",
 	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
