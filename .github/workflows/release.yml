@@ -1,9 +1,11 @@
 name: New release
 
+# FIXME: Needs refactoring with the new monorepo
 on:
-    push:
-        branches:
-            - main
+  - workflow_dispatch 
+    # push:
+    #     branches:
+    #         - main
 
 jobs:
     release:

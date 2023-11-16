@@ -1,0 +1,51 @@
+{
+	"name": "@worldcoin/idkit-standalone",
+	"version": "1.0.0-alpha.0",
+	"homepage": "https://docs.worldcoin.org/id/idkit",
+	"license": "MIT",
+	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
+	"repository": {
+		"type": "git",
+		"directory": "packages/standalone",
+		"url": "git+https://github.com/worldcoin/idkit-js"
+	},
+	"type": "module",
+	"main": "src/index.tsx",
+	"exports": "./build/index.global.js",
+	"types": "src/index.tsx",
+	"engines": {
+		"node": ">=12.4"
+	},
+	"files": [
+		"build",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"lint": "eslint src --ext .tsx"
+	},
+	"keywords": [
+		"identity",
+		"ID",
+		"web3",
+		"proof-of-personhood",
+		"sybil resistance"
+	],
+	"dependencies": {
+		"@worldcoin/idkit": "workspace:^",
+		"react": ">18.0.0",
+		"react-dom": ">18.0.0"
+	},
+	"devDependencies": {
+		"@types/react": "18.0.25",
+		"@types/react-dom": "18.0.9",
+		"@typescript-eslint/eslint-plugin": "5.20.0",
+		"@typescript-eslint/parser": "5.20.0",
+		"eslint": "8.29.0",
+		"prettier": "^2.8.8",
+		"prettier-plugin-sort-imports-desc": "^1.0.0",
+		"tsup": "^7.2.0",
+		"typescript": "4.9.3"
+	}
+}

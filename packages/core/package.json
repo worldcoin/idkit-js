@@ -1,0 +1,67 @@
+{
+	"name": "@worldcoin/idkit-core",
+	"version": "1.0.0-alpha.0",
+	"homepage": "https://docs.worldcoin.org/id/idkit",
+	"license": "MIT",
+	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/worldcoin/idkit-js",
+		"directory": "packages/core"
+	},
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./build/index.js",
+			"types": "./build/index.d.ts"
+		},
+		"./hashing": {
+			"import": "./build/lib/hashing.js",
+			"types": "./build/lib/hashing.d.ts"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"hashing": [
+				"./build/lib/hashing.d.ts"
+			],
+			"*": [
+				"./build/*/index.d.ts",
+				"./build/index.d.ts"
+			]
+		}
+	},
+	"engines": {
+		"node": ">=12.4"
+	},
+	"files": [
+		"build/**",
+		"README.md"
+	],
+	"scripts": {
+		"lint": "eslint src --ext .ts",
+		"build": "tsup",
+		"dev": "tsup --watch"
+	},
+	"keywords": [
+		"identity",
+		"ID",
+		"web3",
+		"proof-of-personhood",
+		"sybil resistance"
+	],
+	"dependencies": {
+		"buffer": "^6.0.3",
+		"viem": "^1.14.0",
+		"zustand": "^4.3.3"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "6.7.4",
+		"@typescript-eslint/parser": "6.7.4",
+		"esbuild": "0.14.43",
+		"prettier": "^2.7.1",
+		"prettier-plugin-sort-imports-desc": "^1.0.0",
+		"tsup": "^7.2.0",
+		"typescript": "5.2.2"
+	}
+}
