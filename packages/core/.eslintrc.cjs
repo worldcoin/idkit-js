@@ -1,18 +1,15 @@
 module.exports = {
 	env: {
-		browser: true,
-		node: true,
 		es6: true,
+		node: true,
+		browser: true,
 	},
 	ignorePatterns: ['.eslintrc.cjs', 'tsup.config.ts', '/build'],
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:@typescript-eslint/recommended-requiring-type-checking',
-		'plugin:react/recommended',
-		'plugin:react/jsx-runtime',
 		'plugin:jsx-a11y/recommended',
-		'plugin:react-hooks/recommended',
 		'prettier',
 	],
 	parser: '@typescript-eslint/parser',
@@ -61,13 +58,5 @@ module.exports = {
 
 		// not enforced by prettier
 		'lines-between-class-members': ['warn', 'always', { exceptAfterSingleLine: true }],
-	},
-
-	settings: {
-		react: {
-			version: 'detect',
-		},
-
-		polyfills: ['fetch'],
 	},
 }
