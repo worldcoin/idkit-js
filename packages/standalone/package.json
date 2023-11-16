@@ -6,7 +6,7 @@
 	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
 	"repository": {
 		"type": "git",
-		"directory": "packages/idkit-standalone",
+		"directory": "packages/standalone",
 		"url": "git+https://github.com/worldcoin/idkit-js"
 	},
 	"type": "module",
