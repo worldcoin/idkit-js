@@ -59,11 +59,6 @@ function hashEncodedBytes(input: `0x${string}` | Uint8Array): HashFunctionOutput
 	return { hash, digest: `0x${rawDigest.padStart(64, '0')}` }
 }
 
-export const validateABILikeEncoding = (value: string): boolean => {
-	const ABI_REGEX = /^0x[\dabcdef]+$/
-	return !!value.toString().match(ABI_REGEX) && value.length >= 66 // Because `0` contains 66 characters
-}
-
 export const solidityEncode = (types: string[], values: unknown[]): AbiEncodedValue => {
 	if (types.length !== values.length) {
 		throw new Error('Types and values arrays must have the same length.')
