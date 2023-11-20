@@ -3,6 +3,7 @@
 	"version": "1.0.0-alpha.0",
 	"homepage": "https://docs.worldcoin.org/id/idkit",
 	"license": "MIT",
+	"private": false,
 	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
 	"repository": {
 		"type": "git",
