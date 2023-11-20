@@ -1,4 +1,5 @@
 {
+	"release-type": "node",
 	"packages": {
 		"packages/core": {
 			"component": "core",
@@ -13,6 +14,7 @@
 			"skip-github-release": true
 		},
 		".": {
+			"component": "idkit",
 			"changelog-path": "CHANGELOG.md",
 			"bump-minor-pre-major": false,
 			"bump-patch-for-minor-pre-major": false,
@@ -20,5 +22,13 @@
 			"prerelease": false
 		}
 	},
+	"plugins": [
+		{ "type": "node-workspace", "merge": false },
+		{
+			"type": "linked-versions",
+			"groupName": "group",
+			"components": ["core", "react", "standalone", "idkit"]
+		}
+	],
 	"$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
 }
