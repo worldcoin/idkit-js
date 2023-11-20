@@ -44,6 +44,6 @@ jobs:
               run: pnpm build
 
             - name: Publish
-              run: pnpm publish -r --report-summary --dry-run
+              run: pnpm publish -r --report-summary
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
