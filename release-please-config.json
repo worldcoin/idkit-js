@@ -1,26 +1,19 @@
 {
-	"bootstrap-sha": "61ca0dedc321107141753dae699025d41b65ff90",
 	"packages": {
-		".": {
-			"component": "root",
-			"extra-files": [
-				{
-					"type": "json",
-					"path": "example-react/package.json",
-					"jsonpath": "$.version"
-				},
-				{
-					"type": "json",
-					"path": "example-nextjs/package.json",
-					"jsonpath": "$.version"
-				}
-			],
+		"packages/core": {
+			"component": "core",
 			"skip-github-release": true
 		},
-		"idkit": {
-			"package-name": "idkit",
-			"component": "idkit",
-			"release-type": "node",
+		"packages/react": {
+			"component": "react",
+			"skip-github-release": true
+		},
+		"packages/standalone": {
+			"component": "standalone",
+			"skip-github-release": true
+		},
+		".": {
+			"changelog-path": "CHANGELOG.md",
 			"bump-minor-pre-major": false,
 			"bump-patch-for-minor-pre-major": false,
 			"draft": false,
