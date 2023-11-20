@@ -2,20 +2,11 @@
 	"bootstrap-sha": "61ca0dedc321107141753dae699025d41b65ff90",
 	"packages": {
 		".": {
-			"component": "root",
-			"extra-files": [
-				{
-					"type": "json",
-					"path": "example-react/package.json",
-					"jsonpath": "$.version"
-				},
-				{
-					"type": "json",
-					"path": "example-nextjs/package.json",
-					"jsonpath": "$.version"
-				}
-			],
-			"skip-github-release": true
+			"changelog-path": "CHANGELOG.md",
+			"bump-minor-pre-major": false,
+			"bump-patch-for-minor-pre-major": false,
+			"draft": false,
+			"prerelease": false
 		},
 		"idkit": {
 			"package-name": "idkit",
