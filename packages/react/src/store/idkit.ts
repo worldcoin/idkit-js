@@ -2,7 +2,6 @@ import { __ } from '@/lang'
 import { IDKITStage } from '@/types'
 import type { CallbackFn } from '@/types'
 import { shallow } from 'zustand/shallow'
-import { telemetryModalOpened } from '@/lib/telemetry'
 import type { Config, ConfigSource } from '@/types/config'
 import { createWithEqualityFn } from 'zustand/traditional'
 import {
@@ -165,7 +164,6 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		},
 		onOpenChange: open => {
 			if (open) {
-				telemetryModalOpened()
 				return set({ open })
 			}
 

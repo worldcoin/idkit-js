@@ -5,7 +5,7 @@ export type AbiEncodedValue = Brand<{ types: string[]; values: unknown[] }, 'Abi
 
 export enum CredentialType {
 	Orb = 'orb',
-	Phone = 'phone',
+	Device = 'device',
 }
 
 export type IDKitConfig = {
@@ -19,6 +19,6 @@ export type IDKitConfig = {
 	action?: AbiEncodedValue | string
 	/** URL to a third-party bridge to use when connecting to the World App. Optional. */
 	bridge_url?: string
-	/** An array of credential types to allow for verification. Will accept any combination of "orb" & "phone". Defaults to orb. TypeScript apps can use the `CredentialType` enum. */
+	/** An array of credential types to allow for verification. Will accept any combination of "orb" & "device". Defaults to orb. TypeScript apps can use the `CredentialType` enum. */
 	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
 }

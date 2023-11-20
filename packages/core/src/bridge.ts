@@ -7,7 +7,7 @@ import type { ISuccessResult } from '@/types/result'
 import { encodeAction, generateSignal } from '@/lib/hashing'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
 
-const DEFAULT_BRIDGE_URL = 'https://bridge.id.worldcoin.org'
+const DEFAULT_BRIDGE_URL = 'https://bridge.worldcoin.org'
 
 export enum ResponseStatus {
 	Retrieved = 'retrieved',
@@ -102,7 +102,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			verificationState: VerificationState.WaitingForConnection,
 			connectorURI: `https://worldcoin.org/verify?t=wld&i=${request_id}&k=${encodeURIComponent(
 				await exportKey(key)
-			)}${bridge_url ? `&b=${encodeURIComponent(bridge_url)}` : ''}`,
+			)}${bridge_url && bridge_url !== DEFAULT_BRIDGE_URL ? `&b=${encodeURIComponent(bridge_url)}` : ''}`,
 		})
 	},
 
