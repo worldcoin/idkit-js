@@ -7,7 +7,7 @@ import { encodeAction, generateSignal } from '@/lib/hashing'
 import { CredentialType, type IDKitConfig } from '@/types/config'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
 
-const DEFAULT_BRIDGE_URL = 'https://wallet-bridge.stage-crypto.worldcoin.org'
+const DEFAULT_BRIDGE_URL = 'https://bridge.worldcoin.org'
 
 export enum ResponseStatus {
 	Retrieved = 'retrieved',
