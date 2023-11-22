@@ -23,7 +23,8 @@
 	"scripts": {
 		"build": "tsup",
 		"dev": "tsup --watch",
-		"lint": "eslint src --ext .tsx"
+		"lint": "eslint src --ext .tsx",
+		"prepublishOnly": "npm run build"
 	},
 	"keywords": [
 		"identity",

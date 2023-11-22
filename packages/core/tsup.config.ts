@@ -7,4 +7,5 @@ export default defineConfig({
 	outDir: 'build',
 	external: ['zustand', 'viem'],
 	entry: ['src/index.ts', 'src/lib/hashing.ts'],
+	define: { 'process.env.NODE_ENV': '"production"' },
 })

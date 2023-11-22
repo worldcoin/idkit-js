@@ -3,9 +3,10 @@
 	"version": "0.0.0",
 	"name": "idkit-monorepo",
 	"scripts": {
+		"dev": "turbo run dev",
 		"lint": "turbo run lint",
 		"build": "turbo run build",
-		"dev": "turbo run dev"
+		"prepublishOnly": "npm run build"
 	},
 	"devDependencies": {
 		"turbo": "^1.10.14"

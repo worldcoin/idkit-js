@@ -1,4 +1,4 @@
-import { Buffer } from 'buffer/index'
+import { Buffer } from 'buffer/index.js'
 import type { IDKitConfig } from '@/types/config'
 import type { AbiEncodedValue } from '@/types/config'
 import { encodePacked, isBytes, isHex, keccak256 } from 'viem'
