@@ -23,11 +23,19 @@
 		}
 	},
 	"plugins": [
-		{ "type": "node-workspace", "merge": false },
+		{
+			"type": "node-workspace",
+			"merge": false
+		},
 		{
 			"type": "linked-versions",
 			"groupName": "group",
-			"components": ["core", "react", "standalone", "idkit"]
+			"components": [
+				"core",
+				"react",
+				"standalone",
+				"idkit"
+			]
 		}
 	],
 	"$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
