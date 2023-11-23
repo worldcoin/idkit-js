@@ -14,11 +14,13 @@
 			"skip-github-release": true
 		},
 		".": {
+			"component": "idkit",
 			"changelog-path": "CHANGELOG.md",
 			"bump-minor-pre-major": false,
 			"bump-patch-for-minor-pre-major": false,
 			"draft": false,
-			"prerelease": false
+			"prerelease": false,
+			"skip-github-release": true
 		}
 	},
 	"plugins": [

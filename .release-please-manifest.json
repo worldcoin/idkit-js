@@ -2,5 +2,5 @@
 	"packages/core": "1.0.0-alpha.0",
 	"packages/react": "1.0.0-alpha.0",
 	"packages/standalone": "1.0.0-alpha.0",
-	".": "0.0.0"
+	".": "1.0.0-alpha.0"
 }
