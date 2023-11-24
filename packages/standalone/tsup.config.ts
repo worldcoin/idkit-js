@@ -6,4 +6,5 @@ export default defineConfig({
 	format: 'iife',
 	outDir: 'build',
 	entry: ['src/index.tsx'],
+	define: { 'process.env.NODE_ENV': '"production"' },
 })

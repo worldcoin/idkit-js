@@ -32,6 +32,7 @@
 	"scripts": {
 		"dev": "tsup --watch",
 		"lint": "eslint src --ext .ts",
+		"prepublishOnly": "npm run build",
 		"build": "npm run build:css && tsup",
 		"build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify"
 	},

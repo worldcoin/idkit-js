@@ -1,4 +1,4 @@
-import { Buffer } from 'buffer/index'
+import { Buffer } from 'buffer/index.js'
 
 export const buffer_encode = (buffer: ArrayBuffer): string => {
 	return Buffer.from(buffer).toString('base64')

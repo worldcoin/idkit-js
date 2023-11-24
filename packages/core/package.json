@@ -39,9 +39,10 @@
 		"README.md"
 	],
 	"scripts": {
-		"lint": "eslint src --ext .ts",
 		"build": "tsup",
-		"dev": "tsup --watch"
+		"dev": "tsup --watch",
+		"lint": "eslint src --ext .ts",
+		"prepublishOnly": "npm run build"
 	},
 	"keywords": [
 		"identity",
