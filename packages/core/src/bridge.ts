@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 import { buffer_decode } from './lib/utils'
-import type { IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { AppErrorCodes } from '@/types/bridge'
 import type { ISuccessResult } from '@/types/result'
 import { encodeAction, generateSignal } from '@/lib/hashing'
+import { CredentialType, type IDKitConfig } from '@/types/config'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
 
 const DEFAULT_BRIDGE_URL = 'https://bridge.worldcoin.org'
@@ -78,7 +78,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 					iv,
 					JSON.stringify({
 						app_id,
-						credential_types,
+						credential_types: credential_types ?? [CredentialType.Orb],
 						action_description,
 						action: encodeAction(action),
 						signal: generateSignal(signal).digest,
