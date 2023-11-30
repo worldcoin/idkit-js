@@ -21,6 +21,17 @@
 			"types": "./build/internal.d.ts"
 		}
 	},
+	"typesVersions": {
+		"*": {
+			"internal": [
+				"./build/internal.d.ts"
+			],
+			"*": [
+				"./build/*/index.d.ts",
+				"./build/index.d.ts"
+			]
+		}
+	},
 	"main": "src/index.ts",
 	"types": "src/index.ts",
 	"engines": {
