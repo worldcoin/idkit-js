@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.2](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.1...idkit-v1.0.0-alpha.2) (2023-11-30)
+
+
+### Features
+
+* dep updates ([#181](https://github.com/worldcoin/idkit-js/issues/181)) ([9e65630](https://github.com/worldcoin/idkit-js/commit/9e65630362e6a7d6fea30539f36491181e68b35d))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0-alpha.2 ([#182](https://github.com/worldcoin/idkit-js/issues/182)) ([8bec821](https://github.com/worldcoin/idkit-js/commit/8bec8218623ac374d2eb54547caa0a782582509d))
+
 ## [1.0.0-alpha.1](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.0...idkit-v1.0.0-alpha.1) (2023-11-27)
 
 
