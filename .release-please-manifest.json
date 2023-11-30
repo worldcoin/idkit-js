@@ -1,6 +1,6 @@
 {
-	"packages/core": "1.0.0-alpha.1",
-	"packages/react": "1.0.0-alpha.1",
-	"packages/standalone": "1.0.0-alpha.1",
-	".": "1.0.0-alpha.1"
+	"packages/core": "1.0.0-alpha.2",
+	"packages/react": "1.0.0-alpha.2",
+	"packages/standalone": "1.0.0-alpha.2",
+	".": "1.0.0-alpha.2"
 }
