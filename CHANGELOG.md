@@ -1,5 +1,41 @@
 # Changelog
 
+## [1.0.0-alpha.4](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.3...idkit-v1.0.0-alpha.4) (2023-12-01)
+
+
+### Bug Fixes
+
+* qrcode extension ([#187](https://github.com/worldcoin/idkit-js/issues/187)) ([4617097](https://github.com/worldcoin/idkit-js/commit/4617097999727ab24a61d73a392b8c0441c7e74b))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0-alpha.4 ([#188](https://github.com/worldcoin/idkit-js/issues/188)) ([f8f8073](https://github.com/worldcoin/idkit-js/commit/f8f8073768a8f15a92f09c61aeabd5ff10e48b92))
+
+## [1.0.0-alpha.3](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.2...idkit-v1.0.0-alpha.3) (2023-12-01)
+
+
+### Bug Fixes
+
+* fix `@worldcoin/idkit/internal` import ([#184](https://github.com/worldcoin/idkit-js/issues/184)) ([d81a78a](https://github.com/worldcoin/idkit-js/commit/d81a78a484ba35e743f09aa47dc2d927e5c25b1f))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0-alpha.3 ([#185](https://github.com/worldcoin/idkit-js/issues/185)) ([aaca138](https://github.com/worldcoin/idkit-js/commit/aaca1381c899f9f6bec9852c43d5156d3d8077e0))
+
+## [1.0.0-alpha.2](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.1...idkit-v1.0.0-alpha.2) (2023-11-30)
+
+
+### Features
+
+* dep updates ([#181](https://github.com/worldcoin/idkit-js/issues/181)) ([9e65630](https://github.com/worldcoin/idkit-js/commit/9e65630362e6a7d6fea30539f36491181e68b35d))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0-alpha.2 ([#182](https://github.com/worldcoin/idkit-js/issues/182)) ([8bec821](https://github.com/worldcoin/idkit-js/commit/8bec8218623ac374d2eb54547caa0a782582509d))
+
 ## [1.0.0-alpha.1](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.0...idkit-v1.0.0-alpha.1) (2023-11-27)
 
 

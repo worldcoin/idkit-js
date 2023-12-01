@@ -1,6 +1,6 @@
 {
 	"name": "@worldcoin/idkit",
-	"version": "1.0.0-alpha.1",
+	"version": "1.0.0-alpha.4",
 	"homepage": "https://docs.worldcoin.org/id/idkit",
 	"license": "MIT",
 	"private": false,
@@ -19,6 +19,17 @@
 		"./internal": {
 			"import": "./build/internal.js",
 			"types": "./build/internal.d.ts"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"internal": [
+				"./build/internal.d.ts"
+			],
+			"*": [
+				"./build/*/index.d.ts",
+				"./build/index.d.ts"
+			]
 		}
 	},
 	"main": "src/index.ts",
