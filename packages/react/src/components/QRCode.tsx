@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react'
 import type { ReactElement } from 'react'
-import QRCodeUtil from 'qrcode/lib/core/qrcode'
+import QRCodeUtil from 'qrcode/lib/core/qrcode.js'
 
 const generateMatrix = (data: string): Array<number[]> => {
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
