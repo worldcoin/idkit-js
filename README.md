@@ -32,13 +32,13 @@ import { IDKitWidget } from "@worldcoin/idkit";
 If you are not using React or want to look at additional options (like rendering the component without any children), the `useIDKit` hook and more, head over to the [docs](https://docs.worldcoin.org/idkit/reference).
 
 ```jsx
-import { useIDKit } from "@worldcoin/idkit";
+import { useIDKit } from '@worldcoin/idkit'
 
 const { open, setOpen } = useIDKit({
-	signal: "my_signal",
+	signal: 'my_signal',
 	handleVerify: verifyProof,
-	actionId: "get_this_from_the_dev_portal",
-});
+	actionId: 'get_this_from_the_dev_portal',
+})
 ```
 
 ## 🔒 Verifying the IDKit response
