@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.4](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.3...idkit-v1.0.0-alpha.4) (2023-12-01)
+
+
+### Bug Fixes
+
+* qrcode extension ([#187](https://github.com/worldcoin/idkit-js/issues/187)) ([4617097](https://github.com/worldcoin/idkit-js/commit/4617097999727ab24a61d73a392b8c0441c7e74b))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0-alpha.4 ([#188](https://github.com/worldcoin/idkit-js/issues/188)) ([f8f8073](https://github.com/worldcoin/idkit-js/commit/f8f8073768a8f15a92f09c61aeabd5ff10e48b92))
+
 ## [1.0.0-alpha.3](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.2...idkit-v1.0.0-alpha.3) (2023-12-01)
 
 

@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-alpha.4](https://github.com/worldcoin/idkit-js/compare/react-v1.0.0-alpha.3...react-v1.0.0-alpha.4) (2023-12-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename phone credential to device & misc improvements ([#169](https://github.com/worldcoin/idkit-js/issues/169))
+
+### Features
+
+* dep updates ([#181](https://github.com/worldcoin/idkit-js/issues/181)) ([9e65630](https://github.com/worldcoin/idkit-js/commit/9e65630362e6a7d6fea30539f36491181e68b35d))
+* rename phone credential to device & misc improvements ([#169](https://github.com/worldcoin/idkit-js/issues/169)) ([d6ab268](https://github.com/worldcoin/idkit-js/commit/d6ab2682205a094b6af3cb8438eeefe67077118d))
+* Separate into core/react/standalone, switch to bridge & more ([#156](https://github.com/worldcoin/idkit-js/issues/156)) ([7b1c5d6](https://github.com/worldcoin/idkit-js/commit/7b1c5d6690ccdb535340a6dcf7a9cb56f24cec1a))
+* set package privacy & send `credential_types` by default ([#175](https://github.com/worldcoin/idkit-js/issues/175)) ([8a38ff3](https://github.com/worldcoin/idkit-js/commit/8a38ff35d3680bd0ae79da6b10d69dff0105d695))
+
+
+### Bug Fixes
+
+* fix `@worldcoin/idkit/internal` import ([#184](https://github.com/worldcoin/idkit-js/issues/184)) ([d81a78a](https://github.com/worldcoin/idkit-js/commit/d81a78a484ba35e743f09aa47dc2d927e5c25b1f))
+* fixes core and standalone packages; adds pre-publish script ([#176](https://github.com/worldcoin/idkit-js/issues/176)) ([9dd7a96](https://github.com/worldcoin/idkit-js/commit/9dd7a966d6294e5eead282a45726dd2091ea71ee))
+* qrcode extension ([#187](https://github.com/worldcoin/idkit-js/issues/187)) ([4617097](https://github.com/worldcoin/idkit-js/commit/4617097999727ab24a61d73a392b8c0441c7e74b))
+
+
+### Miscellaneous Chores
+
+* release 0.4.9 ([b94084e](https://github.com/worldcoin/idkit-js/commit/b94084e30653e2246c13d9bd30c2e5edd127bcde))
+* release 1.0.0-alpha.1 ([#179](https://github.com/worldcoin/idkit-js/issues/179)) ([b7b6d44](https://github.com/worldcoin/idkit-js/commit/b7b6d443350399d946c6507ce69db6eb48d2c30c))
+* release 1.0.0-alpha.2 ([#182](https://github.com/worldcoin/idkit-js/issues/182)) ([8bec821](https://github.com/worldcoin/idkit-js/commit/8bec8218623ac374d2eb54547caa0a782582509d))
+* release 1.0.0-alpha.3 ([#185](https://github.com/worldcoin/idkit-js/issues/185)) ([aaca138](https://github.com/worldcoin/idkit-js/commit/aaca1381c899f9f6bec9852c43d5156d3d8077e0))
+* release 1.0.0-alpha.4 ([#188](https://github.com/worldcoin/idkit-js/issues/188)) ([f8f8073](https://github.com/worldcoin/idkit-js/commit/f8f8073768a8f15a92f09c61aeabd5ff10e48b92))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @worldcoin/idkit-core bumped to 1.0.0-alpha.4
+
 ## [1.0.0-alpha.3](https://github.com/worldcoin/idkit-js/compare/react-v1.0.0-alpha.2...react-v1.0.0-alpha.3) (2023-12-01)
 
 
