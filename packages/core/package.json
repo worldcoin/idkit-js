@@ -54,7 +54,7 @@
 	],
 	"dependencies": {
 		"buffer": "^6.0.3",
-		"viem": "^1.14.0",
+		"viem": "^1.19.11",
 		"zustand": "^4.3.3"
 	},
 	"devDependencies": {
