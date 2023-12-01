@@ -1,14 +1,14 @@
 import { __ } from '@/lang'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
-import XMarkIcon from '@/components/Icons/XMarkIcon'
+import ErrorIcon from '@/components/Icons/ErrorIcon'
 import { AppErrorCodes } from '@worldcoin/idkit-core'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
 const ERROR_TITLES: Partial<Record<AppErrorCodes, string>> = {
+	[AppErrorCodes.GenericError]: __('Something went wrong'),
 	[AppErrorCodes.FailedByHostApp]: __('Verification Declined'),
-	[AppErrorCodes.GenericError]: __('Verification Failed'),
 }
 
 const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
@@ -17,7 +17,6 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	[AppErrorCodes.MaxVerificationsReached]: __(
 		'You have already verified the maximum number of times for this action.'
 	),
-	[AppErrorCodes.AlreadySigned]: __('You have already verified for this action.'),
 	[AppErrorCodes.CredentialUnavailable]: __('It seems you do not have the credential required by this app.'),
 	[AppErrorCodes.MalformedRequest]: __(
 		'There was a problem with this request. Please try again or contact the app owner.'
@@ -42,17 +41,13 @@ const ErrorState = () => {
 	return (
 		<div className="space-y-8">
 			<div className="-mt-5 flex items-center justify-center">
-				<div className="inline-flex aspect-square items-center justify-center rounded-full bg-red-100 p-5">
-					<div className="flex aspect-square items-center justify-center rounded-full bg-red-500 p-5">
-						<XMarkIcon className="w-8 text-white" />
-					</div>
-				</div>
+				<ErrorIcon className="w-24" />
 			</div>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{(errorState?.code && ERROR_TITLES[errorState.code]) || ERROR_TITLES[AppErrorCodes.GenericError]}
 				</p>
-				<p className="mt-2 text-center text-lg text-gray-400">
+				<p className="mx-auto mt-2 max-w-[14rem] text-center text-657080">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{errorState?.message || ERROR_MESSAGES[errorState?.code ?? AppErrorCodes.GenericError]}
 				</p>
@@ -65,11 +60,6 @@ const ErrorState = () => {
 				>
 					{__('Try Again')}
 				</button>
-			</div>
-			<div>
-				<p className="mt-4 text-xs text-gray-400">
-					{__('If you are the app owner, check the console for further details.')}
-				</p>
 			</div>
 		</div>
 	)
