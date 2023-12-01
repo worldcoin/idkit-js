@@ -7,7 +7,7 @@ on:
 
 jobs:
     build:
-        name: Lint & Build
+        name: Lint, Typecheck & Test Build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
