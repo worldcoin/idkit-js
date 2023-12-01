@@ -31,3 +31,12 @@ jobs:
             # NOTE: Lint needs to run after build because it checks the compiled files for types
             - name: Lint
               run: pnpm lint
+
+            - name: Typecheck idkit-core
+              run: cd packages/core && pnpm tsc
+
+            - name: Typecheck idkit
+              run: cd packages/react && pnpm tsc
+
+            - name: Typecheck idkit-standalone
+              run: cd packages/standalone && pnpm tsc
