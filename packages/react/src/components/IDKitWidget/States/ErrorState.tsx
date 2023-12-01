@@ -17,7 +17,6 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	[AppErrorCodes.MaxVerificationsReached]: __(
 		'You have already verified the maximum number of times for this action.'
 	),
-	[AppErrorCodes.AlreadySigned]: __('You have already verified for this action.'),
 	[AppErrorCodes.CredentialUnavailable]: __('It seems you do not have the credential required by this app.'),
 	[AppErrorCodes.MalformedRequest]: __(
 		'There was a problem with this request. Please try again or contact the app owner.'

@@ -5,10 +5,15 @@
 	"scripts": {
 		"dev": "turbo run dev",
 		"lint": "turbo run lint",
+		"typecheck": "find ./packages/ -type d -exec sh -c 'pnpm typecheck' \\;",
 		"build": "turbo run build",
 		"prepublishOnly": "npm run build"
 	},
 	"devDependencies": {
-		"turbo": "^1.10.16"
+		"turbo": "^1.10.16",
+		"typescript": "^5.3.2"
+	},
+	"engines": {
+		"node": ">=18"
 	}
 }

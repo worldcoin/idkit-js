@@ -1,0 +1,3 @@
+{
+	"extends": "@repo/idkit-core/tsconfig.json"
+}

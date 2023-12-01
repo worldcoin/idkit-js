@@ -14,8 +14,8 @@ export enum AppErrorCodes {
 
 export enum VerificationState {
 	PreparingClient = 'loading_widget',
-	WaitingForConnection = 'awaiting_connection',
-	WaitingForApp = 'awaiting_app',
+	WaitingForConnection = 'awaiting_connection', // Awaiting connection from the wallet
+	WaitingForApp = 'awaiting_app', // Awaiting user confirmation in wallet
 	Confirmed = 'confirmed',
 	Failed = 'failed',
 }

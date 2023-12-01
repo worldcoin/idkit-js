@@ -58,9 +58,8 @@
 		"zustand": "^4.3.3"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "6.7.4",
-		"@typescript-eslint/parser": "6.7.4",
-		"esbuild": "0.14.43",
+		"@typescript-eslint/eslint-plugin": "^6.13.1",
+		"@typescript-eslint/parser": "^6.13.1",
 		"prettier": "^2.7.1",
 		"prettier-plugin-sort-imports-desc": "^1.0.0",
 		"tsup": "^7.2.0",
