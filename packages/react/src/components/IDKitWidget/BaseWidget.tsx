@@ -130,22 +130,20 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 															<StageContent />
 														</div>
 														<div className="flex items-center justify-between border-t border-f5f5f7 p-7 md:rounded-b-2xl">
-															<p className="flex items-center gap-1 text-sm text-9eafc0">
-																<a
-																	href="https://worldcoin.org/world-id"
-																	target="_blank"
-																	rel="noreferrer"
-																>
-																	<WorldcoinIcon className="w-4 text-9eafc0 dark:text-white" />
-																</a>
-																<span>{__('Powered by Worldcoin')}</span>
-															</p>
-
 															<a
-																href="https://docs.worldcoin.org/privacy"
+																href="https://worldcoin.org/world-id"
 																target="_blank"
 																rel="noreferrer"
-																onClick={() => setStage(IDKITStage.PRIVACY)}
+																className="flex items-center gap-1 text-sm text-9eafc0"
+															>
+																<WorldcoinIcon className="w-4 text-9eafc0 dark:text-white" />
+																<span>{__('Powered by Worldcoin')}</span>
+															</a>
+
+															<a
+																href="https://developer.worldcoin.org/privacy-statement"
+																target="_blank"
+																rel="noreferrer"
 																className="text-sm text-9eafc0 hover:underline"
 															>
 																{__('Terms & Privacy')}

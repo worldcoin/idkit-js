@@ -12,12 +12,12 @@ const ERROR_TITLES: Partial<Record<AppErrorCodes, string>> = {
 }
 
 const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
-	[AppErrorCodes.ConnectionFailed]: __('Connection to the World App or identity wallet failed. Please try again.'),
-	[AppErrorCodes.VerificationRejected]: __('Verification request rejected in the World App.'),
+	[AppErrorCodes.ConnectionFailed]: __('Connection to your wallet failed. Please try again.'),
+	[AppErrorCodes.VerificationRejected]: __('You rejected the verification request.'),
 	[AppErrorCodes.MaxVerificationsReached]: __(
 		'You have already verified the maximum number of times for this action.'
 	),
-	[AppErrorCodes.CredentialUnavailable]: __('It seems you do not have the credential required by this app.'),
+	[AppErrorCodes.CredentialUnavailable]: __('It seems you do not have the verification level required by this app.'),
 	[AppErrorCodes.MalformedRequest]: __(
 		'There was a problem with this request. Please try again or contact the app owner.'
 	),
@@ -26,12 +26,10 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	),
 	[AppErrorCodes.InclusionProofFailed]: __('There was an issue fetching your credential. Please try again.'),
 	[AppErrorCodes.InclusionProofPending]: __(
-		'Your credential is still being registered. Please wait a few minutes and try again.'
+		'Your identity is still being registered. Please wait a few minutes and try again.'
 	),
 	[AppErrorCodes.FailedByHostApp]: __('Verification failed by the app. Please contact the app owner for details.'),
-	[AppErrorCodes.UnexpectedResponse]: __(
-		'Unexpected response from the World App or identity wallet. Please try again.'
-	),
+	[AppErrorCodes.UnexpectedResponse]: __('Unexpected response from your wallet. Please try again.'),
 	[AppErrorCodes.GenericError]: __('Something unexpected went wrong. Please try again.'),
 }
 
