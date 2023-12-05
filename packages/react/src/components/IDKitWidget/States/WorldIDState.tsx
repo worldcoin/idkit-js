@@ -57,9 +57,14 @@ const WorldIDState = () => {
 		}
 
 		if (result) {
+			if (!credential_types?.includes(result.credential_type)) {
+				setStage(IDKITStage.ERROR)
+				setErrorState({ code: AppErrorCodes.CredentialUnavailable })
+				return
+			}
 			return handleVerify(result)
 		}
-	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState])
+	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, credential_types])
 
 	return (
 		<div className="-mt-6 space-y-6">
