@@ -32,11 +32,5 @@ jobs:
             - name: Lint
               run: pnpm lint
 
-            - name: Typecheck idkit-core
-              run: cd packages/core && pnpm tsc
-
-            - name: Typecheck idkit
-              run: cd packages/react && pnpm tsc
-
-            - name: Typecheck idkit-standalone
-              run: cd packages/standalone && pnpm tsc
+            - name: Typecheck examples/with-next
+              run: cd examples/with-next && pnpm tsc
