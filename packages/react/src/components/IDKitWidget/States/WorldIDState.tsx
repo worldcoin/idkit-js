@@ -59,7 +59,7 @@ const WorldIDState = () => {
 		if (result) {
 			return handleVerify(result)
 		}
-	}, [result, reset, handleVerify, verificationState, setStage, errorCode, setErrorState])
+	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState])
 
 	return (
 		<div className="-mt-6 space-y-6">

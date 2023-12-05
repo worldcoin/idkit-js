@@ -141,6 +141,8 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		set({
 			iv: null,
 			key: null,
+			result: null,
+			errorCode: null,
 			requestId: null,
 			connectorURI: null,
 			verificationState: VerificationState.PreparingClient,
