@@ -140,7 +140,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		handleVerify: (result: ISuccessResult) => {
 			set({ stage: IDKITStage.HOST_APP_VERIFICATION, processing: false })
 
-			Promise.all(Object.values(get().verifyCallbacks).map(cb => cb?.(result))).then(
+			Promise.all(Object.values(get().verifyCallbacks).map(async cb => cb?.(result))).then(
 				() => {
 					set({ stage: IDKITStage.SUCCESS, result })
 
