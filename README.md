@@ -78,6 +78,10 @@ All the technical docs for the Wordcoin SDK, World ID Protocol, examples, guides
 
 ## 🧑‍💻 Developing locally
 
-If you want to develop or contribute to this project, please refer to the development instructions in the `idkit` [README](/idkit/README.md).
+To develop locally, run the following in your terminal:
 
-[docs]: https://docs.worldcoin.org/idkit
+```bash
+pnpm i && turbo dev
+```
+
+This will install all necessary dependencies and start two local development servers -- one using `examples/with-html` and one using `examples/with-next`. Check your console for the URLS for each, and open them in your browser. Any changes made to `packages/core`, `packages/react` or `packages/standalone` will be automatically built and the examples will be reloaded.
