@@ -1,31 +1,37 @@
 {
-	"bootstrap-sha": "61ca0dedc321107141753dae699025d41b65ff90",
+	"release-type": "node",
 	"packages": {
-		".": {
-			"component": "root",
-			"extra-files": [
-				{
-					"type": "json",
-					"path": "example-react/package.json",
-					"jsonpath": "$.version"
-				},
-				{
-					"type": "json",
-					"path": "example-nextjs/package.json",
-					"jsonpath": "$.version"
-				}
-			],
+		"packages/core": {
+			"component": "core",
 			"skip-github-release": true
 		},
-		"idkit": {
-			"package-name": "idkit",
+		"packages/react": {
+			"component": "react",
+			"skip-github-release": true
+		},
+		"packages/standalone": {
+			"component": "standalone",
+			"skip-github-release": true
+		},
+		".": {
 			"component": "idkit",
-			"release-type": "node",
+			"changelog-path": "CHANGELOG.md",
 			"bump-minor-pre-major": false,
 			"bump-patch-for-minor-pre-major": false,
 			"draft": false,
 			"prerelease": false
 		}
 	},
+	"plugins": [
+		{
+			"type": "node-workspace",
+			"merge": false
+		},
+		{
+			"type": "linked-versions",
+			"groupName": "group",
+			"components": ["core", "react", "standalone", "idkit"]
+		}
+	],
 	"$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
 }
