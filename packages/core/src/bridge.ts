@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { buffer_decode } from './lib/utils'
+import { AppErrorCodes } from '@/types/bridge'
 import { VerificationState } from '@/types/bridge'
-import type { AppErrorCodes } from '@/types/bridge'
 import type { ISuccessResult } from '@/types/result'
 import { encodeAction, generateSignal } from '@/lib/hashing'
 import { CredentialType, type IDKitConfig } from '@/types/config'
@@ -112,6 +112,13 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 
 		const res = await fetch(`${get().bridge_url}/response/${get().requestId}`)
 
+		if (!res.ok) {
+			return set({
+				errorCode: AppErrorCodes.ConnectionFailed,
+				verificationState: VerificationState.Failed,
+			})
+		}
+
 		const { response, status } = (await res.json()) as BridgeResponse
 
 		if (status != ResponseStatus.Completed) {
@@ -141,6 +148,8 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		set({
 			iv: null,
 			key: null,
+			result: null,
+			errorCode: null,
 			requestId: null,
 			connectorURI: null,
 			verificationState: VerificationState.PreparingClient,
