@@ -19,8 +19,8 @@ importers:
         version: link:../../packages/standalone
     devDependencies:
       vite:
-        specifier: ^4.4.5
-        version: 4.4.9
+        specifier: ^4.4.12
+        version: 4.4.12
 
   examples/with-next:
     dependencies:
@@ -4401,8 +4401,8 @@ packages:
       - zod
     dev: false
 
-  /vite@4.4.9:
-    resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
+  /vite@4.4.12:
+    resolution: {integrity: sha512-KtPlUbWfxzGVul8Nut8Gw2Qe8sBzWY+8QVc5SL8iRFnpnrcoCaNlzO40c1R6hPmcdTwIPEDkq0Y9+27a5tVbdQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
