@@ -140,6 +140,9 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		handleVerify: (result: ISuccessResult) => {
 			set({ stage: IDKITStage.HOST_APP_VERIFICATION, processing: false })
 
+			// the `async` added below ensures that we properly handle errors thrown by the callbacks if they are defined as synchronous functions
+			// without it, if `handleVerify` was a synchronous function and it threw an error, the error would not be caught by the promise chain to be properly displayed in IDKit
+			// this has no effect on the callbacks if they are defined as asynchronous functions
 			Promise.all(Object.values(get().verifyCallbacks).map(async cb => cb?.(result))).then(
 				() => {
 					set({ stage: IDKITStage.SUCCESS, result })
