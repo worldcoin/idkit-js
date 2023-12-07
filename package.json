@@ -1,6 +1,6 @@
 {
 	"private": true,
-	"version": "1.0.0-alpha.4",
+	"version": "1.0.0-alpha.5",
 	"name": "idkit-monorepo",
 	"scripts": {
 		"dev": "turbo run dev",
@@ -10,5 +10,8 @@
 	},
 	"devDependencies": {
 		"turbo": "^1.10.16"
+	},
+	"engines": {
+		"node": ">=18"
 	}
 }

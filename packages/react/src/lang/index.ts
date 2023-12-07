@@ -2,7 +2,7 @@ const translations: Record<string, Record<string, string> | undefined> = {}
 
 const getLang = (): Record<string, string> | undefined => {
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- apparently `navigator.languages` can be undefined
-	if (typeof navigator === 'undefined' || !navigator.languages) return
+	if (!navigator?.languages) return
 
 	const supportedLang = navigator.languages.find(l => translations[l] != undefined) ?? ''
 

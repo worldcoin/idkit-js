@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.0.0-alpha.5](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.4...idkit-v1.0.0-alpha.5) (2023-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* handle credential_types check when using default ([#197](https://github.com/worldcoin/idkit-js/issues/197))
+
+### Features
+
+* idkit state and error handling improvements ([#194](https://github.com/worldcoin/idkit-js/issues/194)) ([2e1157f](https://github.com/worldcoin/idkit-js/commit/2e1157f3835e2443a61e5e95b07919513ddf7717))
+
+
+### Bug Fixes
+
+* expose IErrorState in react package ([#192](https://github.com/worldcoin/idkit-js/issues/192)) ([5531d8c](https://github.com/worldcoin/idkit-js/commit/5531d8c3c066bd0bb5826254f52febafdb32ac45))
+* fix example app ID & allow passing on Next example ([#196](https://github.com/worldcoin/idkit-js/issues/196)) ([eb053c6](https://github.com/worldcoin/idkit-js/commit/eb053c67761ceddaa2f23829c9ea025f30cfd475))
+* handle credential_types check when using default ([#197](https://github.com/worldcoin/idkit-js/issues/197)) ([984a190](https://github.com/worldcoin/idkit-js/commit/984a190da3c313789d1c3e2e2010f37cc937406d))
+* update dev instructions in readme ([#193](https://github.com/worldcoin/idkit-js/issues/193)) ([660ffa6](https://github.com/worldcoin/idkit-js/commit/660ffa6f35b215a22e8b4abe79dabe20f19b708e))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0-alpha.5 ([#199](https://github.com/worldcoin/idkit-js/issues/199)) ([c81bbd2](https://github.com/worldcoin/idkit-js/commit/c81bbd2411d438afc6b90e4fdbdddcd14cba2ebf))
+
 ## [1.0.0-alpha.4](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.3...idkit-v1.0.0-alpha.4) (2023-12-01)
 
 

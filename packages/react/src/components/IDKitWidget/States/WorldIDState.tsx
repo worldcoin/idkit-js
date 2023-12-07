@@ -56,8 +56,18 @@ const WorldIDState = () => {
 			setErrorState({ code: errorCode ?? AppErrorCodes.GenericError })
 		}
 
-		if (result) return handleVerify(result)
-	}, [result, reset, handleVerify, verificationState, setStage, errorCode, setErrorState])
+		if (result) {
+			if (!credential_types.includes(result.credential_type)) {
+				console.error(
+					'Credential type received from wallet does not match configured credential_types. This should only happen when manually selecting disallowed credentials in the Worldcoin Simulator.'
+				)
+				setStage(IDKITStage.ERROR)
+				setErrorState({ code: AppErrorCodes.CredentialUnavailable })
+				return
+			}
+			return handleVerify(result)
+		}
+	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, credential_types])
 
 	return (
 		<div className="-mt-6 space-y-10">

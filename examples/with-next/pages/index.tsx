@@ -1,12 +1,19 @@
 import { IDKitWidget } from '@worldcoin/idkit'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-const Home = () => (
+export const getServerSideProps = (async context => {
+	return { props: { app_id: context.query.app_id?.toString() || 'app_staging_45068dca85829d2fd90e2dd6f0bff997' } }
+}) satisfies GetServerSideProps<{
+	app_id: string
+}>
+
+const Home = ({ app_id }: InferGetServerSidePropsType<typeof getServerSideProps>) => (
 	<IDKitWidget
 		action="test-action"
 		signal="test_signal"
 		onError={error => console.log(error)}
 		onSuccess={response => console.log(response)}
-		app_id="wid_staging_a8d860d5b3450f05ae09e8f4aa935b90"
+		app_id={app_id}
 	>
 		{({ open }) => <button onClick={open}>Open IDKit</button>}
 	</IDKitWidget>
