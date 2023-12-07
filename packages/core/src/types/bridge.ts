@@ -19,3 +19,9 @@ export enum VerificationState {
 	Confirmed = 'confirmed',
 	Failed = 'failed',
 }
+
+export enum ResponseStatus {
+	Retrieved = 'retrieved',
+	Completed = 'completed',
+	Initialized = 'initialized',
+}
