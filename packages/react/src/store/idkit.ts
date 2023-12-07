@@ -7,6 +7,7 @@ import { createWithEqualityFn } from 'zustand/traditional'
 import {
 	AppErrorCodes,
 	CredentialType,
+	DEFAULT_CREDENTIAL_TYPES,
 	type IErrorState,
 	type IDKitConfig,
 	type ISuccessResult,
@@ -18,7 +19,7 @@ export type IDKitStore = {
 	signal: IDKitConfig['signal']
 	bridge_url?: IDKitConfig['bridge_url']
 	action_description?: IDKitConfig['action_description']
-	credential_types?: IDKitConfig['credential_types']
+	credential_types: NonNullable<IDKitConfig['credential_types']>
 
 	open: boolean
 	stage: IDKITStage
@@ -54,7 +55,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		action: '',
 		action_description: '',
 		bridge_url: '',
-		credential_types: [],
+		credential_types: DEFAULT_CREDENTIAL_TYPES,
 
 		open: false,
 		result: null,
@@ -118,9 +119,8 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 			}: Config,
 			source: ConfigSource
 		) => {
-			const sanitized_credential_types = credential_types?.filter(type =>
-				Object.values(CredentialType).includes(type)
-			)
+			const sanitizedCredentialTypes =
+				credential_types?.filter(type => Object.values(CredentialType).includes(type)) ?? []
 
 			set({
 				theme,
@@ -129,7 +129,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				app_id,
 				autoClose,
 				bridge_url,
-				credential_types: sanitized_credential_types,
+				credential_types: sanitizedCredentialTypes.length ? sanitizedCredentialTypes : DEFAULT_CREDENTIAL_TYPES,
 				action_description,
 			})
 
