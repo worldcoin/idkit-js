@@ -2,12 +2,12 @@ import { __ } from '@/lang'
 import { IDKITStage } from '@/types'
 import type { CallbackFn } from '@/types'
 import { shallow } from 'zustand/shallow'
-import { telemetryModalOpened } from '@/lib/telemetry'
 import type { Config, ConfigSource } from '@/types/config'
 import { createWithEqualityFn } from 'zustand/traditional'
 import {
 	AppErrorCodes,
 	CredentialType,
+	DEFAULT_CREDENTIAL_TYPES,
 	type IErrorState,
 	type IDKitConfig,
 	type ISuccessResult,
@@ -21,7 +21,7 @@ export type IDKitStore = {
 	signal: IDKitConfig['signal']
 	bridge_url?: IDKitConfig['bridge_url']
 	action_description?: IDKitConfig['action_description']
-	credential_types?: IDKitConfig['credential_types']
+	credential_types: NonNullable<IDKitConfig['credential_types']>
 
 	open: boolean
 	stage: IDKITStage
@@ -57,7 +57,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		action: '',
 		action_description: '',
 		bridge_url: '',
-		credential_types: [],
+		credential_types: DEFAULT_CREDENTIAL_TYPES,
 
 		open: false,
 		result: null,
@@ -122,9 +122,8 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 			}: Config,
 			source: ConfigSource
 		) => {
-			const sanitized_credential_types = credential_types?.filter(type =>
-				Object.values(CredentialType).includes(type)
-			)
+			const sanitizedCredentialTypes =
+				credential_types?.filter(type => Object.values(CredentialType).includes(type)) ?? []
 
 			set({
 				theme,
@@ -133,7 +132,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				autoClose,
 				bridge_url,
 				action_description,
-				credential_types: sanitized_credential_types,
+				credential_types: sanitizedCredentialTypes.length ? sanitizedCredentialTypes : DEFAULT_CREDENTIAL_TYPES,
 				app_id: advanced?.selfhosted ? SELF_HOSTED_APP_ID : app_id,
 			})
 
@@ -144,7 +143,10 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		handleVerify: (result: ISuccessResult) => {
 			set({ stage: IDKITStage.HOST_APP_VERIFICATION, processing: false })
 
-			Promise.all(Object.values(get().verifyCallbacks).map(cb => cb?.(result))).then(
+			// the `async` added below ensures that we properly handle errors thrown by the callbacks if they are defined as synchronous functions
+			// without it, if `handleVerify` was a synchronous function and it threw an error, the error would not be caught by the promise chain to be properly displayed in IDKit
+			// this has no effect on the callbacks if they are defined as asynchronous functions
+			Promise.all(Object.values(get().verifyCallbacks).map(async cb => cb?.(result))).then(
 				() => {
 					set({ stage: IDKITStage.SUCCESS, result })
 
@@ -168,7 +170,6 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		},
 		onOpenChange: open => {
 			if (open) {
-				telemetryModalOpened()
 				return set({ open })
 			}
 

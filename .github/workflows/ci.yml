@@ -7,7 +7,7 @@ on:
 
 jobs:
     build:
-        name: Lint & Build
+        name: Lint, Typecheck & Test Build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -27,7 +27,10 @@ jobs:
 
             - name: Typecheck & Build
               run: pnpm build
-            
+
             # NOTE: Lint needs to run after build because it checks the compiled files for types
             - name: Lint
               run: pnpm lint
+
+            - name: Typecheck examples/with-next
+              run: cd examples/with-next && pnpm tsc

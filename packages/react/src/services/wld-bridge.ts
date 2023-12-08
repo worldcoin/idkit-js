@@ -23,13 +23,20 @@ export const useWorldBridge = (
 		useWorldBridgeStore()
 
 	useEffect(() => {
-		if (!app_id) return
 		if (!connectorURI) {
-			void createClient(app_id, action, signal, bridge_url, ref_credential_types.current, action_description)
+			void createClient({
+				app_id,
+				action,
+				signal,
+				bridge_url,
+				credential_types: ref_credential_types.current,
+				action_description,
+			})
 		}
 	}, [app_id, action, signal, action_description, createClient, ref_credential_types, bridge_url, connectorURI])
 
 	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 		if (!connectorURI || result || errorCode) return
 
 		const interval = setInterval(() => void pollForUpdates(), 3000)

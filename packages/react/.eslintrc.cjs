@@ -58,7 +58,7 @@ module.exports = {
 		'@typescript-eslint/prefer-reduce-type-parameter': 'error',
 		'@typescript-eslint/prefer-string-starts-ends-with': 'error',
 		'@typescript-eslint/promise-function-async': ['error', { checkArrowFunctions: false }],
-		'@typescript-eslint/sort-type-union-intersection-members': 'warn',
+		'@typescript-eslint/sort-type-constituents': 'warn',
 
 		'jsx-a11y/media-has-caption': 0,
 

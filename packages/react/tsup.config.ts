@@ -6,11 +6,10 @@ export default defineConfig({
 	clean: true,
 	format: 'esm',
 	outDir: 'build',
+	loader: { '.css': 'text' },
 	entry: ['src/index.ts', 'src/internal.ts'],
 	define: {
+		'process.env.NODE_ENV': '"production"',
 		IDKitVersion: JSON.stringify(packageJson.version),
-	},
-	loader: {
-		'.css': 'text',
 	},
 })

@@ -2,9 +2,9 @@
   <img src="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/public/images/shared-readme/readme-header.png" alt="" />
 </a>
 
-# IDKit JS
+# IDKit
 
-IDKit is the new toolkit for identity online. With IDKit you can easily interact with the [World ID Protocol](https://worldcoin.org/world-id).
+IDKit is the toolkit for identity online. With IDKit you can easily interact with the [World ID Protocol](https://worldcoin.org/world-id).
 
 ## 🚀 Getting started
 
@@ -24,22 +24,12 @@ import { IDKitWidget } from "@worldcoin/idkit";
 <IDKitWidget actionId="get_this_from_the_dev_portal" signal="my_signal" handleVerify={verifyProof}>
   {({ open }) => (
     {/* You can render whatever you want here, and call open() to open the widget */}
-    <button onClick={open}>Click me</button>
+    <button onClick={open}>Verify with World ID</button>
   )}
 </IDKitWidget>
 ```
 
-If you are not using React or want to look at additional options (like rendering the component without any children), the `useIDKit` hook and more, head over to the [docs](https://docs.worldcoin.org/idkit/reference).
-
-```jsx
-import { useIDKit } from "@worldcoin/idkit";
-
-const { open, setOpen } = useIDKit({
-	signal: "my_signal",
-	handleVerify: verifyProof,
-	actionId: "get_this_from_the_dev_portal",
-});
-```
+More details can be found in the [documentation](https://docs.worldcoin.org/reference/idkit).
 
 ## 🔒 Verifying the IDKit response
 
@@ -78,6 +68,10 @@ All the technical docs for the Wordcoin SDK, World ID Protocol, examples, guides
 
 ## 🧑‍💻 Developing locally
 
-If you want to develop or contribute to this project, please refer to the development instructions in the `idkit` [README](/idkit/README.md).
+To develop locally, run the following in your terminal:
 
-[docs]: https://docs.worldcoin.org/idkit
+```bash
+pnpm i && pnpm dev
+```
+
+This will install all necessary dependencies and start two local development servers -- one using `examples/with-html` and one using `examples/with-next`. Check your console for the URLS for each, and open them in your browser. Any changes made to `packages/core`, `packages/react` or `packages/standalone` will be automatically built and the examples will be reloaded.
