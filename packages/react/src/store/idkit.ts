@@ -118,7 +118,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				bridge_url,
 				autoClose,
 				theme,
-				unstable_selfHosted,
+				advanced,
 			}: Config,
 			source: ConfigSource
 		) => {
@@ -134,7 +134,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				bridge_url,
 				action_description,
 				credential_types: sanitized_credential_types,
-				app_id: unstable_selfHosted ? SELF_HOSTED_APP_ID : app_id,
+				app_id: advanced?.selfhosted ? SELF_HOSTED_APP_ID : app_id,
 			})
 
 			get().addSuccessCallback(onSuccess, source)
