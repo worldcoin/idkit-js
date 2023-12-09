@@ -13,8 +13,10 @@ import {
 	type ISuccessResult,
 } from '@worldcoin/idkit-core'
 
+const SELF_HOSTED_APP_ID = 'self_hosted'
+
 export type IDKitStore = {
-	app_id: IDKitConfig['app_id']
+	app_id: IDKitConfig['app_id'] | typeof SELF_HOSTED_APP_ID | ''
 	action: IDKitConfig['action']
 	signal: IDKitConfig['signal']
 	bridge_url?: IDKitConfig['bridge_url']
@@ -116,6 +118,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				bridge_url,
 				autoClose,
 				theme,
+				advanced,
 			}: Config,
 			source: ConfigSource
 		) => {
@@ -126,11 +129,11 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				theme,
 				signal,
 				action,
-				app_id,
 				autoClose,
 				bridge_url,
-				credential_types: sanitizedCredentialTypes.length ? sanitizedCredentialTypes : DEFAULT_CREDENTIAL_TYPES,
 				action_description,
+				credential_types: sanitizedCredentialTypes.length ? sanitizedCredentialTypes : DEFAULT_CREDENTIAL_TYPES,
+				app_id: advanced?.self_hosted ? SELF_HOSTED_APP_ID : app_id,
 			})
 
 			get().addSuccessCallback(onSuccess, source)
