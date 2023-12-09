@@ -14,7 +14,7 @@ export const buffer_decode = (encoded: string): ArrayBuffer => {
 export const verification_level_to_credential_types = (verification_level: VerificationLevel): string[] => {
     switch (verification_level) {
         case VerificationLevel.Lite:
-            return ['device']
+            return ['device', 'orb']
         case VerificationLevel.Orb:
             return ['orb']
         default:
