@@ -133,7 +133,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				bridge_url,
 				action_description,
 				credential_types: sanitizedCredentialTypes.length ? sanitizedCredentialTypes : DEFAULT_CREDENTIAL_TYPES,
-				app_id: advanced?.selfhosted ? SELF_HOSTED_APP_ID : app_id,
+				app_id: advanced?.self_hosted ? SELF_HOSTED_APP_ID : app_id,
 			})
 
 			get().addSuccessCallback(onSuccess, source)

@@ -40,7 +40,7 @@ const WorldIDState = () => {
 	} = useIDKitStore(getOptions, shallow)
 
 	const { connectorURI, reset, errorCode, result, verificationState } = useWorldBridge(
-		app_id,
+		app_id as `app_${string}`,
 		action,
 		signal,
 		bridge_url,

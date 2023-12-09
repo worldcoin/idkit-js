@@ -22,7 +22,7 @@ export type WidgetConfig = {
 
 export type Config = Required<Pick<IDKitConfig, 'action'>> &
 	WidgetConfig &
-	((Exclude<IDKitConfig, 'app_id'> & { advanced: { selfhosted: true } }) | (IDKitConfig & { advanced?: { selfhosted?: false } }))
+	((Exclude<IDKitConfig, 'app_id'> & { advanced: { self_hosted: true } }) | (IDKitConfig & { advanced?: { self_hosted?: false } }))
 
 export type WidgetProps = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
