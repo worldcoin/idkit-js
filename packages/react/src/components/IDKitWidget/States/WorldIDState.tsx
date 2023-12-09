@@ -20,7 +20,7 @@ const getOptions = (store: IDKitStore) => ({
 	bridge_url: store.bridge_url,
 	handleVerify: store.handleVerify,
 	setErrorState: store.setErrorState,
-	credential_types: store.credential_types,
+	verification_level: store.verification_level,
 	action_description: store.action_description,
 })
 
@@ -35,7 +35,7 @@ const WorldIDState = () => {
 		handleVerify,
 		bridge_url,
 		action_description,
-		credential_types,
+		verification_level,
 		setErrorState,
 	} = useIDKitStore(getOptions, shallow)
 
@@ -44,7 +44,7 @@ const WorldIDState = () => {
 		action,
 		signal,
 		bridge_url,
-		credential_types,
+		verification_level,
 		action_description
 	)
 
@@ -57,17 +57,18 @@ const WorldIDState = () => {
 		}
 
 		if (result) {
-			if (!credential_types.includes(result.credential_type)) {
-				console.error(
-					'Credential type received from wallet does not match configured credential_types. This should only happen when manually selecting disallowed credentials in the Worldcoin Simulator.'
-				)
-				setStage(IDKITStage.ERROR)
-				setErrorState({ code: AppErrorCodes.CredentialUnavailable })
-				return
-			}
+            // TODO: Bring this back once we get rid of credential types in the app as well
+			// if (!credential_types.includes(result.credential_type)) {
+			// 	console.error(
+			// 		'Credential type received from wallet does not match configured credential_types. This should only happen when manually selecting disallowed credentials in the Worldcoin Simulator.'
+			// 	)
+			// 	setStage(IDKITStage.ERROR)
+			// 	setErrorState({ code: AppErrorCodes.CredentialUnavailable })
+			// 	return
+			// }
 			return handleVerify(result)
 		}
-	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, credential_types])
+	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, verification_level])
 
 	return (
 		<div className="-mt-6 space-y-6">

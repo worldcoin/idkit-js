@@ -15,10 +15,10 @@ export const useWorldBridge = (
 	action: IDKitConfig['action'],
 	signal?: IDKitConfig['signal'],
 	bridge_url?: IDKitConfig['bridge_url'],
-	credential_types?: IDKitConfig['credential_types'],
+	verification_level?: IDKitConfig['verification_level'],
 	action_description?: IDKitConfig['action_description']
 ): UseAppBridgeResponse => {
-	const ref_credential_types = useRef(credential_types)
+	const ref_verification_level = useRef(verification_level)
 	const { reset, result, connectorURI, createClient, pollForUpdates, verificationState, errorCode } =
 		useWorldBridgeStore()
 
@@ -29,11 +29,11 @@ export const useWorldBridge = (
 				action,
 				signal,
 				bridge_url,
-				credential_types: ref_credential_types.current,
 				action_description,
+				verification_level: ref_verification_level.current,
 			})
 		}
-	}, [app_id, action, signal, action_description, createClient, ref_credential_types, bridge_url, connectorURI])
+	}, [app_id, action, signal, action_description, createClient, ref_verification_level, bridge_url, connectorURI])
 
 	useEffect(() => {
 		// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing

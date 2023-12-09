@@ -4,10 +4,11 @@ export {
 	AppErrorCodes,
 	VerificationState,
 	AbiEncodedValue,
-	CredentialType,
+    CredentialType,
+	VerificationLevel,
 	IDKitConfig,
 } from '@/types'
 
 export { useWorldBridgeStore, WorldBridgeStore } from '@/bridge'
 
-export { DEFAULT_CREDENTIAL_TYPES } from '@/lib/utils'
+export { DEFAULT_VERIFICATION_LEVEL } from '@/lib/utils'

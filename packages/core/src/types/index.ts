@@ -1,3 +1,3 @@
 export { ISuccessResult, IErrorState } from '@/types/result'
 export { AppErrorCodes, VerificationState } from '@/types/bridge'
-export { AbiEncodedValue, CredentialType, IDKitConfig } from '@/types/config'
+export { AbiEncodedValue, VerificationLevel, CredentialType, IDKitConfig } from '@/types/config'
