@@ -124,7 +124,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 
 		let result = JSON.parse(
 			await decryptResponse(key, buffer_decode(response.iv), response.payload)
-		) as BridgeResult
+		) satisfies BridgeResult
 
 		if ('error_code' in result) {
 			return set({
