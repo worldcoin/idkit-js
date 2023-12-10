@@ -70,7 +70,7 @@
 		"framer-motion": "^7.6.7",
 		"posthog-js-lite": "2.4.0",
 		"qrcode": "^1.5.1",
-		"react-shadow": "^20.4.0",
+		"react-shadow": "^19.1.0",
 		"zustand": "^4.3.3"
 	},
 	"devDependencies": {

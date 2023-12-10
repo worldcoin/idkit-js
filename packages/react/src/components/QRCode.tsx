@@ -74,7 +74,7 @@ const Qrcode = ({ data, size = 300 }: Props) => {
 	}, [size, data])
 
 	return (
-		<svg height={size} width={size}>
+		<svg height={size} width={size} data-test-id="qr-code">
 			{dots}
 		</svg>
 	)
