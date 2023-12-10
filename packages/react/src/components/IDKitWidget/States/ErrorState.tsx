@@ -3,6 +3,7 @@ import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
 import ErrorIcon from '@/components/Icons/ErrorIcon'
 import { AppErrorCodes } from '@worldcoin/idkit-core'
+import ReloadIcon from '@/components/Icons/ReloadIcon'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
@@ -54,8 +55,9 @@ const ErrorState = () => {
 				<button
 					type="button"
 					onClick={retryFlow}
-					className="inline-flex items-center rounded-full border border-transparent bg-indigo-600 px-8 py-3 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-indigo-600"
+					className="inline-flex items-center rounded-lg border border-ebecef bg-transparent px-8 py-3 font-medium text-3c424b shadow-sm transition duration-300 hover:shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
 				>
+					<ReloadIcon className="mr-1.5 h-5 w-5" />
 					{__('Try Again')}
 				</button>
 			</div>
