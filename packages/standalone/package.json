@@ -25,7 +25,8 @@
 		"build": "tsup",
 		"dev": "tsup --watch",
 		"lint": "eslint src --ext .tsx",
-		"test": "concurrently --kill-others \"http-server ./build/ -p 8080\"  \"node src/browser.test.js\" && exit 0",
+		"test": "concurrently --kill-others \"http-server ./build/ -p 8080\"  \"pnpm test:browser\"",
+		"test:browser": "node src/browser.test.js &",
 		"prepublishOnly": "npm run build",
 		"install-chrome": "puppeteer browsers install chrome"
 	},
