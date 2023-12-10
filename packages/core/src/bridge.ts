@@ -1,11 +1,17 @@
 import { create } from 'zustand'
-import { DEFAULT_VERIFICATION_LEVEL, buffer_decode, verification_level_to_credential_types } from './lib/utils'
-import { type IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { ISuccessResult } from '@/types/result'
+import type { CredentialType } from '@/types/config'
 import { encodeAction, generateSignal } from '@/lib/hashing'
 import { AppErrorCodes, ResponseStatus } from '@/types/bridge'
+import { VerificationLevel, type IDKitConfig } from '@/types/config'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
+import {
+	DEFAULT_VERIFICATION_LEVEL,
+	buffer_decode,
+	credential_type_to_verification_level,
+	verification_level_to_credential_types,
+} from './lib/utils'
 
 const DEFAULT_BRIDGE_URL = 'https://bridge.worldcoin.org'
 
@@ -18,6 +24,11 @@ type BridgeResponse =
 			status: ResponseStatus.Completed
 			response: { iv: string; payload: string }
 	  }
+
+type BridgeResult =
+	| ISuccessResult
+	| (Omit<ISuccessResult, 'verification_level'> & { credential_type: CredentialType })
+	| { error_code: AppErrorCodes }
 
 export type WorldBridgeStore = {
 	bridge_url: string
@@ -59,7 +70,10 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 						action_description,
 						action: encodeAction(action),
 						signal: generateSignal(signal).digest,
-						credential_types: verification_level_to_credential_types(verification_level ?? DEFAULT_VERIFICATION_LEVEL),
+						credential_types: verification_level_to_credential_types(
+							verification_level ?? DEFAULT_VERIFICATION_LEVEL
+						),
+						verification_level,
 					})
 				)
 			),
@@ -108,18 +122,36 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			})
 		}
 
-		const result = JSON.parse(await decryptResponse(key, buffer_decode(response.iv), response.payload)) as
-			| ISuccessResult
-			| { error_code: AppErrorCodes }
+		const result = JSON.parse(
+			await decryptResponse(key, buffer_decode(response.iv), response.payload)
+		) as BridgeResult
 
 		if ('error_code' in result) {
 			return set({
 				errorCode: result.error_code,
 				verificationState: VerificationState.Failed,
 			})
+		} else if ('credential_type' in result) {
+			const processedResult = {
+				verification_level: credential_type_to_verification_level(result.credential_type),
+				...result,
+			} satisfies ISuccessResult
+			set({
+				result: processedResult,
+				verificationState: VerificationState.Confirmed,
+				key: null,
+				connectorURI: null,
+				requestId: null,
+			})
+		} else {
+			set({
+				result,
+				verificationState: VerificationState.Confirmed,
+				key: null,
+				connectorURI: null,
+				requestId: null,
+			})
 		}
-
-		set({ result, verificationState: VerificationState.Confirmed, key: null, connectorURI: null, requestId: null })
 	},
 
 	reset: () => {

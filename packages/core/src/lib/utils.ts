@@ -12,7 +12,7 @@ export const buffer_decode = (encoded: string): ArrayBuffer => {
 }
 
 /**
- * @deprecated use to transition to verification levels from credential types
+ * @dev use to convert verification level to accepted credential types for proof request
  * @param verification_level
  * @returns
  */
@@ -24,5 +24,21 @@ export const verification_level_to_credential_types = (verification_level: Verif
 			return [CredentialType.Orb]
 		default:
 			throw new Error(`Unknown verification level: ${verification_level}`)
+	}
+}
+
+/**
+ * @dev use to convert credential type to verification level upon proof response
+ * @param verification_level
+ * @returns
+ */
+export const credential_type_to_verification_level = (credential_type: CredentialType): VerificationLevel => {
+	switch (credential_type) {
+		case CredentialType.Orb:
+			return VerificationLevel.Orb
+		case CredentialType.Device:
+			return VerificationLevel.Lite
+		default:
+			throw new Error(`Unknown credential_type: ${credential_type}`)
 	}
 }
