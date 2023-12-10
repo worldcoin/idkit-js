@@ -124,7 +124,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 
 		let result = JSON.parse(
 			await decryptResponse(key, buffer_decode(response.iv), response.payload)
-		) satisfies BridgeResult
+		) as BridgeResult
 
 		if ('error_code' in result) {
 			return set({
@@ -133,20 +133,20 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			})
 		}
 
-        if ('credential_type' in result) {
+		if ('credential_type' in result) {
 			result = {
 				verification_level: credential_type_to_verification_level(result.credential_type),
 				...result,
 			} satisfies ISuccessResult
 		}
 
-        set({
-            result,
-            key: null,
-            requestId: null,
-            connectorURI: null,
-            verificationState: VerificationState.Confirmed,
-        })
+		set({
+			result,
+			key: null,
+			requestId: null,
+			connectorURI: null,
+			verificationState: VerificationState.Confirmed,
+		})
 	},
 
 	reset: () => {
