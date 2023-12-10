@@ -25,7 +25,10 @@
 		"build": "tsup",
 		"dev": "tsup --watch",
 		"lint": "eslint src --ext .tsx",
-		"prepublishOnly": "npm run build"
+		"test": "concurrently --kill-others \"http-server ./build/ -p 8080\"  \"pnpm test:browser\"",
+		"test:browser": "node src/browser.test.js &",
+		"prepublishOnly": "npm run build",
+		"install-chrome": "puppeteer browsers install chrome"
 	},
 	"keywords": [
 		"identity",
@@ -44,9 +47,13 @@
 		"@types/react-dom": "18.0.9",
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
 		"@typescript-eslint/parser": "^6.13.1",
+		"concurrently": "^8.2.2",
 		"eslint": "8.54.0",
+		"http-server": "^14.1.1",
 		"prettier": "^2.8.8",
 		"prettier-plugin-sort-imports-desc": "^1.0.0",
+		"puppeteer": "^21.6.0",
+		"ts-node": "^10.9.2",
 		"tsup": "^7.2.0",
 		"typescript": "^5.3.2"
 	}
