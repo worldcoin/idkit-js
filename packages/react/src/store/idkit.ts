@@ -7,18 +7,21 @@ import { createWithEqualityFn } from 'zustand/traditional'
 import {
 	AppErrorCodes,
 	CredentialType,
+	DEFAULT_CREDENTIAL_TYPES,
 	type IErrorState,
 	type IDKitConfig,
 	type ISuccessResult,
 } from '@worldcoin/idkit-core'
 
+const SELF_HOSTED_APP_ID = 'self_hosted'
+
 export type IDKitStore = {
-	app_id: IDKitConfig['app_id']
+	app_id: IDKitConfig['app_id'] | typeof SELF_HOSTED_APP_ID | ''
 	action: IDKitConfig['action']
 	signal: IDKitConfig['signal']
 	bridge_url?: IDKitConfig['bridge_url']
 	action_description?: IDKitConfig['action_description']
-	credential_types?: IDKitConfig['credential_types']
+	credential_types: NonNullable<IDKitConfig['credential_types']>
 
 	open: boolean
 	stage: IDKITStage
@@ -54,7 +57,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		action: '',
 		action_description: '',
 		bridge_url: '',
-		credential_types: [],
+		credential_types: DEFAULT_CREDENTIAL_TYPES,
 
 		open: false,
 		result: null,
@@ -115,22 +118,22 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				bridge_url,
 				autoClose,
 				theme,
+				advanced,
 			}: Config,
 			source: ConfigSource
 		) => {
-			const sanitized_credential_types = credential_types?.filter(type =>
-				Object.values(CredentialType).includes(type)
-			)
+			const sanitizedCredentialTypes =
+				credential_types?.filter(type => Object.values(CredentialType).includes(type)) ?? []
 
 			set({
 				theme,
 				signal,
 				action,
-				app_id,
 				autoClose,
 				bridge_url,
-				credential_types: sanitized_credential_types,
 				action_description,
+				credential_types: sanitizedCredentialTypes.length ? sanitizedCredentialTypes : DEFAULT_CREDENTIAL_TYPES,
+				app_id: advanced?.self_hosted ? SELF_HOSTED_APP_ID : app_id,
 			})
 
 			get().addSuccessCallback(onSuccess, source)

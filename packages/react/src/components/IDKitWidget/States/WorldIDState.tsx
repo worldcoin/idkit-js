@@ -40,7 +40,7 @@ const WorldIDState = () => {
 	} = useIDKitStore(getOptions, shallow)
 
 	const { connectorURI, reset, errorCode, result, verificationState } = useWorldBridge(
-		app_id,
+		app_id as `app_${string}`,
 		action,
 		signal,
 		bridge_url,
@@ -57,9 +57,9 @@ const WorldIDState = () => {
 		}
 
 		if (result) {
-			if (!credential_types?.includes(result.credential_type)) {
+			if (!credential_types.includes(result.credential_type)) {
 				console.error(
-					'Credential type returned does not match configured credential_types. This should only happen when manually selecting disallowed credentials in the Worldcoin Simulator.'
+					'Credential type received from wallet does not match configured credential_types. This should only happen when manually selecting disallowed credentials in the Worldcoin Simulator.'
 				)
 				setStage(IDKITStage.ERROR)
 				setErrorState({ code: AppErrorCodes.CredentialUnavailable })

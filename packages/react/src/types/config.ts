@@ -20,7 +20,9 @@ export type WidgetConfig = {
 	onError?: CallbackFn<IErrorState>
 }
 
-export type Config = IDKitConfig & Required<Pick<IDKitConfig, 'action'>> & WidgetConfig
+export type Config = Required<Pick<IDKitConfig, 'action'>> &
+	WidgetConfig &
+	((Exclude<IDKitConfig, 'app_id'> & { advanced: { self_hosted: true } }) | (IDKitConfig & { advanced?: { self_hosted?: false } }))
 
 export type WidgetProps = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
