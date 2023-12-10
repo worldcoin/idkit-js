@@ -54,6 +54,9 @@ jobs:
             - name: Install dependencies
               run: pnpm install
 
+            - name: Install Chrome
+              run: npx puppeteer browsers install chrome
+
             - name: Typecheck & Build
               run: pnpm build
 
