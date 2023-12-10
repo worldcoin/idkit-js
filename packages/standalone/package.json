@@ -26,7 +26,8 @@
 		"dev": "tsup --watch",
 		"lint": "eslint src --ext .tsx",
 		"test": "concurrently \"http-server ./build/ -p 8080\"  \"node src/browser.test.js\" --kill-others",
-		"prepublishOnly": "npm run build"
+		"prepublishOnly": "npm run build",
+		"install-chrome": "puppeteer browsers install chrome"
 	},
 	"keywords": [
 		"identity",

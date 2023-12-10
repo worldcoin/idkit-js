@@ -55,7 +55,7 @@ jobs:
               run: pnpm install
 
             - name: Install Chrome
-              run: npx puppeteer browsers install chrome
+              run: pnpm install-chrome
 
             - name: Typecheck & Build
               run: pnpm build
