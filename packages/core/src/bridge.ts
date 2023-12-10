@@ -73,7 +73,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 						credential_types: verification_level_to_credential_types(
 							verification_level ?? DEFAULT_VERIFICATION_LEVEL
 						),
-						verification_level,
+						verification_level: verification_level ?? DEFAULT_VERIFICATION_LEVEL,
 					})
 				)
 			),
