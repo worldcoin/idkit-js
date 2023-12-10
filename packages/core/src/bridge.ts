@@ -1,10 +1,10 @@
 import { create } from 'zustand'
+import { DEFAULT_VERIFICATION_LEVEL, buffer_decode, verification_level_to_credential_types } from './lib/utils'
 import { type IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { ISuccessResult } from '@/types/result'
 import { encodeAction, generateSignal } from '@/lib/hashing'
 import { AppErrorCodes, ResponseStatus } from '@/types/bridge'
-import { buffer_decode, credential_types_or_default } from './lib/utils'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
 
 const DEFAULT_BRIDGE_URL = 'https://bridge.worldcoin.org'
@@ -44,7 +44,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 	bridge_url: DEFAULT_BRIDGE_URL,
 	verificationState: VerificationState.PreparingClient,
 
-	createClient: async ({ bridge_url, app_id, credential_types, action_description, action, signal }) => {
+	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal }) => {
 		const { key, iv } = await generateKey()
 
 		const res = await fetch(`${bridge_url ?? DEFAULT_BRIDGE_URL}/request`, {
@@ -56,10 +56,10 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 					iv,
 					JSON.stringify({
 						app_id,
-						credential_types: credential_types_or_default(credential_types),
 						action_description,
 						action: encodeAction(action),
 						signal: generateSignal(signal).digest,
+						credential_types: verification_level_to_credential_types(verification_level ?? DEFAULT_VERIFICATION_LEVEL),
 					})
 				)
 			),

@@ -3,9 +3,17 @@ type Brand<T, TBrand extends string> = T & { [brand]: TBrand }
 
 export type AbiEncodedValue = Brand<{ types: string[]; values: unknown[] }, 'AbiEncodedValue'>
 
+/**
+ * @deprecated in IDKit@1.0.0, use VerificationLevel instead
+ */
 export enum CredentialType {
 	Orb = 'orb',
 	Device = 'device',
+}
+
+export enum VerificationLevel {
+	Lite = 'lite',
+	Orb = 'orb',
 }
 
 export type IDKitConfig = {
@@ -19,6 +27,6 @@ export type IDKitConfig = {
 	action?: AbiEncodedValue | string
 	/** URL to a third-party bridge to use when connecting to the World App. Optional. */
 	bridge_url?: string
-	/** An array of credential types to allow for verification. Will accept any combination of "orb" & "device". Defaults to orb. TypeScript apps can use the `CredentialType` enum. */
-	credential_types?: CredentialType[] // Accepted credentials for verification by the host app
+	/** The minimum required level of verification. Defaults to "orb". */
+	verification_level?: VerificationLevel
 }

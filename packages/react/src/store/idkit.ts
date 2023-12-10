@@ -6,8 +6,7 @@ import type { Config, ConfigSource } from '@/types/config'
 import { createWithEqualityFn } from 'zustand/traditional'
 import {
 	AppErrorCodes,
-	CredentialType,
-	DEFAULT_CREDENTIAL_TYPES,
+	DEFAULT_VERIFICATION_LEVEL,
 	type IErrorState,
 	type IDKitConfig,
 	type ISuccessResult,
@@ -21,7 +20,7 @@ export type IDKitStore = {
 	signal: IDKitConfig['signal']
 	bridge_url?: IDKitConfig['bridge_url']
 	action_description?: IDKitConfig['action_description']
-	credential_types: NonNullable<IDKitConfig['credential_types']>
+	verification_level: NonNullable<IDKitConfig['verification_level']>
 
 	open: boolean
 	stage: IDKITStage
@@ -57,7 +56,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		action: '',
 		action_description: '',
 		bridge_url: '',
-		credential_types: DEFAULT_CREDENTIAL_TYPES,
+		verification_level: DEFAULT_VERIFICATION_LEVEL,
 
 		open: false,
 		result: null,
@@ -113,7 +112,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				action,
 				app_id,
 				onError,
-				credential_types,
+				verification_level,
 				action_description,
 				bridge_url,
 				autoClose,
@@ -122,9 +121,6 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 			}: Config,
 			source: ConfigSource
 		) => {
-			const sanitizedCredentialTypes =
-				credential_types?.filter(type => Object.values(CredentialType).includes(type)) ?? []
-
 			set({
 				theme,
 				signal,
@@ -132,8 +128,8 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				autoClose,
 				bridge_url,
 				action_description,
-				credential_types: sanitizedCredentialTypes.length ? sanitizedCredentialTypes : DEFAULT_CREDENTIAL_TYPES,
 				app_id: advanced?.self_hosted ? SELF_HOSTED_APP_ID : app_id,
+				verification_level: verification_level ?? DEFAULT_VERIFICATION_LEVEL,
 			})
 
 			get().addSuccessCallback(onSuccess, source)
