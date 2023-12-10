@@ -70,21 +70,17 @@ const WorldIDState = () => {
 	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, credential_types])
 
 	return (
-		<div className="-mt-6 space-y-6">
+		<div className="-mt-6 space-y-10">
 			<div>
-				<div className="mb-2 flex items-center justify-center">
-					<WorldcoinIcon className="h-8 text-0d151d dark:text-white" />
+				<div className="mb-4 flex items-center justify-center">
+					<WorldcoinIcon className="h-10 text-0d151d dark:text-white" />
 				</div>
 				<p className="text-center font-sora text-2xl font-semibold text-gray-900 dark:text-white">
-					{verificationState === VerificationState.WaitingForApp
-						? __('Confirm in World App')
-						: __('Continue with Worldcoin')}
+					{__('Verify with World ID')}
 				</p>
-				{verificationState === VerificationState.WaitingForApp && (
-					<p className="mt-3 text-center text-70868f dark:text-9eafc0 md:mt-2">
-						Please confirm the request in your app to continue.
-					</p>
-				)}
+				<p className="mt-3 text-center text-657080 dark:text-9eafc0 md:mt-2">
+					Please use your World App to scan the QR code
+				</p>
 			</div>
 			{verificationState === VerificationState.WaitingForApp ? (
 				<div className="flex items-center justify-center">
@@ -93,7 +89,6 @@ const WorldIDState = () => {
 			) : (
 				<QRState showQR={showQR} setShowQR={setShowQR} qrData={connectorURI} />
 			)}
-			{(media == 'desktop' || !showQR) && <AboutWorldID />}
 		</div>
 	)
 }

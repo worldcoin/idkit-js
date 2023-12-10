@@ -8,6 +8,7 @@ import { useCallback, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
+import QRPlaceholderIcon from '@/components/Icons/QRPlaceholderIcon'
 
 type Props = {
 	qrData: string | null
@@ -80,7 +81,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 								</div>
 							) : (
 								<div className="flex h-[244px] w-[244px] items-center justify-center">
-									<LoadingIcon className="h-[72px] w-[72px]" />
+									<QRPlaceholderIcon className="h-[244px] w-[244px] animate-pulse" />
 								</div>
 							)}
 						</div>

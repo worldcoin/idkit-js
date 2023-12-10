@@ -109,12 +109,10 @@ module.exports = {
 				...mirrorHexColors([
 					'#0d151d',
 					'#1e40af',
-					'#28303f',
 					'#29343f',
 					'#4940e0',
 					'#596673',
-					'#5b52f3',
-					'#6445dd',
+					'#657080',
 					'#70868f',
 					'#9eafc0',
 					'#d3dfea',
@@ -122,7 +120,7 @@ module.exports = {
 					'#ece8fb',
 					'#f1f5f8',
 					'#f2f5f9',
-					'#ff6848',
+					'#f5f5f7',
 				]),
 			},
 			backgroundImage: {
