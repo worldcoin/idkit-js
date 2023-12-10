@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.0-alpha.6](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.5...idkit-v1.0.0-alpha.6) (2023-12-10)
+
+
+### Features
+
+* font size robustness ([44c1a1f](https://github.com/worldcoin/idkit-js/commit/44c1a1ff1f23d4dfc3293163dadccd9d1932aa6d))
+* Improve DX for self-hosted use-cases ([#171](https://github.com/worldcoin/idkit-js/issues/171)) ([a6a5efd](https://github.com/worldcoin/idkit-js/commit/a6a5efd31aa2b8694cb3500787069bf6d192124e))
+* refresh design ([#191](https://github.com/worldcoin/idkit-js/issues/191)) ([fe7d166](https://github.com/worldcoin/idkit-js/commit/fe7d166be8bd5a3cffc86e20bb02a0c4ce5d9596))
+* return verification_level instead of credential_type ([#203](https://github.com/worldcoin/idkit-js/issues/203)) ([a6d52f0](https://github.com/worldcoin/idkit-js/commit/a6d52f02536b1efa9ab1da16eceac9edd44a69a4))
+* Switch from credential types to verification level ([#202](https://github.com/worldcoin/idkit-js/issues/202)) ([9cbae6e](https://github.com/worldcoin/idkit-js/commit/9cbae6e2a043ccdd18d410412386c02fba6c8291))
+
+
+### Bug Fixes
+
+* vercel build next ([#201](https://github.com/worldcoin/idkit-js/issues/201)) ([b49a58c](https://github.com/worldcoin/idkit-js/commit/b49a58ca263346b440bdba9fe4f5259e133ca07a))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0-alpha.6 ([ee9771d](https://github.com/worldcoin/idkit-js/commit/ee9771d869a90fcd13f7eed4c29af8ef573e355f))
+
 ## [1.0.0-alpha.5](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.4...idkit-v1.0.0-alpha.5) (2023-12-07)
 
 
