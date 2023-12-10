@@ -6,7 +6,6 @@ import type { Config, ConfigSource } from '@/types/config'
 import { createWithEqualityFn } from 'zustand/traditional'
 import {
 	AppErrorCodes,
-	VerificationLevel,
 	DEFAULT_VERIFICATION_LEVEL,
 	type IErrorState,
 	type IDKitConfig,

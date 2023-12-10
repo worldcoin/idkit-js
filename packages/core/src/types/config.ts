@@ -3,9 +3,12 @@ type Brand<T, TBrand extends string> = T & { [brand]: TBrand }
 
 export type AbiEncodedValue = Brand<{ types: string[]; values: unknown[] }, 'AbiEncodedValue'>
 
+/**
+ * @deprecated in IDKit@1.0.0, use VerificationLevel instead
+ */
 export enum CredentialType {
-    Orb = 'orb',
-    Device = 'device',
+	Orb = 'orb',
+	Device = 'device',
 }
 
 export enum VerificationLevel {

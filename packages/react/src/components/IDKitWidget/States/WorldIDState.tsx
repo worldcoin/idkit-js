@@ -10,7 +10,7 @@ import AboutWorldID from '@/components/AboutWorldID'
 import { useWorldBridge } from '@/services/wld-bridge'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
-import { AppErrorCodes, VerificationState } from '@worldcoin/idkit-core'
+import { AppErrorCodes, VerificationState, verification_level_to_credential_types } from '@worldcoin/idkit-core'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
@@ -57,15 +57,15 @@ const WorldIDState = () => {
 		}
 
 		if (result) {
-            // TODO: Bring this back once we get rid of credential types in the app as well
-			// if (!credential_types.includes(result.credential_type)) {
-			// 	console.error(
-			// 		'Credential type received from wallet does not match configured credential_types. This should only happen when manually selecting disallowed credentials in the Worldcoin Simulator.'
-			// 	)
-			// 	setStage(IDKITStage.ERROR)
-			// 	setErrorState({ code: AppErrorCodes.CredentialUnavailable })
-			// 	return
-			// }
+			const credential_types = verification_level_to_credential_types(verification_level)
+			if (!credential_types.includes(result.credential_type)) {
+				console.error(
+					'Credential type received from wallet does not match configured credential_types. This should only happen when manually selecting disallowed credentials in the Worldcoin Simulator.'
+				)
+				setStage(IDKITStage.ERROR)
+				setErrorState({ code: AppErrorCodes.CredentialUnavailable })
+				return
+			}
 			return handleVerify(result)
 		}
 	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, verification_level])
