@@ -12,7 +12,7 @@ void (async () => {
 		<title>Test</title>
 	</head>
 	<body>
-		<script src="http://localhost:8080/index1.global.js"></script>
+		<script src="http://localhost:8080/index.global.js"></script>
 
 		<script>
 		window.addEventListener("load", (event) => {
