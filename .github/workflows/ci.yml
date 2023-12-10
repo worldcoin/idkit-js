@@ -54,11 +54,13 @@ jobs:
             - name: Install dependencies
               run: pnpm install
 
-            - name: Install Chrome
-              run: pnpm install-chrome
-
             - name: Typecheck & Build
               run: pnpm build
+
+            - name: Install Chrome
+              run: |
+                  cd packages/standalone
+                  pnpm install-chrome
 
             - name: Serve /build files
               run: |
