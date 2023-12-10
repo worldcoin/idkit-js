@@ -34,3 +34,30 @@ jobs:
 
             - name: Typecheck examples/with-next
               run: cd examples/with-next && pnpm tsc
+
+    standalone-test:
+        name: Test idkit-standalone in browser
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - uses: pnpm/action-setup@v2.4.0
+              with:
+                  version: 8
+
+            - name: Setup Node.js environment
+              uses: actions/setup-node@v3
+              with:
+                  cache: 'pnpm'
+                  node-version: 18
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Typecheck & Build
+              run: pnpm build
+
+            - name: Test
+              run: |
+                  cd packages/standalone
+                  pnpm test
