@@ -11,7 +11,7 @@ type Props = {
 const AboutWorldID: FC<Props> = ({ className }) => {
 	return (
 		<div className={classNames(className, 'space-y-4 text-left')}>
-			<p className="text-0d151d text-sm font-medium uppercase dark:text-white">{__('What is World ID?')}</p>
+			<p className="text-sm font-medium uppercase text-0d151d dark:text-white">{__('What is World ID?')}</p>
 			<div className="space-y-3">
 				<FeatureHighlight title="Your global digital ID" icon={HumanIcon}>
 					<p>{__('With Worldcoin and World ID sign in seamlessly and prove you are a unique human.')}</p>
@@ -31,12 +31,12 @@ type FeatureHighlightProps = PropsWithChildren<{
 
 const FeatureHighlight: FC<FeatureHighlightProps> = ({ icon: Icon, title, children }) => (
 	<div className="flex space-x-6">
-		<div className="bg-d3dfea/30 dark:bg-29343f flex aspect-square h-8 w-8 items-center justify-center rounded-full">
-			<Icon className="text-0d151d h-3 w-3 dark:text-white" />
+		<div className="flex aspect-square h-8 w-8 items-center justify-center rounded-full bg-d3dfea/30 dark:bg-29343f">
+			<Icon className="h-3 w-3 text-0d151d dark:text-white" />
 		</div>
 		<div>
-			<p className="text-0d151d font-medium dark:text-white">{title}</p>
-			<div className="text-9eafc0 dark:text-9eafc0 mt-[2px] text-sm font-normal">{children}</div>
+			<p className="font-medium text-0d151d dark:text-white">{title}</p>
+			<div className="mt-[2px] text-sm font-normal text-9eafc0 dark:text-9eafc0">{children}</div>
 		</div>
 	</div>
 )

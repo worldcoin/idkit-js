@@ -26,7 +26,6 @@ export type IDKitStore = {
 	stage: IDKITStage
 	autoClose: boolean
 	processing: boolean
-	theme: Config['theme']
 	result: ISuccessResult | null
 	errorState: IErrorState | null
 	errorCallbacks: Record<ConfigSource, CallbackFn<IErrorState> | undefined> | Record<string, never>
@@ -60,7 +59,6 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 
 		open: false,
 		result: null,
-		theme: 'light',
 		errorTitle: '',
 		errorDetail: '',
 		autoClose: true,
@@ -116,13 +114,11 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				action_description,
 				bridge_url,
 				autoClose,
-				theme,
 				advanced,
 			}: Config,
 			source: ConfigSource
 		) => {
 			set({
-				theme,
 				signal,
 				action,
 				autoClose,
