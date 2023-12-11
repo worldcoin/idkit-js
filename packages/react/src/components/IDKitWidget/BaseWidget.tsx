@@ -23,9 +23,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
-const getParams = ({ open, processing, onOpenChange, stage, setStage, theme, computed, setOptions }: IDKitStore) => ({
+const getParams = ({ open, processing, onOpenChange, stage, setStage, computed, setOptions }: IDKitStore) => ({
 	stage,
-	theme,
 	setStage,
 	processing,
 	setOptions,
@@ -35,17 +34,9 @@ const getParams = ({ open, processing, onOpenChange, stage, setStage, theme, com
 })
 
 const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
-	const {
-		isOpen,
-		onOpenChange,
-		processing,
-		stage,
-		setStage,
-		canGoBack,
-		setOptions,
-		theme: _theme,
-	} = useIDKitStore(getParams, shallow)
 	const media = useMedia()
+
+	const { isOpen, onOpenChange, stage, setStage, canGoBack, setOptions } = useIDKitStore(getParams, shallow)
 
 	useEffect(() => {
 		setOptions(config, ConfigSource.PROPS)
@@ -77,10 +68,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 						{isOpen && (
 							<root.div mode="open" id="idkit-widget">
 								<Styles />
-								<div
-									id="modal"
-									className={classNames(_theme == 'dark' && 'dark', 'fixed z-10 font-sans')}
-								>
+								<div id="modal" className="fixed z-10 font-sans">
 									<Dialog.Overlay asChild>
 										<motion.div
 											initial={{ opacity: 0 }}
