@@ -142,7 +142,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				() => {
 					set({ stage: IDKITStage.SUCCESS, result })
 
-					if (get().autoClose) setTimeout(() => get().onOpenChange(false), 1000)
+					if (get().autoClose) setTimeout(() => get().onOpenChange(false), 2500)
 				},
 				response => {
 					let errorMessage: string | undefined = undefined
