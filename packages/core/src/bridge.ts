@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { VerificationState } from '@/types/bridge'
 import { type IDKitConfig } from '@/types/config'
+import { VerificationState } from '@/types/bridge'
 import type { ISuccessResult } from '@/types/result'
 import type { CredentialType } from '@/types/config'
 import { encodeAction, generateSignal } from '@/lib/hashing'

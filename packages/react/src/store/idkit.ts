@@ -121,9 +121,9 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 			set({
 				signal,
 				action,
-				autoClose,
 				bridge_url,
 				action_description,
+				autoClose: autoClose ?? true,
 				app_id: advanced?.self_hosted ? SELF_HOSTED_APP_ID : app_id,
 				verification_level: verification_level ?? DEFAULT_VERIFICATION_LEVEL,
 			})
