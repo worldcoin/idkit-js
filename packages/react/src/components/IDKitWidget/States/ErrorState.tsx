@@ -23,7 +23,7 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 		'There was a problem with this request. Please try again or contact the app owner.'
 	),
 	[AppErrorCodes.InvalidNetwork]: __(
-		'This app is not available on the network you are connected to. Visit docs.worldcoin.org/test for details.'
+		'Invalid network. If you are the app owner, visit docs.worldcoin.org/test for details.'
 	),
 	[AppErrorCodes.InclusionProofFailed]: __('There was an issue fetching your credential. Please try again.'),
 	[AppErrorCodes.InclusionProofPending]: __(
