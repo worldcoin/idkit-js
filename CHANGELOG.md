@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.0.0-alpha.7](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.6...idkit-v1.0.0-alpha.7) (2023-12-11)
+
+
+### Features
+
+* Add CJS export for core ([#208](https://github.com/worldcoin/idkit-js/issues/208)) ([be6c426](https://github.com/worldcoin/idkit-js/commit/be6c426eb007796fc23c7ea8368ebf572f7dd22b))
+* more design tweaks ([#206](https://github.com/worldcoin/idkit-js/issues/206)) ([1787b46](https://github.com/worldcoin/idkit-js/commit/1787b46e17c03a0ed090870c33dbcb0084273a28))
+
+
+### Bug Fixes
+
+* minor copy fix ([#209](https://github.com/worldcoin/idkit-js/issues/209)) ([fcbc67c](https://github.com/worldcoin/idkit-js/commit/fcbc67c3f6dbe75798fdc340f07b7ed55035211c))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0-alpha.7 ([#207](https://github.com/worldcoin/idkit-js/issues/207)) ([a844c9b](https://github.com/worldcoin/idkit-js/commit/a844c9b8bba671dbcb1466c61dc1eff3267c9433))
+
 ## [1.0.0-alpha.6](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.5...idkit-v1.0.0-alpha.6) (2023-12-10)
 
 
