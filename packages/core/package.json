@@ -14,11 +14,13 @@
 	"exports": {
 		".": {
 			"import": "./build/index.js",
-			"types": "./build/index.d.ts"
+			"types": "./build/index.d.ts",
+			"require": "./build/index.cjs"
 		},
 		"./hashing": {
 			"import": "./build/lib/hashing.js",
-			"types": "./build/lib/hashing.d.ts"
+			"types": "./build/lib/hashing.d.ts",
+			"require": "./build/lib/hashing.cjs"
 		}
 	},
 	"typesVersions": {
@@ -27,7 +29,6 @@
 				"./build/lib/hashing.d.ts"
 			],
 			"*": [
-				"./build/*/index.d.ts",
 				"./build/index.d.ts"
 			]
 		}
