@@ -6,7 +6,6 @@ import { classNames } from '@/lib/utils'
 import Qrcode from '@/components/QRCode'
 import { useCallback, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 import QRPlaceholderIcon from '@/components/Icons/QRPlaceholderIcon'
 
@@ -45,7 +44,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 										opacity: 1,
 										height: 'auto',
 										marginTop: 8,
-										y: 6,
+										y: -20,
 										transition: {
 											duration: 0.25,
 											opacity: { delay: 0.05, duration: 0.2 },

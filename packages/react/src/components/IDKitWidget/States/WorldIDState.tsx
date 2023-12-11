@@ -82,13 +82,26 @@ const WorldIDState = () => {
 					Please use your World App to scan the QR code
 				</p>
 			</div>
-			{verificationState === VerificationState.WaitingForApp ? (
-				<div className="flex items-center justify-center">
-					<LoadingIcon className="h-20 w-20" />
+			<div className="relative">
+				{verificationState == VerificationState.WaitingForApp && (
+					<div className="absolute inset-0 flex flex-col items-center justify-center space-y-6">
+						<LoadingIcon className="h-6 w-6" />
+						<div>
+							<p className="font-bold text-657080">Verifying</p>
+							<p className="text-sm text-657080">Please continue in app</p>
+						</div>
+					</div>
+				)}
+				<div
+					className={
+						verificationState === VerificationState.WaitingForApp
+							? 'opacity-40 blur-lg transition duration-500 ease-in-out'
+							: 'transition duration-500 ease-in-out'
+					}
+				>
+					<QRState showQR={showQR} setShowQR={setShowQR} qrData={connectorURI} />
 				</div>
-			) : (
-				<QRState showQR={showQR} setShowQR={setShowQR} qrData={connectorURI} />
-			)}
+			</div>
 		</div>
 	)
 }
