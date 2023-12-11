@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.7...idkit-v1.0.0) (2023-12-11)
+
+
+### Features
+
+* final tweaks ([#212](https://github.com/worldcoin/idkit-js/issues/212)) ([3a16f1e](https://github.com/worldcoin/idkit-js/commit/3a16f1ee23d261e53af1cfeac3bea219237e4cd4))
+* new mobile UI ([#211](https://github.com/worldcoin/idkit-js/issues/211)) ([0a859ac](https://github.com/worldcoin/idkit-js/commit/0a859acb8eb2db40c15a71cbc1c3a9d722f7bf4d))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0 ([#213](https://github.com/worldcoin/idkit-js/issues/213)) ([9148a23](https://github.com/worldcoin/idkit-js/commit/9148a23afea5f78666b98dfd8601a2bf6c5bcca6))
+
 ## [1.0.0-alpha.7](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.6...idkit-v1.0.0-alpha.7) (2023-12-11)
 
 
