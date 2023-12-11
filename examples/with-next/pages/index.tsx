@@ -19,7 +19,7 @@ const Home = ({ app_id }: InferGetServerSidePropsType<typeof getServerSideProps>
 		onError={error => console.log(error)}
 		onSuccess={response => console.log(response)}
 		app_id={app_id}
-		verification_level={VerificationLevel.Lite}
+		verification_level={VerificationLevel.Device}
 	>
 		{({ open }) => <button onClick={open}>Open IDKit</button>}
 	</IDKitWidget>
