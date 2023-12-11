@@ -28,6 +28,41 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 
 	return (
 		<>
+			<div className="mb-10 space-y-4 md:hidden">
+				<motion.a
+					href={qrData ?? ''}
+					whileTap={{ scale: 0.95 }}
+					whileHover={{ scale: 1.05 }}
+					transition={{ layout: { duration: 0.15 } }}
+					layoutId={media == 'desktop' ? undefined : 'worldid-button'}
+					className={classNames(
+						'flex w-full space-x-2 items-center px-4 py-4 border border-transparent font-medium rounded-2xl shadow-sm',
+						'bg-0d151d dark:bg-white text-white dark:text-0d151d'
+					)}
+				>
+					<WorldcoinIcon className="h-5 w-5" />
+					<motion.span
+						className="flex-1 text-center"
+						transition={{ layout: { duration: 0.15 } }}
+						layoutId={media == 'desktop' ? undefined : 'worldid-text'}
+					>
+						{__('Open Worldcoin App')}
+					</motion.span>
+				</motion.a>
+				<div className="space-y-4">
+					<div className="flex items-center space-x-4 ">
+						<hr className="flex-1" />
+						<span className="text-xs font-medium text-9ba3ae">or</span>
+						<hr className="flex-1" />
+					</div>
+					<motion.button
+						className="w-full rounded-2xl border border-ebecef p-4 text-lg font-medium text-3c424b"
+						onClick={() => setShowQR(state => !state)}
+					>
+						{showQR ? __('Hide QR Code') : __('Display QR Code')}
+					</motion.button>
+				</div>
+			</div>
 			{(media == 'desktop' || showQR) && (
 				<>
 					<AnimatePresence>
@@ -87,41 +122,6 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 					</div>
 				</>
 			)}
-			<div className="space-y-4">
-				<motion.a
-					href={qrData ?? ''}
-					whileTap={{ scale: 0.95 }}
-					whileHover={{ scale: 1.05 }}
-					transition={{ layout: { duration: 0.15 } }}
-					layoutId={media == 'desktop' ? undefined : 'worldid-button'}
-					className={classNames(
-						'flex w-full space-x-2 items-center px-4 py-4 border border-transparent font-medium rounded-2xl shadow-sm',
-						'bg-0d151d dark:bg-white text-white dark:text-0d151d md:hidden'
-					)}
-				>
-					<WorldcoinIcon className="h-5 w-5" />
-					<motion.span
-						className="flex-1 text-center"
-						transition={{ layout: { duration: 0.15 } }}
-						layoutId={media == 'desktop' ? undefined : 'worldid-text'}
-					>
-						{__('Open Worldcoin App')}
-					</motion.span>
-				</motion.a>
-				<div className="space-x-2 md:hidden">
-					<motion.button className="text-sm text-9eafc0" onClick={() => setShowQR(state => !state)}>
-						{showQR ? __('Hide QR Code') : __('Show QR Code instead')}
-					</motion.button>
-					{showQR && (
-						<>
-							<span className="text-9eafc0">&middot;</span>
-							<button className="text-sm dark:text-white" onClick={copyLink}>
-								{copiedLink ? __('Copied!') : __('Copy QR Code')}
-							</button>
-						</>
-					)}
-				</div>
-			</div>
 		</>
 	)
 }

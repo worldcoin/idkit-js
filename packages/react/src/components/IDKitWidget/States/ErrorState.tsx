@@ -4,17 +4,19 @@ import type { IDKitStore } from '@/store/idkit'
 import ErrorIcon from '@/components/Icons/ErrorIcon'
 import { AppErrorCodes } from '@worldcoin/idkit-core'
 import ReloadIcon from '@/components/Icons/ReloadIcon'
+import WarningIcon from '@/components/Icons/WarningIcon'
 
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
 const ERROR_TITLES: Partial<Record<AppErrorCodes, string>> = {
 	[AppErrorCodes.GenericError]: __('Something went wrong'),
 	[AppErrorCodes.FailedByHostApp]: __('Verification Declined'),
+	[AppErrorCodes.VerificationRejected]: __('Request cancelled'),
 }
 
 const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	[AppErrorCodes.ConnectionFailed]: __('Connection to your wallet failed. Please try again.'),
-	[AppErrorCodes.VerificationRejected]: __('You rejected the verification request.'),
+	[AppErrorCodes.VerificationRejected]: __('You’ve cancelled the request in World App.'),
 	[AppErrorCodes.MaxVerificationsReached]: __(
 		'You have already verified the maximum number of times for this action.'
 	),
@@ -29,9 +31,9 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	[AppErrorCodes.InclusionProofPending]: __(
 		'Your identity is still being registered. Please wait a few minutes and try again.'
 	),
-	[AppErrorCodes.FailedByHostApp]: __('Verification failed by the app. Please contact the app owner for details.'),
-	[AppErrorCodes.UnexpectedResponse]: __('Unexpected response from your wallet. Please try again.'),
 	[AppErrorCodes.GenericError]: __('Something unexpected went wrong. Please try again.'),
+	[AppErrorCodes.UnexpectedResponse]: __('Unexpected response from your wallet. Please try again.'),
+	[AppErrorCodes.FailedByHostApp]: __('Verification failed by the app. Please contact the app owner for details.'),
 }
 
 const ErrorState = () => {
@@ -40,7 +42,11 @@ const ErrorState = () => {
 	return (
 		<div className="space-y-8">
 			<div className="-mt-5 flex items-center justify-center">
-				<ErrorIcon className="w-24" />
+				{errorState?.code == AppErrorCodes.VerificationRejected ? (
+					<WarningIcon className="w-24" />
+				) : (
+					<ErrorIcon className="w-24" />
+				)}
 			</div>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">

@@ -105,7 +105,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 													}}
 													transition={{ layout: { duration: 0.15 } }}
 													className={
-														'relative z-50 flex min-h-[35rem] w-full flex-col rounded-t-2xl bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 dark:bg-0d151d md:max-w-md md:rounded-b-2xl'
+														'relative z-50 flex min-h-screen w-full flex-col bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 dark:bg-0d151d md:min-h-[35rem] md:max-w-md md:rounded-2xl'
 													}
 												>
 													<Toast.Provider>
