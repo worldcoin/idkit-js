@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0...idkit-v1.1.0) (2023-12-11)
+
+
+### Features
+
+* deprecate lite, add device ([#215](https://github.com/worldcoin/idkit-js/issues/215)) ([93b85f9](https://github.com/worldcoin/idkit-js/commit/93b85f90812c48504f0c67d390250b0fb8a51a27))
+* slow down autoHide ([#216](https://github.com/worldcoin/idkit-js/issues/216)) ([b133ce9](https://github.com/worldcoin/idkit-js/commit/b133ce974a2b694e411db22aedb8e9e295519095))
+
 ## [1.0.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0-alpha.7...idkit-v1.0.0) (2023-12-11)
 
 
