@@ -18,7 +18,6 @@ export const buffer_decode = (encoded: string): ArrayBuffer => {
  */
 export const verification_level_to_credential_types = (verification_level: VerificationLevel): string[] => {
 	switch (verification_level) {
-		case VerificationLevel.Lite:
 		case VerificationLevel.Device:
 			return [CredentialType.Orb, CredentialType.Device]
 		case VerificationLevel.Orb:
@@ -38,7 +37,7 @@ export const credential_type_to_verification_level = (credential_type: Credentia
 		case CredentialType.Orb:
 			return VerificationLevel.Orb
 		case CredentialType.Device:
-			return VerificationLevel.Lite
+			return VerificationLevel.Device
 		default:
 			throw new Error(`Unknown credential_type: ${credential_type}`)
 	}
