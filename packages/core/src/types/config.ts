@@ -12,8 +12,10 @@ export enum CredentialType {
 }
 
 export enum VerificationLevel {
+	/** @deprecated Use Device instead */
 	Lite = 'lite',
 	Orb = 'orb',
+	Device = 'device',
 }
 
 export type IDKitConfig = {

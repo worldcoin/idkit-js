@@ -1,12 +1,10 @@
 import { __ } from '@/lang'
 import { IDKITStage } from '@/types'
-import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
 import { useEffect, useState } from 'react'
 import type { IDKitStore } from '@/store/idkit'
-import AboutWorldID from '@/components/AboutWorldID'
 import { useWorldBridge } from '@/services/wld-bridge'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
@@ -25,7 +23,6 @@ const getOptions = (store: IDKitStore) => ({
 })
 
 const WorldIDState = () => {
-	const media = useMedia()
 	const [showQR, setShowQR] = useState<boolean>(false)
 	const {
 		app_id,
@@ -57,7 +54,7 @@ const WorldIDState = () => {
 		}
 
 		if (result) {
-			if (verification_level == VerificationLevel.Orb && result.verification_level == VerificationLevel.Lite) {
+			if (verification_level == VerificationLevel.Orb && result.verification_level == VerificationLevel.Device) {
 				console.error(
 					'Credential type received from wallet does not match configured credential_types. This should only happen when manually selecting disallowed credentials in the Worldcoin Simulator.'
 				)
