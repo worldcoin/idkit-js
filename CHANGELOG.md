@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.1](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.0...idkit-v1.1.1) (2023-12-13)
+
+
+### Bug Fixes
+
+* Added Return_To param to request URL  ([#219](https://github.com/worldcoin/idkit-js/issues/219)) ([c434d0f](https://github.com/worldcoin/idkit-js/commit/c434d0fa88914aaa030411fbbfee1e6c40ff35b2))
+* width and centering text on success state ([#218](https://github.com/worldcoin/idkit-js/issues/218)) ([4b79213](https://github.com/worldcoin/idkit-js/commit/4b792133373ef40fc53faa488955f90478814d00))
+
+
+### Miscellaneous Chores
+
+* release 1.1.1 ([#220](https://github.com/worldcoin/idkit-js/issues/220)) ([5d3648c](https://github.com/worldcoin/idkit-js/commit/5d3648c6c4de3b4a81d2caeb41ea9e4afaa570a4))
+
 ## [1.1.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.0.0...idkit-v1.1.0) (2023-12-11)
 
 
