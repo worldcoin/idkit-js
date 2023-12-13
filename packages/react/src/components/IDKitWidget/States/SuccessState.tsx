@@ -11,7 +11,7 @@ const SuccessState = () => {
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{__('Successfully verified')}
 				</p>
-				<p className="text-657080 mt-2 max-w-[14rem] text-center text-lg">
+				<p className="mx-auto mt-2 max-w-[224px] text-center text-lg text-657080">
 					{__('Your World ID verification was successful')}
 				</p>
 			</div>
