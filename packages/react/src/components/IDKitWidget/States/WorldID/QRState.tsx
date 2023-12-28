@@ -32,6 +32,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 				<motion.a
 					href={
 						qrData
+							// added a dummy anchor to prevent reload (and loss of state) when returning to website on mobile device
 							? qrData + `&return_to=${encodeURIComponent(window.location.href + '#prevent_reload')}`
 							: ''
 					}
