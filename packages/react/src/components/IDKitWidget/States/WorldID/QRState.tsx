@@ -30,7 +30,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 		<>
 			<div className="mb-10 space-y-4 md:hidden">
 				<motion.a
-					href={qrData ? qrData + `&return_to=${encodeURIComponent(window.location.href)}` : ''}
+					href={qrData ? qrData + `&return_to=${encodeURIComponent(window.location.href + '#anchor')}` : ''}
 					whileTap={{ scale: 0.95 }}
 					whileHover={{ scale: 1.05 }}
 					transition={{ layout: { duration: 0.15 } }}
