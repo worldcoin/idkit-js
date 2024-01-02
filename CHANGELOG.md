@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.2](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.1...idkit-v1.1.2) (2024-01-02)
+
+
+### Bug Fixes
+
+* Redirect Links from App after Verification ([#227](https://github.com/worldcoin/idkit-js/issues/227)) ([a594e48](https://github.com/worldcoin/idkit-js/commit/a594e4851857caae9e555258ccef61be4abb3438))
+
+
+### Miscellaneous Chores
+
+* release 1.1.2 ([#228](https://github.com/worldcoin/idkit-js/issues/228)) ([2225e5f](https://github.com/worldcoin/idkit-js/commit/2225e5ff35123ac52c9f59c3131938bda305b310))
+
 ## [1.1.1](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.0...idkit-v1.1.1) (2023-12-13)
 
 
