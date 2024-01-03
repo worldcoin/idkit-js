@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.2...idkit-v1.1.3) (2024-01-03)
+
+
+### Bug Fixes
+
+* remove return_to ([#230](https://github.com/worldcoin/idkit-js/issues/230)) ([1a2e004](https://github.com/worldcoin/idkit-js/commit/1a2e00448a9c9fde9ad19634308c4652661e621d))
+
 ## [1.1.2](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.1...idkit-v1.1.2) (2024-01-02)
 
 
