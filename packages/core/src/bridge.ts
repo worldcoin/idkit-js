@@ -58,7 +58,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal }) => {
 		const { key, iv } = await generateKey()
 
-		const res = await fetch(`${bridge_url ?? DEFAULT_BRIDGE_URL}/request`, {
+		const res = await fetch(new URL('/request', bridge_url ?? DEFAULT_BRIDGE_URL), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(
@@ -102,7 +102,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		const key = get().key
 		if (!key) throw new Error('No keypair found. Please call `createClient` first.')
 
-		const res = await fetch(`${get().bridge_url}/response/${get().requestId}`)
+		const res = await fetch(new URL(`/response/${get().requestId}`, get().bridge_url))
 
 		if (!res.ok) {
 			return set({
