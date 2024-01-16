@@ -3,6 +3,7 @@ import { type IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { ISuccessResult } from '@/types/result'
 import type { CredentialType } from '@/types/config'
+import { validate_bridge_url } from './lib/validation'
 import { encodeAction, generateSignal } from '@/lib/hashing'
 import { AppErrorCodes, ResponseStatus } from '@/types/bridge'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
@@ -57,6 +58,15 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 
 	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal }) => {
 		const { key, iv } = await generateKey()
+
+		if (bridge_url) {
+			const validation = validate_bridge_url(bridge_url)
+			if (!validation.valid) {
+				console.error(validation.errors.join('\n'))
+				set({ verificationState: VerificationState.Failed })
+				throw new Error('Invalid bridge_url. Please check the console for more details.')
+			}
+		}
 
 		const res = await fetch(new URL('/request', bridge_url ?? DEFAULT_BRIDGE_URL), {
 			method: 'POST',
