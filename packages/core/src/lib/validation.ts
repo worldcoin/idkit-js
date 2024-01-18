@@ -1,6 +1,6 @@
 export type ValidationResponse = { valid: true } | { valid: false; errors: string[] }
 
-export function validate_bridge_url(bridge_url: string): ValidationResponse {
+export function validate_bridge_url(bridge_url: string, is_staging?: boolean): ValidationResponse {
 	try {
 		new URL(bridge_url)
 	} catch (e) {
@@ -9,6 +9,11 @@ export function validate_bridge_url(bridge_url: string): ValidationResponse {
 
 	const test_url = new URL(bridge_url)
 	const errors: string[] = []
+
+	if (is_staging && ['localhost', '127.0.0.1'].includes(test_url.hostname)) {
+		console.log('Using staging app_id with localhost bridge_url. Skipping validation.')
+		return { valid: true }
+	}
 
 	if (test_url.protocol !== 'https:') {
 		errors.push('Bridge URL must use HTTPS.')

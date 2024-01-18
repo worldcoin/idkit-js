@@ -60,7 +60,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		const { key, iv } = await generateKey()
 
 		if (bridge_url) {
-			const validation = validate_bridge_url(bridge_url)
+			const validation = validate_bridge_url(bridge_url, app_id.includes('staging'))
 			if (!validation.valid) {
 				console.error(validation.errors.join('\n'))
 				set({ verificationState: VerificationState.Failed })
