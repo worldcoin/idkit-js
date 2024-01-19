@@ -32,7 +32,7 @@ export function validate_bridge_url(bridge_url: string, is_staging?: boolean): V
 	}
 
 	// remove once restriction lifted in world app
-	if (!test_url.hostname.endsWith('worldcoin.org') && !test_url.hostname.endsWith('toolsforhumanity.com')) {
+	if (!test_url.hostname.endsWith('.worldcoin.org') && !test_url.hostname.endsWith('.toolsforhumanity.com')) {
 		console.warn(
 			"Bridge URL should be a subdomain of worldcoin.org or toolsforhumanity.com. The user's identity wallet may refuse to connect. This is a temporary measure and may be removed in the future."
 		)
