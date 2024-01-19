@@ -3,6 +3,7 @@ import { type IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { ISuccessResult } from '@/types/result'
 import type { CredentialType } from '@/types/config'
+import { validate_bridge_url } from './lib/validation'
 import { encodeAction, generateSignal } from '@/lib/hashing'
 import { AppErrorCodes, ResponseStatus } from '@/types/bridge'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
@@ -58,7 +59,16 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal }) => {
 		const { key, iv } = await generateKey()
 
-		const res = await fetch(`${bridge_url ?? DEFAULT_BRIDGE_URL}/request`, {
+		if (bridge_url) {
+			const validation = validate_bridge_url(bridge_url, app_id.includes('staging'))
+			if (!validation.valid) {
+				console.error(validation.errors.join('\n'))
+				set({ verificationState: VerificationState.Failed })
+				throw new Error('Invalid bridge_url. Please check the console for more details.')
+			}
+		}
+
+		const res = await fetch(new URL('/request', bridge_url ?? DEFAULT_BRIDGE_URL), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(
@@ -102,7 +112,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		const key = get().key
 		if (!key) throw new Error('No keypair found. Please call `createClient` first.')
 
-		const res = await fetch(`${get().bridge_url}/response/${get().requestId}`)
+		const res = await fetch(new URL(`/response/${get().requestId}`, get().bridge_url))
 
 		if (!res.ok) {
 			return set({
