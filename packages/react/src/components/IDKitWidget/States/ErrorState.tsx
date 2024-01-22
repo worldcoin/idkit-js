@@ -52,7 +52,7 @@ const ErrorState = () => {
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
 					{(errorState?.code && ERROR_TITLES[errorState.code]) || ERROR_TITLES[AppErrorCodes.GenericError]}
 				</p>
-				<p className="mx-auto mt-2 max-w-[14rem] text-center text-657080">
+				<p className="mx-auto mt-2 max-w-[224px] text-center text-657080">
 					{/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
 					{errorState?.message || ERROR_MESSAGES[errorState?.code ?? AppErrorCodes.GenericError]}
 				</p>
