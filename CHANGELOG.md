@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.4](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.3...idkit-v1.1.4) (2024-01-26)
+
+
+### Features
+
+* validate bridge_url ([#232](https://github.com/worldcoin/idkit-js/issues/232)) ([24686c7](https://github.com/worldcoin/idkit-js/commit/24686c7d32b402d6a56593678935ab1a40eba7d1))
+
+
+### Bug Fixes
+
+* error message width ([#234](https://github.com/worldcoin/idkit-js/issues/234)) ([8cbb64f](https://github.com/worldcoin/idkit-js/commit/8cbb64fbaabdad94431ca7e2dc6b93bee4c21a8a))
+
+
+### Miscellaneous Chores
+
+* release 1.1.4 ([#236](https://github.com/worldcoin/idkit-js/issues/236)) ([2165583](https://github.com/worldcoin/idkit-js/commit/2165583fd0847b5fdc86289c9d7b8c5d412b6b84))
+
 ## [1.1.3](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.2...idkit-v1.1.3) (2024-01-03)
 
 
