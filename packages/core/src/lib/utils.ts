@@ -22,6 +22,8 @@ export const verification_level_to_credential_types = (verification_level: Verif
 			return [CredentialType.Orb, CredentialType.Device]
 		case VerificationLevel.Orb:
 			return [CredentialType.Orb]
+		case VerificationLevel.OrbPlus:
+			return [CredentialType.Orb]
 		default:
 			throw new Error(`Unknown verification level: ${verification_level}`)
 	}
