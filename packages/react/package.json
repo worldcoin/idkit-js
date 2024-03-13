@@ -71,7 +71,7 @@
 		"posthog-js-lite": "2.4.0",
 		"qrcode": "^1.5.1",
 		"react-shadow": "^19.1.0",
-		"zustand": "^4.3.3"
+		"zustand": "^4.5"
 	},
 	"devDependencies": {
 		"@types/node": "18.11.9",
