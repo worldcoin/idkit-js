@@ -1,5 +1,6 @@
 import { hashToField } from './hashing'
 import type { ISuccessResult } from '../types'
+import { isNode, isDeno } from 'browser-or-node'
 
 export interface IVerifyResponse {
 	success: boolean
@@ -14,6 +15,10 @@ export async function verifyCloudProof(
 	action: string,
 	signal?: string
 ): Promise<IVerifyResponse> {
+	if (!isNode && !isDeno) {
+		throw new Error('verifyCloudProof can only be used in the backend.')
+	}
+
 	const response = await fetch(`https://developer.worldcoin.org/api/v2/verify/${app_id}`, {
 		method: 'POST',
 		headers: {
