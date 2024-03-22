@@ -3,7 +3,6 @@ import type { FC } from 'react'
 import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import useMedia from '@/hooks/useMedia'
-import { classNames } from '@/lib/utils'
 import Styles from '@/components/Styles'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
@@ -19,7 +18,6 @@ import type { WidgetProps } from '@/types/config'
 import WorldcoinIcon from '../Icons/WorldcoinIcon'
 import { Fragment, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
@@ -34,7 +32,7 @@ const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions
 const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 	const media = useMedia()
 
-	const { isOpen, onOpenChange, stage, setStage, setOptions } = useIDKitStore(getParams, shallow)
+	const { isOpen, onOpenChange, stage, setOptions } = useIDKitStore(getParams, shallow)
 
 	useEffect(() => {
 		setOptions(config, ConfigSource.PROPS)
