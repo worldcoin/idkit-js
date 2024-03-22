@@ -21,10 +21,18 @@
 			"import": "./build/lib/hashing.js",
 			"types": "./build/lib/hashing.d.ts",
 			"require": "./build/lib/hashing.cjs"
+		},
+		"./backend": {
+			"import": "./build/lib/backend.js",
+			"types": "./build/lib/backend.d.ts",
+			"require": "./build/lib/backend.cjs"
 		}
 	},
 	"typesVersions": {
 		"*": {
+			"backend": [
+				"./build/lib/backend.d.ts"
+			],
 			"hashing": [
 				"./build/lib/hashing.d.ts"
 			],
