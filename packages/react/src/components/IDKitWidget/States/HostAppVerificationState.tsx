@@ -13,7 +13,7 @@ const HostAppVerificationState = () => {
 			<div className="flex justify-center">
 				<LoadingIcon className="h-24 w-24" />
 			</div>
-			<div className="text-70868f mt-4">{__('Transmitting verification to host app. Please wait...')}</div>
+			<div className="mt-4 text-70868f">{__('Transmitting verification to host app. Please wait...')}</div>
 		</div>
 	)
 }

@@ -12,7 +12,6 @@ import ErrorState from './States/ErrorState'
 import { ConfigSource } from '@/types/config'
 import * as Toast from '@radix-ui/react-toast'
 import type { IDKitStore } from '@/store/idkit'
-import PrivacyState from './States/PrivacyState'
 import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
@@ -23,20 +22,19 @@ import { AnimatePresence, motion } from 'framer-motion'
 import ArrowLongLeftIcon from '../Icons/ArrowLongLeftIcon'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
-const getParams = ({ open, processing, onOpenChange, stage, setStage, computed, setOptions }: IDKitStore) => ({
+const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
 	stage,
 	setStage,
 	processing,
 	setOptions,
 	isOpen: open,
 	onOpenChange,
-	canGoBack: computed.canGoBack(stage),
 })
 
 const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 	const media = useMedia()
 
-	const { isOpen, onOpenChange, stage, setStage, canGoBack, setOptions } = useIDKitStore(getParams, shallow)
+	const { isOpen, onOpenChange, stage, setStage, setOptions } = useIDKitStore(getParams, shallow)
 
 	useEffect(() => {
 		setOptions(config, ConfigSource.PROPS)
@@ -50,8 +48,6 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 				return SuccessState
 			case IDKITStage.ERROR:
 				return ErrorState
-			case IDKITStage.PRIVACY:
-				return PrivacyState
 			case IDKITStage.HOST_APP_VERIFICATION:
 				return HostAppVerificationState
 			default:
@@ -99,17 +95,6 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 													<Toast.Provider>
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
-															<button
-																onClick={() => setStage(IDKITStage.WORLD_ID)}
-																disabled={!canGoBack}
-																className={classNames(
-																	!canGoBack && 'invisible pointer-events-none',
-																	'dark:bg-d3dfea/15 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:text-white'
-																)}
-															>
-																<ArrowLongLeftIcon className="w-4" />
-															</button>
-
 															<Dialog.Close className="flex items-center justify-center rounded-full dark:text-white">
 																<XMarkIcon className="h-5 w-5" />
 															</Dialog.Close>
