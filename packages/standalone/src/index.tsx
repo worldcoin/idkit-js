@@ -11,7 +11,6 @@ let isInitialized = false
  */
 const init = (config: Config): void => {
 	if (isInitialized) throw new Error(__('IDKit is already initialized'))
-	if (!config.app_id) throw new Error(__('You must provide your App ID & Action'))
 
 	const startApp = () => {
 		try {

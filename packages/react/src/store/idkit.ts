@@ -32,10 +32,6 @@ export type IDKitStore = {
 	verifyCallbacks: Record<ConfigSource, CallbackFn<ISuccessResult> | undefined> | Record<string, never>
 	successCallbacks: Record<ConfigSource, CallbackFn<ISuccessResult> | undefined> | Record<string, never>
 
-	computed: {
-		canGoBack: (stage: IDKITStage) => boolean
-	}
-
 	retryFlow: () => void
 	setStage: (stage: IDKITStage) => void
 	onOpenChange: (open: boolean) => void
@@ -68,12 +64,6 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		verifyCallbacks: {},
 		successCallbacks: {},
 		stage: IDKITStage.WORLD_ID,
-
-		computed: {
-			canGoBack: (stage: IDKITStage) => {
-				return stage == IDKITStage.PRIVACY
-			},
-		},
 
 		setStage: stage => set({ stage }),
 		setErrorState: errorState => set({ errorState }),
