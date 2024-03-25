@@ -20,15 +20,7 @@ export async function verifyCloudProof(
 		throw new Error('verifyCloudProof can only be used in the backend.')
 	}
 
-	if (!endpoint) {
-		endpoint = new URL('https://developer.worldcoin.org/api/v2/verify')
-	}
-
-	if (typeof endpoint === 'string') {
-		endpoint = new URL(endpoint)
-	}
-
-	const response = await fetch(endpoint.href + '/' + app_id, {
+	const response = await fetch(endpoint ?? `https://developer.worldcoin.org/api/v2/verify/${app_id}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
