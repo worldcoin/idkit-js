@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.4...idkit-v1.1.5) (2024-03-25)
+
+
+### Bug Fixes
+
+* bump zustand to ^4.5 ([#239](https://github.com/worldcoin/idkit-js/issues/239)) ([c09adb1](https://github.com/worldcoin/idkit-js/commit/c09adb1e1e6a95032173a355bfbd10a78c13cef5))
+
 ## [1.1.4](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.3...idkit-v1.1.4) (2024-01-26)
 
 
