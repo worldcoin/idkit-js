@@ -13,13 +13,22 @@ export async function verifyCloudProof(
 	proof: ISuccessResult,
 	app_id: `app_${string}`,
 	action: string,
-	signal?: string
+	signal?: string,
+	endpoint?: URL | string
 ): Promise<IVerifyResponse> {
 	if (isBrowser) {
 		throw new Error('verifyCloudProof can only be used in the backend.')
 	}
 
-	const response = await fetch(`https://developer.worldcoin.org/api/v2/verify/${app_id}`, {
+	if (!endpoint) {
+		endpoint = new URL('https://developer.worldcoin.org/api/v2/verify')
+	}
+
+	if (typeof endpoint === 'string') {
+		endpoint = new URL(endpoint)
+	}
+
+	const response = await fetch(endpoint.href + '/' + app_id, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
