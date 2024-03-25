@@ -1,6 +1,6 @@
 import { hashToField } from './hashing'
+import { isBrowser } from 'browser-or-node'
 import type { ISuccessResult } from '../types'
-import { isNode, isDeno } from 'browser-or-node'
 
 export interface IVerifyResponse {
 	success: boolean
@@ -15,7 +15,7 @@ export async function verifyCloudProof(
 	action: string,
 	signal?: string
 ): Promise<IVerifyResponse> {
-	if (!isNode && !isDeno) {
+	if (isBrowser) {
 		throw new Error('verifyCloudProof can only be used in the backend.')
 	}
 
