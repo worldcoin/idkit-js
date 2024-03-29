@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.4...idkit-v1.2.0) (2024-03-29)
+
+
+### Features
+
+* enforce non-empty string for action in IDKit ([#242](https://github.com/worldcoin/idkit-js/issues/242)) ([2087544](https://github.com/worldcoin/idkit-js/commit/208754427ca9d2864a9694f1ed93a246ea18ceab))
+* verifyCloudProof function ([#240](https://github.com/worldcoin/idkit-js/issues/240)) ([c4a2821](https://github.com/worldcoin/idkit-js/commit/c4a2821982a224e446da6ae4eb62798667a2ee5f))
+
+
+### Bug Fixes
+
+* bump zustand to ^4.5 ([#239](https://github.com/worldcoin/idkit-js/issues/239)) ([c09adb1](https://github.com/worldcoin/idkit-js/commit/c09adb1e1e6a95032173a355bfbd10a78c13cef5))
+
 ## [1.1.4](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.3...idkit-v1.1.4) (2024-01-26)
 
 
