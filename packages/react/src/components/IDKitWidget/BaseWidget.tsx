@@ -35,6 +35,9 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 	const { isOpen, onOpenChange, stage, setOptions } = useIDKitStore(getParams, shallow)
 
 	useEffect(() => {
+		if (config.action === '') {
+			throw new Error(__('Action cannot be an empty string.'))
+		}
 		setOptions(config, ConfigSource.PROPS)
 	}, [config, setOptions])
 
