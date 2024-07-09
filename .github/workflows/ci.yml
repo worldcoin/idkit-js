@@ -12,7 +12,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - uses: pnpm/action-setup@v2.4.0
+            - uses: pnpm/action-setup@v4
               with:
                   version: 8
 
@@ -41,7 +41,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - uses: pnpm/action-setup@v2.4.0
+            - uses: pnpm/action-setup@v4
               with:
                   version: 8
 
