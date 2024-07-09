@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/worldcoin/idkit-js/compare/idkit-v1.2.0...idkit-v1.2.1) (2024-07-09)
+
+
+### Bug Fixes
+
+* package vulnerability ([#258](https://github.com/worldcoin/idkit-js/issues/258)) ([6448840](https://github.com/worldcoin/idkit-js/commit/644884083197a0f7bd29b5f58b6cc14a31f27926))
+
 ## [1.2.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.1.4...idkit-v1.2.0) (2024-03-29)
 
 
