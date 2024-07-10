@@ -65,7 +65,7 @@
 		"@tailwindcss/forms": "^0.5.7",
 		"@worldcoin/idkit-core": "workspace:*",
 		"copy-to-clipboard": "^3.3.3",
-		"framer-motion": "^7.10.3",
+		"framer-motion": "^11.2.14",
 		"qrcode": "^1.5.3",
 		"react-shadow": "^19.1.0",
 		"zustand": "^4.5.4"
