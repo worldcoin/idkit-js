@@ -158,7 +158,7 @@ importers:
         version: 6.9.0(eslint@8.54.0)
       eslint-plugin-prettier:
         specifier: ^4.2.1
-        version: 4.2.1(eslint-config-prettier@8.10.0(eslint@8.54.0))(eslint@8.54.0)(prettier@2.8.8)
+        version: 4.2.1(eslint-config-prettier@8.10.0(eslint@8.54.0))(eslint@8.54.0)(prettier@3.3.2)
       eslint-plugin-react:
         specifier: ^7.34.3
         version: 7.34.3(eslint@8.54.0)
@@ -172,8 +172,8 @@ importers:
         specifier: ^8.4.39
         version: 8.4.39
       prettier:
-        specifier: ^2.8.8
-        version: 2.8.8
+        specifier: ^3.3.2
+        version: 3.3.2
       prettier-plugin-sort-imports-desc:
         specifier: ^1.0.0
         version: 1.0.0
@@ -2918,6 +2918,11 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
+  prettier@3.3.2:
+    resolution: {integrity: sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==}
+    engines: {node: '>=14'}
+    hasBin: true
+
   progress@2.0.3:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
@@ -5647,10 +5652,10 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-prettier@4.2.1(eslint-config-prettier@8.10.0(eslint@8.54.0))(eslint@8.54.0)(prettier@2.8.8):
+  eslint-plugin-prettier@4.2.1(eslint-config-prettier@8.10.0(eslint@8.54.0))(eslint@8.54.0)(prettier@3.3.2):
     dependencies:
       eslint: 8.54.0
-      prettier: 2.8.8
+      prettier: 3.3.2
       prettier-linter-helpers: 1.0.0
     optionalDependencies:
       eslint-config-prettier: 8.10.0(eslint@8.54.0)
@@ -6822,6 +6827,8 @@ snapshots:
       typescript: 4.9.5
 
   prettier@2.8.8: {}
+
+  prettier@3.3.2: {}
 
   progress@2.0.3: {}
 
