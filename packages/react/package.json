@@ -65,7 +65,7 @@
 		"@tailwindcss/forms": "^0.5.7",
 		"@worldcoin/idkit-core": "workspace:*",
 		"copy-to-clipboard": "^3.3.3",
-		"framer-motion": "^7.10.3",
+		"framer-motion": "^11.2.14",
 		"qrcode": "^1.5.3",
 		"react-shadow": "^19.1.0",
 		"zustand": "^4.5.4"
@@ -88,7 +88,7 @@
 		"eslint-plugin-react-hooks": "^4.6.2",
 		"eslint-plugin-tailwindcss": "^3.17.4",
 		"postcss": "^8.4.39",
-		"prettier": "^2.8.8",
+		"prettier": "^3.3.2",
 		"prettier-plugin-sort-imports-desc": "^1.0.0",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
