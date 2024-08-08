@@ -54,6 +54,13 @@ const open = () => {
 	})
 }
 
+const close = () => {
+	return new Promise((_, reject) => {
+		if (!isInitialized) return reject(__('IDKitWidget is not initialized'))
+		useIDKitStore.setState({ open: false })
+	})
+}
+
 /**
  * Reset internal state. Useful for unit-testing
  */
@@ -69,6 +76,7 @@ const IDKit = {
 	init,
 	update,
 	open,
+	close,
 	reset,
 	get isInitialized() {
 		return isInitialized
