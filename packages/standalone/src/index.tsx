@@ -65,7 +65,15 @@ const reset = () => {
 	useIDKitStore.destroy()
 }
 
-const IDKit = { init, update, open, reset }
+const IDKit = {
+	init,
+	update,
+	open,
+	reset,
+	get isInitialized() {
+		return isInitialized
+	},
+}
 window.IDKit = IDKit
 
 declare global {
