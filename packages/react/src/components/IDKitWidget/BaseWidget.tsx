@@ -97,7 +97,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
 															<Dialog.Close className="flex items-center justify-center rounded-full dark:text-white">
-																<XMarkIcon className="h-5 w-5" />
+																<XMarkIcon className="size-5" />
 															</Dialog.Close>
 														</div>
 														<div className="relative mx-6 mb-6 flex flex-1 flex-col items-center justify-center">

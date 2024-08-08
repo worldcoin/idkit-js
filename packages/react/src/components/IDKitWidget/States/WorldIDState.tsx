@@ -9,6 +9,7 @@ import { useWorldBridge } from '@/services/wld-bridge'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 import { AppErrorCodes, VerificationState, VerificationLevel } from '@worldcoin/idkit-core'
+import clsx from 'clsx'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
@@ -67,7 +68,7 @@ const WorldIDState = () => {
 	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, verification_level])
 
 	return (
-		<div className="-mt-6 space-y-10">
+		<div className={clsx("-mt-6 space-y-5", {"space-y-10": !showQR})}>
 			<div>
 				<div className="mb-4 flex items-center justify-center">
 					<WorldcoinIcon className="h-10 text-0d151d dark:text-white" />
@@ -82,7 +83,7 @@ const WorldIDState = () => {
 			<div className="relative">
 				{verificationState == VerificationState.WaitingForApp && (
 					<div className="absolute inset-0 flex flex-col items-center justify-center space-y-6">
-						<LoadingIcon className="h-6 w-6" />
+						<LoadingIcon className="size-6" />
 						<div>
 							<p className="font-bold text-657080">Verifying</p>
 							<p className="text-sm text-657080">Please continue in app</p>
