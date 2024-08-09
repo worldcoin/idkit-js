@@ -53,6 +53,7 @@
 			})
 
 			document.getElementById('open-idkit').addEventListener('click', async () => {
+				console.log(IDKit.isInitialized)
 				await IDKit.open()
 			})
 		</script>

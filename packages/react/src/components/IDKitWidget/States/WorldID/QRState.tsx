@@ -8,6 +8,7 @@ import { useCallback, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 import QRPlaceholderIcon from '@/components/Icons/QRPlaceholderIcon'
+import clsx from 'clsx'
 
 type Props = {
 	qrData: string | null
@@ -28,19 +29,19 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 
 	return (
 		<>
-			<div className="mb-10 space-y-4 md:hidden">
+			<div className={clsx("md:hidden", {"mb-10 space-y-4": !showQR})}>
 				<motion.a
 					href={qrData ?? ''}
 					whileTap={{ scale: 0.95 }}
 					whileHover={{ scale: 1.05 }}
 					transition={{ layout: { duration: 0.15 } }}
 					layoutId={media == 'desktop' ? undefined : 'worldid-button'}
-					className={classNames(
-						'flex w-full space-x-2 items-center px-4 py-4 border border-transparent font-medium rounded-2xl shadow-sm',
-						'bg-0d151d dark:bg-white text-white dark:text-0d151d'
+					className={clsx(
+						'flex w-full items-center space-x-2 rounded-2xl border border-transparent p-4 font-medium shadow-sm',
+						'bg-0d151d text-white dark:bg-white dark:text-0d151d', {hidden: showQR}
 					)}
 				>
-					<WorldcoinIcon className="h-5 w-5" />
+					<WorldcoinIcon className="size-5" />
 					<motion.span
 						className="flex-1 text-center"
 						transition={{ layout: { duration: 0.15 } }}
@@ -49,8 +50,8 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 						{__('Open Worldcoin App')}
 					</motion.span>
 				</motion.a>
-				<div className="space-y-4">
-					<div className="flex items-center space-x-4 ">
+				<div className={clsx("mb-3", {"space-y-4": !showQR})}>
+					<div className={clsx("flex items-center space-x-4 ", {hidden: showQR})}>
 						<hr className="flex-1" />
 						<span className="text-xs font-medium text-9ba3ae">or</span>
 						<hr className="flex-1" />
@@ -114,8 +115,8 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 									<Qrcode data={qrData} size={244} />
 								</div>
 							) : (
-								<div className="flex h-[244px] w-[244px] items-center justify-center">
-									<QRPlaceholderIcon className="h-[244px] w-[244px] animate-pulse" />
+								<div className="flex size-[244px] items-center justify-center">
+									<QRPlaceholderIcon className="size-[244px] animate-pulse" />
 								</div>
 							)}
 						</div>
