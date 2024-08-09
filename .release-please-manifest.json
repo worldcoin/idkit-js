@@ -1,6 +1,6 @@
 {
-	"packages/core": "1.3.0",
-	"packages/react": "1.3.0",
-	"packages/standalone": "1.3.0",
-	".": "1.3.0"
+	"packages/core": "1.2.2",
+	"packages/react": "1.2.2",
+	"packages/standalone": "1.2.2",
+	".": "1.2.2"
 }
