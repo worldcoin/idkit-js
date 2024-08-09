@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.2.2...idkit-v1.3.0) (2024-08-09)
+
+
+### Features
+
+* standalone improvements and widget mobile compatibility ([#272](https://github.com/worldcoin/idkit-js/issues/272)) ([bf63d94](https://github.com/worldcoin/idkit-js/commit/bf63d943f01ee9dc145271c8979ee6d68807bda9))
+
 ## [1.2.2](https://github.com/worldcoin/idkit-js/compare/idkit-v1.2.2...idkit-v1.2.2) (2024-07-10)
 
 
