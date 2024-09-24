@@ -14,6 +14,7 @@ export enum CredentialType {
 export enum VerificationLevel {
 	Orb = 'orb',
 	Device = 'device',
+	OrbPlus = 'orb_plus',
 }
 
 export type IDKitConfig = {
