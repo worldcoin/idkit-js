@@ -1,7 +1,7 @@
 import { Buffer } from 'buffer/index.js'
 import type { IDKitConfig } from '@/types/config'
-import type { AbiEncodedValue } from '@/types/config'
 import { AbiParameters, Bytes, Hex, Hash } from 'ox'
+import type { AbiEncodedValue } from '@/types/config'
 
 export interface HashFunctionOutput {
 	hash: bigint
