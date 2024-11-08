@@ -30,10 +30,10 @@
 		"keccak",
 		"merkle",
 		"NextJS",
+		"ox",
 		"QRCode",
 		"tsup",
 		"TTFB",
-		"viem",
 		"webp",
 		"worldid",
 		"zustand"
