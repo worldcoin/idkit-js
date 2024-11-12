@@ -3,20 +3,8 @@
 	"enabled": true,
 	"language": "en-US",
 	"allowCompoundWords": true,
-	"dictionaries": [
-		"typescript",
-		"node",
-		"npm",
-		"html"
-	],
-	"enabledLanguageIds": [
-		"typescript",
-		"typescriptreact",
-		"javascript",
-		"markdown",
-		"yaml",
-		"json"
-	],
+	"dictionaries": ["typescript", "node", "npm", "html"],
+	"enabledLanguageIds": ["typescript", "typescriptreact", "javascript", "markdown", "yaml", "json"],
 	"words": [
 		"arrayify",
 		"consts",
@@ -30,10 +18,10 @@
 		"keccak",
 		"merkle",
 		"NextJS",
+		"ox",
 		"QRCode",
 		"tsup",
 		"TTFB",
-		"viem",
 		"webp",
 		"worldid",
 		"zustand"

@@ -9,9 +9,25 @@
 		"prepublishOnly": "npm run build"
 	},
 	"devDependencies": {
-		"turbo": "^1.13.0"
+		"prettier": "^3.3.3",
+		"prettier-plugin-sort-imports-desc": "^1.0.0",
+		"turbo": "^2.2.3"
 	},
 	"engines": {
 		"node": ">=18"
+	},
+	"packageManager": "pnpm@9.12.2",
+	"prettier": {
+		"semi": false,
+		"tabWidth": 4,
+		"useTabs": true,
+		"printWidth": 120,
+		"singleQuote": true,
+		"trailingComma": "es5",
+		"arrowParens": "avoid",
+		"bracketSpacing": true,
+		"plugins": [
+			"prettier-plugin-sort-imports-desc"
+		]
 	}
 }
