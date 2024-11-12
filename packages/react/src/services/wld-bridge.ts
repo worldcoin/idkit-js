@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useWorldBridgeStore } from '@worldcoin/idkit-core'
+import { useWalletBridgeStore } from '@worldcoin/idkit-core'
 import type { ISuccessResult, AppErrorCodes, VerificationState, IDKitConfig } from '@worldcoin/idkit-core'
 
 type UseAppBridgeResponse = {
@@ -20,7 +20,7 @@ export const useWorldBridge = (
 ): UseAppBridgeResponse => {
 	const ref_verification_level = useRef(verification_level)
 	const { reset, result, connectorURI, createClient, pollForUpdates, verificationState, errorCode } =
-		useWorldBridgeStore()
+		useWalletBridgeStore()
 
 	useEffect(() => {
 		if (!connectorURI) {
