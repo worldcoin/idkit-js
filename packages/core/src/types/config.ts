@@ -29,4 +29,6 @@ export type IDKitConfig = {
 	bridge_url?: string
 	/** The minimum required level of verification. Defaults to "orb". */
 	verification_level?: VerificationLevel
+	/** Whether to require face authentication for the action. Defaults to false. */
+	require_face_auth?: boolean
 }

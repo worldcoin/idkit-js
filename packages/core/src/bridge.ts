@@ -56,7 +56,15 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 	bridge_url: DEFAULT_BRIDGE_URL,
 	verificationState: VerificationState.PreparingClient,
 
-	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal }) => {
+	createClient: async ({
+		bridge_url,
+		app_id,
+		verification_level,
+		action_description,
+		action,
+		signal,
+		require_face_auth,
+	}) => {
 		const { key, iv } = await generateKey()
 
 		if (bridge_url) {
@@ -84,6 +92,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 							verification_level ?? DEFAULT_VERIFICATION_LEVEL
 						),
 						verification_level: verification_level ?? DEFAULT_VERIFICATION_LEVEL,
+						require_face_auth,
 					})
 				)
 			),
