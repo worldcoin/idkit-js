@@ -1,11 +1,11 @@
 import { create } from 'zustand'
-import { type IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
 import type { ISuccessResult } from '@/types/result'
 import type { CredentialType } from '@/types/config'
 import { validate_bridge_url } from './lib/validation'
 import { encodeAction, generateSignal } from '@/lib/hashing'
 import { AppErrorCodes, ResponseStatus } from '@/types/bridge'
+import { VerificationLevel, type IDKitConfig } from '@/types/config'
 import { decryptResponse, encryptRequest, exportKey, generateKey } from '@/lib/crypto'
 import {
 	DEFAULT_VERIFICATION_LEVEL,
@@ -74,6 +74,10 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 				set({ verificationState: VerificationState.Failed })
 				throw new Error('Invalid bridge_url. Please check the console for more details.')
 			}
+		}
+
+		if (require_face_auth && verification_level === VerificationLevel.Device) {
+			throw new Error('Face auth is not supported for device verification')
 		}
 
 		const res = await fetch(new URL('/request', bridge_url ?? DEFAULT_BRIDGE_URL), {
