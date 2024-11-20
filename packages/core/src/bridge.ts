@@ -63,7 +63,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 		action_description,
 		action,
 		signal,
-		require_face_auth,
+		disable_face_auth,
 	}) => {
 		const { key, iv } = await generateKey()
 
@@ -76,7 +76,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			}
 		}
 
-		if (require_face_auth && verification_level === VerificationLevel.Device) {
+		if (disable_face_auth && verification_level === VerificationLevel.Device) {
 			throw new Error('Face auth is not supported for device verification')
 		}
 
@@ -96,7 +96,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 							verification_level ?? DEFAULT_VERIFICATION_LEVEL
 						),
 						verification_level: verification_level ?? DEFAULT_VERIFICATION_LEVEL,
-						require_face_auth,
+						disable_face_auth,
 					})
 				)
 			),

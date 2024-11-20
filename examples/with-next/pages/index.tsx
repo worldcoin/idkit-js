@@ -46,7 +46,7 @@ const Home = ({ app_id, action, signal }: InferGetServerSidePropsType<typeof get
 		handleVerify={proof => verify(proof, app_id, action, signal)}
 		app_id={app_id}
 		verification_level={VerificationLevel.Device}
-		require_face_auth={true}
+		disable_face_auth={true}
 	>
 		{({ open }) => <button onClick={open}>Open IDKit</button>}
 	</IDKitWidget>

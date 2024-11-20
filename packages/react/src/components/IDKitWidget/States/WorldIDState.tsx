@@ -21,7 +21,7 @@ const getOptions = (store: IDKitStore) => ({
 	setErrorState: store.setErrorState,
 	verification_level: store.verification_level,
 	action_description: store.action_description,
-	require_face_auth: store.require_face_auth,
+	disable_face_auth: store.disable_face_auth,
 })
 
 const WorldIDState = () => {
@@ -35,7 +35,7 @@ const WorldIDState = () => {
 		bridge_url,
 		action_description,
 		verification_level,
-		require_face_auth,
+		disable_face_auth,
 		setErrorState,
 	} = useIDKitStore(getOptions, shallow)
 
@@ -46,7 +46,7 @@ const WorldIDState = () => {
 		bridge_url,
 		verification_level,
 		action_description,
-		require_face_auth
+		disable_face_auth
 	)
 
 	useEffect(() => reset, [reset])
