@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.3.0...idkit-v1.4.0) (2024-12-05)
+
+
+### Features
+
+* switch to ox ([#287](https://github.com/worldcoin/idkit-js/issues/287)) ([293aac8](https://github.com/worldcoin/idkit-js/commit/293aac8939b48c930cf36d403ba8a4b684298666))
+
+
+### Bug Fixes
+
+* set x button to black ([#274](https://github.com/worldcoin/idkit-js/issues/274)) ([67dddee](https://github.com/worldcoin/idkit-js/commit/67dddee117a4b205f976ce4cf9d12435f9cb4b76))
+* upgrade next ([#281](https://github.com/worldcoin/idkit-js/issues/281)) ([a160c13](https://github.com/worldcoin/idkit-js/commit/a160c13580a35f9657f20befd0e466b2ea5c96e5))
+
 ## [1.3.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.2.2...idkit-v1.3.0) (2024-08-09)
 
 
