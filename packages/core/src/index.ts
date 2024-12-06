@@ -7,8 +7,9 @@ export {
 	CredentialType,
 	VerificationLevel,
 	IDKitConfig,
+	BridgeConfig,
 } from '@/types'
 
-export { useWorldBridgeStore, WorldBridgeStore } from '@/bridge'
+export { useWalletBridgeStore, buildBridgeStore, WalletBridgeStore, IBridgeStore } from '@/bridge'
 
 export { DEFAULT_VERIFICATION_LEVEL, verification_level_to_credential_types } from '@/lib/utils'
