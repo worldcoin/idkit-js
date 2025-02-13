@@ -1,6 +1,7 @@
 import { __ } from '@/lang'
 import type { FC } from 'react'
 import root from 'react-shadow'
+import ReactDOM from 'react-dom'
 import { IDKITStage } from '@/types'
 import useMedia from '@/hooks/useMedia'
 import Styles from '@/components/Styles'
@@ -29,7 +30,7 @@ const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions
 	onOpenChange,
 })
 
-const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
+const IDKitWidget: FC<WidgetProps> = ({ children, showModal = false, containerId, ...config }) => {
 	const media = useMedia()
 
 	const { isOpen, onOpenChange, stage, setOptions } = useIDKitStore(getParams, shallow)
@@ -44,17 +45,40 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 	const StageContent = useMemo(() => {
 		switch (stage) {
 			case IDKITStage.WORLD_ID:
-				return WorldIDState
+				return <WorldIDState showModal={showModal} />
 			case IDKITStage.SUCCESS:
-				return SuccessState
+				return <SuccessState />
 			case IDKITStage.ERROR:
-				return ErrorState
+				return <ErrorState />
 			case IDKITStage.HOST_APP_VERIFICATION:
-				return HostAppVerificationState
+				return <HostAppVerificationState />
 			default:
 				throw new Error(__('Invalid IDKitStage :stage.', { stage }))
 		}
-	}, [stage])
+	}, [stage, showModal])
+
+	const widgetContent = (
+		<root.div mode="open" id="idkit-widget">
+			<Styles />
+			<Toast.Provider>
+				<Toast.Viewport className="flex justify-center" />
+				<div
+					id="widget-content-inline"
+					className="relative flex flex-col bg-white p-4 focus:outline-none dark:bg-0d151d"
+				>
+					{StageContent}
+				</div>
+			</Toast.Provider>
+		</root.div>
+	)
+
+	if (!showModal && containerId) {
+		const containerElement = document.getElementById(containerId)
+		if (containerElement) {
+			return ReactDOM.createPortal(widgetContent, containerElement)
+		}
+		console.warn(`Container element with id "${containerId}" not found. Rendering widget inline.`)
+	}
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -101,7 +125,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 															</Dialog.Close>
 														</div>
 														<div className="relative mx-6 mb-6 flex flex-1 flex-col items-center justify-center">
-															<StageContent />
+															{StageContent}
 														</div>
 														<div className="flex items-center justify-between border-t border-f5f5f7 p-7 md:rounded-b-2xl">
 															<a

@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { __ } from '@/lang'
 import useIDKitStore from '@/store/idkit'
 import type { IDKitStore } from '@/store/idkit'
@@ -5,7 +6,6 @@ import ErrorIcon from '@/components/Icons/ErrorIcon'
 import { AppErrorCodes } from '@worldcoin/idkit-core'
 import ReloadIcon from '@/components/Icons/ReloadIcon'
 import WarningIcon from '@/components/Icons/WarningIcon'
-
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
 const ERROR_TITLES: Partial<Record<AppErrorCodes, string>> = {
@@ -36,12 +36,13 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	[AppErrorCodes.FailedByHostApp]: __('Verification failed by the app. Please contact the app owner for details.'),
 }
 
-const ErrorState = () => {
+const ErrorState = (props: { showModal?: boolean }) => {
 	const { retryFlow, errorState } = useIDKitStore(getParams)
+	const { showModal } = props
 
 	return (
 		<div className="space-y-8">
-			<div className="-mt-5 flex items-center justify-center">
+			<div className={clsx('flex items-center justify-center', showModal ? '-mt-5' : '')}>
 				{errorState?.code == AppErrorCodes.VerificationRejected ? (
 					<WarningIcon className="w-24" />
 				) : (

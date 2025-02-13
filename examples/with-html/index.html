@@ -34,6 +34,17 @@
 		<div id="root">
 			<h1 id="heading">idkit-js</h1>
 			<button id="open-idkit">Open</button>
+			<div
+				id="idkit-container"
+				style="
+					width: 300px;
+					height: 350px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border: 1px solid #000;
+				"
+			></div>
 		</div>
 
 		<script type="module">
@@ -44,6 +55,8 @@
 				app_id: 'app_ce4cb73cb75fc3b73b71ffb4de178410',
 				action: 'test-action',
 				action_description: 'Test action description',
+				showModal: false,
+				containerId: 'idkit-container',
 				handleVerify: response => {
 					// verify the IDKIt proof, throw an error to show the error screen
 				},
