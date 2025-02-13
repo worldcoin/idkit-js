@@ -68,7 +68,6 @@ const WorldIDState = (props: { showModal?: boolean }) => {
 	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, verification_level])
 
 	const { showModal } = props
-	console.log('showModal', showModal)
 	return (
 		<div
 			className={clsx(
