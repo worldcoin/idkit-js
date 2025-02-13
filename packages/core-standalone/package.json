@@ -1,0 +1,23 @@
+{
+	"dependencies": {
+		"@worldcoin/idkit-core": "workspace:^"
+	},
+	"description": "A standalone, browser-compatible build of idkit-core.",
+	"devDependencies": {
+		"@rollup/plugin-replace": "^6.0.2",
+		"tsup": "^8.1.0",
+		"typescript": "^5.3.2"
+	},
+	"exports": "./build/index.global.js",
+	"files": [
+		"dist"
+	],
+	"main": "dist/index.js",
+	"name": "@worldcoin/idkit-core-standalone",
+	"scripts": {
+		"build": "tsup"
+	},
+	"type": "module",
+	"types": "dist/index.d.ts",
+	"version": "1.0.0"
+}

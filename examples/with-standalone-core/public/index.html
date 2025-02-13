@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="A react app using React 17.0.1" />
+    <!-- <script src="https://unpkg.com/@worldcoin/idkit-core@1.3.0/build/index.global.cjs"></script> -->
+    <script type="module">
+      let idkitCoreLoaded = false;
+      
+      import('https://esm.sh/@worldcoin/idkit-core@1.3.0?format=cjs')
+        .then(module => {
+          window.idkitCore = module;
+          idkitCoreLoaded = true;
+          console.log(window.idkitCore);
+          document.dispatchEvent(new Event('idkitCoreLoaded'));
+        })
+        .catch(err => {
+          console.error('Failed to load idkit-core:', err);
+          document.dispatchEvent(new CustomEvent('idkitCoreError', { detail: err }));
+        });
+    </script>
+    <title>My React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html> 
