@@ -20,10 +20,10 @@ export const verification_level_to_credential_types = (verification_level: Verif
 	switch (verification_level) {
 		case VerificationLevel.Device:
 			return [CredentialType.Orb, CredentialType.Device, CredentialType.SecurePassport, CredentialType.Passport]
-		case VerificationLevel.SecurePassport:
-			return [CredentialType.SecurePassport, CredentialType.Orb]
 		case VerificationLevel.Passport:
 			return [CredentialType.Passport, CredentialType.Orb]
+		case VerificationLevel.SecurePassport:
+			return [CredentialType.SecurePassport, CredentialType.Orb]
 		case VerificationLevel.Orb:
 			return [CredentialType.Orb]
 		default:
@@ -40,12 +40,12 @@ export const credential_type_to_verification_level = (credential_type: Credentia
 	switch (credential_type) {
 		case CredentialType.Orb:
 			return VerificationLevel.Orb
-		case CredentialType.Device:
-			return VerificationLevel.Device
 		case CredentialType.SecurePassport:
 			return VerificationLevel.SecurePassport
 		case CredentialType.Passport:
 			return VerificationLevel.Passport
+		case CredentialType.Device:
+			return VerificationLevel.Device
 		default:
 			throw new Error(`Unknown credential_type: ${credential_type}`)
 	}
