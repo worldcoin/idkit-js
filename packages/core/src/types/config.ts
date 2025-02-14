@@ -8,15 +8,15 @@ export type AbiEncodedValue = Brand<{ types: string[]; values: unknown[] }, 'Abi
  */
 export enum CredentialType {
 	Orb = 'orb',
-	SecurePassport = 'secure_passport',
-	Passport = 'passport',
+	SecureDocument = 'secure_document',
+	Document = 'passport',
 	Device = 'device',
 }
 
 export enum VerificationLevel {
 	Orb = 'orb',
-	SecurePassport = 'secure_passport',
-	Passport = 'passport',
+	SecureDocument = 'secure_document',
+	Document = 'document',
 	Device = 'device',
 }
 
