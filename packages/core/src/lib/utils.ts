@@ -40,10 +40,10 @@ export const credential_type_to_verification_level = (credential_type: Credentia
 	switch (credential_type) {
 		case CredentialType.Orb:
 			return VerificationLevel.Orb
-		case CredentialType.SecurePassport:
-			return VerificationLevel.SecurePassport
-		case CredentialType.Passport:
-			return VerificationLevel.Passport
+		case CredentialType.SecureDocument:
+			return VerificationLevel.SecureDocument
+		case CredentialType.Document:
+			return VerificationLevel.Document
 		case CredentialType.Device:
 			return VerificationLevel.Device
 		default:
