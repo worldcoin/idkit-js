@@ -19,7 +19,11 @@ export const buffer_decode = (encoded: string): ArrayBuffer => {
 export const verification_level_to_credential_types = (verification_level: VerificationLevel): string[] => {
 	switch (verification_level) {
 		case VerificationLevel.Device:
-			return [CredentialType.Orb, CredentialType.Device]
+			return [CredentialType.Orb, CredentialType.Device, CredentialType.SecureDocument, CredentialType.Document]
+		case VerificationLevel.Document:
+			return [CredentialType.Document, CredentialType.Orb]
+		case VerificationLevel.SecureDocument:
+			return [CredentialType.SecureDocument, CredentialType.Orb]
 		case VerificationLevel.Orb:
 			return [CredentialType.Orb]
 		default:
@@ -36,6 +40,10 @@ export const credential_type_to_verification_level = (credential_type: Credentia
 	switch (credential_type) {
 		case CredentialType.Orb:
 			return VerificationLevel.Orb
+		case CredentialType.SecureDocument:
+			return VerificationLevel.SecureDocument
+		case CredentialType.Document:
+			return VerificationLevel.Document
 		case CredentialType.Device:
 			return VerificationLevel.Device
 		default:
