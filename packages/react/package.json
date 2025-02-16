@@ -67,7 +67,7 @@
 		"copy-to-clipboard": "^3.3.3",
 		"framer-motion": "^11.2.14",
 		"qrcode": "^1.5.3",
-		"react-shadow": "^19.1.0",
+		"react-shadow": "^20.6.0",
 		"zustand": "^4.5.4"
 	},
 	"devDependencies": {
