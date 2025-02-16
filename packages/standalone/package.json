@@ -1,47 +1,10 @@
 {
-	"name": "@worldcoin/idkit-standalone",
-	"version": "1.4.0",
-	"homepage": "https://docs.worldcoin.org/id/idkit",
-	"license": "MIT",
-	"private": false,
-	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
-	"repository": {
-		"type": "git",
-		"directory": "packages/standalone",
-		"url": "git+https://github.com/worldcoin/idkit-js"
-	},
-	"type": "module",
-	"main": "src/index.tsx",
-	"exports": "./build/index.global.js",
-	"types": "src/index.tsx",
-	"engines": {
-		"node": ">=12.4"
-	},
-	"files": [
-		"build",
-		"README.md"
-	],
-	"scripts": {
-		"build": "tsup",
-		"dev": "tsup --watch",
-		"lint": "eslint src --ext .tsx",
-		"test": "concurrently --kill-others \"http-server ./build/ -p 8080\"  \"pnpm test:browser\"",
-		"test:browser": "node src/browser.test.js &",
-		"prepublishOnly": "npm run build",
-		"install-chrome": "puppeteer browsers install chrome"
-	},
-	"keywords": [
-		"identity",
-		"ID",
-		"web3",
-		"proof-of-personhood",
-		"sybil resistance"
-	],
 	"dependencies": {
 		"@worldcoin/idkit": "workspace:^",
 		"react": ">18.0.0",
 		"react-dom": ">18.0.0"
 	},
+	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
 	"devDependencies": {
 		"@types/react": "18.0.25",
 		"@types/react-dom": "18.0.9",
@@ -56,5 +19,45 @@
 		"ts-node": "^10.9.2",
 		"tsup": "^8.1.0",
 		"typescript": "^5.3.2"
-	}
+	},
+	"engines": {
+		"node": ">=12.4"
+	},
+	"exports": "./build/index.global.js",
+	"files": [
+		"build",
+		"README.md"
+	],
+	"homepage": "https://docs.worldcoin.org/id/idkit",
+	"keywords": [
+		"identity",
+		"ID",
+		"web3",
+		"proof-of-personhood",
+		"sybil resistance"
+	],
+	"license": "MIT",
+	"main": "src/index.tsx",
+	"name": "@worldcoin/idkit-standalone",
+	"private": false,
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"directory": "packages/standalone",
+		"type": "git",
+		"url": "git+https://github.com/worldcoin/idkit-js"
+	},
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"install-chrome": "puppeteer browsers install chrome",
+		"lint": "eslint src --ext .tsx",
+		"prepublishOnly": "npm run build",
+		"test": "concurrently --kill-others \"http-server ./build/ -p 8080\"  \"pnpm test:browser\"",
+		"test:browser": "node src/browser.test.js &"
+	},
+	"type": "module",
+	"types": "src/index.tsx",
+	"version": "1.4.0"
 }
