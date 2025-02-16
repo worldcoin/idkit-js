@@ -1,103 +1,103 @@
 {
-	"dependencies": {
-		"@radix-ui/react-dialog": "^1.1.1",
-		"@radix-ui/react-toast": "^1.2.1",
-		"@tailwindcss/forms": "^0.5.7",
-		"@worldcoin/idkit-core": "workspace:*",
-		"copy-to-clipboard": "^3.3.3",
-		"framer-motion": "^11.2.14",
-		"qrcode": "^1.5.3",
-		"react-shadow": "^19.1.0",
-		"zustand": "^4.5.4"
-	},
-	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
-	"devDependencies": {
-		"@types/node": "18.11.9",
-		"@types/qrcode": "^1.5.5",
-		"@types/react": "18.0.25",
-		"@types/react-dom": "18.0.9",
-		"@typescript-eslint/eslint-plugin": "^6.21.0",
-		"@typescript-eslint/parser": "^6.21.0",
-		"autoprefixer": "^10.4.19",
-		"clsx": "^2.1.1",
-		"eslint": "8.54.0",
-		"eslint-config-prettier": "^8.10.0",
-		"eslint-plugin-compat": "^4.2.0",
-		"eslint-plugin-import": "2.26.0",
-		"eslint-plugin-jsx-a11y": "^6.9.0",
-		"eslint-plugin-prettier": "^4.2.1",
-		"eslint-plugin-react": "^7.34.3",
-		"eslint-plugin-react-hooks": "^4.6.2",
-		"eslint-plugin-tailwindcss": "^3.17.4",
-		"postcss": "^8.4.39",
-		"prettier": "^3.3.2",
-		"prettier-plugin-sort-imports-desc": "^1.0.0",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
-		"tailwindcss": "^3.4.4",
-		"tsup": "^8.1.0",
-		"typescript": "^5.5.3"
-	},
-	"engines": {
-		"node": ">=12.4"
-	},
-	"exports": {
-		".": {
-			"import": "./build/index.js",
-			"types": "./build/index.d.ts"
-		},
-		"./internal": {
-			"import": "./build/internal.js",
-			"types": "./build/internal.d.ts"
-		}
-	},
-	"files": [
-		"build",
-		"README.md"
-	],
-	"homepage": "https://docs.worldcoin.org/id/idkit",
-	"keywords": [
-		"identity",
-		"ID",
-		"web3",
-		"proof-of-personhood",
-		"sybil resistance"
-	],
-	"license": "MIT",
-	"main": "src/index.ts",
-	"name": "@worldcoin/idkit",
-	"peerDependencies": {
-		"react": ">18.0.0",
-		"react-dom": ">18.0.0"
-	},
-	"private": false,
-	"publishConfig": {
-		"access": "public"
-	},
-	"repository": {
-		"directory": "packages/react",
-		"type": "git",
-		"url": "git+https://github.com/worldcoin/idkit-js"
-	},
-	"scripts": {
-		"build": "npm run build:css && tsup",
-		"build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify",
-		"dev": "tsup --watch",
-		"lint": "eslint src --ext .ts",
-		"prepublishOnly": "npm run build"
-	},
-	"type": "module",
-	"types": "src/index.ts",
-	"typesVersions": {
-		"*": {
-			"*": [
-				"./build/*/index.d.ts",
-				"./build/index.d.ts"
-			],
-			"internal": [
-				"./build/internal.d.ts"
-			]
-		}
-	},
-	"version": "1.4.0"
+    "dependencies": {
+        "@radix-ui/react-dialog": "^1.1.1",
+        "@radix-ui/react-toast": "^1.2.1",
+        "@tailwindcss/forms": "^0.5.7",
+        "@worldcoin/idkit-core": "workspace:*",
+        "copy-to-clipboard": "^3.3.3",
+        "framer-motion": "^11.2.14",
+        "qrcode": "^1.5.3",
+        "react-shadow": "^19.1.0",
+        "zustand": "^4.5.4"
+    },
+    "description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
+    "devDependencies": {
+        "@types/node": "18.11.9",
+        "@types/qrcode": "^1.5.5",
+        "@types/react": "18.0.25",
+        "@types/react-dom": "18.0.9",
+        "@typescript-eslint/eslint-plugin": "^6.21.0",
+        "@typescript-eslint/parser": "^6.21.0",
+        "autoprefixer": "^10.4.19",
+        "clsx": "^2.1.1",
+        "eslint": "8.54.0",
+        "eslint-config-prettier": "^8.10.0",
+        "eslint-plugin-compat": "^4.2.0",
+        "eslint-plugin-import": "2.26.0",
+        "eslint-plugin-jsx-a11y": "^6.9.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-react": "^7.34.3",
+        "eslint-plugin-react-hooks": "^4.6.2",
+        "eslint-plugin-tailwindcss": "^3.17.4",
+        "postcss": "^8.4.39",
+        "prettier": "^3.3.2",
+        "prettier-plugin-sort-imports-desc": "^1.0.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "tailwindcss": "^3.4.4",
+        "tsup": "^8.1.0",
+        "typescript": "^5.5.3"
+    },
+    "engines": {
+        "node": ">=12.4"
+    },
+    "exports": {
+        ".": {
+            "import": "./build/index.js",
+            "types": "./build/index.d.ts"
+        },
+        "./internal": {
+            "import": "./build/internal.js",
+            "types": "./build/internal.d.ts"
+        }
+    },
+    "files": [
+        "build",
+        "README.md"
+    ],
+    "homepage": "https://docs.worldcoin.org/id/idkit",
+    "keywords": [
+        "identity",
+        "ID",
+        "web3",
+        "proof-of-personhood",
+        "sybil resistance"
+    ],
+    "license": "MIT",
+    "main": "src/index.ts",
+    "name": "@worldcoin/idkit",
+    "peerDependencies": {
+        "react": ">18.0.0",
+        "react-dom": ">18.0.0"
+    },
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "directory": "packages/react",
+        "type": "git",
+        "url": "git+https://github.com/worldcoin/idkit-js"
+    },
+    "scripts": {
+        "build": "npm run build:css && tsup",
+        "build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify",
+        "dev": "tsup --watch",
+        "lint": "eslint src --ext .ts",
+        "prepublishOnly": "npm run build"
+    },
+    "type": "module",
+    "types": "src/index.ts",
+    "typesVersions": {
+        "*": {
+            "*": [
+                "./build/*/index.d.ts",
+                "./build/index.d.ts"
+            ],
+            "internal": [
+                "./build/internal.d.ts"
+            ]
+        }
+    },
+    "version": "1.4.0"
 }
