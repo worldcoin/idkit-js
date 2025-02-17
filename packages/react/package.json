@@ -21,6 +21,9 @@
 			"types": "./build/internal.d.ts"
 		}
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"typesVersions": {
 		"*": {
 			"internal": [
