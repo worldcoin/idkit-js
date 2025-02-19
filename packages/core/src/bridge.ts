@@ -56,7 +56,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 	bridge_url: DEFAULT_BRIDGE_URL,
 	verificationState: VerificationState.PreparingClient,
 
-	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal }) => {
+	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal, partner }) => {
 		const { key, iv } = await generateKey()
 
 		if (bridge_url) {
@@ -104,7 +104,9 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			verificationState: VerificationState.WaitingForConnection,
 			connectorURI: `https://worldcoin.org/verify?t=wld&i=${request_id}&k=${encodeURIComponent(
 				await exportKey(key)
-			)}${bridge_url && bridge_url !== DEFAULT_BRIDGE_URL ? `&b=${encodeURIComponent(bridge_url)}` : ''}`,
+			)}${bridge_url && bridge_url !== DEFAULT_BRIDGE_URL ? `&b=${encodeURIComponent(bridge_url)}` : ''}${
+				partner ? `&partner=${encodeURIComponent(true)}` : ''
+			}`,
 		})
 	},
 

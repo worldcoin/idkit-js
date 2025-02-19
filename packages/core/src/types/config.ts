@@ -33,4 +33,6 @@ export type IDKitConfig = {
 	bridge_url?: string
 	/** The minimum required level of verification. Defaults to "orb". */
 	verification_level?: VerificationLevel
+	/** Whether the app is a partner app and should allow deferred verification. Defaults to false. */
+	partner?: boolean
 }
