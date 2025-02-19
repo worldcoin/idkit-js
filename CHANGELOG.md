@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/worldcoin/idkit-js/compare/idkit-v1.4.0...idkit-v1.4.1) (2025-02-19)
+
+
+### Bug Fixes
+
+* versioning and add CODEOWNERS ([#303](https://github.com/worldcoin/idkit-js/issues/303)) ([4e9daae](https://github.com/worldcoin/idkit-js/commit/4e9daaed399527085e488092304663e91648b349))
+
 ## [1.4.0](https://github.com/worldcoin/idkit-js/compare/idkit-v1.3.0...idkit-v1.4.0) (2025-02-16)
 
 
