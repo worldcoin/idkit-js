@@ -7,15 +7,12 @@ const generateMatrix = (data: string): Array<number[]> => {
 	const arr = QRCodeUtil.create(data, { errorCorrectionLevel: 'M' }).modules.data as Uint8Array
 	const sqrt = Math.sqrt(arr.length)
 
-	return arr.reduce(
-		(rows, key, index) => {
-			if (index % sqrt === 0) rows.push([key])
-			else rows[rows.length - 1].push(key)
+	return arr.reduce((rows, key, index) => {
+		if (index % sqrt === 0) rows.push([key])
+		else rows[rows.length - 1].push(key)
 
-			return rows
-		},
-		[] as Array<number[]>
-	)
+		return rows
+	}, [] as Array<number[]>)
 }
 
 type Props = {

@@ -5,7 +5,7 @@ export default defineConfig({
 	clean: true,
 	outDir: 'build',
 	format: ['esm', 'cjs'],
-	external: ['zustand', 'ox'],
+	external: ['zustand', 'viem'],
 	entry: ['src/index.ts', 'src/lib/hashing.ts', 'src/lib/backend.ts'],
 	define: { 'process.env.NODE_ENV': '"production"' },
 })

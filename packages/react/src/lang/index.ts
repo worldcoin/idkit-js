@@ -12,8 +12,8 @@ const getLang = (): Record<string, string> | undefined => {
 type CleanWord<T> = T extends `${string}${' ' | ',' | '!' | '?' | '.' | '`'}${string}`
 	? never
 	: T extends ''
-		? never
-		: T
+	? never
+	: T
 
 type ExtractPlaceholders<S extends string> = S extends `${string}:${infer Placeholder}`
 	? Placeholder extends `${infer Word}${' ' | ',' | '!' | '?' | '.' | '`'}${infer Rest}`

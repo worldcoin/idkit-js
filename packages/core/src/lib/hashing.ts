@@ -1,7 +1,7 @@
 import { Buffer } from 'buffer/index.js'
 import type { IDKitConfig } from '@/types/config'
-import { AbiParameters, Bytes, Hex, Hash } from 'ox'
 import type { AbiEncodedValue } from '@/types/config'
+import { encodePacked, isBytes, isHex, keccak256 } from 'viem'
 
 export interface HashFunctionOutput {
 	hash: bigint
@@ -15,8 +15,8 @@ export interface HashFunctionOutput {
  * @param input Any string, hex-like string, bytes represented as a hex string.
  * @returns
  */
-export function hashToField(input: Bytes.Bytes | string): HashFunctionOutput {
-	if (Bytes.validate(input) || Hex.validate(input)) return hashEncodedBytes(input)
+export function hashToField(input: Uint8Array | string): HashFunctionOutput {
+	if (isBytes(input) || isHex(input)) return hashEncodedBytes(input)
 
 	return hashString(input)
 }
@@ -32,7 +32,7 @@ export function packAndEncode(input: [string, unknown][]): HashFunctionOutput {
 		[[], []]
 	)
 
-	return hashEncodedBytes(AbiParameters.encodePacked(types, values))
+	return hashEncodedBytes(encodePacked(types, values))
 }
 
 /**
@@ -52,8 +52,8 @@ function hashString(input: string): HashFunctionOutput {
  * @param input - Bytes represented as a hex string.
  * @returns
  */
-function hashEncodedBytes(input: Hex.Hex | Bytes.Bytes): HashFunctionOutput {
-	const hash = BigInt(Hash.keccak256(input, { as: 'Hex' })) >> 8n
+function hashEncodedBytes(input: `0x${string}` | Uint8Array): HashFunctionOutput {
+	const hash = BigInt(keccak256(input)) >> 8n
 	const rawDigest = hash.toString(16)
 
 	return { hash, digest: `0x${rawDigest.padStart(64, '0')}` }

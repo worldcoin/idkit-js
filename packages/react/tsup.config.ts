@@ -1,5 +1,5 @@
 import { defineConfig } from 'tsup'
-import packageJson from './package.json' assert {}
+import packageJson from './package.json' assert { type: 'json' }
 
 export default defineConfig({
 	dts: true,
