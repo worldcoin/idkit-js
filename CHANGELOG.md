@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/worldcoin/idkit-js/compare/idkit-v1.4.1...idkit-v1.2.2) (2025-02-20)
+
+
+### Miscellaneous Chores
+
+* **idkit:** Synchronize group versions
+
 ## [1.4.1](https://github.com/worldcoin/idkit-js/compare/idkit-v1.4.0...idkit-v1.4.1) (2025-02-19)
 
 
