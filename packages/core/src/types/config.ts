@@ -18,6 +18,7 @@ export enum VerificationLevel {
 	SecureDocument = 'secure_document',
 	Document = 'document',
 	Device = 'device',
+	OrbPlus = 'orb_plus',
 }
 
 export type IDKitConfig = {
