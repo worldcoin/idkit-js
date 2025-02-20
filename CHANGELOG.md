@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.2](https://github.com/worldcoin/idkit-js/compare/idkit-v1.4.1...idkit-v1.2.2) (2025-02-20)
+## [1.4.2](https://github.com/worldcoin/idkit-js/compare/idkit-v1.4.1...idkit-v1.2.2) (2025-02-20)
 
 
 ### Miscellaneous Chores

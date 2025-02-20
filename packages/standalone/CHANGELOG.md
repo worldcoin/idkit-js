@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.2](https://github.com/worldcoin/idkit-js/compare/standalone-v1.4.1...standalone-v1.2.2) (2025-02-20)
+## [1.4.2](https://github.com/worldcoin/idkit-js/compare/standalone-v1.4.1...standalone-v1.4.2) (2025-02-20)
 
 
 ### Features
