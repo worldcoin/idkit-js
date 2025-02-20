@@ -37,6 +37,7 @@ jobs:
                   node-version: 18
                   cache: 'pnpm'
                   registry-url: 'https://registry.npmjs.org'
+                  token: ${{secrets.NPM_TOKEN}}
 
             - name: Install dependencies
               run: pnpm install
