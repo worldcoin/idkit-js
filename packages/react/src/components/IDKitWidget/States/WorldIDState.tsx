@@ -21,6 +21,7 @@ const getOptions = (store: IDKitStore) => ({
 	setErrorState: store.setErrorState,
 	verification_level: store.verification_level,
 	action_description: store.action_description,
+	partner: store.partner,
 })
 
 const WorldIDState = () => {
@@ -35,6 +36,7 @@ const WorldIDState = () => {
 		action_description,
 		verification_level,
 		setErrorState,
+		partner,
 	} = useIDKitStore(getOptions, shallow)
 
 	const { connectorURI, reset, errorCode, result, verificationState } = useWorldBridge(
@@ -43,7 +45,8 @@ const WorldIDState = () => {
 		signal,
 		bridge_url,
 		verification_level,
-		action_description
+		action_description,
+		partner
 	)
 
 	useEffect(() => reset, [reset])
