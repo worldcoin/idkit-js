@@ -1,67 +1,4 @@
 {
-	"name": "@worldcoin/idkit",
-	"version": "1.4.2",
-	"homepage": "https://docs.worldcoin.org/id/idkit",
-	"license": "MIT",
-	"private": false,
-	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/worldcoin/idkit-js",
-		"directory": "packages/react"
-	},
-	"type": "module",
-	"exports": {
-		".": {
-			"import": "./build/index.js",
-			"types": "./build/index.d.ts"
-		},
-		"./internal": {
-			"import": "./build/internal.js",
-			"types": "./build/internal.d.ts"
-		}
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"typesVersions": {
-		"*": {
-			"internal": [
-				"./build/internal.d.ts"
-			],
-			"*": [
-				"./build/*/index.d.ts",
-				"./build/index.d.ts"
-			]
-		}
-	},
-	"main": "src/index.ts",
-	"types": "src/index.ts",
-	"engines": {
-		"node": ">=12.4"
-	},
-	"files": [
-		"build",
-		"README.md"
-	],
-	"scripts": {
-		"dev": "tsup --watch",
-		"lint": "eslint src --ext .ts",
-		"prepublishOnly": "npm run build",
-		"build": "npm run build:css && tsup",
-		"build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify"
-	},
-	"keywords": [
-		"identity",
-		"ID",
-		"web3",
-		"proof-of-personhood",
-		"sybil resistance"
-	],
-	"peerDependencies": {
-		"react": ">18.0.0",
-		"react-dom": ">18.0.0"
-	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^1.1.1",
 		"@radix-ui/react-toast": "^1.2.1",
@@ -73,6 +10,7 @@
 		"react-shadow": "^19.1.0",
 		"zustand": "^4.5.4"
 	},
+	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
 	"devDependencies": {
 		"@types/node": "18.11.9",
 		"@types/qrcode": "^1.5.5",
@@ -99,5 +37,67 @@
 		"tailwindcss": "^3.4.4",
 		"tsup": "^8.1.0",
 		"typescript": "^5.5.3"
-	}
+	},
+	"engines": {
+		"node": ">=12.4"
+	},
+	"exports": {
+		".": {
+			"import": "./build/index.js",
+			"types": "./build/index.d.ts"
+		},
+		"./internal": {
+			"import": "./build/internal.js",
+			"types": "./build/internal.d.ts"
+		}
+	},
+	"files": [
+		"build",
+		"README.md"
+	],
+	"homepage": "https://docs.world.org/id/idkit",
+	"keywords": [
+		"identity",
+		"ID",
+		"web3",
+		"proof-of-personhood",
+		"sybil resistance"
+	],
+	"license": "MIT",
+	"main": "src/index.ts",
+	"name": "@worldcoin/idkit",
+	"peerDependencies": {
+		"react": ">18.0.0",
+		"react-dom": ">18.0.0"
+	},
+	"private": false,
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"directory": "packages/react",
+		"type": "git",
+		"url": "git+https://github.com/worldcoin/idkit-js"
+	},
+	"scripts": {
+		"build": "npm run build:css && tsup",
+		"build:css": "npx tailwindcss -i ./src/styles/styles.css -o ./build/index.css --minify",
+		"dev": "tsup --watch",
+		"lint": "eslint src --ext .ts",
+		"prepublishOnly": "npm run build"
+	},
+	"type": "module",
+	"types": "src/index.ts",
+	"typesVersions": {
+		"*": {
+			"*": [
+				"./build/*/index.d.ts",
+				"./build/index.d.ts"
+			],
+			"internal": [
+				"./build/internal.d.ts"
+			]
+		}
+	},
+	"version": "1.4.2"
 }

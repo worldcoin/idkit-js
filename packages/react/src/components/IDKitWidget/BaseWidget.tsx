@@ -105,7 +105,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 														</div>
 														<div className="flex items-center justify-between border-t border-f5f5f7 p-7 md:rounded-b-2xl">
 															<a
-																href="https://worldcoin.org/world-id"
+																href="https://world.org/world-id"
 																target="_blank"
 																rel="noreferrer"
 																className="flex items-center gap-1 text-sm text-9eafc0"
