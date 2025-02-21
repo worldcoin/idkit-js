@@ -102,7 +102,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			requestId: request_id,
 			bridge_url: bridge_url ?? DEFAULT_BRIDGE_URL,
 			verificationState: VerificationState.WaitingForConnection,
-			connectorURI: `https://worldcoin.org/verify?t=wld&i=${request_id}&k=${encodeURIComponent(
+			connectorURI: `https://world.org/verify?t=wld&i=${request_id}&k=${encodeURIComponent(
 				await exportKey(key)
 			)}${bridge_url && bridge_url !== DEFAULT_BRIDGE_URL ? `&b=${encodeURIComponent(bridge_url)}` : ''}${
 				partner ? `&partner=${encodeURIComponent(true)}` : ''

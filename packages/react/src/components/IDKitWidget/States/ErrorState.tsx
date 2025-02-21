@@ -25,7 +25,7 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 		'There was a problem with this request. Please try again or contact the app owner.'
 	),
 	[AppErrorCodes.InvalidNetwork]: __(
-		'Invalid network. If you are the app owner, visit docs.worldcoin.org/test for details.'
+		'Invalid network. If you are the app owner, visit docs.world.org/test for details.'
 	),
 	[AppErrorCodes.InclusionProofFailed]: __('There was an issue fetching your credential. Please try again.'),
 	[AppErrorCodes.InclusionProofPending]: __(
@@ -62,7 +62,7 @@ const ErrorState = () => {
 					onClick={retryFlow}
 					className="inline-flex items-center rounded-lg border border-ebecef bg-transparent px-8 py-3 font-medium text-3c424b shadow-sm transition duration-300 hover:shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
 				>
-					<ReloadIcon className="mr-1.5 h-5 w-5" />
+					<ReloadIcon className="mr-1.5 size-5" />
 					{__('Try Again')}
 				</button>
 			</div>

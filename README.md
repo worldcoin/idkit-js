@@ -1,10 +1,10 @@
-<a href="https://docs.worldcoin.org/idkit">
+<a href="https://docs.world.org/idkit">
   <img src="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/public/images/shared-readme/readme-header.png" alt="" />
 </a>
 
 # IDKit
 
-IDKit is the toolkit for identity online. With IDKit you can easily interact with the [World ID Protocol](https://worldcoin.org/world-id).
+IDKit is the toolkit for identity online. With IDKit you can easily interact with the [World ID Protocol](https://world.org/world-id).
 
 ## 🚀 Getting started
 
@@ -29,7 +29,7 @@ import { IDKitWidget } from "@worldcoin/idkit";
 </IDKitWidget>
 ```
 
-More details can be found in the [documentation](https://docs.worldcoin.org/reference/idkit).
+More details can be found in the [documentation](https://docs.world.org/reference/idkit).
 
 ## 🔒 Verifying the IDKit response
 
@@ -44,17 +44,17 @@ Optionally, IDKit also provides an `onSuccess` option, which you can use if your
 
 ## <img align="left" width="28" height="28" src="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/public/images/shared-readme/readme-world-id.png" alt="" style="margin-right: 0; padding-right: 4px;" /> About World ID
 
-World ID is the privacy-first identity protocol that brings global proof of personhood to the internet. More on World ID in the [announcement blog post](https://worldcoin.org/blog/announcements/introducing-world-id-and-sdk).
+World ID is the privacy-first identity protocol that brings global proof of personhood to the internet. More on World ID in the [announcement blog post](https://world.org/blog/announcements/introducing-world-id-and-sdk).
 
-World ID lets you seamlessly integrate authentication into your app that verifies accounts belong to real persons through [Sign in with Worldcoin](https://docs.worldcoin.org/id/sign-in). For additional flexibility and cases where you need extreme privacy, [Anonymous Actions](https://docs.worldcoin.org/id/anonymous-actions) lets you verify users in a way that cannot be tracked across verifications.
+World ID lets you seamlessly integrate authentication into your app that verifies accounts belong to real persons through [Sign in with Worldcoin](https://docs.world.org/id/sign-in). For additional flexibility and cases where you need extreme privacy, [Anonymous Actions](https://docs.world.org/id/anonymous-actions) lets you verify users in a way that cannot be tracked across verifications.
 
-Follow the [Quick Start](https://docs.worldcoin.org/quick-start) guide for the easiest way to get started.
+Follow the [Quick Start](https://docs.world.org/quick-start) guide for the easiest way to get started.
 
 ## 📄 Documentation
 
-All the technical docs for the Wordcoin SDK, World ID Protocol, examples, guides can be found at https://docs.worldcoin.org/
+All the technical docs for the World ID SDK, World ID Protocol, examples, guides can be found at https://docs.world.org/
 
-<a href="https://docs.worldcoin.org">
+<a href="https://docs.world.org">
   <p align="center">
     <picture align="center">
       <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/public/images/shared-readme/visit-documentation-dark.png" height="50px" />
