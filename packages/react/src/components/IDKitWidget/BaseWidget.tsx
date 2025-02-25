@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import useMedia from '@/hooks/useMedia'
+import { createPortal } from 'react-dom'
 import Styles from '@/components/Styles'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
@@ -29,7 +30,7 @@ const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions
 	onOpenChange,
 })
 
-const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
+const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_id, ...config }) => {
 	const media = useMedia()
 
 	const { isOpen, onOpenChange, stage, setOptions } = useIDKitStore(getParams, shallow)
@@ -44,17 +45,40 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 	const StageContent = useMemo(() => {
 		switch (stage) {
 			case IDKITStage.WORLD_ID:
-				return WorldIDState
+				return <WorldIDState show_modal={show_modal} />
 			case IDKITStage.SUCCESS:
-				return SuccessState
+				return <SuccessState />
 			case IDKITStage.ERROR:
-				return ErrorState
+				return <ErrorState />
 			case IDKITStage.HOST_APP_VERIFICATION:
-				return HostAppVerificationState
+				return <HostAppVerificationState />
 			default:
 				throw new Error(__('Invalid IDKitStage :stage.', { stage }))
 		}
-	}, [stage])
+	}, [stage, show_modal])
+
+	const widgetContent = (
+		<root.div mode="open" id="idkit-widget">
+			<Styles />
+			<Toast.Provider>
+				<Toast.Viewport className="flex justify-center" />
+				<div
+					id="widget-content-inline"
+					className="relative flex flex-col bg-white p-4 focus:outline-none dark:bg-0d151d"
+				>
+					{StageContent}
+				</div>
+			</Toast.Provider>
+		</root.div>
+	)
+
+	if (!show_modal && container_id) {
+		const containerElement = document.getElementById(container_id)
+		if (containerElement) {
+			return createPortal(widgetContent, containerElement)
+		}
+		console.warn(`Container element with id "${container_id}" not found. Rendering widget inline.`)
+	}
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -101,7 +125,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, ...config }) => {
 															</Dialog.Close>
 														</div>
 														<div className="relative mx-6 mb-6 flex flex-1 flex-col items-center justify-center">
-															<StageContent />
+															{StageContent}
 														</div>
 														<div className="flex items-center justify-between border-t border-f5f5f7 p-7 md:rounded-b-2xl">
 															<a
