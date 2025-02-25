@@ -71,7 +71,7 @@
 		"framer-motion": "^11.2.14",
 		"qrcode": "^1.5.3",
 		"react-shadow": "^19.1.0",
-		"zustand": "^4.5.4"
+		"zustand": "^4.5.2"
 	},
 	"devDependencies": {
 		"@types/node": "18.11.9",
