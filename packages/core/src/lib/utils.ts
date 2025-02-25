@@ -21,7 +21,7 @@ export const verification_level_to_credential_types = (verification_level: Verif
 		case VerificationLevel.Device:
 			return [CredentialType.Orb, CredentialType.Device, CredentialType.SecureDocument, CredentialType.Document]
 		case VerificationLevel.Document:
-			return [CredentialType.Document, CredentialType.Orb]
+			return [CredentialType.Document, CredentialType.SecureDocument, CredentialType.Orb]
 		case VerificationLevel.SecureDocument:
 			return [CredentialType.SecureDocument, CredentialType.Orb]
 		case VerificationLevel.Orb:

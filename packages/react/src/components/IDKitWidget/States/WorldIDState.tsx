@@ -66,7 +66,7 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 				setErrorState({ code: AppErrorCodes.CredentialUnavailable })
 				return
 			}
-			handleVerify(result)
+			return handleVerify(result)
 		}
 	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, verification_level])
 
