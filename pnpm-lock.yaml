@@ -78,7 +78,7 @@ importers:
         version: 0.1.0(typescript@5.3.3)(zod@3.23.8)
       zustand:
         specifier: ^4.5
-        version: 4.5.4(@types/react@18.0.25)(react@18.3.1)
+        version: 4.5.2(@types/react@18.0.25)(react@18.2.0)
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.13.1
@@ -120,7 +120,7 @@ importers:
         specifier: ^19.1.0
         version: 19.1.0(prop-types@15.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       zustand:
-        specifier: ^4.5.2
+        specifier: ^4.5.4
         version: 4.5.4(@types/react@18.0.25)(react@18.2.0)
     devDependencies:
       '@types/node':
@@ -3045,10 +3045,6 @@ packages:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
 
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
-    engines: {node: '>=0.10.0'}
-
   read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
 
@@ -3786,6 +3782,21 @@ packages:
 
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+
+  zustand@4.5.2:
+    resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0.6'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
 
   zustand@4.5.4:
     resolution: {integrity: sha512-/BPMyLKJPtFEvVL0E9E9BTUM63MNyhPGlvxk1XjrfWTUlV+BR8jufjsovHzrtR6YNcBEcL7cMHovL1n9xHawEg==}
@@ -6910,10 +6921,6 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  react@18.3.1:
-    dependencies:
-      loose-envify: 1.4.0
-
   read-cache@1.0.0:
     dependencies:
       pify: 2.3.0
@@ -7629,10 +7636,6 @@ snapshots:
     dependencies:
       react: 18.2.0
 
-  use-sync-external-store@1.2.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-
   util-deprecate@1.0.2: {}
 
   v8-compile-cache-lib@3.0.1: {}
@@ -7786,16 +7789,16 @@ snapshots:
 
   zod@3.23.8: {}
 
-  zustand@4.5.4(@types/react@18.0.25)(react@18.2.0):
+  zustand@4.5.2(@types/react@18.0.25)(react@18.2.0):
     dependencies:
       use-sync-external-store: 1.2.0(react@18.2.0)
     optionalDependencies:
       '@types/react': 18.0.25
       react: 18.2.0
 
-  zustand@4.5.4(@types/react@18.0.25)(react@18.3.1):
+  zustand@4.5.4(@types/react@18.0.25)(react@18.2.0):
     dependencies:
-      use-sync-external-store: 1.2.0(react@18.3.1)
+      use-sync-external-store: 1.2.0(react@18.2.0)
     optionalDependencies:
       '@types/react': 18.0.25
-      react: 18.3.1
+      react: 18.2.0
