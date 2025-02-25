@@ -1,9 +1,9 @@
 import { __ } from '@/lang'
 import type { FC } from 'react'
 import root from 'react-shadow'
-import ReactDOM from 'react-dom'
 import { IDKITStage } from '@/types'
 import useMedia from '@/hooks/useMedia'
+import { createPortal } from 'react-dom'
 import Styles from '@/components/Styles'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
@@ -30,7 +30,7 @@ const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions
 	onOpenChange,
 })
 
-const IDKitWidget: FC<WidgetProps> = ({ children, showModal = false, containerId, ...config }) => {
+const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_id, ...config }) => {
 	const media = useMedia()
 
 	const { isOpen, onOpenChange, stage, setOptions } = useIDKitStore(getParams, shallow)
@@ -45,7 +45,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, showModal = false, containerId
 	const StageContent = useMemo(() => {
 		switch (stage) {
 			case IDKITStage.WORLD_ID:
-				return <WorldIDState showModal={showModal} />
+				return <WorldIDState show_modal={show_modal} />
 			case IDKITStage.SUCCESS:
 				return <SuccessState />
 			case IDKITStage.ERROR:
@@ -55,7 +55,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, showModal = false, containerId
 			default:
 				throw new Error(__('Invalid IDKitStage :stage.', { stage }))
 		}
-	}, [stage, showModal])
+	}, [stage, show_modal])
 
 	const widgetContent = (
 		<root.div mode="open" id="idkit-widget">
@@ -72,12 +72,12 @@ const IDKitWidget: FC<WidgetProps> = ({ children, showModal = false, containerId
 		</root.div>
 	)
 
-	if (!showModal && containerId) {
-		const containerElement = document.getElementById(containerId)
+	if (!show_modal && container_id) {
+		const containerElement = document.getElementById(container_id)
 		if (containerElement) {
-			return ReactDOM.createPortal(widgetContent, containerElement)
+			return createPortal(widgetContent, containerElement)
 		}
-		console.warn(`Container element with id "${containerId}" not found. Rendering widget inline.`)
+		console.warn(`Container element with id "${container_id}" not found. Rendering widget inline.`)
 	}
 
 	return (

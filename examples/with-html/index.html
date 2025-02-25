@@ -49,14 +49,13 @@
 
 		<script type="module">
 			import '@worldcoin/idkit-standalone'
-
 			IDKit.init({
 				signal: 'test_signal',
 				app_id: 'app_ce4cb73cb75fc3b73b71ffb4de178410',
 				action: 'test-action',
 				action_description: 'Test action description',
-				showModal: false,
-				containerId: 'idkit-container',
+				show_modal: false,
+				container_id: 'idkit-container',
 				handleVerify: response => {
 					// verify the IDKIt proof, throw an error to show the error screen
 				},

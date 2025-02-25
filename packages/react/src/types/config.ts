@@ -27,6 +27,6 @@ export type Config = Required<Pick<IDKitConfig, 'action'>> &
 
 export type WidgetProps = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
-	showModal?: boolean
-	containerId?: string
+	show_modal?: boolean
+	container_id?: string
 }

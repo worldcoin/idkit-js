@@ -24,7 +24,7 @@ const getOptions = (store: IDKitStore) => ({
 	partner: store.partner,
 })
 
-const WorldIDState = (props: { showModal?: boolean }) => {
+const WorldIDState = (props: { show_modal?: boolean }) => {
 	const [showQR, setShowQR] = useState<boolean>(false)
 	const {
 		app_id,
@@ -70,15 +70,15 @@ const WorldIDState = (props: { showModal?: boolean }) => {
 		}
 	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, verification_level])
 
-	const { showModal } = props
+	const { show_modal } = props
 	return (
 		<div
 			className={clsx(
 				'flex flex-col items-center text-center',
-				showModal ? (showQR ? '-mt-6 space-y-5 ' : '-mt-6 space-y-10 ') : ''
+				show_modal ? (showQR ? '-mt-6 space-y-5 ' : '-mt-6 space-y-10 ') : ''
 			)}
 		>
-			<div className={clsx(!showModal ? 'hidden' : '')}>
+			<div className={clsx(!show_modal ? 'hidden' : '')}>
 				<div className="mb-4 flex items-center justify-center">
 					<WorldcoinIcon className="h-10 text-0d151d dark:text-white" />
 				</div>

@@ -36,13 +36,13 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	[AppErrorCodes.FailedByHostApp]: __('Verification failed by the app. Please contact the app owner for details.'),
 }
 
-const ErrorState = (props: { showModal?: boolean }) => {
+const ErrorState = (props: { show_modal?: boolean }) => {
 	const { retryFlow, errorState } = useIDKitStore(getParams)
-	const { showModal } = props
+	const { show_modal } = props
 
 	return (
 		<div className="space-y-8">
-			<div className={clsx('flex items-center justify-center', showModal ? '-mt-5' : '')}>
+			<div className={clsx('flex items-center justify-center', show_modal ? '-mt-5' : '')}>
 				{errorState?.code == AppErrorCodes.VerificationRejected ? (
 					<WarningIcon className="w-24" />
 				) : (

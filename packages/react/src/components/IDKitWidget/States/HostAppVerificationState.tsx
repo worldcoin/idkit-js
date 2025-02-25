@@ -4,7 +4,6 @@
  */
 
 import { __ } from '@/lang'
-import { memo } from 'react'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 
 const HostAppVerificationState = () => {
@@ -18,4 +17,4 @@ const HostAppVerificationState = () => {
 	)
 }
 
-export default memo(HostAppVerificationState)
+export default HostAppVerificationState
