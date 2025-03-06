@@ -30,7 +30,13 @@ const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions
 	onOpenChange,
 })
 
-const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_id, ...config }) => {
+const IDKitWidget: FC<WidgetProps> = ({
+	children,
+	show_modal = true,
+	container_id,
+	disable_default_modal_behavior = false,
+	...config
+}) => {
 	const media = useMedia()
 
 	const { isOpen, onOpenChange, stage, setOptions } = useIDKitStore(getParams, shallow)
@@ -80,6 +86,12 @@ const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_i
 		console.warn(`Container element with id "${container_id}" not found. Rendering widget inline.`)
 	}
 
+	const avoidDefaultDomBehavior = (e: Event) => {
+		if (disable_default_modal_behavior) {
+			e.preventDefault()
+		}
+	}
+
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
@@ -100,7 +112,11 @@ const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_i
 									</Dialog.Overlay>
 									<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
 										<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
-											<Dialog.Content asChild>
+											<Dialog.Content
+												asChild
+												onPointerDownOutside={avoidDefaultDomBehavior}
+												onInteractOutside={avoidDefaultDomBehavior}
+											>
 												<motion.div
 													layout={media == 'mobile' ? 'position' : true}
 													exit={media == 'mobile' ? 'initMob' : 'init'}
@@ -135,7 +151,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_i
 																className="flex items-center gap-1 text-sm text-9eafc0"
 															>
 																<WorldcoinIcon className="w-4 text-9eafc0 dark:text-white" />
-																<span>{__('Powered by Worldcoin')}</span>
+																<span>{__('Powered by World ID')}</span>
 															</a>
 
 															<a
