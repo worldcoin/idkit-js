@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { __ } from '@/lang'
 import { IDKITStage } from '@/types'
+import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
@@ -25,6 +26,7 @@ const getOptions = (store: IDKitStore) => ({
 })
 
 const WorldIDState = (props: { show_modal?: boolean }) => {
+	const media = useMedia()
 	const [showQR, setShowQR] = useState<boolean>(false)
 	const {
 		app_id,
@@ -85,7 +87,7 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 				<p className="font-sora text-2xl font-semibold text-gray-900 dark:text-white">
 					{__('Verify with World ID')}
 				</p>
-				<p className="mt-3 text-657080 dark:text-9eafc0 md:mt-2">
+				<p className={clsx('mt-3 text-657080 dark:text-9eafc0 md:mt-2', { hidden: media === 'mobile' })}>
 					Please use your World App to scan the QR code
 				</p>
 			</div>

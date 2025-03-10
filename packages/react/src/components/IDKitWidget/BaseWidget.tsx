@@ -16,7 +16,6 @@ import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
-import WorldcoinIcon from '../Icons/WorldcoinIcon'
 import { Fragment, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import HostAppVerificationState from './States/HostAppVerificationState'
@@ -136,29 +135,19 @@ const IDKitWidget: FC<WidgetProps> = ({
 													<Toast.Provider>
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
-															<Dialog.Close className="flex items-center justify-center rounded-full text-black dark:text-white">
+															<Dialog.Close className="flex size-11 items-center justify-center rounded-full text-black dark:text-white">
 																<XMarkIcon className="size-5" />
 															</Dialog.Close>
 														</div>
 														<div className="relative mx-6 mb-6 flex flex-1 flex-col items-center justify-center">
 															{StageContent}
 														</div>
-														<div className="flex items-center justify-between border-t border-f5f5f7 p-7 md:rounded-b-2xl">
-															<a
-																href="https://world.org/world-id"
-																target="_blank"
-																rel="noreferrer"
-																className="flex items-center gap-1 text-sm text-9eafc0"
-															>
-																<WorldcoinIcon className="w-4 text-9eafc0 dark:text-white" />
-																<span>{__('Powered by World ID')}</span>
-															</a>
-
+														<div className="flex items-center justify-center border-t border-f5f5f7 p-7 md:rounded-b-2xl">
 															<a
 																href="https://developer.worldcoin.org/privacy-statement"
 																target="_blank"
 																rel="noreferrer"
-																className="text-sm text-9eafc0 hover:underline"
+																className="text-sm text-gray-900 hover:underline"
 															>
 																{__('Terms & Privacy')}
 															</a>
