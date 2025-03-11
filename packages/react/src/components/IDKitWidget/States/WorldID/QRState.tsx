@@ -50,7 +50,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 						{__('Open World App')}
 					</motion.span>
 				</motion.a>
-				<div className={clsx('mb-3', { 'space-y-4': !showQR })}>
+				<div className={clsx('mb-3', { 'space-y-4': !showQR, hidden: media === 'mobile' })}>
 					<div className={clsx('flex items-center space-x-4 ', { hidden: showQR })}>
 						<hr className="flex-1" />
 						<span className="text-xs font-medium text-9ba3ae">or</span>
