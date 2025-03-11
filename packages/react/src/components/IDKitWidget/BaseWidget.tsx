@@ -100,7 +100,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 						{isOpen && (
 							<root.div mode="open" id="idkit-widget">
 								<Styles />
-								<div id="modal" className="fixed z-10 font-sans">
+								<div id="modal" className="fixed z-[9999] font-sans">
 									<Dialog.Overlay asChild>
 										<motion.div
 											initial={{ opacity: 0 }}
@@ -109,7 +109,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 											className="fixed inset-0 bg-black/50 backdrop-blur-lg"
 										/>
 									</Dialog.Overlay>
-									<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
+									<div className="fixed inset-0 z-[9999] overflow-y-hidden md:overflow-y-auto">
 										<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
 											<Dialog.Content
 												asChild
