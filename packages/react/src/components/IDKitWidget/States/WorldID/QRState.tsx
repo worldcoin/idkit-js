@@ -47,7 +47,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 						transition={{ layout: { duration: 0.15 } }}
 						layoutId={media == 'desktop' ? undefined : 'worldid-text'}
 					>
-						{__('Open Worldcoin App')}
+						{__('Open World App')}
 					</motion.span>
 				</motion.a>
 				<div className={clsx('mb-3', { 'space-y-4': !showQR })}>
