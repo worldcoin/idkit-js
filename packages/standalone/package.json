@@ -1,6 +1,6 @@
 {
 	"name": "@worldcoin/idkit-standalone",
-	"version": "1.4.3",
+	"version": "2.0.0",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
 	"private": false,
