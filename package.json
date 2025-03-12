@@ -1,6 +1,6 @@
 {
 	"private": true,
-	"version": "1.4.3",
+	"version": "2.0.0",
 	"name": "idkit-monorepo",
 	"scripts": {
 		"dev": "turbo run dev",
