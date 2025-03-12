@@ -16,7 +16,6 @@ import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
-import WorldcoinIcon from '../Icons/WorldcoinIcon'
 import { Fragment, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import HostAppVerificationState from './States/HostAppVerificationState'
@@ -30,7 +29,13 @@ const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions
 	onOpenChange,
 })
 
-const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_id, ...config }) => {
+const IDKitWidget: FC<WidgetProps> = ({
+	children,
+	show_modal = true,
+	container_id,
+	disable_default_modal_behavior = false,
+	...config
+}) => {
 	const media = useMedia()
 
 	const { isOpen, onOpenChange, stage, setOptions } = useIDKitStore(getParams, shallow)
@@ -80,6 +85,12 @@ const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_i
 		console.warn(`Container element with id "${container_id}" not found. Rendering widget inline.`)
 	}
 
+	const avoidDefaultDomBehavior = (e: Event) => {
+		if (disable_default_modal_behavior) {
+			e.preventDefault()
+		}
+	}
+
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
 			{children?.({ open: () => onOpenChange(true) })}
@@ -89,7 +100,7 @@ const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_i
 						{isOpen && (
 							<root.div mode="open" id="idkit-widget">
 								<Styles />
-								<div id="modal" className="fixed z-10 font-sans">
+								<div id="modal" className="fixed z-[9999] font-sans">
 									<Dialog.Overlay asChild>
 										<motion.div
 											initial={{ opacity: 0 }}
@@ -98,9 +109,13 @@ const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_i
 											className="fixed inset-0 bg-black/50 backdrop-blur-lg"
 										/>
 									</Dialog.Overlay>
-									<div className="fixed inset-0 z-10 overflow-y-hidden md:overflow-y-auto">
+									<div className="fixed inset-0 z-[9999] overflow-y-hidden md:overflow-y-auto">
 										<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
-											<Dialog.Content asChild>
+											<Dialog.Content
+												asChild
+												onPointerDownOutside={avoidDefaultDomBehavior}
+												onInteractOutside={avoidDefaultDomBehavior}
+											>
 												<motion.div
 													layout={media == 'mobile' ? 'position' : true}
 													exit={media == 'mobile' ? 'initMob' : 'init'}
@@ -120,29 +135,19 @@ const IDKitWidget: FC<WidgetProps> = ({ children, show_modal = true, container_i
 													<Toast.Provider>
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 mb-12 flex items-center justify-between">
-															<Dialog.Close className="flex items-center justify-center rounded-full text-black dark:text-white">
+															<Dialog.Close className="flex size-11 items-center justify-center rounded-full text-black dark:text-white">
 																<XMarkIcon className="size-5" />
 															</Dialog.Close>
 														</div>
 														<div className="relative mx-6 mb-6 flex flex-1 flex-col items-center justify-center">
 															{StageContent}
 														</div>
-														<div className="flex items-center justify-between border-t border-f5f5f7 p-7 md:rounded-b-2xl">
-															<a
-																href="https://world.org/world-id"
-																target="_blank"
-																rel="noreferrer"
-																className="flex items-center gap-1 text-sm text-9eafc0"
-															>
-																<WorldcoinIcon className="w-4 text-9eafc0 dark:text-white" />
-																<span>{__('Powered by Worldcoin')}</span>
-															</a>
-
+														<div className="flex items-center justify-center border-t border-f5f5f7 p-7 md:rounded-b-2xl">
 															<a
 																href="https://developer.worldcoin.org/privacy-statement"
 																target="_blank"
 																rel="noreferrer"
-																className="text-sm text-9eafc0 hover:underline"
+																className="text-sm text-657080 hover:underline"
 															>
 																{__('Terms & Privacy')}
 															</a>

@@ -46,6 +46,7 @@ const Home = ({ app_id, action, signal }: InferGetServerSidePropsType<typeof get
 		handleVerify={proof => verify(proof, app_id, action, signal)}
 		app_id={app_id}
 		partner={true}
+		disable_default_modal_behavior={true}
 		verification_level={VerificationLevel.Device}
 	>
 		{({ open }) => <button onClick={open}>Open IDKit</button>}

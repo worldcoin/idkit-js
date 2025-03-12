@@ -28,5 +28,7 @@ export type Config = Required<Pick<IDKitConfig, 'action'>> &
 export type WidgetProps = Config & {
 	children?: ({ open }: { open: () => void }) => JSX.Element
 	show_modal?: boolean
+	/** Whether to disable the default modal behavior. Defaults to `false`. */
+	disable_default_modal_behavior?: boolean
 	container_id?: string
 }

@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react'
 
 const useMedia = (): 'desktop' | 'mobile' => {
-	const [media, setMedia] = useState<'desktop' | 'mobile'>('desktop')
+	// Check media query during initialization if window is available
+	const getInitialState = (): 'desktop' | 'mobile' => {
+		if (typeof window !== 'undefined') {
+			return window.matchMedia('(max-width: 768px)').matches ? 'mobile' : 'desktop'
+		}
+		return 'desktop' // Default for SSR
+	}
+
+	const [media, setMedia] = useState<'desktop' | 'mobile'>(getInitialState())
 
 	useEffect(() => {
 		const mql = window.matchMedia('(max-width: 768px)')
