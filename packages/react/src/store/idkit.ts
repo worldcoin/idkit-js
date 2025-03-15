@@ -1,4 +1,3 @@
-import { __ } from '@/lang'
 import { IDKITStage } from '@/types'
 import type { CallbackFn } from '@/types'
 import { shallow } from 'zustand/shallow'
