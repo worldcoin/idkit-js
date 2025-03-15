@@ -1,4 +1,5 @@
 import { __ } from '@/lang'
+import i18n from '@/lang/i18n'
 import type { FC } from 'react'
 import root from 'react-shadow'
 import { IDKITStage } from '@/types'
@@ -34,11 +35,16 @@ const IDKitWidget: FC<WidgetProps> = ({
 	show_modal = true,
 	container_id,
 	disable_default_modal_behavior = false,
+	language = 'en',
 	...config
 }) => {
 	const media = useMedia()
 
 	const { isOpen, onOpenChange, stage, setOptions } = useIDKitStore(getParams, shallow)
+
+	useEffect(() => {
+		void i18n.changeLanguage(language)
+	}, [language])
 
 	useEffect(() => {
 		if (config.action === '') {
@@ -149,7 +155,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 																rel="noreferrer"
 																className="text-sm text-657080 hover:underline"
 															>
-																{__('Terms & Privacy')}
+																{i18n.t('terms-and-privacy')}
 															</a>
 														</div>
 													</Toast.Provider>

@@ -3,7 +3,7 @@
  * before we show a success/error state.
  */
 
-import { __ } from '@/lang'
+import i18n from '@/lang/i18n'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 
 const HostAppVerificationState = () => {
@@ -12,7 +12,7 @@ const HostAppVerificationState = () => {
 			<div className="flex justify-center">
 				<LoadingIcon className="size-24" />
 			</div>
-			<div className="mt-4 text-70868f">{__('Transmitting verification to host app. Please wait...')}</div>
+			<div className="mt-4 text-70868f">{i18n.t('transmitting-verification')}</div>
 		</div>
 	)
 }

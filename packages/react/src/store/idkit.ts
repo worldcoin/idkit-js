@@ -1,4 +1,3 @@
-import { __ } from '@/lang'
 import { IDKITStage } from '@/types'
 import type { CallbackFn } from '@/types'
 import { shallow } from 'zustand/shallow'
@@ -148,7 +147,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 						stage: IDKITStage.ERROR,
 						errorState: {
 							code: AppErrorCodes.FailedByHostApp,
-							message: errorMessage ? __(errorMessage) : undefined,
+							message: errorMessage ?? undefined,
 						},
 					})
 				}

@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { IDKitWidget, ISuccessResult, IVerifyResponse, VerificationLevel } from '@worldcoin/idkit'
+import { IDKitWidget, ISuccessResult, IVerifyResponse, VerificationLevel, WidgetProps } from '@worldcoin/idkit'
 
 export const getServerSideProps = (async context => {
 	return {
@@ -37,20 +38,34 @@ async function verify(proof: ISuccessResult, app_id: `app_${string}`, action: st
 	}
 }
 
-const Home = ({ app_id, action, signal }: InferGetServerSidePropsType<typeof getServerSideProps>) => (
-	<IDKitWidget
-		action={action}
-		signal={signal}
-		onError={error => console.log('onError: ', error)}
-		onSuccess={response => console.log('onSuccess: ', response)}
-		handleVerify={proof => verify(proof, app_id, action, signal)}
-		app_id={app_id}
-		partner={true}
-		disable_default_modal_behavior={true}
-		verification_level={VerificationLevel.Device}
-	>
-		{({ open }) => <button onClick={open}>Open IDKit</button>}
-	</IDKitWidget>
-)
+const Home = ({ app_id, action, signal }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+	const [language, setLanguage] = useState<WidgetProps['language']>('en')
+
+	return (
+		<div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'start' }}>
+			<form>
+				<label htmlFor="language-select">Change IDKit language: </label>
+				<select id="language-select" onChange={e => setLanguage(e.target.value as WidgetProps['language'])}>
+					<option value="en">English</option>
+					<option value="es">Spanish</option>
+				</select>
+			</form>
+			<IDKitWidget
+				action={action}
+				signal={signal}
+				onError={error => console.log('onError: ', error)}
+				onSuccess={response => console.log('onSuccess: ', response)}
+				handleVerify={proof => verify(proof, app_id, action, signal)}
+				app_id={app_id}
+				partner={true}
+				disable_default_modal_behavior={true}
+				verification_level={VerificationLevel.Device}
+				language={language}
+			>
+				{({ open }) => <button onClick={open}>Open IDKit</button>}
+			</IDKitWidget>
+		</div>
+	)
+}
 
 export default Home

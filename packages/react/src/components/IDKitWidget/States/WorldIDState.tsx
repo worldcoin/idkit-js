@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { __ } from '@/lang'
+import i18n from '@/lang/i18n'
 import { IDKITStage } from '@/types'
 import useMedia from '@/hooks/useMedia'
 import QRState from './WorldID/QRState'
@@ -10,7 +10,7 @@ import type { IDKitStore } from '@/store/idkit'
 import { useWorldBridge } from '@/services/wld-bridge'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
-import { AppErrorCodes, VerificationState, VerificationLevel } from '@worldcoin/idkit-core'
+import { AppErrorCodes, VerificationLevel, VerificationState } from '@worldcoin/idkit-core'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
@@ -85,10 +85,10 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 					<WorldcoinIcon className="h-10 text-0d151d dark:text-white" />
 				</div>
 				<p className="font-sora text-2xl font-semibold text-gray-900 dark:text-white">
-					{__('Verify with World ID')}
+					{i18n.t('verify-with-world-id')}
 				</p>
 				<p className={clsx('mt-3 text-657080 dark:text-9eafc0 md:mt-2', { hidden: media === 'mobile' })}>
-					Please use your World App to scan the QR code
+					{i18n.t('please-scan-qr')}
 				</p>
 			</div>
 
@@ -98,10 +98,10 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 					<div className="absolute inset-0 flex flex-col items-center justify-center space-y-6">
 						<LoadingIcon className="size-6" />
 						<div>
-							<p className="font-bold text-657080">Verifying</p>
-							<p className="text-sm text-657080">Please continue in app</p>
+							<p className="font-bold text-657080">{i18n.t('verifying')}</p>
+							<p className="text-sm text-657080">{i18n.t('please-continue-in-app')}</p>
 							<p className={clsx(show_modal ? '' : 'hidden', 'mt-2 text-sm font-bold text-red-500')}>
-								Don&apos;t close this window
+								{i18n.t('dont-close-window')}
 							</p>
 						</div>
 					</div>
