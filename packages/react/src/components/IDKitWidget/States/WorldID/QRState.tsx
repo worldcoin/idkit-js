@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { __ } from '@/lang'
+import i18n from '@/lang/i18n'
 import type { FC } from 'react'
 import copy from 'copy-to-clipboard'
 import useMedia from '@/hooks/useMedia'
@@ -47,7 +47,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 						transition={{ layout: { duration: 0.15 } }}
 						layoutId={media == 'desktop' ? undefined : 'worldid-text'}
 					>
-						{__('Open Worldcoin App')}
+						{i18n.t('open-worldcoin-app')}
 					</motion.span>
 				</motion.a>
 				<div className={clsx('mb-3', { 'space-y-4': !showQR })}>
@@ -60,7 +60,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 						className="w-full rounded-2xl border border-ebecef p-4 text-lg font-medium text-3c424b"
 						onClick={() => setShowQR(state => !state)}
 					>
-						{showQR ? __('Hide QR Code') : __('Display QR Code')}
+						{showQR ? i18n.t('hide-qr-code') : i18n.t('display-qr-code')}
 					</motion.button>
 				</div>
 			</div>
@@ -102,7 +102,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 								}}
 							>
 								<span className="rounded-lg border border-f1f5f8 px-2 py-1 text-sm">
-									{__('QR Code copied')}
+									{i18n.t('qr-code-copied')}
 								</span>
 							</motion.div>
 						)}

@@ -1,4 +1,5 @@
 import type { CallbackFn } from '.'
+import type { resources } from '@/lang/i18n'
 import type { ISuccessResult, IDKitConfig, IErrorState } from '@worldcoin/idkit-core'
 
 export enum ConfigSource {
@@ -31,4 +32,5 @@ export type WidgetProps = Config & {
 	/** Whether to disable the default modal behavior. Defaults to `false`. */
 	disable_default_modal_behavior?: boolean
 	container_id?: string
+	language?: keyof typeof resources
 }

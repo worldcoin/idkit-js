@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { __ } from '@/lang'
+import i18n from '@/lang/i18n'
 import CheckIcon from '@/components/Icons/CheckIcon'
 
 const SuccessState = (props: { show_modal?: boolean }) => {
@@ -10,10 +10,10 @@ const SuccessState = (props: { show_modal?: boolean }) => {
 			</div>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{__('Successfully verified')}
+					{i18n.t('successfully-verified')}
 				</p>
 				<p className="mx-auto mt-2 max-w-[224px] text-center text-lg text-657080">
-					{__('Your World ID verification was successful')}
+					{i18n.t('verification-successful')}
 				</p>
 			</div>
 		</div>

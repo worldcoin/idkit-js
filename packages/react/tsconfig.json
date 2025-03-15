@@ -19,7 +19,8 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"@images/*": ["./public/images/*"]
-		}
+		},
+		"resolveJsonModule": true
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "build", "src/**/*.test.tsx?"],
