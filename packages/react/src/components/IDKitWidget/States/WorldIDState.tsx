@@ -88,7 +88,8 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 					{__('Verify with World ID')}
 				</p>
 				<p className={clsx('mt-3 text-657080 dark:text-9eafc0 md:mt-2', { hidden: media === 'mobile' })}>
-					Please use your World App to scan the QR code
+					Use your camera to scan the QR code. <br />{' '}
+					<span className="text-red-500">Keep this window open after scanning.</span>
 				</p>
 			</div>
 
