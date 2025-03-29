@@ -29,7 +29,7 @@ import { IDKitWidget } from "@worldcoin/idkit";
 </IDKitWidget>
 ```
 
-More details can be found in the [documentation](https://docs.world.org/reference/idkit).
+More details can be found in the [documentation](https://docs.world.org/world-id/reference/idkit).
 
 ## 🔒 Verifying the IDKit response
 
