@@ -10,6 +10,7 @@
 		"release": "turbo build && changeset publish"
 	},
 	"devDependencies": {
+		"@changesets/cli": "^2.29.2",
 		"prettier": "^3.3.3",
 		"prettier-plugin-sort-imports-desc": "^1.0.0",
 		"turbo": "^2.2.3"
