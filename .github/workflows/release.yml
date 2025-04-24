@@ -1,81 +1,39 @@
-name: New release
+name: Release
 
 on:
     push:
         branches:
             - main
 
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
     release:
         name: Release
         runs-on: ubuntu-latest
-        outputs:
-            releases_created: ${{ steps.release.outputs.releases_created }}
         steps:
-            - name: Release
-              id: release
-              uses: google-github-actions/release-please-action@v3
+            - name: Checkout Repo
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js 22.x
+              uses: actions/setup-node@v4
               with:
-                  command: manifest
-                  release-type: node
+                  node-version: 22.x
 
-    publish:
-        needs: release
-        name: Publish
-        runs-on: ubuntu-latest
-        if: ${{ needs.release.outputs.releases_created }}
-        steps:
-            - uses: actions/checkout@v3
-
-            - uses: pnpm/action-setup@v4
+            - name: Setup PNPM
+              uses: pnpm/action-setup@v2
               with:
-                  version: 9.12.2
+                  version: 9.12.1
 
-            - name: Set up Node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: 'pnpm'
-                  registry-url: 'https://registry.npmjs.org'
-                  token: ${{secrets.NPM_TOKEN}}
-
-            - name: Install dependencies
+            - name: Install Dependencies
               run: pnpm install
 
-            - name: Build
-              run: pnpm build
-
-            - name: Publish
-              run: pnpm publish -r --report-summary
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-    publish-github:
-        needs: release
-        name: Publish
-        runs-on: ubuntu-latest
-        if: ${{ needs.release.outputs.releases_created }}
-        steps:
-            - uses: actions/checkout@v3
-
-            - uses: pnpm/action-setup@v4
+            - name: Create Release Pull Request or Publish to npm
+              id: changesets
+              uses: changesets/action@v1
               with:
-                  version: 9.12.2
-
-            - name: Set up Node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: 'pnpm'
-                  registry-url: 'https://npm.pkg.github.com'
-
-            - name: Install dependencies
-              run: pnpm install
-
-            - name: Build
-              run: pnpm build
-
-            - name: Publish
-              run: pnpm publish -r --report-summary
+                  # This expects you to have a script called release which does a build for your packages and calls changeset publish
+                  publish: pnpm release
               env:
-                  NODE_AUTH_TOKEN: ${{secrets.GIT_HUB_TOKEN}}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

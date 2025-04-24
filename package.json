@@ -6,7 +6,8 @@
 		"dev": "turbo run dev",
 		"lint": "turbo run lint",
 		"build": "turbo run build",
-		"prepublishOnly": "npm run build"
+		"prepublishOnly": "npm run build",
+		"release": "turbo build && changeset publish"
 	},
 	"devDependencies": {
 		"prettier": "^3.3.3",

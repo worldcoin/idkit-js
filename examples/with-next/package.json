@@ -1,5 +1,5 @@
 {
-	"name": "with-next",
+	"name": "@worldcoin/idkit-example-with-next",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
