@@ -10,7 +10,7 @@
 	],
 	"commit": false,
 	"fixed": [],
-	"ignore": ["@worldcoin/idkit-example-with-html", "@worldcoin/idkit-example-with-next"],
+	"ignore": ["with-html", "with-next"],
 	"linked": [],
 	"updateInternalDependencies": "patch"
 }
