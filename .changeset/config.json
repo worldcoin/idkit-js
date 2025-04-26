@@ -1,0 +1,16 @@
+{
+	"$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
+	"access": "public",
+	"baseBranch": "main",
+	"changelog": [
+		"@changesets/changelog-github",
+		{
+			"repo": "worldcoin/idkit-js"
+		}
+	],
+	"commit": false,
+	"fixed": [],
+	"ignore": ["with-html", "with-next"],
+	"linked": [],
+	"updateInternalDependencies": "patch"
+}
