@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import { __ } from '@/lang'
 import useIDKitStore from '@/store/idkit'
+import { AppErrorCodes } from 'idkit-core'
 import type { IDKitStore } from '@/store/idkit'
 import ErrorIcon from '@/components/Icons/ErrorIcon'
-import { AppErrorCodes } from '@worldcoin/idkit-core'
 import ReloadIcon from '@/components/Icons/ReloadIcon'
 import WarningIcon from '@/components/Icons/WarningIcon'
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })

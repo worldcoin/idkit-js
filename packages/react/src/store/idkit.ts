@@ -10,7 +10,7 @@ import {
 	type IErrorState,
 	type IDKitConfig,
 	type ISuccessResult,
-} from '@worldcoin/idkit-core'
+} from 'idkit-core'
 
 const SELF_HOSTED_APP_ID = 'self_hosted'
 

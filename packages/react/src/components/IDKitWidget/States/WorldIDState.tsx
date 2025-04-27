@@ -10,7 +10,7 @@ import type { IDKitStore } from '@/store/idkit'
 import { useWorldBridge } from '@/services/wld-bridge'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
-import { AppErrorCodes, VerificationState, VerificationLevel } from '@worldcoin/idkit-core'
+import { AppErrorCodes, VerificationState, VerificationLevel } from 'idkit-core'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,

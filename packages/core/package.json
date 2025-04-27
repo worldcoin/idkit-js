@@ -1,5 +1,5 @@
 {
-	"name": "@worldcoin/idkit-core",
+	"name": "idkit-core",
 	"version": "2.0.0",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
@@ -64,6 +64,18 @@
 		"proof-of-personhood",
 		"sybil resistance"
 	],
+	"peerDependencies": {
+		"react-native-get-random-values": "^1.11.0",
+		"text-encoding": "^0.7.0"
+	},
+	"peerDependenciesMeta": {
+		"react-native-get-random-values": {
+			"optional": true
+		},
+		"text-encoding": {
+			"optional": true
+		}
+	},
 	"dependencies": {
 		"browser-or-node": "3.0.0-pre.0",
 		"buffer": "^6.0.3",

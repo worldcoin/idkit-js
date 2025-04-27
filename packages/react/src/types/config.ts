@@ -1,5 +1,5 @@
 import type { CallbackFn } from '.'
-import type { ISuccessResult, IDKitConfig, IErrorState } from '@worldcoin/idkit-core'
+import type { ISuccessResult, IDKitConfig, IErrorState } from 'idkit-core'
 
 export enum ConfigSource {
 	HOOK = 'hook',

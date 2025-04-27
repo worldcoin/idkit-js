@@ -38,7 +38,7 @@
 		"sybil resistance"
 	],
 	"dependencies": {
-		"@worldcoin/idkit": "workspace:^",
+		"takis-idkit-react": "workspace:^",
 		"react": ">18.0.0",
 		"react-dom": ">18.0.0"
 	},
