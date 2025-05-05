@@ -1,6 +1,6 @@
 {
-	"name": "idkit-core",
-	"version": "2.0.1",
+	"name": "@worldcoin/idkit-core",
+	"version": "1.4.3",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
 	"private": false,
@@ -11,13 +11,6 @@
 		"directory": "packages/core"
 	},
 	"type": "module",
-	"main": "./build/index.cjs",
-	"module": "./build/index.js",
-	"types": "./build/index.d.ts",
-	"react-native": {
-		"./build/index.js": "./build/index.js",
-		"./build/index.cjs": "./build/index.cjs"
-	},
 	"exports": {
 		".": {
 			"import": "./build/index.js",
@@ -71,23 +64,11 @@
 		"proof-of-personhood",
 		"sybil resistance"
 	],
-	"peerDependencies": {
-		"react-native-get-random-values": "^1.11.0",
-		"text-encoding": "^0.7.0"
-	},
-	"peerDependenciesMeta": {
-		"react-native-get-random-values": {
-			"optional": true
-		},
-		"text-encoding": {
-			"optional": true
-		}
-	},
 	"dependencies": {
 		"browser-or-node": "3.0.0-pre.0",
 		"buffer": "^6.0.3",
 		"ox": "^0.1.0",
-		"zustand": "^5.0.4"
+		"zustand": "^4.5"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
