@@ -116,6 +116,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 												onPointerDownOutside={avoidDefaultDomBehavior}
 												onInteractOutside={avoidDefaultDomBehavior}
 											>
+												<Dialog.Title />
 												<motion.div
 													layout={media == 'mobile' ? 'position' : true}
 													exit={media == 'mobile' ? 'initMob' : 'init'}
