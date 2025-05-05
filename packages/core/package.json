@@ -1,6 +1,6 @@
 {
 	"name": "idkit-core",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
 	"private": false,
@@ -11,6 +11,13 @@
 		"directory": "packages/core"
 	},
 	"type": "module",
+	"main": "./build/index.cjs",
+	"module": "./build/index.js",
+	"types": "./build/index.d.ts",
+	"react-native": {
+		"./build/index.js": "./build/index.js",
+		"./build/index.cjs": "./build/index.cjs"
+	},
 	"exports": {
 		".": {
 			"import": "./build/index.js",
@@ -80,7 +87,7 @@
 		"browser-or-node": "3.0.0-pre.0",
 		"buffer": "^6.0.3",
 		"ox": "^0.1.0",
-		"zustand": "^4.5"
+		"zustand": "^5.0.4"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
