@@ -1,6 +1,6 @@
 {
 	"name": "takis-idkit-core-react-native",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
 	"private": false,
@@ -74,14 +74,10 @@
 		"buffer": "^6.0.3"
 	},
 	"peerDependencies": {
-		"react-native-get-random-values": "^1.11.0",
 		"react-native-quick-crypto": "^0.7.13",
 		"zustand": "^4.5.5 || ^5.0.0"
 	},
 	"peerDependenciesMeta": {
-		"react-native-get-random-values": {
-			"optional": false
-		},
 		"react-native-quick-crypto": {
 			"optional": false
 		},
