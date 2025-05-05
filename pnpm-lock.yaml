@@ -105,6 +105,37 @@ importers:
         specifier: ^5.3.2
         version: 5.3.3
 
+  packages/core-react-native:
+    dependencies:
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      ox:
+        specifier: ^0.7.0
+        version: 0.7.0(typescript@5.5.3)(zod@3.23.8)
+      react-native-get-random-values:
+        specifier: ^1.11.0
+        version: 1.11.0(react-native@0.79.1(@babel/core@7.26.10)(react@18.2.0))
+      react-native-quick-crypto:
+        specifier: ^0.7.13
+        version: 0.7.13(react-native@0.79.1(@babel/core@7.26.10)(react@18.2.0))(react@18.2.0)
+      zustand:
+        specifier: ^4.5.5 || ^5.0.0
+        version: 5.0.4(@types/react@18.3.20)(react@18.2.0)(use-sync-external-store@1.2.0(react@18.2.0))
+    devDependencies:
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^6.13.1
+        version: 6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.54.0)(typescript@5.5.3))(eslint@8.54.0)(typescript@5.5.3)
+      '@typescript-eslint/parser':
+        specifier: ^6.13.1
+        version: 6.21.0(eslint@8.54.0)(typescript@5.5.3)
+      tsup:
+        specifier: ^8.1.0
+        version: 8.1.0(postcss@8.4.39)(ts-node@10.9.2(@types/node@22.7.5)(typescript@5.5.3))(typescript@5.5.3)
+      typescript:
+        specifier: ^5.3.2
+        version: 5.5.3
+
   packages/react:
     dependencies:
       '@radix-ui/react-dialog':
@@ -964,6 +995,9 @@ packages:
 
   '@changesets/write@0.4.0':
     resolution: {integrity: sha512-CdTLvIOPiCNuH71pyDu3rA+Q0n65cmAbXnwWH84rKGiFumFzkmHNT8KHTMEchcxN+Kl8I54xGUhJ7l3E7X396Q==}
+
+  '@craftzdog/react-native-buffer@6.0.5':
+    resolution: {integrity: sha512-Av+YqfwA9e7jhgI9GFE/gTpwl/H+dRRLmZyJPOpKTy107j9Oj7oXlm3/YiMNz+C/CEGqcKAOqnXDLs4OL6AAFw==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -3257,6 +3291,10 @@ packages:
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
 
+  events@3.3.0:
+    resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
+    engines: {node: '>=0.8.x'}
+
   exec-async@2.2.0:
     resolution: {integrity: sha512-87OpwcEiMia/DeiKFzaQNBNFeN3XkkpYIh9FyOqq5mS2oKv3CBE67PXoEKcr6nodWdXNogTiQ0jE2NGuoffXPw==}
 
@@ -4574,6 +4612,14 @@ packages:
       typescript:
         optional: true
 
+  ox@0.7.0:
+    resolution: {integrity: sha512-mgRXlQdaNukQcsvGsPENGbyFvr7glob8UmOusDfWTw7A6LcjI+9OCelQ6NoAiSk6iM77R667qyUzn+n2Cr4SJw==}
+    peerDependencies:
+      typescript: '>=5.4.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   p-filter@2.1.0:
     resolution: {integrity: sha512-ZBxxZ5sL2HghephhpGAQdoskxplTwr7ICaehZwLIlfL6acuVgZPm8yBNuRAFBGEqtD/hmUeq9eqLg2ys9Xr/yw==}
     engines: {node: '>=8'}
@@ -4803,6 +4849,10 @@ packages:
     resolution: {integrity: sha512-g8+OnU/L2v+wyiVK+D5fA34J7EH8jZ8DDlvwhRCMxmMj7UCBvxiO1mGeN+36JXIKF4zevU4kRBd8lVgG9vLelA==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
+  process@0.11.10:
+    resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
+    engines: {node: '>= 0.6.0'}
+
   progress@2.0.3:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
@@ -4898,6 +4948,15 @@ packages:
     peerDependencies:
       react-native: '>=0.56'
 
+  react-native-quick-base64@2.1.2:
+    resolution: {integrity: sha512-xghaXpWdB0ji8OwYyo0fWezRroNxiNFCNFpGUIyE7+qc4gA/IGWnysIG5L0MbdoORv8FkTKUvfd6yCUN5R2VFA==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
+  react-native-quick-crypto@0.7.13:
+    resolution: {integrity: sha512-9EmXvvBW64gt/hUgeDUGl6KHjDVmtEdC/CbmlyLOTNXxvkOhNI/LhLK9ss6jDqRX3tYTM/DL0uk/+kXSTZQeKA==}
+
   react-native-webcrypto@1.0.0-alpha.3:
     resolution: {integrity: sha512-j7KS0fQqzv7uI9YWkYc1ORXcE88FpqLxeR6KQhaS7Uy5MrCGAOyu1ozlPb/VHjzGE0lEzv+wxS3R1iDvpzYITQ==}
     peerDependencies:
@@ -4977,6 +5036,10 @@ packages:
   read-yaml-file@1.1.0:
     resolution: {integrity: sha512-VIMnQi/Z4HT2Fxuwg5KrY174U1VdUIASQVWXXyqtNRtxSr9IYkn1rsI6Tb6HsrHCmB7gVpNwX6JxPTHcH6IoTA==}
     engines: {node: '>=6'}
+
+  readable-stream@4.7.0:
+    resolution: {integrity: sha512-oIGGmcpTLwPga8Bn6/Z75SVaH1z5dUut2ibSyAMVhmUggWpmDn2dapB0n7f8nwaSiRtepAsfJyfXIO5DCVAODg==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
   readdirp@3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
@@ -5350,6 +5413,9 @@ packages:
   string.prototype.trimstart@1.0.8:
     resolution: {integrity: sha512-UXSH262CSZY1tfu3G3Secr6uGLCFVPMhIqHjlgCUtCCcgihYc/xKs9djMTMUOb2j1mVSeU8EU6NWc/iQKU6Gfg==}
     engines: {node: '>= 0.4'}
+
+  string_decoder@1.3.0:
+    resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
 
   strip-ansi@5.2.0:
     resolution: {integrity: sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==}
@@ -5784,6 +5850,9 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  util@0.12.5:
+    resolution: {integrity: sha512-kZf/K6hEIrWHI6XqOFUiiMa+79wE/D8Q+NCNAWclkyg3b4d2k7s0QGepNjiABc+aR3N1PAyHL7p6UcLY6LmrnA==}
 
   utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
@@ -6921,6 +6990,14 @@ snapshots:
       fs-extra: 7.0.1
       human-id: 4.1.1
       prettier: 2.8.8
+
+  '@craftzdog/react-native-buffer@6.0.5(react-native@0.79.1(@babel/core@7.26.10)(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      ieee754: 1.2.1
+      react-native-quick-base64: 2.1.2(react-native@0.79.1(@babel/core@7.26.10)(react@18.2.0))(react@18.2.0)
+    transitivePeerDependencies:
+      - react
+      - react-native
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -8348,6 +8425,11 @@ snapshots:
   abitype@1.0.6(typescript@5.3.3)(zod@3.23.8):
     optionalDependencies:
       typescript: 5.3.3
+      zod: 3.23.8
+
+  abitype@1.0.6(typescript@5.5.3)(zod@3.23.8):
+    optionalDependencies:
+      typescript: 5.5.3
       zod: 3.23.8
 
   abort-controller@3.0.0:
@@ -9824,6 +9906,8 @@ snapshots:
 
   eventemitter3@5.0.1: {}
 
+  events@3.3.0: {}
+
   exec-async@2.2.0: {}
 
   execa@5.1.1:
@@ -10388,7 +10472,7 @@ snapshots:
     dependencies:
       call-bind: 1.0.7
       get-intrinsic: 1.2.4
-      is-typed-array: 1.1.12
+      is-typed-array: 1.1.13
 
   is-array-buffer@3.0.4:
     dependencies:
@@ -10493,7 +10577,7 @@ snapshots:
 
   is-typed-array@1.1.12:
     dependencies:
-      which-typed-array: 1.1.11
+      which-typed-array: 1.1.15
 
   is-typed-array@1.1.13:
     dependencies:
@@ -11276,6 +11360,20 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
+  ox@0.7.0(typescript@5.5.3)(zod@3.23.8):
+    dependencies:
+      '@adraffy/ens-normalize': 1.11.0
+      '@noble/curves': 1.6.0
+      '@noble/hashes': 1.5.0
+      '@scure/bip32': 1.5.0
+      '@scure/bip39': 1.4.0
+      abitype: 1.0.6(typescript@5.5.3)(zod@3.23.8)
+      eventemitter3: 5.0.1
+    optionalDependencies:
+      typescript: 5.5.3
+    transitivePeerDependencies:
+      - zod
+
   p-filter@2.1.0:
     dependencies:
       p-map: 2.1.0
@@ -11426,6 +11524,14 @@ snapshots:
       postcss: 8.4.39
       ts-node: 10.9.2(@types/node@22.7.5)(typescript@5.3.3)
 
+  postcss-load-config@4.0.1(postcss@8.4.39)(ts-node@10.9.2(@types/node@22.7.5)(typescript@5.5.3)):
+    dependencies:
+      lilconfig: 2.1.0
+      yaml: 2.3.2
+    optionalDependencies:
+      postcss: 8.4.39
+      ts-node: 10.9.2(@types/node@22.7.5)(typescript@5.5.3)
+
   postcss-load-config@4.0.2(postcss@8.4.39)(ts-node@10.9.2(@types/node@18.11.9)(typescript@5.5.3)):
     dependencies:
       lilconfig: 3.1.2
@@ -11484,6 +11590,8 @@ snapshots:
       react-is: 18.3.1
 
   proc-log@4.2.0: {}
+
+  process@0.11.10: {}
 
   progress@2.0.3: {}
 
@@ -11612,6 +11720,23 @@ snapshots:
     dependencies:
       fast-base64-decode: 1.0.0
       react-native: 0.79.1(@babel/core@7.26.10)(react@18.2.0)
+
+  react-native-quick-base64@2.1.2(react-native@0.79.1(@babel/core@7.26.10)(react@18.2.0))(react@18.2.0):
+    dependencies:
+      base64-js: 1.5.1
+      react: 18.2.0
+      react-native: 0.79.1(@babel/core@7.26.10)(react@18.2.0)
+
+  react-native-quick-crypto@0.7.13(react-native@0.79.1(@babel/core@7.26.10)(react@18.2.0))(react@18.2.0):
+    dependencies:
+      '@craftzdog/react-native-buffer': 6.0.5(react-native@0.79.1(@babel/core@7.26.10)(react@18.2.0))(react@18.2.0)
+      events: 3.3.0
+      readable-stream: 4.7.0
+      string_decoder: 1.3.0
+      util: 0.12.5
+    transitivePeerDependencies:
+      - react
+      - react-native
 
   react-native-webcrypto@1.0.0-alpha.3(react-native@0.79.1(@babel/core@7.26.10)(@types/react@18.3.20)(react@18.2.0)):
     dependencies:
@@ -11790,6 +11915,14 @@ snapshots:
       js-yaml: 3.14.1
       pify: 4.0.1
       strip-bom: 3.0.0
+
+  readable-stream@4.7.0:
+    dependencies:
+      abort-controller: 3.0.0
+      buffer: 6.0.3
+      events: 3.3.0
+      process: 0.11.10
+      string_decoder: 1.3.0
 
   readdirp@3.6.0:
     dependencies:
@@ -12229,6 +12362,10 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.0.0
 
+  string_decoder@1.3.0:
+    dependencies:
+      safe-buffer: 5.2.1
+
   strip-ansi@5.2.0:
     dependencies:
       ansi-regex: 4.1.1
@@ -12469,6 +12606,25 @@ snapshots:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
+  ts-node@10.9.2(@types/node@22.7.5)(typescript@5.5.3):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.9
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 22.7.5
+      acorn: 8.10.0
+      acorn-walk: 8.3.1
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.5.3
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    optional: true
+
   tsconfig-paths@3.15.0:
     dependencies:
       '@types/json5': 0.0.29
@@ -12526,6 +12682,29 @@ snapshots:
       - supports-color
       - ts-node
 
+  tsup@8.1.0(postcss@8.4.39)(ts-node@10.9.2(@types/node@22.7.5)(typescript@5.5.3))(typescript@5.5.3):
+    dependencies:
+      bundle-require: 4.0.2(esbuild@0.21.5)
+      cac: 6.7.14
+      chokidar: 3.6.0
+      debug: 4.3.5
+      esbuild: 0.21.5
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 4.0.1(postcss@8.4.39)(ts-node@10.9.2(@types/node@22.7.5)(typescript@5.5.3))
+      resolve-from: 5.0.0
+      rollup: 4.18.1
+      source-map: 0.8.0-beta.0
+      sucrase: 3.34.0
+      tree-kill: 1.2.2
+    optionalDependencies:
+      postcss: 8.4.39
+      typescript: 5.5.3
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+
   turbo-darwin-64@2.2.3:
     optional: true
 
@@ -12569,7 +12748,7 @@ snapshots:
     dependencies:
       call-bind: 1.0.7
       get-intrinsic: 1.2.4
-      is-typed-array: 1.1.12
+      is-typed-array: 1.1.13
 
   typed-array-buffer@1.0.2:
     dependencies:
@@ -12582,7 +12761,7 @@ snapshots:
       call-bind: 1.0.7
       for-each: 0.3.3
       has-proto: 1.0.1
-      is-typed-array: 1.1.12
+      is-typed-array: 1.1.13
 
   typed-array-byte-length@1.0.1:
     dependencies:
@@ -12598,7 +12777,7 @@ snapshots:
       call-bind: 1.0.7
       for-each: 0.3.3
       has-proto: 1.0.1
-      is-typed-array: 1.1.12
+      is-typed-array: 1.1.13
 
   typed-array-byte-offset@1.0.2:
     dependencies:
@@ -12613,7 +12792,7 @@ snapshots:
     dependencies:
       call-bind: 1.0.7
       for-each: 0.3.3
-      is-typed-array: 1.1.12
+      is-typed-array: 1.1.13
 
   typed-array-length@1.0.6:
     dependencies:
@@ -12713,6 +12892,14 @@ snapshots:
       react: 18.2.0
 
   util-deprecate@1.0.2: {}
+
+  util@0.12.5:
+    dependencies:
+      inherits: 2.0.4
+      is-arguments: 1.1.1
+      is-generator-function: 1.0.10
+      is-typed-array: 1.1.13
+      which-typed-array: 1.1.15
 
   utils-merge@1.0.1: {}
 

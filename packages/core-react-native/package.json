@@ -1,0 +1,98 @@
+{
+	"name": "takis-idkit-core-react-native",
+	"version": "0.1.0",
+	"homepage": "https://docs.world.org/id/idkit",
+	"license": "MIT",
+	"private": false,
+	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/worldcoin/idkit-js",
+		"directory": "packages/core-react-native"
+	},
+	"type": "module",
+	"main": "./build/index.cjs",
+	"module": "./build/index.js",
+	"react-native": "./build/index.js",
+	"types": "./build/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./build/index.js",
+			"require": "./build/index.cjs",
+			"react-native": "./build/index.js",
+			"types": "./build/index.d.ts"
+		},
+		"./hashing": {
+			"import": "./build/lib/hashing.js",
+			"require": "./build/lib/hashing.cjs",
+			"types": "./build/lib/hashing.d.ts"
+		},
+		"./backend": {
+			"import": "./build/lib/backend.js",
+			"require": "./build/lib/backend.cjs",
+			"types": "./build/lib/backend.d.ts"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"backend": [
+				"./build/lib/backend.d.ts"
+			],
+			"hashing": [
+				"./build/lib/hashing.d.ts"
+			],
+			"*": [
+				"./build/index.d.ts"
+			]
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=12.4"
+	},
+	"files": [
+		"build/**",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"lint": "eslint src --ext .ts",
+		"prepublishOnly": "npm run build"
+	},
+	"keywords": [
+		"identity",
+		"ID",
+		"web3",
+		"proof-of-personhood",
+		"sybil resistance"
+	],
+	"dependencies": {
+		"ox": "^0.7.0",
+		"buffer": "^6.0.3"
+	},
+	"peerDependencies": {
+		"react-native-get-random-values": "^1.11.0",
+		"react-native-quick-crypto": "^0.7.13",
+		"zustand": "^4.5.5 || ^5.0.0"
+	},
+	"peerDependenciesMeta": {
+		"react-native-get-random-values": {
+			"optional": false
+		},
+		"react-native-quick-crypto": {
+			"optional": false
+		},
+		"zustand": {
+			"optional": false
+		}
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^6.13.1",
+		"@typescript-eslint/parser": "^6.13.1",
+		"tsup": "^8.1.0",
+		"typescript": "^5.3.2"
+	}
+}
