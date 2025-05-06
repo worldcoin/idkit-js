@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { verifyCloudProof, IVerifyResponse } from '@worldcoin/idkit'
+import { verifyCloudProof, IVerifyResponse } from 'takis-idkit-react'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method != 'POST') return res.status(405).json({ message: 'Method Not Allowed' })

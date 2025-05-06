@@ -1,6 +1,6 @@
 {
-	"name": "@worldcoin/idkit-core",
-	"version": "1.4.3",
+	"name": "idkit-core",
+	"version": "0.1.0-pre.8",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
 	"private": false,
@@ -11,11 +11,22 @@
 		"directory": "packages/core"
 	},
 	"type": "module",
+	"main": "./build/index.cjs",
+	"module": "./build/index.js",
+	"types": "./build/index.d.ts",
+	"react-native": "./build/index.js",
 	"exports": {
 		".": {
 			"import": "./build/index.js",
 			"types": "./build/index.d.ts",
-			"require": "./build/index.cjs"
+			"require": "./build/index.cjs",
+			"react-native": "./build/index.js"
+		},
+		"./shim": {
+			"import": "./build/shim.js",
+			"require": "./build/shim.cjs",
+			"types": "./build/shim.d.ts",
+			"react-native": "./build/shim.js"
 		},
 		"./hashing": {
 			"import": "./build/lib/hashing.js",
@@ -35,6 +46,9 @@
 			],
 			"hashing": [
 				"./build/lib/hashing.d.ts"
+			],
+			"shim": [
+				"./build/shim.d.ts"
 			],
 			"*": [
 				"./build/index.d.ts"
@@ -69,6 +83,14 @@
 		"buffer": "^6.0.3",
 		"ox": "^0.1.0",
 		"zustand": "^4.5"
+	},
+	"peerDependencies": {
+		"react-native-quick-crypto": "^0.7.13"
+	},
+	"peerDependenciesMeta": {
+		"react-native-quick-crypto": {
+			"optional": true
+		}
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^6.13.1",

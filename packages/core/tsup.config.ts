@@ -6,6 +6,6 @@ export default defineConfig({
 	outDir: 'build',
 	format: ['esm', 'cjs'],
 	external: ['zustand', 'ox'],
-	entry: ['src/index.ts', 'src/lib/hashing.ts', 'src/lib/backend.ts'],
+	entry: ['src/index.ts', 'src/shim.ts', 'src/lib/hashing.ts', 'src/lib/backend.ts'],
 	define: { 'process.env.NODE_ENV': '"production"' },
 })

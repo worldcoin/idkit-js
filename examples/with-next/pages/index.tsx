@@ -1,13 +1,12 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { IDKitWidget, ISuccessResult, IVerifyResponse, VerificationLevel } from '@worldcoin/idkit'
+import { IDKitWidget, ISuccessResult, IVerifyResponse, VerificationLevel } from 'takis-idkit-react'
 
 export const getServerSideProps = (async context => {
 	return {
 		props: {
-			app_id:
-				(context.query.app_id?.toString() as `app_${string}`) || 'app_staging_45068dca85829d2fd90e2dd6f0bff997',
-			action: (context.query.action?.toString() as string) || 'test-action',
-			signal: (context.query.signal?.toString() as string) || 'test_signal',
+			app_id: (context.query.app_id?.toString() as `app_${string}`) || 'app_020c82fbf3c087eb31600929a34990e4',
+			action: (context.query.action?.toString() as string) || 'test-action-1',
+			signal: (context.query.signal?.toString() as string) || 'my-signal',
 		},
 	}
 }) satisfies GetServerSideProps<{
@@ -45,7 +44,7 @@ const Home = ({ app_id, action, signal }: InferGetServerSidePropsType<typeof get
 		onSuccess={response => console.log('onSuccess: ', response)}
 		handleVerify={proof => verify(proof, app_id, action, signal)}
 		app_id={app_id}
-		partner={true}
+		// partner={true}
 		disable_default_modal_behavior={true}
 		verification_level={VerificationLevel.Device}
 	>
