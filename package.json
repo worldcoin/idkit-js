@@ -6,9 +6,12 @@
 		"dev": "turbo run dev",
 		"lint": "turbo run lint",
 		"build": "turbo run build",
-		"prepublishOnly": "npm run build"
+		"prepublishOnly": "npm run build",
+		"release": "turbo build && changeset publish"
 	},
 	"devDependencies": {
+		"@changesets/changelog-github": "^0.5.1",
+		"@changesets/cli": "^2.29.2",
 		"prettier": "^3.3.3",
 		"prettier-plugin-sort-imports-desc": "^1.0.0",
 		"turbo": "^2.2.3"

@@ -75,3 +75,11 @@ pnpm i && pnpm dev
 ```
 
 This will install all necessary dependencies and start two local development servers -- one using `examples/with-html` and one using `examples/with-next`. Check your console for the URLS for each, and open them in your browser. Any changes made to `packages/core`, `packages/react` or `packages/standalone` will be automatically built and the examples will be reloaded.
+
+## 📦 Releasing
+
+To bump the version of the package, run:
+
+```
+pnpm changeset
+```
