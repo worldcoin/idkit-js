@@ -25,15 +25,19 @@ export class NullCryptoAdapter implements CryptoAdapter {
 		throw new Error('Crypto adapter not initialized')
 	}
 
-	async exportKey(key: CryptoKey): Promise<string> {
+	async exportKey(_key: CryptoKey): Promise<string> {
 		throw new Error('Crypto adapter not initialized')
 	}
 
-	async encryptRequest(key: CryptoKey, iv: ArrayBuffer, request: string): Promise<{ payload: string; iv: string }> {
+	async encryptRequest(
+		_key: CryptoKey,
+		_iv: ArrayBuffer,
+		_request: string
+	): Promise<{ payload: string; iv: string }> {
 		throw new Error('Crypto adapter not initialized')
 	}
 
-	async decryptResponse(key: CryptoKey, iv: ArrayBuffer, payload: string): Promise<string> {
+	async decryptResponse(_key: CryptoKey, _iv: ArrayBuffer, _payload: string): Promise<string> {
 		throw new Error('Crypto adapter not initialized')
 	}
 }

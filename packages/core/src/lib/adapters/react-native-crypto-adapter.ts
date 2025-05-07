@@ -1,5 +1,5 @@
 import { getCrypto } from '../platform'
-import { CryptoAdapter } from './crypto-adapter'
+import type { CryptoAdapter } from './crypto-adapter'
 import { buffer_decode, buffer_encode } from '../utils'
 
 export class ReactNativeCryptoAdapter implements CryptoAdapter {
