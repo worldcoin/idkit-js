@@ -1,8 +1,3 @@
-/**
- * Crypto adapter interface
- * Defines the common interface for crypto operations across platforms
- */
-
 export interface CryptoAdapter {
 	/**
 	 * Generate a new encryption key and initialization vector
@@ -25,7 +20,6 @@ export interface CryptoAdapter {
 	decryptResponse(key: CryptoKey, iv: ArrayBuffer, payload: string): Promise<string>
 }
 
-// Default no-op adapter that will throw errors if used
 export class NullCryptoAdapter implements CryptoAdapter {
 	async generateKey(): Promise<{ key: CryptoKey; iv: Uint8Array }> {
 		throw new Error('Crypto adapter not initialized')

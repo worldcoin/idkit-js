@@ -1,33 +1,17 @@
-/**
- * Platform detection utilities
- */
-
 import { isBrowser, isNode as isNodeBoolean } from 'browser-or-node'
 
-/**
- * Detect React Native environment
- */
 export const isReactNative = (): boolean => {
 	return typeof navigator !== 'undefined' && navigator.product === 'ReactNative'
 }
 
-/**
- * Detect Web environment
- */
 export const isWeb = (): boolean => {
 	return isBrowser
 }
 
-/**
- * Detect Node.js environment - not used in this context
- */
 export const isNode = (): boolean => {
 	return isNodeBoolean
 }
 
-/**
- * Get global object (window, self, or globalThis) based on environment
- */
 export const getGlobalObject = (): any => {
 	if (typeof globalThis !== 'undefined') return globalThis
 	if (typeof self !== 'undefined') return self
@@ -36,9 +20,6 @@ export const getGlobalObject = (): any => {
 	throw new Error('Unable to locate global object')
 }
 
-/**
- * Get Crypto implementation appropriate for current environment
- */
 export const getCrypto = (): Crypto => {
 	const globalObj = getGlobalObject()
 
