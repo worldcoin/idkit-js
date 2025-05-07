@@ -1,6 +1,6 @@
-import { create } from 'zustand'
 import { type IDKitConfig } from '@/types/config'
 import { VerificationState } from '@/types/bridge'
+import { create, type StateCreator } from 'zustand'
 import type { ISuccessResult } from '@/types/result'
 import type { CredentialType } from '@/types/config'
 import { validate_bridge_url } from './lib/validation'
@@ -46,7 +46,7 @@ export type WorldBridgeStore = {
 	reset: () => void
 }
 
-export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
+const createStoreImplementation: StateCreator<WorldBridgeStore> = (set, get) => ({
 	iv: null,
 	key: null,
 	result: null,
@@ -172,4 +172,14 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			verificationState: VerificationState.PreparingClient,
 		})
 	},
-}))
+})
+
+/**
+ * Single instance of the store
+ */
+export const useWorldBridgeStore = create<WorldBridgeStore>(createStoreImplementation)
+
+/**
+ * Factory function to create a new instance of the store
+ */
+export const createWorldBridgeStore = () => create<WorldBridgeStore>(createStoreImplementation)

@@ -1,5 +1,5 @@
 {
-	"name": "idkit-core",
+	"name": "@worldcoin/idkit-core",
 	"version": "1.4.4-pre.0",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
