@@ -12,11 +12,6 @@ import type {
 	AppErrorCodes,
 } from '@worldcoin/idkit-core'
 
-/**
- * Combined status information for a verification session
- * Returned by the status() method to provide a convenient way
- * to check verification state, result, and errors in a single call
- */
 export type SessionStatus = {
 	state: VerificationState
 	result: ISuccessResult | null
@@ -26,28 +21,31 @@ export type SessionStatus = {
 export class Session {
 	private store: UseBoundStore<StoreApi<WorldBridgeStore>>
 
-	constructor(
+	constructor() {
+		this.store = createWorldBridgeStore()
+	}
+
+	async create(
 		app_id: IDKitConfig['app_id'],
 		action: IDKitConfig['action'],
-		signal?: IDKitConfig['signal'],
-		bridge_url?: IDKitConfig['bridge_url'],
-		verification_level?: IDKitConfig['verification_level'],
-		action_description?: IDKitConfig['action_description'],
-		partner?: IDKitConfig['partner']
-	) {
-		// Create an independent store instance for this session
-		this.store = createWorldBridgeStore()
-
-		// Initialize the client with the provided configuration
-		void this.store.getState().createClient({
+		options?: {
+			signal?: IDKitConfig['signal']
+			bridge_url?: IDKitConfig['bridge_url']
+			verification_level?: IDKitConfig['verification_level']
+			action_description?: IDKitConfig['action_description']
+			partner?: IDKitConfig['partner']
+		}
+	): Promise<Session> {
+		await this.store.getState().createClient({
 			app_id,
 			action,
-			signal,
-			bridge_url,
-			action_description,
-			verification_level,
-			partner,
+			signal: options?.signal,
+			bridge_url: options?.bridge_url,
+			action_description: options?.action_description,
+			verification_level: options?.verification_level,
+			partner: options?.partner,
 		})
+		return this
 	}
 
 	/**

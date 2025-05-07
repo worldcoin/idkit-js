@@ -10,6 +10,17 @@ npm install @worldcoin/idkit-react-native
 yarn add @worldcoin/idkit-react-native
 ```
 
+## Polyfills
+
+This package requires some crypto functionality that isn't natively available in React Native. You'll need to set up the necessary polyfills:
+
+```javascript
+// polyfills.ts
+import { install } from 'react-native-quick-crypto'
+
+install()
+```
+
 ## Usage
 
 This package provides a `Session` class that allows you to interact with World ID verification in a React Native environment. Each session instance is independent and manages its own state.
@@ -20,40 +31,36 @@ This package provides a `Session` class that allows you to interact with World I
 import { Session } from '@worldcoin/idkit-react-native'
 
 // Create a new verification session
-const session = new Session(
-	'app_your_app_id', // app_id
-	'your-action', // action
-	undefined, // signal (optional)
-	undefined, // bridge_url (optional)
-	undefined, // verification_level (optional)
-	'Verify with World ID', // action_description (optional)
-	false // partner (optional)
-)
+const session = await new Session().create('app_id', 'your-action', {
+	signal: 'signal', // Optional
+	bridge_url: undefined, // Optional: URL to a custom bridge
+	verification_level: VerificationLevel.Orb, // Optional: Minimum verification level
+	action_description: 'Verify with World ID', // Optional
+	partner: false, // Optional
+})
 
-// Get the QR code/connector URI to display to the user
-const connectorURI = session.getConnectorURI()
+// Get the connector URI that redirects user to the World App
+const connectorURI = session.connectorURI
+
+// Handle deep links for return from World App
+// In your deep link handler:
+const handleDeepLink = async url => {
+	if (session) {
+		// Poll for status updates when returning to app
+		const status = await session.status()
+		if (status.state === 'confirmed') {
+			console.log('Verification successful:', status.result)
+		}
+	}
+}
 
 // Poll for updates to check verification status
 const checkStatus = async () => {
-	// Option 1: Using individual methods
-	await session.pollForUpdates()
-	const state = session.getVerificationState()
-
-	if (state === 'confirmed') {
-		// User has completed verification
-		const result = session.getResult()
-		console.log('Verification successful:', result)
-	} else if (state === 'failed') {
-		// Verification failed
-		const errorCode = session.getErrorCode()
-		console.log('Verification failed:', errorCode)
-	}
-
-	// Option 2: Using the combined status method
 	const status = await session.status()
-	if (status.state === 'confirmed') {
+
+	if (status.state === VerificationState.Confirmed) {
 		console.log('Verification successful:', status.result)
-	} else if (status.state === 'failed') {
+	} else if (status.state === VerificationState.Failed) {
 		console.log('Verification failed:', status.errorCode)
 	}
 }
@@ -70,10 +77,57 @@ You can create multiple independent verification sessions:
 
 ```typescript
 // Create two separate sessions for different actions
-const loginSession = new Session('app_your_app_id', 'login')
-const transactionSession = new Session('app_your_app_id', 'transaction')
+const loginSession = await new Session().create('app_your_app_id', 'login')
+const transactionSession = await new Session().create('app_your_app_id', 'transaction')
 
 // Each session has its own state and doesn't affect the other
+```
+
+## Deep Linking
+
+For mobile verification, you'll need to set up deep linking so users can return to your app after verification:
+
+```typescript
+// In your component
+import { createURL } from 'expo-linking' // For Expo projects
+
+const handleVerify = async () => {
+	// Create session
+	const session = await new Session().create(appId, action)
+
+	// Set up return URL
+	const returnTo = createURL('') // Replace with your deep link path
+
+	// Add return_to parameter to connector URL
+	if (session.connectorURI) {
+		const connectorUrl = new URL(session.connectorURI)
+		connectorUrl.searchParams.set('return_to', returnTo)
+
+		// Open the URL
+		Linking.openURL(connectorUrl.toString())
+	}
+}
+```
+
+## Troubleshooting
+
+### Zustand Import Error
+
+If you encounter errors related to Zustand's use of `import.meta`, you may need to update your Babel configuration:
+
+Set `unstable_transformImportMeta` to `true`.
+
+### Crypto Not Available
+
+If you see errors about crypto not being available, make sure you've added the necessary polyfills
+
+**Note**: For `expo` projects you need to prebuild your project for crypto to be available.
+
+```javascript
+// Add to your entry file
+import { install } from 'react-native-quick-crypto'
+
+install()
 ```
 
 ## API Reference
@@ -82,29 +136,28 @@ const transactionSession = new Session('app_your_app_id', 'transaction')
 
 The main class for interacting with World ID verification.
 
-#### Constructor
+#### Creating a Session
 
 ```typescript
-new Session(
-  app_id: string,                 // Required: Your App ID from Developer Portal
-  action: string,                 // Required: Action identifier
-  signal?: string,                // Optional: Signal to be included in the proof
-  bridge_url?: string,            // Optional: URL to a custom bridge
-  verification_level?: string,    // Optional: Minimum verification level
-  action_description?: string,    // Optional: Human-readable action description
-  partner?: boolean               // Optional: Whether this is a partner app
+// Create a session
+const session = await new Session().create(
+	app_id: string,                 // Required: Your App ID from Developer Portal
+	action: string,                 // Required: Action identifier
+	options?: {
+		signal?: string,                // Optional: Signal to be included in the proof
+		bridge_url?: string,            // Optional: URL to a custom bridge
+		verification_level?: string,    // Optional: Minimum verification level
+		action_description?: string,    // Optional: Human-readable action description
+		partner?: boolean               // Optional: Whether this is a partner app
+	}
 )
 ```
 
 #### Methods
 
+-   `create(app_id, action, options?)`: Creates a new verification session
 -   `pollForUpdates()`: Poll for verification status updates
--   `reset()`: Reset the verification state
--   `getConnectorURI()`: Get the URI for connecting with World App
 -   `status()`: Poll for updates and return a combined status object (state, result, and error)
--   `getVerificationState()`: Get the current verification state
--   `getResult()`: Get the verification result (if successful)
--   `getErrorCode()`: Get the error code (if verification failed)
 -   `destroy()`: Clean up the session and its resources
 
 #### Properties
@@ -120,7 +173,3 @@ type SessionStatus = {
 	errorCode: AppErrorCodes | null // Error code (if verification failed)
 }
 ```
-
-## License
-
-MIT
