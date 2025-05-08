@@ -71,7 +71,7 @@ const cleanup = () => {
 }
 ```
 
-### Multiple Sessions
+### Multiple Sessions (Advanced)
 
 You can create multiple independent verification sessions:
 
