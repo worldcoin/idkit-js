@@ -19,25 +19,3 @@ export interface CryptoAdapter {
 	 */
 	decryptResponse(key: CryptoKey, iv: ArrayBuffer, payload: string): Promise<string>
 }
-
-export class NullCryptoAdapter implements CryptoAdapter {
-	async generateKey(): Promise<{ key: CryptoKey; iv: Uint8Array }> {
-		throw new Error('Crypto adapter not initialized')
-	}
-
-	async exportKey(_key: CryptoKey): Promise<string> {
-		throw new Error('Crypto adapter not initialized')
-	}
-
-	async encryptRequest(
-		_key: CryptoKey,
-		_iv: ArrayBuffer,
-		_request: string
-	): Promise<{ payload: string; iv: string }> {
-		throw new Error('Crypto adapter not initialized')
-	}
-
-	async decryptResponse(_key: CryptoKey, _iv: ArrayBuffer, _payload: string): Promise<string> {
-		throw new Error('Crypto adapter not initialized')
-	}
-}

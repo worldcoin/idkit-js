@@ -40,19 +40,10 @@ const session = await new Session().create('app_id', 'your-action', {
 })
 
 // Get the connector URI that redirects user to the World App
-const connectorURI = session.connectorURI
-
-// Handle deep links for return from World App
-// In your deep link handler:
-const handleDeepLink = async url => {
-	if (session) {
-		// Poll for status updates when returning to app
-		const status = await session.status()
-		if (status.state === 'confirmed') {
-			console.log('Verification successful:', status.result)
-		}
-	}
-}
+// Optional: Add a `return_to` query param that deeplinks that redirects back to the app
+const connectorUrl = new URL(session.connectorURI)
+connectorUrl.searchParams.set('return_to', returnTo)
+const connectUrlWithReturnAddress = connectorUrl.toString()
 
 // Poll for updates to check verification status
 const checkStatus = async () => {

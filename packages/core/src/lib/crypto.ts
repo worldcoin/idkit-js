@@ -1,5 +1,4 @@
 import { isReactNative, isWeb } from './platform'
-import { NullCryptoAdapter } from './adapters/crypto-adapter'
 import type { CryptoAdapter } from './adapters/crypto-adapter'
 import { WebCryptoAdapter } from './adapters/web-crypto-adapter'
 import { ReactNativeCryptoAdapter } from './adapters/react-native-crypto-adapter'
@@ -13,8 +12,7 @@ const createCryptoAdapter = (): CryptoAdapter => {
 		return new ReactNativeCryptoAdapter()
 	}
 
-	console.warn('Using NullCryptoAdapter - crypto operations will fail')
-	return new NullCryptoAdapter()
+	throw new Error('Unsupported platform')
 }
 
 const cryptoAdapter = createCryptoAdapter()
