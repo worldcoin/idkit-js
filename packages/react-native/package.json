@@ -1,6 +1,6 @@
 {
 	"name": "@worldcoin/idkit-react-native",
-	"version": "1.4.3",
+	"version": "1.5.0",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
 	"private": false,
