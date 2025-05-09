@@ -1,14 +1,14 @@
 {
-	"name": "@worldcoin/idkit-core",
+	"name": "@worldcoin/idkit-react-native",
 	"version": "1.4.3",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
 	"private": false,
-	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
+	"description": "React Native client for the identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/worldcoin/idkit-js",
-		"directory": "packages/core"
+		"directory": "packages/react-native"
 	},
 	"type": "module",
 	"main": "./build/index.cjs",
@@ -21,26 +21,10 @@
 			"types": "./build/index.d.ts",
 			"require": "./build/index.cjs",
 			"react-native": "./build/index.js"
-		},
-		"./hashing": {
-			"import": "./build/lib/hashing.js",
-			"types": "./build/lib/hashing.d.ts",
-			"require": "./build/lib/hashing.cjs"
-		},
-		"./backend": {
-			"import": "./build/lib/backend.js",
-			"types": "./build/lib/backend.d.ts",
-			"require": "./build/lib/backend.cjs"
 		}
 	},
 	"typesVersions": {
 		"*": {
-			"backend": [
-				"./build/lib/backend.d.ts"
-			],
-			"hashing": [
-				"./build/lib/hashing.d.ts"
-			],
 			"*": [
 				"./build/index.d.ts"
 			]
@@ -70,10 +54,8 @@
 		"sybil resistance"
 	],
 	"dependencies": {
-		"browser-or-node": "3.0.0-pre.0",
-		"buffer": "^6.0.3",
-		"ox": "^0.1.0",
-		"zustand": "^4.5"
+		"@worldcoin/idkit-core": "workspace:*",
+		"zustand": "^4.5.0"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
@@ -86,7 +68,7 @@
 	},
 	"peerDependenciesMeta": {
 		"react-native-quick-crypto": {
-			"optional": true
+			"optional": false
 		}
 	}
 }
