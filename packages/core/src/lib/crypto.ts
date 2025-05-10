@@ -1,17 +1,35 @@
-import { buffer_decode, buffer_encode } from './utils'
+import { isReactNative, isWeb } from './platform'
+import type { CryptoAdapter } from './adapters/crypto-adapter'
+import { WebCryptoAdapter } from './adapters/web-crypto-adapter'
+import { ReactNativeCryptoAdapter } from './adapters/react-native-crypto-adapter'
 
-const encoder = new TextEncoder()
-const decoder = new TextDecoder()
+// Singleton instance of the crypto adapter
+let cryptoAdapterInstance: CryptoAdapter | null = null
+
+const getCryptoAdapter = (): CryptoAdapter => {
+	if (cryptoAdapterInstance) {
+		return cryptoAdapterInstance
+	}
+
+	if (isWeb()) {
+		cryptoAdapterInstance = new WebCryptoAdapter()
+		return cryptoAdapterInstance
+	}
+
+	if (isReactNative()) {
+		cryptoAdapterInstance = new ReactNativeCryptoAdapter()
+		return cryptoAdapterInstance
+	}
+
+	throw new Error('Unsupported platform')
+}
 
 export const generateKey = async (): Promise<{ key: CryptoKey; iv: Uint8Array }> => {
-	return {
-		iv: window.crypto.getRandomValues(new Uint8Array(12)),
-		key: await window.crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']),
-	}
+	return getCryptoAdapter().generateKey()
 }
 
 export const exportKey = async (key: CryptoKey): Promise<string> => {
-	return buffer_encode(await window.crypto.subtle.exportKey('raw', key))
+	return getCryptoAdapter().exportKey(key)
 }
 
 export const encryptRequest = async (
@@ -19,14 +37,9 @@ export const encryptRequest = async (
 	iv: ArrayBuffer,
 	request: string
 ): Promise<{ payload: string; iv: string }> => {
-	return {
-		iv: buffer_encode(iv),
-		payload: buffer_encode(
-			await window.crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, encoder.encode(request))
-		),
-	}
+	return getCryptoAdapter().encryptRequest(key, iv, request)
 }
 
 export const decryptResponse = async (key: CryptoKey, iv: ArrayBuffer, payload: string): Promise<string> => {
-	return decoder.decode(await window.crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, buffer_decode(payload)))
+	return getCryptoAdapter().decryptResponse(key, iv, payload)
 }
