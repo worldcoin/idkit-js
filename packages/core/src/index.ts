@@ -9,6 +9,6 @@ export {
 	IDKitConfig,
 } from '@/types'
 
-export { useWorldBridgeStore, WorldBridgeStore } from '@/bridge'
+export { useWorldBridgeStore, WorldBridgeStore, createWorldBridgeStore } from '@/bridge'
 
 export { DEFAULT_VERIFICATION_LEVEL, verification_level_to_credential_types } from '@/lib/utils'
