@@ -56,7 +56,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 	bridge_url: DEFAULT_BRIDGE_URL,
 	verificationState: VerificationState.PreparingClient,
 
-	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal, partner }) => {
+	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal, partner, face_auth }) => {
 		const { key, iv } = await generateKey()
 
 		if (bridge_url) {
@@ -84,6 +84,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 							verification_level ?? DEFAULT_VERIFICATION_LEVEL
 						),
 						verification_level: verification_level ?? DEFAULT_VERIFICATION_LEVEL,
+						face_auth: face_auth ?? false,
 					})
 				)
 			),
@@ -102,7 +103,7 @@ export const useWorldBridgeStore = create<WorldBridgeStore>((set, get) => ({
 			requestId: request_id,
 			bridge_url: bridge_url ?? DEFAULT_BRIDGE_URL,
 			verificationState: VerificationState.WaitingForConnection,
-			connectorURI: `https://world.org/verify?t=wld&i=${request_id}&k=${encodeURIComponent(
+			connectorURI: `https://world.org/verify?t=${face_auth ? 'deepface' : 'wld'}&i=${request_id}&k=${encodeURIComponent(
 				await exportKey(key)
 			)}${bridge_url && bridge_url !== DEFAULT_BRIDGE_URL ? `&b=${encodeURIComponent(bridge_url)}` : ''}${
 				partner ? `&partner=${encodeURIComponent(true)}` : ''
