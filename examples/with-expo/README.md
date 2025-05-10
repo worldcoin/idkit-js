@@ -2,23 +2,22 @@
 
 This is a minimal example of integrating Worldcoin IDKit with Expo.
 
-## Getting Started
+## Run locally
 
 ```bash
 # Install dependencies
-pnpm install
+npm install
 
-# Start the development server
-pnpm start
+npx expo prebuild
+
+# Run on device
+npx expo start --dev-client --host tunnel
+
+# Run on device
+npx expo run:ios|android --device
 ```
 
-## Structure
+Notes:
 
-This is a simple one-page application built with Expo and Expo Router, demonstrating how to integrate Worldcoin IDKit in a React Native environment.
-
-## Learn More
-
-To learn more about Worldcoin IDKit, take a look at the following resources:
-
--   [Worldcoin IDKit Documentation](https://docs.worldcoin.org/idkit)
--   [Expo Documentation](https://docs.expo.dev/)
+-   Run the app on your device to test the end-end experience of being redirected from the world app to verify and back.
+-   Feel free to do state management different or better in your app, this is an example to showcase the end-end verification experience.

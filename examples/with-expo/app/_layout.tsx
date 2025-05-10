@@ -12,11 +12,9 @@ export default function RootLayout() {
 
 	useEffect(() => {
 		const handleDeepLink = (event: Linking.EventType) => {
-			console.log('event', event)
 			const { path } = Linking.parse(event.url)
 			if (path === '') {
 				// Do nothing, just acknowledge it
-				console.log('Received home deep link')
 			}
 		}
 

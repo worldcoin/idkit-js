@@ -24,9 +24,6 @@ export function IDKitDemo() {
 	// Restore session state when app is focused
 	useEffect(() => {
 		const subscription = Linking.addEventListener('url', async ({ url }) => {
-			// User returned from World App
-			console.log('Detected app return:', url)
-
 			// If we have an active session, poll for updates
 			if (sessionRef.current) {
 				try {
@@ -49,13 +46,11 @@ export function IDKitDemo() {
 	useEffect(() => {
 		// Only start polling if session is active
 		if (!sessionRef.current || status.state === VerificationState.PreparingClient) {
-			console.log('exit 1', status.state)
 			return
 		}
 
 		// Don't poll if we reached a terminal state
 		if (status.state === VerificationState.Confirmed || status.state === VerificationState.Failed) {
-			console.log('exit 2')
 			return
 		}
 
@@ -68,8 +63,6 @@ export function IDKitDemo() {
 
 			try {
 				const sessionStatus: SessionStatus = await sessionRef.current.status()
-
-				console.log('sessionStatus', sessionStatus)
 
 				if (!mounted) return
 
