@@ -1,0 +1,36 @@
+{
+	"expo": {
+		"name": "Worldcoin IDKit Demo",
+		"slug": "worldcoin-idkit-demo",
+		"scheme": "worldcoinidkitdemo",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/images/icon.png",
+		"userInterfaceStyle": "automatic",
+		"splash": {
+			"image": "./assets/images/splash-icon.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "com.anonymous.worldcoinidkitdemo"
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/images/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"package": "com.anonymous.worldcoinidkitdemo"
+		},
+		"web": {
+			"favicon": "./assets/images/favicon.png"
+		},
+		"extra": {
+			"eas": {
+				"projectId": "c9b4e886-ebf5-4d42-8c44-4612d02c14ef"
+			}
+		}
+	}
+}
