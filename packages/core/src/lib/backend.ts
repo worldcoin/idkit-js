@@ -14,7 +14,8 @@ export async function verifyCloudProof(
 	app_id: `app_${string}`,
 	action: string,
 	signal?: string,
-	endpoint?: URL | string
+	endpoint?: URL | string,
+	headers?: Record<string, string>
 ): Promise<IVerifyResponse> {
 	if (isBrowser) {
 		throw new Error('verifyCloudProof can only be used in the backend.')
@@ -23,6 +24,7 @@ export async function verifyCloudProof(
 	const response = await fetch(endpoint ?? `https://developer.worldcoin.org/api/v2/verify/${app_id}`, {
 		method: 'POST',
 		headers: {
+			...(headers ?? {}),
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
