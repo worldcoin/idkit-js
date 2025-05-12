@@ -111,12 +111,12 @@ const IDKitWidget: FC<WidgetProps> = ({
 									</Dialog.Overlay>
 									<div className="fixed inset-0 z-[9999] overflow-y-hidden md:overflow-y-auto">
 										<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
+											<Dialog.Title />
 											<Dialog.Content
 												asChild
 												onPointerDownOutside={avoidDefaultDomBehavior}
 												onInteractOutside={avoidDefaultDomBehavior}
 											>
-												<Dialog.Title />
 												<motion.div
 													layout={media == 'mobile' ? 'position' : true}
 													exit={media == 'mobile' ? 'initMob' : 'init'}
