@@ -22,6 +22,7 @@ export type IDKitStore = {
 	action_description?: IDKitConfig['action_description']
 	verification_level: NonNullable<IDKitConfig['verification_level']>
 	partner?: IDKitConfig['partner']
+	face_auth?: IDKitConfig['face_auth']
 
 	open: boolean
 	stage: IDKITStage
@@ -54,6 +55,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 		bridge_url: '',
 		verification_level: DEFAULT_VERIFICATION_LEVEL,
 		partner: false,
+		face_auth: false,
 
 		open: false,
 		result: null,
@@ -108,6 +110,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				bridge_url,
 				autoClose,
 				advanced,
+				face_auth,
 			}: Config,
 			source: ConfigSource
 		) => {
@@ -120,6 +123,7 @@ const useIDKitStore = createWithEqualityFn<IDKitStore>()(
 				app_id: advanced?.self_hosted ? SELF_HOSTED_APP_ID : app_id,
 				verification_level: verification_level ?? DEFAULT_VERIFICATION_LEVEL,
 				partner,
+				face_auth,
 			})
 
 			get().addSuccessCallback(onSuccess, source)
