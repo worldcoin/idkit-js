@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import type { StoreApi, UseBoundStore } from 'zustand'
 import { createWorldBridgeStore } from '@worldcoin/idkit-core'
 import type {
@@ -70,9 +66,9 @@ export class Session {
 	}
 
 	/**
-	 * Gets the current connector URI that can be used to start verification
+	 * Gets the current session URI that can be used to start verification
 	 */
-	public get connectorURI(): string | null {
+	public get sessionURI(): string | null {
 		return this.store.getState().connectorURI
 	}
 

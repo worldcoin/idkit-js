@@ -2,14 +2,6 @@
 
 React Native client for the identity SDK. Privacy-preserving identity and proof of personhood with World ID.
 
-## Installation
-
-```bash
-npm install @worldcoin/idkit-react-native
-# or
-yarn add @worldcoin/idkit-react-native
-```
-
 ## Polyfills
 
 This package requires some crypto functionality that isn't natively available in React Native. You'll need to set up the necessary polyfills:
@@ -41,7 +33,7 @@ const session = await new Session().create('app_id', 'your-action', {
 
 // Get the connector URI that redirects user to the World App
 // Optional: Add a `return_to` query param that deeplinks that redirects back to the app
-const connectorUrl = new URL(session.connectorURI)
+const connectorUrl = new URL(session.sessionURI)
 connectorUrl.searchParams.set('return_to', returnTo)
 const connectUrlWithReturnAddress = connectorUrl.toString()
 
@@ -90,8 +82,8 @@ const handleVerify = async () => {
 	const returnTo = createURL('') // Replace with your deep link path
 
 	// Add return_to parameter to connector URL
-	if (session.connectorURI) {
-		const connectorUrl = new URL(session.connectorURI)
+	if (session.sessionURI) {
+		const connectorUrl = new URL(session.sessionURI)
 		connectorUrl.searchParams.set('return_to', returnTo)
 
 		// Open the URL
@@ -153,7 +145,7 @@ const session = await new Session().create(
 
 #### Properties
 
--   `connectorURI`: Getter for the URI to connect with World App
+-   `sessionURI`: Getter for the URI to connect with World App
 
 #### Types
 
