@@ -10,6 +10,8 @@ IDKit is the toolkit for identity online. With IDKit you can easily interact wit
 
 Integration is very straightforward. Follow the relevant steps below.
 
+### React
+
 ```bash
 yarn add @worldcoin/idkit
 # or
@@ -27,6 +29,56 @@ import { IDKitWidget } from "@worldcoin/idkit";
     <button onClick={open}>Verify with World ID</button>
   )}
 </IDKitWidget>
+```
+
+### React Native
+
+```bash
+yarn add @worldcoin/idkit-react-native
+# or
+npm i @worldcoin/idkit-react-native
+# or
+pnpm install @worldcoin/idkit-react-native
+```
+
+React Native requires polyfills for crypto functionality:
+
+```javascript
+// polyfills.ts
+import { install } from 'react-native-quick-crypto'
+
+install()
+```
+
+Basic usage:
+
+```typescript
+import { Session, VerificationState } from '@worldcoin/idkit-react-native'
+
+// Create a new verification session
+const session = await new Session().create('app_id', 'your-action')
+
+// Get the connector URI that redirects user to the World App
+// Optional: Add a `return_to` query param that deeplinks back to the app
+const connectorUrl = new URL(session.sessionURI)
+connectorUrl.searchParams.set('return_to', returnTo)
+const connectUrlWithReturnAddress = connectorUrl.toString()
+
+// Poll for updates to check verification status
+const checkStatus = async () => {
+	const status = await session.status()
+
+	if (status.state === VerificationState.Confirmed) {
+		console.log('Verification successful:', status.result)
+	} else if (status.state === VerificationState.Failed) {
+		console.log('Verification failed:', status.errorCode)
+	}
+}
+
+// Clean up when done
+const cleanup = () => {
+	session.destroy()
+}
 ```
 
 More details can be found in the [documentation](https://docs.world.org/world-id/reference/idkit).
