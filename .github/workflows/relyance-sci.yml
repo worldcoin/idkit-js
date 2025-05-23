@@ -8,7 +8,7 @@ on:
 jobs:
   execute-relyance-sci:
     name: Relyance SCI Job
-    runs-on: ubuntu-latest
+    runs-on: arc-large-amd64-runner
 
     steps:
       - name: Checkout
