@@ -10,7 +10,7 @@
 	],
 	"commit": false,
 	"fixed": [],
-	"ignore": ["with-html", "with-next"],
+	"ignore": ["with-html", "with-next", "with-session"],
 	"linked": [],
 	"updateInternalDependencies": "patch"
 }
