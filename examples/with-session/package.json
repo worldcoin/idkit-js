@@ -9,7 +9,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@worldcoin/idkit-core": "workspace:*",
+		"@worldcoin/idkit": "workspace:*",
 		"next": "15.3.3",
 		"qrcode.react": "^4.2.0",
 		"react": "^19.0.0",
