@@ -18,14 +18,13 @@ export default function Home() {
 		// Initialize session only once
 		if (!sessionRef.current) {
 			;(async () => {
-				const session = await new Session().create(
-					(process.env.NEXT_PUBLIC_APP_ID ||
+				const session = await new Session().create({
+					app_id: (process.env.NEXT_PUBLIC_APP_ID ||
 						'app_staging_45068dca85829d2fd90e2dd6f0bff997') as `app_${string}`,
-					process.env.NEXT_PUBLIC_ACTION || 'test-action',
-					{
-						signal: process.env.NEXT_PUBLIC_SIGNAL || 'test_signal',
-					}
-				)
+					action: process.env.NEXT_PUBLIC_ACTION || 'test-action',
+
+					signal: process.env.NEXT_PUBLIC_SIGNAL || 'test_signal',
+				})
 				sessionRef.current = session
 				setSessionURI(session.sessionURI)
 

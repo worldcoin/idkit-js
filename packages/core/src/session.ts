@@ -16,25 +16,15 @@ export class Session {
 		this.store = createWorldBridgeStore()
 	}
 
-	async create(
-		app_id: IDKitConfig['app_id'],
-		action: IDKitConfig['action'],
-		options?: {
-			signal?: IDKitConfig['signal']
-			bridge_url?: IDKitConfig['bridge_url']
-			verification_level?: IDKitConfig['verification_level']
-			action_description?: IDKitConfig['action_description']
-			partner?: IDKitConfig['partner']
-		}
-	): Promise<Session> {
+	async create(config: IDKitConfig): Promise<Session> {
 		await this.store.getState().createClient({
-			app_id,
-			action,
-			signal: options?.signal,
-			bridge_url: options?.bridge_url,
-			action_description: options?.action_description,
-			verification_level: options?.verification_level,
-			partner: options?.partner,
+			app_id: config.app_id,
+			action: config.action,
+			signal: config.signal,
+			bridge_url: config.bridge_url,
+			action_description: config.action_description,
+			verification_level: config.verification_level,
+			partner: config.partner,
 		})
 		return this
 	}
