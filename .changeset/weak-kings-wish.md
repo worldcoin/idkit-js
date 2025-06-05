@@ -1,5 +1,5 @@
 ---
-'@worldcoin/idkit-core': minor
+'@worldcoin/idkit': minor
 ---
 
-Add session pattern
+Add useSession hook

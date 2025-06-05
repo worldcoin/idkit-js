@@ -1,75 +1,23 @@
 'use client'
 import { QRCodeSVG } from 'qrcode.react'
-import { useState, useEffect, useRef } from 'react'
-import { Session, VerificationState, type ISuccessResult, type AppErrorCodes } from '@worldcoin/idkit-core'
-
-type SessionStatus = {
-	state: VerificationState
-	result: ISuccessResult | null
-	errorCode: AppErrorCodes | null
-}
+import { useSession, VerificationState } from '@worldcoin/idkit'
 
 export default function Home() {
-	const sessionRef = useRef<Session | null>(null)
-	const [sessionStatus, setSessionStatus] = useState<SessionStatus | null>(null)
-	const [sessionURI, setSessionURI] = useState<string | null>(null)
+	const { status, sessionURI, result, errorCode } = useSession({
+		app_id: (process.env.NEXT_PUBLIC_APP_ID || 'app_staging_45068dca85829d2fd90e2dd6f0bff997') as `app_${string}`,
+		action: process.env.NEXT_PUBLIC_ACTION || 'test-action',
+		signal: process.env.NEXT_PUBLIC_SIGNAL || 'test_signal',
+	})
 
-	useEffect(() => {
-		// Initialize session only once
-		if (!sessionRef.current) {
-			;(async () => {
-				const session = await new Session().create({
-					app_id: (process.env.NEXT_PUBLIC_APP_ID ||
-						'app_staging_45068dca85829d2fd90e2dd6f0bff997') as `app_${string}`,
-					action: process.env.NEXT_PUBLIC_ACTION || 'test-action',
-
-					signal: process.env.NEXT_PUBLIC_SIGNAL || 'test_signal',
-				})
-				sessionRef.current = session
-				setSessionURI(session.sessionURI)
-
-				// Start polling for status updates
-				let intervalId: NodeJS.Timeout | null = null
-
-				const pollStatus = async () => {
-					if (sessionRef.current) {
-						const status = await sessionRef.current.status()
-						setSessionStatus(status)
-
-						// Stop polling if we've reached a terminal state
-						if (status.state === VerificationState.Confirmed || status.state === VerificationState.Failed) {
-							if (intervalId) {
-								clearInterval(intervalId)
-								intervalId = null
-							}
-						}
-					}
-				}
-
-				// Initial status check
-				pollStatus()
-
-				// Poll every 2 seconds until terminal state
-				intervalId = setInterval(pollStatus, 2000)
-
-				// Cleanup on unmount
-				return () => {
-					if (intervalId) {
-						clearInterval(intervalId)
-					}
-					sessionRef.current?.destroy()
-				}
-			})()
-		}
-	}, [])
+	console.log(status, sessionURI, JSON.stringify(result, null, 2).slice(0, 10), errorCode)
 
 	// Render different UI based on session status
 	const renderStatusContent = () => {
-		if (!sessionStatus) {
+		if (!status) {
 			return <div>Initializing session...</div>
 		}
 
-		switch (sessionStatus.state) {
+		switch (status) {
 			case VerificationState.PreparingClient:
 				return (
 					<div>
@@ -100,14 +48,14 @@ export default function Home() {
 					<div>
 						<h2>Verification Successful!</h2>
 						<p>
-							Proof: {sessionStatus.result?.proof.slice(0, 10)}...{sessionStatus.result?.proof.slice(-10)}
+							Proof: {result?.proof.slice(0, 10)}...{result?.proof.slice(-10)}
 						</p>
 						<pre className="whitespace-pre-wrap break-words wrap-anywhere bg-[#8080802b] p-2 my-4 rounded-md">
-							{JSON.stringify(sessionStatus.result, null, 2)}
+							{JSON.stringify(result, null, 2)}
 						</pre>
 						<button
 							onClick={() => {
-								navigator.clipboard.writeText(JSON.stringify(sessionStatus.result, null, 2))
+								navigator.clipboard.writeText(JSON.stringify(result, null, 2))
 								alert('Proof copied to clipboard!')
 							}}
 							className="bg-blue-500 text-white px-4 py-2 rounded-md"
@@ -121,14 +69,14 @@ export default function Home() {
 				return (
 					<div>
 						<h2>Verification Failed</h2>
-						<p>Error: {sessionStatus.errorCode || 'Unknown error'}</p>
+						<p>Error: {errorCode || 'Unknown error'}</p>
 					</div>
 				)
 
 			default:
 				return (
 					<div>
-						<h2>Status: {sessionStatus.state}</h2>
+						<h2>Status: {status}</h2>
 						{sessionURI && <QRCodeSVG value={sessionURI} size={256} />}
 					</div>
 				)
