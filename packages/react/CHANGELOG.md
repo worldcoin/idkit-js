@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+### Minor Changes
+
+-   [#342](https://github.com/worldcoin/idkit-js/pull/342) [`7d8f9e6`](https://github.com/worldcoin/idkit-js/commit/7d8f9e65fd8b42123bd835c0a0deeca8def50d23) Thanks [@Takaros999](https://github.com/Takaros999)! - Add useSession hook
+
 ## 2.1.0
 
 ### Minor Changes
