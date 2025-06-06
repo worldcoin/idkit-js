@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.1
+
+### Patch Changes
+
+-   [#344](https://github.com/worldcoin/idkit-js/pull/344) [`b633a08`](https://github.com/worldcoin/idkit-js/commit/b633a08bd04b88f17f48e72f6d46071b112d6386) Thanks [@Takaros999](https://github.com/Takaros999)! - Improve IDKit type declarations
+
 ## 2.2.0
 
 ### Minor Changes
