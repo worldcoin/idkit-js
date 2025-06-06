@@ -43,12 +43,24 @@
 	},
 	"exports": {
 		".": {
-			"import": "./build/index.js",
-			"types": "./build/index.d.ts"
+			"import": {
+				"types": "./build/index.d.ts",
+				"default": "./build/index.js"
+			},
+			"require": {
+				"types": "./build/index.d.cts",
+				"default": "./build/index.cjs"
+			}
 		},
 		"./internal": {
-			"import": "./build/internal.js",
-			"types": "./build/internal.d.ts"
+			"import": {
+				"types": "./build/internal.d.ts",
+				"default": "./build/internal.js"
+			},
+			"require": {
+				"types": "./build/internal.d.cts",
+				"default": "./build/internal.cjs"
+			}
 		}
 	},
 	"files": [
