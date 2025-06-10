@@ -12,8 +12,19 @@
 	},
 	"type": "module",
 	"main": "src/index.tsx",
-	"exports": "./build/index.global.js",
-	"types": "src/index.tsx",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./build/index.d.ts",
+				"default": "./build/index.global.js"
+			},
+			"require": {
+				"types": "./build/index.d.cts",
+				"default": "./build/index.cjs"
+			}
+		}
+	},
+	"types": "./build/index.d.ts",
 	"engines": {
 		"node": ">=12.4"
 	},

@@ -1,4 +1,4 @@
-import { IDKitSession } from './session.js'
+import { IDKitSession } from './session'
 import { createRoot, type Root } from 'react-dom/client'
 import { IDKitWidget, type Config } from '@worldcoin/idkit'
 import { __, useIDKitStore, ConfigSource } from '@worldcoin/idkit/internal'
