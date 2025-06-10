@@ -1,3 +1,4 @@
+import { IDKitSession } from './session.js'
 import { createRoot, type Root } from 'react-dom/client'
 import { IDKitWidget, type Config } from '@worldcoin/idkit'
 import { __, useIDKitStore, ConfigSource } from '@worldcoin/idkit/internal'
@@ -82,10 +83,13 @@ const IDKit = {
 		return isInitialized
 	},
 }
+
 window.IDKit = IDKit
+window.IDKitSession = IDKitSession
 
 declare global {
 	interface Window {
 		IDKit: typeof IDKit
+		IDKitSession: typeof IDKitSession
 	}
 }
