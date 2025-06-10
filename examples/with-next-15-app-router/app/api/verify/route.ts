@@ -1,4 +1,4 @@
-import { verifyCloudProof, IVerifyResponse } from '@worldcoin/idkit'
+import { verifyCloudProof, IVerifyResponse } from '@worldcoin/idkit-core/backend'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const POST = async (req: NextRequest) => {
