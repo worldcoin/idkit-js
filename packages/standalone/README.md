@@ -90,11 +90,10 @@ A low-level API that gives you full control over the verification flow. Best for
 
 ### Session States
 
--   **PreparingClient** - Initializing verification session
--   **WaitingForConnection** - Waiting for user to scan QR code
--   **WaitingForApp** - User scanned, waiting for verification in World App
--   **Confirmed** - Verification completed successfully
--   **Failed** - Verification failed or cancelled
+-   `awaiting_connection` - Waiting for user to scan QR code
+-   `awaiting_app` - User scanned, waiting for verification in World App
+-   `confirmed` - Verification completed successfully
+-   `failed` - Verification failed
 
 ## Examples
 
@@ -102,5 +101,5 @@ See [`examples/with-html/`](https://github.com/worldcoin/idkit-js/tree/main/exam
 
 ## Support
 
--   [Documentation](https://docs.world.org/id/idkit)
+-   [Documentation](https://docs.world.org/world-id)
 -   [GitHub Issues](https://github.com/worldcoin/idkit-js/issues)
