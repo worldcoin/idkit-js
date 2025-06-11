@@ -12,8 +12,19 @@
 	},
 	"type": "module",
 	"main": "src/index.tsx",
-	"exports": "./build/index.global.js",
-	"types": "src/index.tsx",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./build/index.d.ts",
+				"default": "./build/index.global.js"
+			},
+			"require": {
+				"types": "./build/index.d.cts",
+				"default": "./build/index.cjs"
+			}
+		}
+	},
+	"types": "./build/index.d.ts",
 	"engines": {
 		"node": ">=12.4"
 	},
@@ -39,6 +50,7 @@
 	],
 	"dependencies": {
 		"@worldcoin/idkit": "workspace:^",
+		"@worldcoin/idkit-core": "workspace:^",
 		"react": ">18.0.0",
 		"react-dom": ">18.0.0"
 	},
@@ -58,6 +70,7 @@
 		"puppeteer": "^22.12.1",
 		"ts-node": "^10.9.2",
 		"tsup": "^8.1.0",
-		"typescript": "^5.3.2"
+		"typescript": "^5.3.2",
+		"zustand": "^4.5.0"
 	}
 }

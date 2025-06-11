@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>IDKit Session API Example</title>
+
+		<style>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 20px;
+				line-height: 1.6;
+			}
+
+			.button {
+				background-color: #4f46e5;
+				color: white;
+				border: none;
+				padding: 10px 20px;
+				border-radius: 6px;
+				cursor: pointer;
+				margin: 5px;
+				font-size: 14px;
+			}
+
+			.button:hover {
+				background-color: #3730a3;
+			}
+
+			.button:disabled {
+				background-color: #9ca3af;
+				cursor: not-allowed;
+			}
+
+			.status-box {
+				background: #f3f4f6;
+				border: 1px solid #d1d5db;
+				border-radius: 8px;
+				padding: 15px;
+				margin: 15px 0;
+				font-family: 'Monaco', 'Menlo', monospace;
+				font-size: 12px;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				overflow-wrap: break-word;
+				word-break: break-all;
+				max-width: 100%;
+				overflow-x: auto;
+			}
+
+			.qr-container {
+				border: 2px dashed #d1d5db;
+				border-radius: 8px;
+				padding: 20px;
+				text-align: center;
+				margin: 15px 0;
+				min-height: 100px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+			}
+
+			.success {
+				border-color: #10b981;
+				background-color: #ecfdf5;
+			}
+
+			.error {
+				border-color: #ef4444;
+				background-color: #fef2f2;
+			}
+
+			#qr-canvas {
+				margin: 10px 0;
+			}
+
+			.qr-info {
+				margin-top: 10px;
+				font-size: 12px;
+				color: #6b7280;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>IDKit Session API Example</h1>
+
+		<p>This demonstrates the new session-based World ID verification for vanilla JavaScript applications.</p>
+
+		<div>
+			<h3>Session Controls</h3>
+			<button class="button" id="create-session">Create Session</button>
+			<button class="button" id="poll-session" disabled>Poll Status</button>
+			<button class="button" id="start-polling" disabled>Start Auto-Polling</button>
+			<button class="button" id="stop-polling" disabled>Stop Auto-Polling</button>
+			<button class="button" id="destroy-session" disabled>Destroy Session</button>
+		</div>
+
+		<div>
+			<h3>Session Status</h3>
+			<div id="status-display" class="status-box">No session created</div>
+		</div>
+
+		<div>
+			<h3>QR Code</h3>
+			<div id="qr-display" class="qr-container">Session URI will appear here when created</div>
+		</div>
+
+		<div>
+			<h3>Console Output</h3>
+			<div id="console-output" class="status-box"></div>
+		</div>
+
+		<script type="module">
+			import QRCode from 'qrcode'
+			import '@worldcoin/idkit-standalone'
+
+			// UI Elements
+			const createBtn = document.getElementById('create-session')
+			const pollBtn = document.getElementById('poll-session')
+			const startPollingBtn = document.getElementById('start-polling')
+			const stopPollingBtn = document.getElementById('stop-polling')
+			const destroyBtn = document.getElementById('destroy-session')
+			const statusDisplay = document.getElementById('status-display')
+			const qrDisplay = document.getElementById('qr-display')
+			const consoleOutput = document.getElementById('console-output')
+
+			let pollingInterval = null
+
+			// Utility functions
+			const log = message => {
+				const timestamp = new Date().toLocaleTimeString()
+				consoleOutput.textContent += `[${timestamp}] ${message}\n`
+				console.log(message)
+			}
+
+			const formatStatus = status => {
+				if (!status) return 'No session created'
+
+				// Create a copy and format long fields for better readability
+				const formatted = { ...status }
+
+				if (formatted.result?.proof) {
+					// Truncate very long proof fields for display
+					formatted.result = {
+						...formatted.result,
+						proof:
+							formatted.result.proof.length > 100
+								? formatted.result.proof.substring(0, 100) + '...(truncated)'
+								: formatted.result.proof,
+					}
+				}
+
+				return JSON.stringify(formatted, null, 2)
+			}
+
+			const generateQRCode = async sessionURI => {
+				try {
+					// Create canvas element for QR code
+					const canvas = document.createElement('canvas')
+					canvas.id = 'qr-canvas'
+
+					// Generate QR code on canvas
+					await QRCode.toCanvas(canvas, sessionURI, {
+						width: 256,
+						margin: 2,
+						color: {
+							dark: '#000000',
+							light: '#FFFFFF',
+						},
+						errorCorrectionLevel: 'M',
+					})
+
+					return canvas
+				} catch (error) {
+					log(`Error generating QR code: ${error.message}`)
+					return null
+				}
+			}
+
+			const updateUI = async (status = null) => {
+				const hasSession = IDKitSession.isActive
+
+				// Update button states
+				createBtn.disabled = hasSession
+				pollBtn.disabled = !hasSession
+				startPollingBtn.disabled = !hasSession || pollingInterval !== null
+				stopPollingBtn.disabled = !hasSession || pollingInterval === null
+				destroyBtn.disabled = !hasSession
+
+				// Update status display
+				if (status) {
+					statusDisplay.textContent = formatStatus(status)
+					statusDisplay.className = 'status-box'
+
+					if (status.result) {
+						statusDisplay.className += ' success'
+					} else if (status.errorCode) {
+						statusDisplay.className += ' error'
+					}
+
+					// Update QR display
+					if (status.sessionURI) {
+						// Clear previous content
+						qrDisplay.innerHTML = ''
+
+						// Create QR code
+						const canvas = await generateQRCode(status.sessionURI)
+
+						if (canvas) {
+							// Add header
+							const header = document.createElement('p')
+							header.innerHTML = '<strong>Scan with World App:</strong>'
+							qrDisplay.appendChild(header)
+
+							// Add QR code canvas
+							qrDisplay.appendChild(canvas)
+
+							// Add info text
+							const info = document.createElement('div')
+							info.className = 'qr-info'
+							info.innerHTML = `
+								<p>Session URI: ${status.sessionURI.substring(0, 50)}...</p>
+							`
+							qrDisplay.appendChild(info)
+						} else {
+							// Fallback to text display if QR generation fails
+							qrDisplay.innerHTML = `
+								<div>
+									<p><strong>QR Code generation failed</strong></p>
+									<p style="word-break: break-all; font-size: 10px; margin: 10px 0;">${status.sessionURI}</p>
+								</div>
+							`
+						}
+					} else {
+						qrDisplay.textContent = 'No session URI available'
+					}
+				} else {
+					statusDisplay.textContent = formatStatus(null)
+					statusDisplay.className = 'status-box'
+					qrDisplay.textContent = 'Session URI will appear here when created'
+				}
+			}
+
+			// Event Handlers
+			createBtn.addEventListener('click', async () => {
+				try {
+					log('Creating new session...')
+
+					await IDKitSession.create({
+						app_id: 'app_ce4cb73cb75fc3b73b71ffb4de178410',
+						action: 'test-action',
+						signal: 'test_signal_' + Date.now(),
+						action_description: 'Test session-based verification',
+						verification_level: 'orb',
+						partner: true,
+					})
+
+					log('Session created successfully!')
+					await updateUI()
+				} catch (error) {
+					log(`Error creating session: ${error.message}`)
+				}
+			})
+
+			pollBtn.addEventListener('click', async () => {
+				try {
+					log('Polling for updates...')
+					const status = await IDKitSession.pollStatus()
+					log(`Poll result: ${status.state}`)
+					await updateUI(status)
+				} catch (error) {
+					log(`Error polling: ${error.message}`)
+				}
+			})
+
+			startPollingBtn.addEventListener('click', async () => {
+				log('Starting automatic polling...')
+				pollingInterval = setInterval(async () => {
+					try {
+						// Check if session is still active before polling
+						if (!IDKitSession.isActive) {
+							log('Session no longer active. Stopping auto-polling.')
+							clearInterval(pollingInterval)
+							pollingInterval = null
+							// Don't clear UI - preserve last status
+							return
+						}
+
+						const status = await IDKitSession.pollStatus()
+
+						// Stop polling if verification is complete
+						if (status.state === 'confirmed' || status.state === 'failed') {
+							log(`Verification ${status.state.toLowerCase()}. Stopping auto-polling.`)
+							clearInterval(pollingInterval)
+							pollingInterval = null
+							// UI already updated with final status above
+						}
+
+						await updateUI(status)
+					} catch (error) {
+						log(`Polling error: ${error.message}`)
+						// Stop polling on error (session might be destroyed or invalid)
+						log('Stopping auto-polling due to error.')
+						clearInterval(pollingInterval)
+						pollingInterval = null
+						// Don't clear UI - preserve last known status
+					}
+				}, 3000)
+				await updateUI()
+			})
+
+			stopPollingBtn.addEventListener('click', async () => {
+				if (pollingInterval) {
+					log('Manually stopping automatic polling...')
+					clearInterval(pollingInterval)
+					pollingInterval = null
+					await updateUI() // Update button states only
+				}
+			})
+
+			destroyBtn.addEventListener('click', async () => {
+				if (pollingInterval) {
+					clearInterval(pollingInterval)
+					pollingInterval = null
+				}
+
+				IDKitSession.destroy()
+				log('Session destroyed')
+				await updateUI()
+			})
+
+			// Initialize UI
+			updateUI()
+			log('IDKit Session API example ready!')
+		</script>
+	</body>
+</html>

@@ -29,6 +29,9 @@ importers:
       '@worldcoin/idkit-standalone':
         specifier: workspace:*
         version: link:../../packages/standalone
+      qrcode:
+        specifier: ^1.5.4
+        version: 1.5.4
     devDependencies:
       vite:
         specifier: ^4.5.2
@@ -278,6 +281,9 @@ importers:
       '@worldcoin/idkit':
         specifier: workspace:^
         version: link:../react
+      '@worldcoin/idkit-core':
+        specifier: workspace:^
+        version: link:../core
       react:
         specifier: '>18.0.0'
         version: 18.2.0
@@ -324,6 +330,9 @@ importers:
       typescript:
         specifier: ^5.3.2
         version: 5.3.3
+      zustand:
+        specifier: ^4.5.0
+        version: 4.5.4(@types/react@18.0.25)(react@18.2.0)
 
 packages:
 
@@ -4146,6 +4155,11 @@ packages:
 
   qrcode@1.5.3:
     resolution: {integrity: sha512-puyri6ApkEHYiVl4CFzo1tDkAZ+ATcnbJrJ6RiBM1Fhctdn/ix9MTE3hRph33omisEbC/2fcfemsseiKgBPKZg==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+
+  qrcode@1.5.4:
+    resolution: {integrity: sha512-1ca71Zgiu6ORjHqFBDpnSMTR2ReToX4l1Au1VFLyVeBTFavzQnv5JxMFr3ukHVKpSrSA2MCk0lNJSykjUfz7Zg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
 
@@ -9681,6 +9695,12 @@ snapshots:
     dependencies:
       dijkstrajs: 1.0.3
       encode-utf8: 1.0.3
+      pngjs: 5.0.0
+      yargs: 15.4.1
+
+  qrcode@1.5.4:
+    dependencies:
+      dijkstrajs: 1.0.3
       pngjs: 5.0.0
       yargs: 15.4.1
 

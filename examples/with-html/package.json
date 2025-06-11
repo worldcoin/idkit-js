@@ -9,7 +9,8 @@
 		"lint": "prettier index.html -c"
 	},
 	"dependencies": {
-		"@worldcoin/idkit-standalone": "workspace:*"
+		"@worldcoin/idkit-standalone": "workspace:*",
+		"qrcode": "^1.5.4"
 	},
 	"devDependencies": {
 		"vite": "^4.5.2"
