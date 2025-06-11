@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+### Minor Changes
+
+-   [#346](https://github.com/worldcoin/idkit-js/pull/346) [`ca26763`](https://github.com/worldcoin/idkit-js/commit/ca267631d2efcb402238ad5b9b11ef6953fead91) Thanks [@Takaros999](https://github.com/Takaros999)! - Add Session API, Add ReadME, Improve type resolution
+
 ## 2.1.2
 
 ### Patch Changes
