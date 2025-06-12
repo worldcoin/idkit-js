@@ -7,7 +7,6 @@
 		"copy-to-clipboard": "^3.3.3",
 		"framer-motion": "^11.2.14",
 		"qrcode": "^1.5.3",
-		"react-shadow": "^19.1.0",
 		"zustand": "^4.5.4"
 	},
 	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
