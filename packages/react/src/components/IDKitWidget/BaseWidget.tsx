@@ -1,10 +1,10 @@
 import { __ } from '@/lang'
 import type { FC } from 'react'
-import root from 'react-shadow'
 import { IDKITStage } from '@/types'
 import useMedia from '@/hooks/useMedia'
 import { createPortal } from 'react-dom'
 import Styles from '@/components/Styles'
+import { ShadowHost } from './ShadowHost'
 import useIDKitStore from '@/store/idkit'
 import { shallow } from 'zustand/shallow'
 import XMarkIcon from '../Icons/XMarkIcon'
@@ -63,7 +63,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 	}, [stage, show_modal])
 
 	const widgetContent = (
-		<root.div mode="open" id="idkit-widget">
+		<ShadowHost mode="open" id="idkit-widget">
 			<Styles />
 			<Toast.Provider>
 				<Toast.Viewport className="flex justify-center" />
@@ -74,7 +74,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 					{StageContent}
 				</div>
 			</Toast.Provider>
-		</root.div>
+		</ShadowHost>
 	)
 
 	if (!show_modal && container_id) {
@@ -98,7 +98,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 				<Fragment>
 					<AnimatePresence>
 						{isOpen && (
-							<root.div mode="open" id="idkit-widget">
+							<ShadowHost mode="open" id="idkit-widget">
 								<Styles />
 								<div id="modal" className="fixed z-[9999] font-sans">
 									<Dialog.Overlay asChild>
@@ -159,7 +159,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 										</div>
 									</div>
 								</div>
-							</root.div>
+							</ShadowHost>
 						)}
 					</AnimatePresence>
 				</Fragment>
