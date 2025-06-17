@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.2
+
+### Patch Changes
+
+-   [#351](https://github.com/worldcoin/idkit-js/pull/351) [`c7aac93`](https://github.com/worldcoin/idkit-js/commit/c7aac93dd1fad8bb14517beb4c33c87984b2eab8) Thanks [@Takaros999](https://github.com/Takaros999)! - Remove react-shadow dependency
+
 ## 2.2.1
 
 ### Patch Changes
