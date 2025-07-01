@@ -100,9 +100,6 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 						<div>
 							<p className="font-bold text-657080">Connecting</p>
 							<p className="text-sm text-657080">Please continue on your phone</p>
-							<p className={clsx(show_modal ? '' : 'hidden', 'mt-2 text-sm font-bold text-red-500')}>
-								Don&apos;t close this window
-							</p>
 						</div>
 					</div>
 				)}
