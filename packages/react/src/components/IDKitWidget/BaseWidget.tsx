@@ -63,34 +63,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 		}
 	}, [stage, show_modal])
 
-	// DEBUG CONTROLS - Remove these in production!
-	const debugControls = (
-		<div className="absolute top-0 left-0 z-50 bg-black/80 text-white p-2 rounded-br-lg text-xs space-y-1">
-			<div className="font-bold mb-1">Debug Controls:</div>
-			<button onClick={() => setStage(IDKITStage.WORLD_ID)} className="block hover:underline">
-				→ WORLD_ID
-			</button>
-			<button onClick={() => setStage(IDKITStage.HOST_APP_VERIFICATION)} className="block hover:underline">
-				→ HOST_APP_VERIFICATION
-			</button>
-			<button onClick={() => setStage(IDKITStage.SUCCESS)} className="block hover:underline">
-				→ SUCCESS
-			</button>
-			<button onClick={() => {
-				setErrorState({ code: 'generic_error', detail: 'Test error message' })
-				setStage(IDKITStage.ERROR)
-			}} className="block hover:underline">
-				→ ERROR (Generic)
-			</button>
-			<button onClick={() => {
-				setErrorState({ code: 'verification_rejected', detail: 'Test rejection' })
-				setStage(IDKITStage.ERROR)
-			}} className="block hover:underline">
-				→ ERROR (Rejected)
-			</button>
-		</div>
-	)
-
 	const widgetContent = (
 		<ShadowHost mode="open" id="idkit-widget">
 			<Styles />
@@ -100,7 +72,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 					id="widget-content-inline"
 					className="relative flex flex-col bg-white p-4 focus:outline-none dark:bg-0d151d"
 				>
-					{debugControls}
 					{StageContent}
 				</div>
 			</Toast.Provider>
@@ -171,7 +142,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 															</Dialog.Close>
 														</div>
 														<div className="relative mx-6 mb-6 flex flex-1 flex-col items-center justify-center">
-															{debugControls}
 															{StageContent}
 														</div>
 														<div className="flex items-center justify-center border-t border-f5f5f7 p-7 md:rounded-b-2xl">
