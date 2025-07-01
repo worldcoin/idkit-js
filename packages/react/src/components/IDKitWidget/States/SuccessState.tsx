@@ -9,11 +9,9 @@ const SuccessState = (props: { show_modal?: boolean }) => {
 				<CheckIcon className="w-24 text-white" />
 			</div>
 			<div>
-				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{__('Successfully verified')}
-				</p>
-				<p className="mx-auto mt-2 max-w-[224px] text-center text-lg text-657080">
-					{__('Your World ID verification was successful')}
+				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">{__('All set!')}</p>
+				<p className="mx-auto mt-2 max-w-[260px] text-center text-lg text-657080">
+					{__('Your World ID is now connected')}
 				</p>
 			</div>
 		</div>

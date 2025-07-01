@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { __ } from '@/lang'
 import useIDKitStore from '@/store/idkit'
+import XMarkIcon from '../../Icons/XMarkIcon'
 import type { IDKitStore } from '@/store/idkit'
 import ErrorIcon from '@/components/Icons/ErrorIcon'
 import { AppErrorCodes } from '@worldcoin/idkit-core'
@@ -31,7 +32,7 @@ const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
 	[AppErrorCodes.InclusionProofPending]: __(
 		'Your identity is still being registered. Please wait a few minutes and try again.'
 	),
-	[AppErrorCodes.GenericError]: __('Something unexpected went wrong. Please try again.'),
+	[AppErrorCodes.GenericError]: __("We couldn't complete your request. Please try again."),
 	[AppErrorCodes.UnexpectedResponse]: __('Unexpected response from your wallet. Please try again.'),
 	[AppErrorCodes.FailedByHostApp]: __('Verification failed by the app. Please contact the app owner for details.'),
 }
