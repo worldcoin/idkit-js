@@ -1,11 +1,10 @@
 import clsx from 'clsx'
 import { __ } from '@/lang'
+import { useEffect } from 'react'
 import useIDKitStore from '@/store/idkit'
-import XMarkIcon from '../../Icons/XMarkIcon'
 import type { IDKitStore } from '@/store/idkit'
 import ErrorIcon from '@/components/Icons/ErrorIcon'
 import { AppErrorCodes } from '@worldcoin/idkit-core'
-import ReloadIcon from '@/components/Icons/ReloadIcon'
 import WarningIcon from '@/components/Icons/WarningIcon'
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
@@ -15,31 +14,31 @@ const ERROR_TITLES: Partial<Record<AppErrorCodes, string>> = {
 	[AppErrorCodes.VerificationRejected]: __('Request cancelled'),
 }
 
-const ERROR_MESSAGES: Record<AppErrorCodes, string> = {
+const ERROR_MESSAGES: Partial<Record<AppErrorCodes, string>> = {
 	[AppErrorCodes.ConnectionFailed]: __('Connection to your wallet failed. Please try again.'),
 	[AppErrorCodes.VerificationRejected]: __('You’ve cancelled the request in World App.'),
 	[AppErrorCodes.MaxVerificationsReached]: __(
 		'You have already verified the maximum number of times for this action.'
 	),
 	[AppErrorCodes.CredentialUnavailable]: __('It seems you do not have the verification level required by this app.'),
-	[AppErrorCodes.MalformedRequest]: __(
-		'There was a problem with this request. Please try again or contact the app owner.'
-	),
 	[AppErrorCodes.InvalidNetwork]: __(
 		'Invalid network. If you are the app owner, visit docs.world.org/test for details.'
 	),
-	[AppErrorCodes.InclusionProofFailed]: __('There was an issue fetching your credential. Please try again.'),
 	[AppErrorCodes.InclusionProofPending]: __(
 		'Your identity is still being registered. Please wait a few minutes and try again.'
 	),
 	[AppErrorCodes.GenericError]: __("We couldn't complete your request. Please try again."),
-	[AppErrorCodes.UnexpectedResponse]: __('Unexpected response from your wallet. Please try again.'),
-	[AppErrorCodes.FailedByHostApp]: __('Verification failed by the app. Please contact the app owner for details.'),
 }
 
 const ErrorState = (props: { show_modal?: boolean }) => {
 	const { retryFlow, errorState } = useIDKitStore(getParams)
 	const { show_modal } = props
+
+	useEffect(() => {
+		if (errorState) {
+			console.error(`Error state: `, errorState)
+		}
+	}, [errorState])
 
 	return (
 		<div className="space-y-8">
@@ -55,7 +54,8 @@ const ErrorState = (props: { show_modal?: boolean }) => {
 					{(errorState?.code && ERROR_TITLES[errorState.code]) ?? ERROR_TITLES[AppErrorCodes.GenericError]}
 				</p>
 				<p className="mx-auto mt-2 max-w-[224px] text-center text-657080">
-					{errorState?.message ?? ERROR_MESSAGES[errorState?.code ?? AppErrorCodes.GenericError]}
+					{(errorState?.code && ERROR_MESSAGES[errorState.code]) ??
+						ERROR_MESSAGES[AppErrorCodes.GenericError]}
 				</p>
 			</div>
 			<div className="flex justify-center">
