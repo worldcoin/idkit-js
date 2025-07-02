@@ -86,11 +86,9 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 						<WorldcoinIcon className="size-8 text-0d151d dark:text-white" />
 					</div>
 				</div>
-				<p className="font-sora text-2xl font-semibold text-gray-900 dark:text-white">
-					{__('Connect with World ID')}
-				</p>
+				<p className="text-2xl font-semibold text-gray-900 dark:text-white">{__('Connect your World ID')}</p>
 				<p className={clsx('mt-3 text-657080 dark:text-9eafc0 md:mt-2', { hidden: media === 'mobile' })}>
-					Scan the QR code to connect your World ID
+					{__('Use phone camera to scan the QR code')}
 				</p>
 			</div>
 
@@ -100,8 +98,8 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 					<div className="absolute inset-0 flex flex-col items-center justify-center space-y-6">
 						<LoadingIcon className="size-6" />
 						<div>
-							<p className="font-bold text-657080">Connecting</p>
-							<p className="text-sm text-657080">Please continue on your phone</p>
+							<p className="font-medium text-657080">{__('Connecting...')}</p>
+							<p className="text-sm font-light text-657080">{__('Please continue in app')}</p>
 						</div>
 					</div>
 				)}
@@ -114,7 +112,7 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 				>
 					{/* Center the QR code by ensuring QRState is in a container with mx-auto */}
 					<div className="mx-auto">
-						<QRState showQR={showQR} setShowQR={setShowQR} qrData={connectorURI} />
+						<QRState showQR={showQR} setShowQR={setShowQR} qrData={'https://example.com'} />
 					</div>
 				</div>
 			</div>

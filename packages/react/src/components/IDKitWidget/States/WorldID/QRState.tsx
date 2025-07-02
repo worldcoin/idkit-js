@@ -107,7 +107,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 							</motion.div>
 						)}
 					</AnimatePresence>
-					<div className="relative inline-flex items-center justify-center rounded-2xl border border-f1f5f8 p-2 dark:border-f1f5f8/10">
+					<div className="relative inline-flex items-center justify-center rounded-2xl border border-f1f5f8 p-3 dark:border-f1f5f8/10">
 						<div className="text-29343f dark:text-white">
 							{qrData ? (
 								// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
@@ -115,8 +115,8 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 									<Qrcode data={qrData} size={200} />
 								</div>
 							) : (
-								<div className="flex size-[244px] items-center justify-center">
-									<QRPlaceholderIcon className="size-[244px] animate-pulse" />
+								<div className="flex size-[200px] items-center justify-center">
+									<QRPlaceholderIcon className="size-[200px] animate-pulse" />
 								</div>
 							)}
 						</div>
