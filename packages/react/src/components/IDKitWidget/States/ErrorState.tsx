@@ -62,9 +62,8 @@ const ErrorState = (props: { show_modal?: boolean }) => {
 				<button
 					type="button"
 					onClick={retryFlow}
-					className="inline-flex items-center rounded-lg border border-ebecef bg-transparent px-8 py-3 font-medium text-3c424b shadow-sm transition duration-300 hover:shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+					className="inline-flex items-center rounded-full border-[1.2px] border-ebecef bg-transparent px-8 py-3 font-semibold text-gray-900 shadow-sm transition duration-300 hover:shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
 				>
-					<ReloadIcon className="mr-1.5 size-5" />
 					{__('Try Again')}
 				</button>
 			</div>

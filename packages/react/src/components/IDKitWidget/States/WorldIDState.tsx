@@ -82,7 +82,9 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 		>
 			<div className={clsx(!show_modal ? 'hidden' : '')}>
 				<div className="mb-4 flex items-center justify-center">
-					<WorldcoinIcon className="h-10 text-0d151d dark:text-white" />
+					<div className="flex size-14 items-center justify-center rounded-full border-[1.2px] border-solid border-[#EBECEF]">
+						<WorldcoinIcon className="size-8 text-0d151d dark:text-white" />
+					</div>
 				</div>
 				<p className="font-sora text-2xl font-semibold text-gray-900 dark:text-white">
 					{__('Connect with World ID')}

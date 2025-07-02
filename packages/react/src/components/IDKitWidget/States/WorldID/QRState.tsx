@@ -112,7 +112,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 							{qrData ? (
 								// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 								<div onClick={copyLink} className="cursor-pointer">
-									<Qrcode data={qrData} size={244} />
+									<Qrcode data={qrData} size={200} />
 								</div>
 							) : (
 								<div className="flex size-[244px] items-center justify-center">
