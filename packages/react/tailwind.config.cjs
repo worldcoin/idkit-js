@@ -130,8 +130,7 @@ module.exports = {
 				'gradient-conic': 'conic-gradient(var(--tw-gradient-stops))',
 			},
 			fontFamily: {
-				sora: ['Sora', ...defaultTheme.fontFamily.sans],
-				sans: ['Rubik', ...defaultTheme.fontFamily.sans],
+				sans: ['TWK Lausanne', ...defaultTheme.fontFamily.sans], // Main font used throughout widget
 			},
 			data: {
 				selected: 'headlessui-state~="selected"',

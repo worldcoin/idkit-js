@@ -20,11 +20,12 @@ import { Fragment, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
-const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions }: IDKitStore) => ({
+const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions, setErrorState }: IDKitStore) => ({
 	stage,
 	setStage,
 	processing,
 	setOptions,
+	setErrorState,
 	isOpen: open,
 	onOpenChange,
 })
@@ -38,7 +39,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 }) => {
 	const media = useMedia()
 
-	const { isOpen, onOpenChange, stage, setOptions } = useIDKitStore(getParams, shallow)
+	const { isOpen, onOpenChange, stage, setStage, setOptions, setErrorState } = useIDKitStore(getParams, shallow)
 
 	useEffect(() => {
 		if (config.action === '') {
@@ -130,14 +131,14 @@ const IDKitWidget: FC<WidgetProps> = ({
 													}}
 													transition={{ layout: { duration: 0.15 } }}
 													className={
-														'relative z-50 flex min-h-screen w-full flex-col bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 dark:bg-0d151d md:min-h-[35rem] md:max-w-md md:rounded-2xl'
+														'relative z-50 flex min-h-screen w-full flex-col bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 dark:bg-0d151d md:min-h-[35rem] md:max-w-md md:rounded-[24px]'
 													}
 												>
 													<Toast.Provider>
 														<Toast.Viewport className="flex justify-center" />
-														<div className="mx-6 mb-12 flex items-center justify-between">
-															<Dialog.Close className="flex size-11 items-center justify-center rounded-full text-black dark:text-white">
-																<XMarkIcon className="size-5" />
+														<div className="mx-6 flex items-center justify-end">
+															<Dialog.Close className="flex size-8 items-center justify-center rounded-full border-[1.2px] border-solid border-[#EBECEF] text-black dark:text-white">
+																<XMarkIcon className="size-4" />
 															</Dialog.Close>
 														</div>
 														<div className="relative mx-6 mb-6 flex flex-1 flex-col items-center justify-center">

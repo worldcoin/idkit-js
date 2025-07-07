@@ -63,7 +63,7 @@ const Qrcode = ({ data, size = 300 }: Props) => {
 				dots.push(
 					<circle
 						fill="currentColor"
-						r={cellSize / 3}
+						r={cellSize / 2.2}
 						key={`circle-${i}-${j}`}
 						cx={i * cellSize + cellSize / 2}
 						cy={j * cellSize + cellSize / 2}

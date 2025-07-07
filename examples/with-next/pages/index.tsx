@@ -8,6 +8,7 @@ export const getServerSideProps = (async context => {
 				(context.query.app_id?.toString() as `app_${string}`) || 'app_staging_45068dca85829d2fd90e2dd6f0bff997',
 			action: (context.query.action?.toString() as string) || 'test-action',
 			signal: (context.query.signal?.toString() as string) || 'test_signal',
+			partner: context.query.partner?.toString() === 'false' ? false : true, // default to true
 		},
 	}
 }) satisfies GetServerSideProps<{
@@ -37,7 +38,7 @@ async function verify(proof: ISuccessResult, app_id: `app_${string}`, action: st
 	}
 }
 
-const Home = ({ app_id, action, signal }: InferGetServerSidePropsType<typeof getServerSideProps>) => (
+const Home = ({ app_id, action, signal, partner }: InferGetServerSidePropsType<typeof getServerSideProps>) => (
 	<IDKitWidget
 		action={action}
 		signal={signal}
@@ -45,7 +46,7 @@ const Home = ({ app_id, action, signal }: InferGetServerSidePropsType<typeof get
 		onSuccess={response => console.log('onSuccess: ', response)}
 		handleVerify={proof => verify(proof, app_id, action, signal)}
 		app_id={app_id}
-		partner={true}
+		partner={partner}
 		disable_default_modal_behavior={true}
 		verification_level={VerificationLevel.Device}
 	>

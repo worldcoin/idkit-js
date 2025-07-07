@@ -82,14 +82,13 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 		>
 			<div className={clsx(!show_modal ? 'hidden' : '')}>
 				<div className="mb-4 flex items-center justify-center">
-					<WorldcoinIcon className="h-10 text-0d151d dark:text-white" />
+					<div className="flex size-14 items-center justify-center rounded-full border-[1.2px] border-solid border-[#EBECEF]">
+						<WorldcoinIcon className="size-8 text-0d151d dark:text-white" />
+					</div>
 				</div>
-				<p className="font-sora text-2xl font-semibold text-gray-900 dark:text-white">
-					{__('Verify with World ID')}
-				</p>
+				<p className="text-2xl font-semibold text-gray-900 dark:text-white">{__('Connect your World ID')}</p>
 				<p className={clsx('mt-3 text-657080 dark:text-9eafc0 md:mt-2', { hidden: media === 'mobile' })}>
-					Use your camera to scan the QR code. <br />{' '}
-					<span className="text-red-500">Keep this window open after scanning.</span>
+					{__('Use phone camera to scan the QR code')}
 				</p>
 			</div>
 
@@ -99,11 +98,8 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 					<div className="absolute inset-0 flex flex-col items-center justify-center space-y-6">
 						<LoadingIcon className="size-6" />
 						<div>
-							<p className="font-bold text-657080">Verifying</p>
-							<p className="text-sm text-657080">Please continue in app</p>
-							<p className={clsx(show_modal ? '' : 'hidden', 'mt-2 text-sm font-bold text-red-500')}>
-								Don&apos;t close this window
-							</p>
+							<p className="font-medium text-657080">{__('Connecting...')}</p>
+							<p className="text-sm font-light text-657080">{__('Please continue in app')}</p>
 						</div>
 					</div>
 				)}
