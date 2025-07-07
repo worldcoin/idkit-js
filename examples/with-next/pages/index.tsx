@@ -8,7 +8,7 @@ export const getServerSideProps = (async context => {
 				(context.query.app_id?.toString() as `app_${string}`) || 'app_staging_45068dca85829d2fd90e2dd6f0bff997',
 			action: (context.query.action?.toString() as string) || 'test-action',
 			signal: (context.query.signal?.toString() as string) || 'test_signal',
-			partner: Boolean(context.query.partner?.toString() ?? true),
+			partner: context.query.partner?.toString() === 'false' ? false : true, // default to true
 		},
 	}
 }) satisfies GetServerSideProps<{
