@@ -112,7 +112,7 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 				>
 					{/* Center the QR code by ensuring QRState is in a container with mx-auto */}
 					<div className="mx-auto">
-						<QRState showQR={showQR} setShowQR={setShowQR} qrData={'https://example.com'} />
+						<QRState showQR={showQR} setShowQR={setShowQR} qrData={connectorURI} />
 					</div>
 				</div>
 			</div>
