@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.0
+
+### Minor Changes
+
+-   [#359](https://github.com/worldcoin/idkit-js/pull/359) [`213301d`](https://github.com/worldcoin/idkit-js/commit/213301d89bab4a35d3bc0b760f90c407a7e704a8) Thanks [@Takaros999](https://github.com/Takaros999)! - Update icons and copies of IDKit widget
+
 ## 2.2.2
 
 ### Patch Changes
