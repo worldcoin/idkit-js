@@ -1,5 +1,68 @@
-/* TODO: Use an alternative to avoid the extra request to Google (e.g. hosting ourselves, or local file)  */
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&family=Sora:wght@600&display=swap');
+/* Remote TWK Lausanne font definitions */
+@font-face {
+  font-family: 'TWK Lausanne';
+  src: url('https://world-id-assets.com/fonts/TWKLausanne-200.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TWK Lausanne';
+  src: url('https://world-id-assets.com/fonts/TWKLausanne-300.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TWK Lausanne';
+  src: url('https://world-id-assets.com/fonts/TWKLausanne-350.woff2') format('woff2');
+  font-weight: 350;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TWK Lausanne';
+  src: url('https://world-id-assets.com/fonts/TWKLausanne-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TWK Lausanne';
+  src: url('https://world-id-assets.com/fonts/TWKLausanne-450.woff2') format('woff2');
+  font-weight: 450;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TWK Lausanne';
+  src: url('https://world-id-assets.com/fonts/TWKLausanne-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TWK Lausanne';
+  src: url('https://world-id-assets.com/fonts/TWKLausanne-550.woff2') format('woff2');
+  font-weight: 550;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TWK Lausanne';
+  src: url('https://world-id-assets.com/fonts/TWKLausanne-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
