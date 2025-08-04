@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.0
+
+### Minor Changes
+
+-   [#363](https://github.com/worldcoin/idkit-js/pull/363) [`e4e9a4e`](https://github.com/worldcoin/idkit-js/commit/e4e9a4e37fe763de9fff246f923a0b1c8677234c) Thanks [@andy-t-wang](https://github.com/andy-t-wang)! - Introduce localisation and mobile ui improvement
+
 ## 2.3.0
 
 ### Minor Changes

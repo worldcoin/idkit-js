@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.3
+
+### Patch Changes
+
+-   Updated dependencies [[`e4e9a4e`](https://github.com/worldcoin/idkit-js/commit/e4e9a4e37fe763de9fff246f923a0b1c8677234c)]:
+    -   @worldcoin/idkit@2.4.0
+
 ## 2.2.2
 
 ### Patch Changes
