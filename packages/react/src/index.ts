@@ -6,9 +6,22 @@ import { verifyCloudProof } from '@worldcoin/idkit-core/backend'
 import type { IVerifyResponse } from '@worldcoin/idkit-core/backend'
 import type { ISuccessResult, IErrorState } from '@worldcoin/idkit-core'
 import { VerificationLevel, VerificationState } from '@worldcoin/idkit-core'
+import { setLocalizationConfig, getLocalizationConfig, getCurrentLanguage, getSupportedLanguages } from '@/lang'
+import type { SupportedLanguage } from '@/lang'
 
-export { IDKitWidget, useIDKit, solidityEncode, verifyCloudProof, VerificationLevel, VerificationState }
-export type { ISuccessResult, IErrorState, IVerifyResponse, Config, WidgetProps }
+export { 
+	IDKitWidget, 
+	useIDKit, 
+	solidityEncode, 
+	verifyCloudProof, 
+	VerificationLevel, 
+	VerificationState,
+	setLocalizationConfig,
+	getLocalizationConfig,
+	getCurrentLanguage,
+	getSupportedLanguages,
+}
+export type { ISuccessResult, IErrorState, IVerifyResponse, Config, WidgetProps, SupportedLanguage }
 
 // Session API
 export { useSession } from '@/hooks/useSession'

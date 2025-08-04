@@ -4,11 +4,10 @@ import { IDKitWidget, ISuccessResult, IVerifyResponse, VerificationLevel } from 
 export const getServerSideProps = (async context => {
 	return {
 		props: {
-			app_id:
-				(context.query.app_id?.toString() as `app_${string}`) || 'app_staging_45068dca85829d2fd90e2dd6f0bff997',
-			action: (context.query.action?.toString() as string) || 'test-action',
+			app_id: (context.query.app_id?.toString() as `app_${string}`) || 'app_7d27741654178c62f937097e0224c44e',
+			action: (context.query.action?.toString() as string) || 'testse',
 			signal: (context.query.signal?.toString() as string) || 'test_signal',
-			partner: context.query.partner?.toString() === 'false' ? false : true, // default to true
+			partner: Boolean(context.query.partner?.toString()) ?? false,
 		},
 	}
 }) satisfies GetServerSideProps<{
@@ -47,6 +46,7 @@ const Home = ({ app_id, action, signal, partner }: InferGetServerSidePropsType<t
 		handleVerify={proof => verify(proof, app_id, action, signal)}
 		app_id={app_id}
 		partner={partner}
+		language="en"
 		disable_default_modal_behavior={true}
 		verification_level={VerificationLevel.Device}
 	>
