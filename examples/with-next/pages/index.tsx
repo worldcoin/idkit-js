@@ -4,11 +4,10 @@ import { IDKitWidget, ISuccessResult, IVerifyResponse, VerificationLevel } from 
 export const getServerSideProps = (async context => {
 	return {
 		props: {
-			app_id:
-				(context.query.app_id?.toString() as `app_${string}`) || 'app_staging_45068dca85829d2fd90e2dd6f0bff997',
-			action: (context.query.action?.toString() as string) || 'test-action',
+			app_id: (context.query.app_id?.toString() as `app_${string}`) || 'app_b43756ba8253a1b97e8ce4bc41c261a0',
+			action: (context.query.action?.toString() as string) || 'demo-action',
 			signal: (context.query.signal?.toString() as string) || 'test_signal',
-			partner: context.query.partner?.toString() === 'false' ? false : true, // default to true
+			partner: Boolean(context.query.partner?.toString()) ?? false,
 		},
 	}
 }) satisfies GetServerSideProps<{

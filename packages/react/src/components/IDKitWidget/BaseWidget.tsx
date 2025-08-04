@@ -1,4 +1,3 @@
-import { __ } from '@/lang'
 import type { FC } from 'react'
 import { IDKITStage } from '@/types'
 import useMedia from '@/hooks/useMedia'
@@ -16,6 +15,7 @@ import SuccessState from './States/SuccessState'
 import WorldIDState from './States/WorldIDState'
 import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
+import { __, setLocalizationConfig } from '@/lang'
 import { Fragment, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import HostAppVerificationState from './States/HostAppVerificationState'
@@ -35,11 +35,18 @@ const IDKitWidget: FC<WidgetProps> = ({
 	show_modal = true,
 	container_id,
 	disable_default_modal_behavior = false,
+	language,
 	...config
 }) => {
 	const media = useMedia()
 
 	const { isOpen, onOpenChange, stage, setStage, setOptions, setErrorState } = useIDKitStore(getParams, shallow)
+
+	useEffect(() => {
+		if (language) {
+			setLocalizationConfig({ language })
+		}
+	}, [language])
 
 	useEffect(() => {
 		if (config.action === '') {
@@ -59,7 +66,7 @@ const IDKitWidget: FC<WidgetProps> = ({
 			case IDKITStage.HOST_APP_VERIFICATION:
 				return <HostAppVerificationState />
 			default:
-				throw new Error(__('Invalid IDKitStage :stage.', { stage }))
+				throw new Error(__('Invalid IDKitStage :stage.', { s: String(stage) }))
 		}
 	}, [stage, show_modal])
 

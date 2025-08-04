@@ -33,3 +33,36 @@ To develop locally and contribute to this package, you can simply follow these i
     # runs in the /idkit folder
     yarn build
     ```
+
+## Usage
+
+### Set Language Explicitly
+```tsx
+  <IDKitWidget
+    app_id="your_app_id"
+    action="your_action"
+    onSuccess={handleSuccess}
+    language="es" // Spanish
+  >
+    {({ open }) => <button onClick={open}>Verify with World ID</button>}
+  </IDKitWidget>
+  ```
+ 
+  ### Automatic Language Detection (Default)
+  ```tsx
+  <IDKitWidget
+    app_id="your_app_id"
+    action="your_action"
+    onSuccess={handleSuccess}
+    // No language prop needed - will auto-detect
+  >
+    {({ open }) => <button onClick={open}>Verify with World ID</button>}
+  </IDKitWidget>
+  ```
+
+## Supported Languages
+
+Currently supported languages:
+- `en` - English (default)
+- `es` - Spanish
+- `th` - Thai

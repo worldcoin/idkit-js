@@ -1,40 +1,69 @@
-const translations: Record<string, Record<string, string> | undefined> = {}
+/**
+ * ## Adding Translations
+ * To add a new language:
+ * 1. Create a new translation file in `src/lang/translations/[lang].ts`
+ * 2. Implement all translation strings in the new file
+ * 3. Add the language to the `translations` index
+ * 4. Update the `SupportedLanguage` type in `src/lang/types.ts`
+ */
 
-const getLang = (): Record<string, string> | undefined => {
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- apparently `navigator.languages` can be undefined
-	if (!navigator?.languages) return
+import { getTranslations } from './localization'
+import type { TranslationStrings } from './types'
 
-	const supportedLang = navigator.languages.find(l => translations[l] != undefined) ?? ''
-
-	return translations[supportedLang]
+const getLang = (): TranslationStrings | undefined => {
+	return getTranslations()
 }
 
-type CleanWord<T> = T extends `${string}${' ' | ',' | '!' | '?' | '.' | '`'}${string}`
-	? never
-	: T extends ''
-		? never
-		: T
+/**
+ * Translation function with type-safe parameter support
+ *
+ * Examples:
+ * - __('Hello world')                                    // No parameters needed
+ * - __('Invalid IDKitStage :stage.', { stage: 'init' }) // Parameter required
+ */
 
-type ExtractPlaceholders<S extends string> = S extends `${string}:${infer Placeholder}`
-	? Placeholder extends `${infer Word}${' ' | ',' | '!' | '?' | '.' | '`'}${infer Rest}`
-		? CleanWord<Word> | ExtractPlaceholders<Rest>
-		: never
+type HasPlaceholder<T extends string> = T extends `${string}:${string}` ? true : false
+
+// Extract placeholder names from string (handles punctuation after placeholder)
+// "Hello :name!" → "name"
+type GetPlaceholderName<T extends string> = T extends `:${infer Name}${infer Rest}`
+	? Name extends `${infer Word}${' ' | ',' | ':' | '!' | '?' | '.'}${string}`
+		? Word // Stop at punctuation
+		: Name // Use full name if no punctuation
 	: never
 
-type NoPlaceholder<S extends string> = S extends `${string}:${string}` ? never : S
-type PlaceholderValues<S extends string> = { [K in ExtractPlaceholders<S>]: string }
+// Find all placeholders in a string
+// "Hello :name, stage :stage!" → "name" | "stage"
+type GetAllPlaceholders<T extends string> = T extends `${infer Before}:${infer After}`
+	? GetAllPlaceholders<After> | GetPlaceholderName<`:${After}`>
+	: never
 
-const replaceParams = <T extends string>(str: T, params?: PlaceholderValues<T>): string => {
-	let replaced: string = str
-	for (const [key, value] of Object.entries(params ?? {})) replaced = str.replace(`:${key}`, value as string)
+type TranslationParams<T extends string> =
+	GetAllPlaceholders<T> extends never ? never : { [K in GetAllPlaceholders<T>]: string }
 
-	return replaced
+const replaceParams = (str: string, params?: Record<string, string>): string => {
+	if (!params) return str
+
+	let result = str
+	for (const [key, value] of Object.entries(params)) {
+		result = result.replace(`:${key}`, value)
+	}
+	return result
 }
 
-export function __<S extends `${string}:${string}`>(str: S, params: PlaceholderValues<S>): string
-export function __<S extends string>(str: NoPlaceholder<S>): string
-export function __<S extends string>(str: S, params?: PlaceholderValues<S>): string {
-	if (typeof navigator === 'undefined') return str
+export function __<T extends string>(
+	str: T,
+	...args: HasPlaceholder<T> extends true ? [params: TranslationParams<T>] : []
+): string {
+	const [params] = args
 
-	return replaceParams(getLang()?.[str] ?? str, params)
+	if (typeof navigator === 'undefined' && typeof window === 'undefined') {
+		return replaceParams(str, params)
+	}
+
+	const translated = getLang()?.[str as keyof TranslationStrings] ?? str
+	return replaceParams(translated, params)
 }
+
+export { setLocalizationConfig, getLocalizationConfig, getCurrentLanguage, getSupportedLanguages } from './localization'
+export type { SupportedLanguage, TranslationStrings } from './types'

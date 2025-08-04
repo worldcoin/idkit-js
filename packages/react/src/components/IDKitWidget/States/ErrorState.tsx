@@ -8,26 +8,37 @@ import { AppErrorCodes } from '@worldcoin/idkit-core'
 import WarningIcon from '@/components/Icons/WarningIcon'
 const getParams = ({ retryFlow, errorState }: IDKitStore) => ({ retryFlow, errorState })
 
-const ERROR_TITLES: Partial<Record<AppErrorCodes, string>> = {
-	[AppErrorCodes.GenericError]: __('Something went wrong'),
-	[AppErrorCodes.FailedByHostApp]: __('Verification Declined'),
-	[AppErrorCodes.VerificationRejected]: __('Request cancelled'),
+const getErrorTitle = (code: AppErrorCodes): string => {
+	switch (code) {
+		case AppErrorCodes.GenericError:
+			return __('Something went wrong')
+		case AppErrorCodes.FailedByHostApp:
+			return __('Verification Declined')
+		case AppErrorCodes.VerificationRejected:
+			return __('Request cancelled')
+		default:
+			return __('Something went wrong')
+	}
 }
 
-const ERROR_MESSAGES: Partial<Record<AppErrorCodes, string>> = {
-	[AppErrorCodes.ConnectionFailed]: __('Connection to your wallet failed. Please try again.'),
-	[AppErrorCodes.VerificationRejected]: __('You’ve cancelled the request in World App.'),
-	[AppErrorCodes.MaxVerificationsReached]: __(
-		'You have already verified the maximum number of times for this action.'
-	),
-	[AppErrorCodes.CredentialUnavailable]: __('It seems you do not have the verification level required by this app.'),
-	[AppErrorCodes.InvalidNetwork]: __(
-		'Invalid network. If you are the app owner, visit docs.world.org/test for details.'
-	),
-	[AppErrorCodes.InclusionProofPending]: __(
-		'Your identity is still being registered. Please wait a few minutes and try again.'
-	),
-	[AppErrorCodes.GenericError]: __("We couldn't complete your request. Please try again."),
+const getErrorMessage = (code: AppErrorCodes): string => {
+	switch (code) {
+		case AppErrorCodes.ConnectionFailed:
+			return __('Connection to your wallet failed. Please try again.')
+		case AppErrorCodes.VerificationRejected:
+			return __("You've cancelled the request in World App.")
+		case AppErrorCodes.MaxVerificationsReached:
+			return __("You've already verified the maximum number of times for this action.")
+		case AppErrorCodes.CredentialUnavailable:
+			return __("It seems you don't have the verification level required by this app.")
+		case AppErrorCodes.InvalidNetwork:
+			return __('Invalid network. If you are the app owner, visit docs.world.org/test for details.')
+		case AppErrorCodes.InclusionProofPending:
+			return __('Your identity is still being registered. Please wait a few minutes and try again.')
+		case AppErrorCodes.GenericError:
+		default:
+			return __("We couldn't complete your request. Please try again.")
+	}
 }
 
 const ErrorState = (props: { show_modal?: boolean }) => {
@@ -51,11 +62,10 @@ const ErrorState = (props: { show_modal?: boolean }) => {
 			</div>
 			<div>
 				<p className="text-center text-2xl font-semibold text-gray-900 dark:text-white">
-					{(errorState?.code && ERROR_TITLES[errorState.code]) ?? ERROR_TITLES[AppErrorCodes.GenericError]}
+					{errorState?.code ? getErrorTitle(errorState.code) : getErrorTitle(AppErrorCodes.GenericError)}
 				</p>
 				<p className="mx-auto mt-2 max-w-[224px] text-center text-657080">
-					{(errorState?.code && ERROR_MESSAGES[errorState.code]) ??
-						ERROR_MESSAGES[AppErrorCodes.GenericError]}
+					{errorState?.code ? getErrorMessage(errorState.code) : getErrorMessage(AppErrorCodes.GenericError)}
 				</p>
 			</div>
 			<div className="flex justify-center">

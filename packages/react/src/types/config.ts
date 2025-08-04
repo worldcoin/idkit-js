@@ -1,5 +1,6 @@
 import type { CallbackFn } from '.'
 import type { ISuccessResult, IDKitConfig, IErrorState } from '@worldcoin/idkit-core'
+import type { SupportedLanguage } from '@/lang'
 
 export enum ConfigSource {
 	HOOK = 'hook',
@@ -31,4 +32,6 @@ export type WidgetProps = Config & {
 	/** Whether to disable the default modal behavior. Defaults to `false`. */
 	disable_default_modal_behavior?: boolean
 	container_id?: string
+	/** Language for the widget UI. If not specified, will auto-detect from browser or use English as fallback. */
+	language?: SupportedLanguage
 }
