@@ -27,6 +27,7 @@ export const th: TranslationStrings = {
 	'Use phone camera to scan the QR code': 'ใช้กล้องโทรศัพท์เพื่อสแกน QR code',
 	'Connecting...': 'กำลังเชื่อมต่อ...',
 	'Please continue in app': 'กรุณาดำเนินการต่อในแอป',
+	"You will be redirected to the app, please return to this page once you're done": "คุณจะถูกนำไปยังแอป กรุณากลับมาที่หน้านี้เมื่อเสร็จแล้ว",
 	'Action cannot be an empty string.': 'การดำเนินการไม่สามารถเป็นข้อความว่างได้',
 	'Invalid IDKitStage :stage.': 'IDKitStage ไม่ถูกต้อง :stage.',
 	'Terms & Privacy': 'ข้อกำหนดและความเป็นส่วนตัว',

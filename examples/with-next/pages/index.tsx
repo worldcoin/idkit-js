@@ -46,7 +46,6 @@ const Home = ({ app_id, action, signal, partner }: InferGetServerSidePropsType<t
 		handleVerify={proof => verify(proof, app_id, action, signal)}
 		app_id={app_id}
 		partner={partner}
-		language="en"
 		disable_default_modal_behavior={true}
 		verification_level={VerificationLevel.Device}
 	>

@@ -27,6 +27,7 @@ export interface TranslationStrings {
 	'Use phone camera to scan the QR code': string
 	'Connecting...': string
 	'Please continue in app': string
+	"You will be redirected to the app, please return to this page once you're done": string
 	'Action cannot be an empty string.': string
 	'Invalid IDKitStage :stage.': string
 	'Terms & Privacy': string

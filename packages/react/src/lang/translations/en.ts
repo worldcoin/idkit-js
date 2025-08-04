@@ -27,6 +27,7 @@ export const en: TranslationStrings = {
 	'Use phone camera to scan the QR code': 'Use phone camera to scan the QR code',
 	'Connecting...': 'Connecting...',
 	'Please continue in app': 'Please continue in app',
+	"You will be redirected to the app, please return to this page once you're done": "You will be redirected to the app, please return to this page once you're done",
 	'Action cannot be an empty string.': 'Action cannot be an empty string.',
 	'Invalid IDKitStage :stage.': 'Invalid IDKitStage :stage.',
 	'Terms & Privacy': 'Terms & Privacy',

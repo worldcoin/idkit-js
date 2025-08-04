@@ -90,6 +90,9 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 				<p className={clsx('mt-3 text-657080 dark:text-9eafc0 md:mt-2', { hidden: media === 'mobile' })}>
 					{__('Use phone camera to scan the QR code')}
 				</p>
+				<p className={clsx('mt-3 text-657080 dark:text-9eafc0 md:mt-2', { hidden: media !== 'mobile' })}>
+					{__("You will be redirected to the app, please return to this page once you're done")}
+				</p>
 			</div>
 
 			{/* QR Container */}
