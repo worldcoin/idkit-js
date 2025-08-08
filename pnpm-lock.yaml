@@ -33,9 +33,6 @@ importers:
         specifier: ^1.5.4
         version: 1.5.4
     devDependencies:
-      rollup:
-        specifier: ^3.29.5
-        version: 3.29.5
       vite:
         specifier: ^4.5.2
         version: 4.5.2(@types/node@20.14.10)(lightningcss@1.30.1)(terser@5.39.0)
@@ -141,9 +138,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.13.1
         version: 6.13.2(eslint@8.54.0)(typescript@5.3.3)
-      rollup:
-        specifier: ^4.22.4
-        version: 4.46.2
       tsup:
         specifier: ^8.1.0
         version: 8.1.0(postcss@8.5.4)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.3.3))(typescript@5.3.3)
@@ -244,9 +238,6 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
-      rollup:
-        specifier: ^4.22.4
-        version: 4.46.2
       tailwindcss:
         specifier: ^3.4.4
         version: 3.4.4(ts-node@10.9.2(@types/node@18.11.9)(typescript@5.5.3))
@@ -275,9 +266,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.13.1
         version: 6.21.0(eslint@8.54.0)(typescript@5.5.3)
-      rollup:
-        specifier: ^4.22.4
-        version: 4.46.2
       tsup:
         specifier: ^8.1.0
         version: 8.1.0(postcss@8.5.4)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
@@ -330,9 +318,6 @@ importers:
       puppeteer:
         specifier: ^22.15.0
         version: 22.15.0(typescript@5.3.3)
-      rollup:
-        specifier: ^4.22.4
-        version: 4.46.2
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.14.10)(typescript@5.3.3)

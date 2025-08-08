@@ -61,8 +61,7 @@
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
 		"@typescript-eslint/parser": "^6.13.1",
 		"tsup": "^8.1.0",
-		"typescript": "^5.3.2",
-		"rollup": "^4.22.4"
+		"typescript": "^5.3.2"
 	},
 	"peerDependencies": {
 		"react-native-quick-crypto": "^0.7.13"
@@ -71,5 +70,8 @@
 		"react-native-quick-crypto": {
 			"optional": false
 		}
+	},
+	"overrides": {
+		"rollup": "^4.22.4"
 	}
 }

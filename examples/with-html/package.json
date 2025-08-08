@@ -13,7 +13,9 @@
 		"qrcode": "^1.5.4"
 	},
 	"devDependencies": {
-		"vite": "^4.5.2",
+		"vite": "^4.5.2"
+	},
+	"overrides": {
 		"rollup": "^3.29.5"
 	}
 }
