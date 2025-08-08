@@ -11,7 +11,7 @@
 	"dependencies": {
 		"@worldcoin/idkit": "workspace:*",
 		"qrcode.react": "^4.2.0",
-		"next": "14.2.13",
+		"next": "14.2.30",
 		"react": "^18",
 		"react-dom": "^18"
 	},

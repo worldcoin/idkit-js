@@ -33,6 +33,7 @@
 		"@babel/core": "^7.25.2",
 		"@types/react": "~19.0.10",
 		"eas-cli": "^16.4.1",
+		"form-data": "^4.0.4",
 		"eslint": "^9.25.0",
 		"eslint-config-expo": "~9.2.0",
 		"typescript": "~5.8.3"
