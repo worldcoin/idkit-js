@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.1
+
+### Patch Changes
+
+-   [#366](https://github.com/worldcoin/idkit-js/pull/366) [`e50c465`](https://github.com/worldcoin/idkit-js/commit/e50c4653fddd5cd965d8b820e1cce7191b26a533) Thanks [@andy-t-wang](https://github.com/andy-t-wang)! - fix ipad button issues and update example
+
 ## 2.4.0
 
 ### Minor Changes
