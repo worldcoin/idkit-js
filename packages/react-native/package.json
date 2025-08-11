@@ -70,5 +70,8 @@
 		"react-native-quick-crypto": {
 			"optional": false
 		}
+	},
+	"overrides": {
+		"rollup": "^4.22.4"
 	}
 }

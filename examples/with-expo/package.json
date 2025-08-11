@@ -37,5 +37,8 @@
 		"eslint-config-expo": "~9.2.0",
 		"typescript": "~5.8.3"
 	},
+	"overrides": {
+		"form-data": "^4.0.4"
+	},
 	"private": true
 }

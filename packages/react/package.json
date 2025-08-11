@@ -37,6 +37,9 @@
 		"tsup": "^8.1.0",
 		"typescript": "^5.5.3"
 	},
+	"overrides": {
+		"rollup": "^4.22.4"
+	},
 	"engines": {
 		"node": ">=12.4"
 	},
