@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.2
+
+### Patch Changes
+
+-   [#374](https://github.com/worldcoin/idkit-js/pull/374) [`cef12e9`](https://github.com/worldcoin/idkit-js/commit/cef12e942352a3ffe950bd1b3fdd20547d76fbec) Thanks [@andy-t-wang](https://github.com/andy-t-wang)! - bug: fix undefined url reload
+
 ## 2.4.1
 
 ### Patch Changes
