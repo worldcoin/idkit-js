@@ -2,7 +2,6 @@ import clsx from 'clsx'
 import { __ } from '@/lang'
 import type { FC } from 'react'
 import copy from 'copy-to-clipboard'
-import useMedia from '@/hooks/useMedia'
 import Qrcode from '@/components/QRCode'
 import { useCallback, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -16,7 +15,6 @@ type Props = {
 }
 
 const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
-	const media = useMedia()
 	const [copiedLink, setCopiedLink] = useState(false)
 
 	const copyLink = useCallback(() => {
@@ -31,20 +29,18 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 			{/* Mobile: Button only */}
 			<div className="md:hidden">
 				<a
-					href={qrData ?? ''}
-					className="flex w-full items-center space-x-2 rounded-2xl border border-transparent p-4 font-medium shadow-sm bg-0d151d text-white dark:bg-white dark:text-0d151d"
+					href={qrData ?? undefined}
+					className="flex w-full items-center space-x-2 rounded-2xl border border-transparent bg-0d151d p-4 font-medium text-white shadow-sm dark:bg-white dark:text-0d151d"
 				>
 					<WorldcoinIcon className="size-5" />
-					<span className="flex-1 text-center">
-						{__('Open World App')}
-					</span>
+					<span className="flex-1 text-center">{__('Open World App')}</span>
 				</a>
 			</div>
 
 			{/* Tablet: Button with QR toggle option */}
 			<div className={clsx('hidden md:block xl:hidden', { 'mb-10 space-y-4': !showQR })}>
 				<a
-					href={qrData ?? ''}
+					href={qrData ?? undefined}
 					className={clsx(
 						'flex w-full items-center space-x-2 rounded-2xl border border-transparent p-4 font-medium shadow-sm',
 						'bg-0d151d text-white dark:bg-white dark:text-0d151d',
@@ -52,9 +48,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 					)}
 				>
 					<WorldcoinIcon className="size-5" />
-					<span className="flex-1 text-center">
-						{__('Open World App')}
-					</span>
+					<span className="flex-1 text-center">{__('Open World App')}</span>
 				</a>
 				<div className={clsx('mb-3 space-y-4', { hidden: showQR })}>
 					<div className="flex items-center space-x-4">
@@ -99,7 +93,7 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 					<AnimatePresence>
 						{copiedLink && (
 							<motion.div
-								className="text-sm text-9eafc0 text-center"
+								className="text-center text-sm text-9eafc0"
 								key="copied"
 								initial="hidden"
 								animate="visible"
@@ -196,7 +190,6 @@ const QRState: FC<Props> = ({ qrData, showQR, setShowQR }) => {
 					</div>
 				</div>
 			</div>
-
 		</>
 	)
 }
