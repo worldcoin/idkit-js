@@ -22,8 +22,8 @@ export type WidgetConfig = {
 export type Config = Required<Pick<IDKitConfig, 'action'>> &
 	WidgetConfig &
 	(
-		| (Exclude<IDKitConfig, 'app_id'> & { advanced: { self_hosted: true } })
-		| (IDKitConfig & { advanced?: { self_hosted?: false } })
+		| (Exclude<IDKitConfig, 'app_id'> & { advanced: { self_hosted: true }; face_auth?: boolean })
+		| (IDKitConfig & { advanced?: { self_hosted?: false }; face_auth?: boolean })
 	)
 
 export type WidgetProps = Config & {
