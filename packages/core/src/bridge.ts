@@ -79,7 +79,7 @@ const createStoreImplementation: StateCreator<WorldBridgeStore> = (set, get) => 
 						app_id,
 						action_description,
 						action: encodeAction(action),
-						signal: generateSignal(signal).digest,
+						signal: generateSignal(signal), //
 						credential_types: verification_level_to_credential_types(
 							verification_level ?? DEFAULT_VERIFICATION_LEVEL
 						),
