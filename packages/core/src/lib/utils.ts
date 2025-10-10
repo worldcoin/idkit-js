@@ -26,7 +26,7 @@ export const verification_level_to_credential_types = (verification_level: Verif
 		case VerificationLevel.SecureDocument:
 			return [CredentialType.SecureDocument, CredentialType.Orb]
 		case VerificationLevel.Face:
-			return [CredentialType.Face, CredentialType.Orb]
+			return [CredentialType.Face]
 		case VerificationLevel.Orb:
 			return [CredentialType.Orb]
 		default:
