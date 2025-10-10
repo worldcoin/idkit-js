@@ -9,3 +9,5 @@ node_modules
 !/.vscode/extensions.json
 /.idea
 /.history
+.cursor
+.claude

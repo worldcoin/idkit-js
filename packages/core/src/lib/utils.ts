@@ -25,6 +25,8 @@ export const verification_level_to_credential_types = (verification_level: Verif
 			return [CredentialType.Document, CredentialType.SecureDocument, CredentialType.Orb]
 		case VerificationLevel.SecureDocument:
 			return [CredentialType.SecureDocument, CredentialType.Orb]
+		case VerificationLevel.Face:
+			return [CredentialType.Face, CredentialType.Orb]
 		case VerificationLevel.Orb:
 			return [CredentialType.Orb]
 		default:
@@ -47,6 +49,8 @@ export const credential_type_to_verification_level = (credential_type: Credentia
 			return VerificationLevel.Document
 		case CredentialType.Device:
 			return VerificationLevel.Device
+		case CredentialType.Face:
+			return VerificationLevel.Face
 		default:
 			throw new Error(`Unknown credential_type: ${credential_type}`)
 	}

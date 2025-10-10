@@ -11,6 +11,7 @@ export enum CredentialType {
 	SecureDocument = 'secure_document',
 	Document = 'document',
 	Device = 'device',
+	Face = 'face',
 }
 
 export enum VerificationLevel {
@@ -18,6 +19,7 @@ export enum VerificationLevel {
 	SecureDocument = 'secure_document',
 	Document = 'document',
 	Device = 'device',
+	Face = 'face',
 }
 
 export type IDKitConfig = {
