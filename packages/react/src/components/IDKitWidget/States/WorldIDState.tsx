@@ -10,7 +10,7 @@ import type { IDKitStore } from '@/store/idkit'
 import { useWorldBridge } from '@/services/wld-bridge'
 import LoadingIcon from '@/components/Icons/LoadingIcon'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
-import { AppErrorCodes, VerificationState, VerificationLevel } from '@worldcoin/idkit-core'
+import { AppErrorCodes, VerificationState, VerificationLevel, isValidCredential } from '@worldcoin/idkit-core'
 
 const getOptions = (store: IDKitStore) => ({
 	signal: store.signal,
@@ -59,15 +59,19 @@ const WorldIDState = (props: { show_modal?: boolean }) => {
 			setErrorState({ code: errorCode ?? AppErrorCodes.GenericError })
 		}
 		if (result) {
-			if (
-				verification_level === VerificationLevel.Orb &&
-				result.verification_level === VerificationLevel.Device
-			) {
-				console.error('Credential type received from wallet does not match configured credential_types.')
+			// Validate that the received credential matches the requested verification level
+			const requestedLevel = verification_level ?? VerificationLevel.Orb
+			const receivedLevel = result.verification_level
+
+			if (!isValidCredential(requestedLevel, receivedLevel)) {
+				console.error(
+					`Credential type received from wallet does not match configured verification level. Requested: ${requestedLevel}, Received: ${receivedLevel}`
+				)
 				setStage(IDKITStage.ERROR)
 				setErrorState({ code: AppErrorCodes.CredentialUnavailable })
 				return
 			}
+
 			return handleVerify(result)
 		}
 	}, [result, handleVerify, verificationState, setStage, errorCode, setErrorState, verification_level])

@@ -1,13 +1,13 @@
 {
-	"name": "@worldcoin/idkit-core",
-	"version": "2.1.0",
+	"name": "@decentralgabe-tfh/idkit-core",
+	"version": "2.1.1",
 	"homepage": "https://docs.world.org/id/idkit",
 	"license": "MIT",
 	"private": false,
 	"description": "The identity SDK. Privacy-preserving identity and proof of personhood with World ID.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/worldcoin/idkit-js",
+		"url": "git+https://github.com/decentralgabe/idkit-js",
 		"directory": "packages/core"
 	},
 	"type": "module",

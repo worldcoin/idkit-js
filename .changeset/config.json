@@ -5,7 +5,7 @@
 	"changelog": [
 		"@changesets/changelog-github",
 		{
-			"repo": "worldcoin/idkit-js"
+			"repo": "decentralgabe/idkit-js"
 		}
 	],
 	"commit": false,
