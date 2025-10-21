@@ -9,6 +9,7 @@ export const getServerSideProps = (async context => {
 			action: (context.query.action?.toString() as string) || 'demo-action',
 			signal: (context.query.signal?.toString() as string) || 'test_signal',
 			partner: Boolean(context.query.partner?.toString()) ?? false,
+			face_auth: context.query.face_auth === 'true' ? true : false,
 		},
 	}
 }) satisfies GetServerSideProps<{
@@ -38,7 +39,13 @@ async function verify(proof: ISuccessResult, app_id: `app_${string}`, action: st
 	}
 }
 
-const Home = ({ app_id, action, signal, partner }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home = ({
+	app_id,
+	action,
+	signal,
+	partner,
+	face_auth,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const [verified, setVerified] = useState(false)
 
 	return (
@@ -123,6 +130,7 @@ const Home = ({ app_id, action, signal, partner }: InferGetServerSidePropsType<t
 							app_id={app_id}
 							partner={partner}
 							verification_level={VerificationLevel.Device}
+							face_auth={face_auth}
 						>
 							{({ open }) => (
 								<button

@@ -30,6 +30,7 @@ export class Session {
 			verification_level?: IDKitConfig['verification_level']
 			action_description?: IDKitConfig['action_description']
 			partner?: IDKitConfig['partner']
+			face_auth?: IDKitConfig['face_auth']
 		}
 	): Promise<Session> {
 		await this.store.getState().createClient({
@@ -40,6 +41,7 @@ export class Session {
 			action_description: options?.action_description,
 			verification_level: options?.verification_level,
 			partner: options?.partner,
+			face_auth: options?.face_auth,
 		})
 		return this
 	}

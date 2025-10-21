@@ -91,6 +91,32 @@ IDKit exposes the `handleVerify` option for your app to perform additional verif
 
 Optionally, IDKit also provides an `onSuccess` option, which you can use if your app needs to execute some code after verification succeeds.
 
+### Face Authentication
+
+If you set `face_auth: true` when creating a request, the World App will require Face Authentication before issuing a proof.
+
+-   If Face Authentication fails or the user cancels/skips it, no proof will be issued.
+-   If you receive a proof for a `face_auth: true` request, Face Authentication already succeeded for that request.
+-   Server-side verification remains unchanged; validate the proof as usual.
+
+React example:
+
+```tsx
+<IDKitWidget
+  app_id="app_..."
+  action="login"
+  face_auth={true}
+  onSuccess={...}
+  handleVerify={...}
+/>
+```
+
+React Native example:
+
+```ts
+await new Session().create('app_...', 'login', { face_auth: true })
+```
+
 <!-- WORLD-ID-SHARED-README-TAG:START - Do not remove or modify this section directly -->
 <!-- The contents of this file are inserted to all World ID repositories to provide general context on World ID. -->
 

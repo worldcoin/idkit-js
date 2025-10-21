@@ -56,7 +56,16 @@ const createStoreImplementation: StateCreator<WorldBridgeStore> = (set, get) => 
 	bridge_url: DEFAULT_BRIDGE_URL,
 	verificationState: VerificationState.PreparingClient,
 
-	createClient: async ({ bridge_url, app_id, verification_level, action_description, action, signal, partner }) => {
+	createClient: async ({
+		bridge_url,
+		app_id,
+		verification_level,
+		action_description,
+		action,
+		signal,
+		partner,
+		face_auth,
+	}) => {
 		const { key, iv } = await generateKey()
 
 		if (bridge_url) {
@@ -84,6 +93,7 @@ const createStoreImplementation: StateCreator<WorldBridgeStore> = (set, get) => 
 							verification_level ?? DEFAULT_VERIFICATION_LEVEL
 						),
 						verification_level: verification_level ?? DEFAULT_VERIFICATION_LEVEL,
+						face_auth,
 					})
 				)
 			),
