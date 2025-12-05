@@ -11,8 +11,7 @@ permissions:
 jobs:
   execute-relyance-sci:
     name: Relyance SCI Job
-    runs-on:
-      group: ubuntu-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
 
