@@ -11,7 +11,8 @@ permissions:
 jobs:
   execute-relyance-sci:
     name: Relyance SCI Job
-    runs-on: arc-public-large-amd64-runner
+    runs-on:
+      group: arc-public-large-amd64-runner
     permissions:
       contents: read
 
