@@ -8,7 +8,8 @@ on:
 jobs:
     build:
         name: Lint, Typecheck & Test Build
-        runs-on: ubuntu-latest
+        runs-on:
+            group: arc-public-large-amd64-runner
         steps:
             - uses: actions/checkout@v3
 
@@ -37,7 +38,8 @@ jobs:
 
     standalone-test:
         name: Test idkit-standalone in browser
-        runs-on: ubuntu-latest
+        runs-on:
+            group: arc-public-large-amd64-runner
         steps:
             - uses: actions/checkout@v3
 
