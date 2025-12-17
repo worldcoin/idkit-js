@@ -10,7 +10,8 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
     release:
         name: Release
-        runs-on: ubuntu-latest
+        runs-on:
+            group: arc-public-large-amd64-runner
         steps:
             - name: Checkout Repo
               uses: actions/checkout@v4
