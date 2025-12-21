@@ -67,10 +67,14 @@ export const solidityEncode = (types: string[], values: unknown[]): AbiEncodedVa
 	return { types, values } as AbiEncodedValue
 }
 
-export const generateSignal = (signal: IDKitConfig['signal']): HashFunctionOutput => {
-	if (!signal || typeof signal === 'string') return hashToField(signal ?? '')
+/*
+	generateSignal is used to encode the signal into a string. 
+	If the signal is a string, it will be returned as is.
+*/
+export const generateSignal = (signal: IDKitConfig['signal']): string => {
+	if (!signal || typeof signal === 'string') return signal ?? ''
 
-	return packAndEncode(signal.types.map((type, index) => [type, signal.values[index]]))
+	return AbiParameters.encodePacked(signal.types, signal.values)
 }
 
 export const encodeAction = (action: IDKitConfig['action']): string => {
