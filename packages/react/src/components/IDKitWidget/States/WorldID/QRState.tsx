@@ -4,7 +4,7 @@ import type { FC } from 'react'
 import copy from 'copy-to-clipboard'
 import Qrcode from '@/components/QRCode'
 import { useCallback, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 import WorldcoinIcon from '@/components/Icons/WorldcoinIcon'
 import QRPlaceholderIcon from '@/components/Icons/QRPlaceholderIcon'
 
