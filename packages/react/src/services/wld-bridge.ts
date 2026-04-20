@@ -17,7 +17,8 @@ export const useWorldBridge = (
 	bridge_url?: IDKitConfig['bridge_url'],
 	verification_level?: IDKitConfig['verification_level'],
 	action_description?: IDKitConfig['action_description'],
-	partner?: IDKitConfig['partner']
+	partner?: IDKitConfig['partner'],
+	face_auth?: IDKitConfig['face_auth']
 ): UseAppBridgeResponse => {
 	const ref_verification_level = useRef(verification_level)
 	const { reset, result, connectorURI, createClient, pollForUpdates, verificationState, errorCode } =
@@ -33,6 +34,7 @@ export const useWorldBridge = (
 				action_description,
 				verification_level: ref_verification_level.current,
 				partner,
+				face_auth,
 			})
 		}
 	}, [
@@ -45,6 +47,7 @@ export const useWorldBridge = (
 		bridge_url,
 		connectorURI,
 		partner,
+		face_auth,
 	])
 
 	useEffect(() => {

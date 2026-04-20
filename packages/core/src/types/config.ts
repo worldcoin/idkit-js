@@ -35,4 +35,6 @@ export type IDKitConfig = {
 	verification_level?: VerificationLevel
 	/** Whether the app is a partner app and should allow deferred verification. Defaults to false. */
 	partner?: boolean
+	/** Whether to use deep face authentication. Defaults to false. */
+	face_auth?: boolean
 }
