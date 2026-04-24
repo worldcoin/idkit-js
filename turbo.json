@@ -8,6 +8,9 @@
 		"lint": {
 			"cache": false
 		},
+		"test": {
+			"cache": false
+		},
 		"dev": {
 			"cache": false,
 			"persistent": true

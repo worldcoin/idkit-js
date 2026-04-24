@@ -55,6 +55,8 @@
 		"build": "tsup",
 		"dev": "tsup --watch",
 		"lint": "eslint src --ext .ts",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"prepublishOnly": "npm run build"
 	},
 	"keywords": [
@@ -74,7 +76,8 @@
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
 		"@typescript-eslint/parser": "^6.13.1",
 		"tsup": "^8.1.0",
-		"typescript": "^5.3.2"
+		"typescript": "^5.3.2",
+		"vitest": "^3.0.0"
 	},
 	"overrides": {
 		"rollup": "^4.22.4"
