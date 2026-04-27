@@ -17,7 +17,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import type { WidgetProps } from '@/types/config'
 import { __, setLocalizationConfig } from '@/lang'
 import { Fragment, useEffect, useMemo } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
 const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions, setErrorState }: IDKitStore) => ({
