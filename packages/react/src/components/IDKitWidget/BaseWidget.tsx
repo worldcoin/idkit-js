@@ -20,6 +20,19 @@ import { Fragment, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import HostAppVerificationState from './States/HostAppVerificationState'
 
+// hides text visually but keeps it readable by screen readers
+const visuallyHiddenStyle: React.CSSProperties = {
+	position: 'absolute',
+	width: '1px',
+	height: '1px',
+	padding: 0,
+	margin: '-1px',
+	overflow: 'hidden',
+	clip: 'rect(0, 0, 0, 0)',
+	whiteSpace: 'nowrap',
+	borderWidth: 0,
+}
+
 const getParams = ({ open, processing, onOpenChange, stage, setStage, setOptions, setErrorState }: IDKitStore) => ({
 	stage,
 	setStage,
@@ -119,7 +132,6 @@ const IDKitWidget: FC<WidgetProps> = ({
 									</Dialog.Overlay>
 									<div className="fixed inset-0 z-[9999] overflow-y-hidden md:overflow-y-auto">
 										<div className="flex min-h-full items-end justify-center text-center md:items-center md:p-4">
-											<Dialog.Title />
 											<Dialog.Content
 												asChild
 												onPointerDownOutside={avoidDefaultDomBehavior}
@@ -141,6 +153,13 @@ const IDKitWidget: FC<WidgetProps> = ({
 														'relative z-50 flex min-h-screen w-full flex-col bg-white pt-6 shadow focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75 dark:bg-0d151d md:min-h-[35rem] md:max-w-md md:rounded-[24px]'
 													}
 												>
+													{/* hidden title and description for screen readers */}
+													<Dialog.Title style={visuallyHiddenStyle}>
+														{__('World ID Verification')}
+													</Dialog.Title>
+													<Dialog.Description style={visuallyHiddenStyle}>
+														{__('Verify your identity with World ID')}
+													</Dialog.Description>
 													<Toast.Provider>
 														<Toast.Viewport className="flex justify-center" />
 														<div className="mx-6 flex items-center justify-end">
